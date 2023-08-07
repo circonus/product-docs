@@ -1,0 +1,81 @@
+---
+title: Exec
+sidebar_custom_props:
+  image: exec.svg
+description: ""
+implementation: cua
+module: httptrap:cua:exec
+---
+
+# Exec
+
+## Overview
+
+The `exec` plugin executes all the `commands` in parallel on every interval and parses metrics from
+their output in any one of the accepted [Input Data Formats](https://github.com/circonus-labs/circonus-unified-agent/blob/master/docs/DATA_FORMATS_INPUT.md).
+
+This plugin can be used to poll for custom metrics from any source.
+
+## Configuration
+
+```toml
+[[inputs.exec]]
+  ## Commands array
+  commands = [
+    "/tmp/test.sh",
+    "/usr/bin/mycollector --foo=bar",
+    "/tmp/collect_*.sh"
+  ]
+
+  ## Timeout for each command to complete.
+  timeout = "5s"
+
+  ## measurement name suffix (for separating different commands)
+  name_suffix = "_mycollector"
+
+  ## Data format to consume.
+  ## Each data format has its own unique set of configuration options, read
+  ## more about them here:
+  ## https://github.com/circonus-labs/circonus-unified-agent/blob/master/docs/DATA_FORMATS_INPUT.md
+  data_format = "influx"
+```
+
+Glob patterns in the `command` option are matched on every run, so adding new
+scripts that match the pattern will cause them to be picked up immediately.
+
+### Example
+
+This script produces static values, since no timestamp is specified the values are at the current time.
+
+```sh
+#!/bin/sh
+echo 'example,tag1=a,tag2=b i=42i,j=43i,k=44i'
+```
+
+It can be paired with the following configuration and will be run at the `interval` of the agent.
+
+```toml
+[[inputs.exec]]
+  instance_id = "" # unique instance identifier (REQUIRED)
+
+  commands = ["sh /tmp/test.sh"]
+  timeout = "5s"
+  data_format = "influx"
+```
+
+## Troubleshooting
+
+_This script works when you run it by hand, but not when the agent is running as a service._
+
+This may be related to the agent service running as a different user. The
+official packages run the agent as the `cua` user and group on Linux
+systems.
+
+_With a PowerShell on Windows, the output of the script appears to be truncated._
+
+You may need to set a variable in your script to increase the number of columns
+available for output:
+
+```
+$host.UI.RawUI.BufferSize = new-object System.Management.Automation.Host.Size(1024,50)
+```
