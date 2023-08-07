@@ -65,36 +65,36 @@ const config = {
         // ... other options
       },
     ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "circonus",
-        path: "circonus",
-        routeBasePath: "circonus",
-        // sidebarPath: require.resolve("./sidebars.js"),
-        // ... other options
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "caql",
-        path: "caql",
-        routeBasePath: "caql",
-        // sidebarPath: require.resolve("./sidebars.js"),
-        // ... other options
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "irondb",
-        path: "irondb",
-        routeBasePath: "irondb",
-        // sidebarPath: require.resolve("./sidebars.js"),
-        // ... other options
-      },
-    ],
+    // [
+    //   "@docusaurus/plugin-content-docs",
+    //   {
+    //     id: "circonus",
+    //     path: "circonus",
+    //     routeBasePath: "circonus",
+    //     // sidebarPath: require.resolve("./sidebars.js"),
+    //     // ... other options
+    //   },
+    // ],
+    // [
+    //   "@docusaurus/plugin-content-docs",
+    //   {
+    //     id: "caql",
+    //     path: "caql",
+    //     routeBasePath: "caql",
+    //     // sidebarPath: require.resolve("./sidebars.js"),
+    //     // ... other options
+    //   },
+    // ],
+    // [
+    //   "@docusaurus/plugin-content-docs",
+    //   {
+    //     id: "irondb",
+    //     path: "irondb",
+    //     routeBasePath: "irondb",
+    //     // sidebarPath: require.resolve("./sidebars.js"),
+    //     // ... other options
+    //   },
+    // ],
   ],
 
   themeConfig:
