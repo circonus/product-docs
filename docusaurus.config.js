@@ -40,11 +40,23 @@ const config = {
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
+        docs: false,
       }),
     ],
   ],
 
   plugins: [
+    [
+      "@docusaurus/plugin-client-redirects",
+      {
+        redirects: [
+          {
+            to: "/circonus3/integrations/library",
+            from: "/circonus/integrations/library",
+          },
+        ],
+      },
+    ],
     [
       "@docusaurus/plugin-content-docs",
       {
@@ -65,36 +77,36 @@ const config = {
         // ... other options
       },
     ],
-    // [
-    //   "@docusaurus/plugin-content-docs",
-    //   {
-    //     id: "circonus",
-    //     path: "circonus",
-    //     routeBasePath: "circonus",
-    //     // sidebarPath: require.resolve("./sidebars.js"),
-    //     // ... other options
-    //   },
-    // ],
-    // [
-    //   "@docusaurus/plugin-content-docs",
-    //   {
-    //     id: "caql",
-    //     path: "caql",
-    //     routeBasePath: "caql",
-    //     // sidebarPath: require.resolve("./sidebars.js"),
-    //     // ... other options
-    //   },
-    // ],
-    // [
-    //   "@docusaurus/plugin-content-docs",
-    //   {
-    //     id: "irondb",
-    //     path: "irondb",
-    //     routeBasePath: "irondb",
-    //     // sidebarPath: require.resolve("./sidebars.js"),
-    //     // ... other options
-    //   },
-    // ],
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "circonus",
+        path: "circonus",
+        routeBasePath: "circonus",
+        // sidebarPath: require.resolve("./sidebars.js"),
+        // ... other options
+      },
+    ],
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "caql",
+        path: "caql",
+        routeBasePath: "caql",
+        // sidebarPath: require.resolve("./sidebars.js"),
+        // ... other options
+      },
+    ],
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "irondb",
+        path: "irondb",
+        routeBasePath: "irondb",
+        // sidebarPath: require.resolve("./sidebars.js"),
+        // ... other options
+      },
+    ],
   ],
 
   themeConfig:
@@ -134,15 +146,6 @@ const config = {
       footer: {
         style: "dark",
         links: [
-          {
-            title: "Docs",
-            items: [
-              {
-                label: "Tutorial",
-                to: "/docs/intro",
-              },
-            ],
-          },
           {
             title: "Community",
             items: [

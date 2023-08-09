@@ -1,0 +1,2528 @@
+openapi: 3.0.2
+info:
+  title: IRONdb Developer APIs
+  version: "0.1"
+  description: >
+    The IRONdb API provides an interface to programmatically access the
+    functionality of the timeseries database. These endpoints are targeted towards 
+    users of the database, rather than administrators.
+paths:
+  /extension/lua:
+    get:
+      tags:
+        - Lua Extensions
+      summary: Returns a list of all currently available Lua extensions on the node.  Primarily used to drive the `Extensions` tab in the IRONdb UI.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  <extension_name>:
+                    type: object
+                    description: The LUA response object.  This is sparsly documented, since it's primarily use is only to drive the UI.
+                    properties:
+                      description: 
+                        type: string
+                        description: A description of the extension.
+                      documentation:
+                        type: string
+                        description: Markdown documentation for the extenstion.
+                      params:
+                        type: object
+                        properties:
+                          <param_name>:
+                            type: object
+                            properties:
+                              type: 
+                                type: string
+                                description: The data type of the parameter.
+                              description:
+                                type: string
+                                description: A description of the parameter.
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /extension/lua/<extension>:
+    get:
+      tags:
+        - Lua Extensions
+      summary: Call the requested Lua extension and return the results.  See the "Extensions" panel of your IRONdb install for details on each extension.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /extension/lua/caql_complete:
+    get:
+      tags:
+        - Lua Extensions
+      summary: Auto-completion for type-ahead lookups on CAQL function names to make it easier for people to find the functions they are looking for.
+      parameters:
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+        description: > 
+          The front portion (prefix) of a string to be auto-completed.
+        example: metri
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 5
+        description: > 
+          The maximal number of entries to return.  
+      - name: transform
+        in: query
+        schema:
+          type: boolean
+          default: false
+        description: > 
+          Set to true if the query is only a transform.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  prefix:
+                    type: string
+                    description: The prefix that was queried.
+                  completions:
+                    type: array
+                    items:
+                      type: string
+                      description: A list of strings that match the provided prefix.
+                example: [[1474275000,[15]],[1474275060,[15]],[1474275120,[15]],[1474275180,[15]]]
+
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /extension/lua/caql_v1:
+    get:
+      tags:
+        - Lua Extensions
+      summary: The Circonus Analytics Query Language (CAQL) allows the user to issue complex queries against metric data residing in IRONdb.
+      parameters:
+      - $ref: '#/components/parameters/CAQLQuery'
+      - $ref: '#/components/parameters/X-Circonus-Account'
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: integer
+        description: > 
+          The start time from which to pull data, represented in seconds since the epoch. This value is inclusive. [start,end)
+        example: 1622763000
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: integer
+        description: > 
+          The end time from which to pull data, represented in seconds since the epoch. This value is exclusive. [start,end)
+        example: 1622764800
+      - name: period
+        in: query
+        required: true
+        schema:
+          type: integer
+        description: > 
+          The period, in seconds, for which to get data rollups.
+      - name: explain
+        in: query
+        schema:
+          type: boolean
+          default: false
+        description: >
+          Add CAQL/explain information to DF4 meta output for additional debugging.
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+            - DF1
+            - DF4
+          default: DF1
+        example: DF4
+        description: > 
+          Data format to return data in.  DF1 is multi-series data only.  DF4 includes metadata around the call, and its use is encouraged.
+      - name: _timeout
+        in: query
+        schema:
+          type: number
+          default: 4.5
+        description: > 
+          Specify a timeout for CAQL processing in seconds.         
+        example: 10
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+                  items:
+                    oneOf:
+                      - type: integer
+                      - type: array
+                        items: 
+                          type: number
+                description: >
+                  The response will be an array of (timestamp,data) tuples.  The data is an array of datapoints for that timestamp.
+                example: [[1474275000,[15]],[1474275060,[15]],[1474275120,[15]],[1474275180,[15]]]
+
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /extension/lua/caql_info:
+    get:
+      tags:
+        - Lua Extensions
+      summary: Return meta information about a CAQL statement.
+      parameters:
+      - $ref: '#/components/parameters/X-Circonus-Account'
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          format: CAQL query
+        description: > 
+          A well-formed [CAQL query](https://docs.circonus.com/caql/reference/)
+        example: find('my_counter','and(dc:east)') | stats:sum()
+      - name: transform
+        in: query
+        schema:
+          type: boolean
+          default: false
+        description: >
+          This should be set to true if the query is only a transform.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  checks:
+                    type: object
+                    description: A descriptions of the checks keyed by metric name.
+                    example: {"uuid1": {"metric_name_1": { "average": true },"metric_name_2": { "average": true }},"uuid2": {"metric_name_3": { "average": true, "histogram": true }}}
+                  prefill_samples:
+                    type: integer
+                    example: 10
+                    description: Number of samples to be filled into warm up model.
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /extension/lua/graphite_translate:
+    get:
+      tags:
+        - Lua Extensions
+      summary: A best-effort graphite-to-CAQL translator.
+      parameters:
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+        description: > 
+          A well-formed graphite query.
+        example: minimumBelow(movingMedian(foo.*.bar,'20min'),3)
+      - name: verbose
+        in: query
+        schema:
+          type: boolean
+        description: > 
+          If true, the response object will include additional debugging information.
+      responses:
+        "200":
+          description: Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  input:
+                    type: string
+                    description: The raw input provided.
+                  caql:
+                    type: string
+                    description: The translated CAQL response.
+                description: >
+                  The translated response.
+                example: {"input": "minimumBelow(movingMedian(foo.*.bar,'20min'),3)","caql": "graphite:find('foo.*.bar') | rolling:percentile(20M,50) | filter:any:lt(3)"}
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /fetch:
+    post:
+      tags:
+        - Retrieving and Transforming Data
+      summary: The /fetch API provides fast, one-request access to common complex data extraction requirements. It allows for fetch submissions in both FlatBuffers and JSON formats, and returns DF4 output format available in both FlatBuffers and JSON encoding.
+      parameters:
+        - $ref: '#/components/parameters/X-Snowth-Deadline'
+        - $ref: '#/components/parameters/X-Snowth-Proxied'
+        - $ref: '#/components/parameters/X-Snowth-Timeout'
+      requestBody:
+        description: A document describing the streams to fetch, how to transform them, and reduce them into a result set.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchPostBody'
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DF4Result"
+            X-IRONDB-DF4-FLATBUFFER:
+              schema:
+                $ref: "#/components/schemas/DF4Result"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /find/tags:
+    parameters:
+      - $ref: '#/components/parameters/X-Snowth-Account-Id'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+      - $ref: '#/components/parameters/X-Snowth-Verify-Owner'
+      - $ref: '#/components/parameters/TagQuery'
+      - $ref: '#/components/parameters/ActivityStartSecs'
+      - $ref: '#/components/parameters/ActivityEndSecs'
+      - $ref: '#/components/parameters/FindTagsActivityData'
+      - $ref: '#/components/parameters/FindTagsLatestData'
+      - $ref: '#/components/parameters/FindTagsCountOnly'
+      - $ref: '#/components/parameters/FindTagsExplain'
+    get:
+      tags:
+        - Metric Search
+      summary: Retrieves a list of all metrics matching a tag query, along with other data about those metrics.
+      responses:
+        "200":
+          description: >
+            Success.
+          headers:
+            X-Snowth-Unanswered:
+              schema:
+                type: string
+              description: This header along with an empty JSON response body `[]` if the query timed out.  It's value will be the identity of the node.
+            X-Snowth-Owner-Verified:
+              schema:
+                type: boolean
+              description: Whether the verify_owner flag was set when the request was made. This flag will prevent find queries from returning stale metrics from a node that are no longer owned by that node in the current topology.
+            X-Snowth-Proxied:
+              schema:
+                type: string
+              description: If the request had `X-Snowth-Proxied` defined as truthy, this will return the identify of the node in the response.  If it was not, it will contain a list of all nodes proxied to in order to answer the request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FindTagsResult"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /find/tag_cats:
+    parameters:
+      - $ref: '#/components/parameters/X-Snowth-Account-Id'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+      - $ref: '#/components/parameters/X-Snowth-Verify-Owner'
+      - $ref: '#/components/parameters/TagQuery'
+      - $ref: '#/components/parameters/ActivityStartSecs'
+      - $ref: '#/components/parameters/ActivityEndSecs'
+    get:
+      tags:
+        - Metric Search
+      summary: Returns a list of tag categories that matches a particular tag query.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FindTagCatsResult"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /find/tag_vals:
+    parameters:
+      - $ref: '#/components/parameters/X-Snowth-Account-Id'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+      - $ref: '#/components/parameters/X-Snowth-Verify-Owner'
+      - $ref: '#/components/parameters/TagQuery'
+      - $ref: '#/components/parameters/TagValsCategory'
+      - $ref: '#/components/parameters/ActivityStartSecs'
+      - $ref: '#/components/parameters/ActivityEndSecs'
+    get:
+      tags:
+        - Metric Search
+      summary: Returns a list of tag values that matches a particular tag query.  This is an exhaustive and potentially expensive search if there is a high cardinality of values.  For high performance auto-complete, use the `/suggest/tag_vals` endpoint instead.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FindTagValsResult"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /find/{accountid}/tags:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Verify-Owner'
+      - $ref: '#/components/parameters/TagQuery'
+      - $ref: '#/components/parameters/ActivityStartSecs'
+      - $ref: '#/components/parameters/ActivityEndSecs'
+      - $ref: '#/components/parameters/FindTagsActivityData'
+      - $ref: '#/components/parameters/FindTagsLatestData'
+      - $ref: '#/components/parameters/FindTagsCountOnly'
+    get:
+      tags:
+        - Deprecated
+      deprecated: true
+      summary: Retrieves a list of all metrics matching a tag query, along with other data about those metrics.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FindTagsResult"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /find/{accountid}/tag_cats:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+      - $ref: '#/components/parameters/X-Snowth-Verify-Owner'
+      - $ref: '#/components/parameters/TagQuery'
+      - $ref: '#/components/parameters/ActivityStartSecs'
+      - $ref: '#/components/parameters/ActivityEndSecs'
+    get:
+      tags:
+        - Deprecated
+      deprecated: true
+      summary: Returns a list of tag categories that matches a particular tag query.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FindTagCatsResult"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /find/{accountid}/tag_vals:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+      - $ref: '#/components/parameters/X-Snowth-Verify-Owner'
+      - $ref: '#/components/parameters/TagQuery'
+      - $ref: '#/components/parameters/ActivityStartSecs'
+      - $ref: '#/components/parameters/ActivityEndSecs'
+    get:
+      tags:
+        - Deprecated
+      deprecated: true
+      summary: Returns a list of tag values that matches a particular tag query.  This is an exhaustive and potentially expensive search if there is a high cardinality of values.  For high performance auto-complete, use the `/suggest/tag_vals` endpoint instead.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FindTagValsResult"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /find/{accountid}/active_count:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/ActivityStartSecs'
+      - $ref: '#/components/parameters/ActivityEndSecs'
+      - $ref: '#/components/parameters/TagQueryOptional'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+    get:
+      tags:
+        - Metric Search
+      summary: Retrieves a count of metrics active during the provided window, returned in 5-min segments.  Result set start time will be aligned with internal tracking windows and defined in the result json.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FindActiveCountResult"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /suggest/tag_vals:
+    parameters:
+      - $ref: '#/components/parameters/X-Snowth-Account-Id'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/SuggestTagsPartial'
+      - $ref: '#/components/parameters/SuggestTagsCharCount'
+      - $ref: '#/components/parameters/SuggestTagsCategory'
+    get:
+      tags:
+        - Metric Search
+      summary: Returns a list of auto-completion options for potentially partial values in a category.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuggestTagsResult"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /suggest/{accountid}/tag_vals:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/SuggestTagsPartial'
+      - $ref: '#/components/parameters/SuggestTagsCharCount'
+      - $ref: '#/components/parameters/SuggestTagsCategory'
+    get:
+      tags:
+        - Deprecated
+      deprecated: true
+      summary: Returns a list of auto-completion options for potentially partial values in a category.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuggestTagsResult"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /graphite/{accountid}/metrics/find:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/GraphiteMetricFindQuery'
+      - $ref: '#/components/parameters/GraphiteMetricFindQueryCirconus'
+      - $ref: '#/components/parameters/GraphiteActivityStartSecs'
+      - $ref: '#/components/parameters/GraphiteActivityEndSecs'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit-Graphite'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+    get:
+      tags:
+        - Graphite Compatibility
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GraphiteFindResult"
+            application/x-flatbuffer-metric-find-result-list:
+              schema:
+                type: string
+                example: <binary data>
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /graphite/{accountid}/{queryPrefix}/metrics/find:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/GraphiteMetricFindQuery'
+      - $ref: '#/components/parameters/GraphiteQueryPrefix'
+      - $ref: '#/components/parameters/GraphiteMetricFindQueryCirconus'
+      - $ref: '#/components/parameters/GraphiteActivityStartSecs'
+      - $ref: '#/components/parameters/GraphiteActivityEndSecs'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit-Graphite'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+    get:
+      tags:
+        - Graphite Compatibility
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GraphiteFindResult"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /graphite/{accountid}/tags/find:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/GraphiteTagQuery'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit-Graphite'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+    get:
+      tags:
+        - Graphite Compatibility
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GraphiteTagResult"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /graphite/{accountid}/{queryPrefix}/tags/find:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/GraphiteTagQuery'
+      - $ref: '#/components/parameters/GraphiteQueryPrefix'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit-Graphite'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+    get:
+      tags:
+        - Graphite Compatibility
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GraphiteTagResult"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /graphite/{accountid}/series:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/GraphiteQueryStart'
+      - $ref: '#/components/parameters/GraphiteQueryEnd'
+      - $ref: '#/components/parameters/GraphiteQueryName'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+    get:
+      tags:
+        - Graphite Compatibility
+      responses:
+        "200":
+          description: Success.
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /graphite/{accountid}/{queryPrefix}/series:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/GraphiteQueryStart'
+      - $ref: '#/components/parameters/GraphiteQueryEnd'
+      - $ref: '#/components/parameters/GraphiteQueryName'
+      - $ref: '#/components/parameters/GraphiteQueryPrefix'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+    get:
+      tags:
+        - Graphite Compatibility
+      responses:
+        "200":
+          description: Success.
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /graphite/{accountid}/{check_uuid}/data:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/CheckUUID'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+    post:
+      tags:
+        - Graphite Compatibility
+      requestBody:
+        required: true
+        description: >
+          Graphite data is sent as buffers of N rows of graphite formatted data.  Body must end in a newline. Note that IRONdb can also have a port opened as a listener for graphite data, rather than using this REST interface.
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: |
+                my.metric.name.one 1 1666666666
+                my.metric.name.two;tag=value 2 1666666666
+
+      responses:
+        "200":
+          description:  Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FivePointResponse'
+  /graphite/{accountid}/series_multi:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+    post:
+      tags:
+        - Graphite Compatibility
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GraphiteSeriesMultiPostBody'
+      responses:
+        "200":
+          description:  Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphiteSeriesMultiJSON'
+            application/x-flatbuffer-metric-get-result-list:
+              schema:
+                type: string
+                example: <binary data>
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /graphite/{accountid}/{queryPrefix}/series_multi:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/GraphiteQueryPrefix'
+      - $ref: '#/components/parameters/X-Snowth-Proxied'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+    post:
+      tags:
+        - Graphite Compatibility
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GraphiteSeriesMultiPostBody'
+      responses:
+        "200":
+          description:  Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphiteSeriesMultiJSON'
+            application/x-flatbuffer-metric-get-result-list:
+              schema:
+                type: string
+                example: <binary data>
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /opentsdb/{accountid}/{check_uuid}/data:
+    parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/CheckUUID'
+    post:
+      tags:
+        - OpenTSDB Compatibility
+      requestBody:
+        required: true
+        description: >
+          A javascript object, or array of javascript objects.  Note that IRONdb can also have a port opened as a listener for OpenTSDB data, rather than using this REST interface.
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/OpenTSDBObject'
+                - type: array
+                  items: 
+                    $ref: '#/components/schemas/OpenTSDBObject'
+      responses:
+        "200":
+          description:  Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FivePointResponse'
+  /histogram/{start}/{end}/{period}/{check_uuid}/{metric_name}:
+    parameters:
+      - $ref: '#/components/parameters/CheckUUID'
+      - $ref: '#/components/parameters/PathCanonicalMetricName'
+      - $ref: '#/components/parameters/PathStart'
+      - $ref: '#/components/parameters/PathEnd'
+      - $ref: '#/components/parameters/PathPeriod'
+    get:
+      tags:
+        - Deprecated 
+      deprecated: true
+      summary: >
+        Retrieves histogram streams.  Use /fetch instead.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HistogramTuples"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /histogram/write:
+    post:
+      tags:
+        - Deprecated
+      deprecated: true
+      summary: >
+        Submission of histogram metrics.  Use /raw instead.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  metric: 
+                    $ref: '#/components/schemas/CanonicalMetricName'
+                  id:
+                    type: string
+                    format: uuid
+                    description: UUID of the check for the metric being submitted.
+                  offset:
+                    type: string
+                    format: integer
+                    description: The epoch timestamp of the sample, sent as a string.
+                  period: 
+                    type: integer
+                    description: The period for which to add the histogram data. Typically, this will be the smallest histogram period configured on the IRONdb cluster.
+                  histogram:
+                    type: string
+                    format: base64 encoded data
+                    description: A base64-encoded compressed representation of the histogram data for this time period.
+              example: [{"offset": 1408724400,"id": "ae0f7f90-2a6b-481c-9cf5-21a31837020e","metric": "example1","period": 60,"histogram": "AAA="},{"offset": 1408724400,"id": "ae0f7f90-2a6b-481c-9cf5-21a31837020e","metric": "example2","period": 60,"histogram": "AAA="}]
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FourPointResponse'
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /locate/json/{check_uuid}/{metric_name}:
+    parameters:
+      - $ref: '#/components/parameters/CheckUUID'
+      - $ref: '#/components/parameters/PathCanonicalMetricName'
+    get:
+      tags:
+        - State and Topology 
+      summary: >
+        Retrieves a list of all of the nodes on which a metric resides.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LocateResponse"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /locate/xml/{check_uuid}/{metric_name}:
+    parameters:
+      - $ref: '#/components/parameters/CheckUUID'
+      - $ref: '#/components/parameters/PathCanonicalMetricName'
+    get:
+      tags:
+        - State and Topology 
+      summary: >
+        Retrieves a list of all of the nodes on which a metric resides.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/LocateResponse"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /raw:
+    post:
+      parameters:
+      - $ref: '#/components/parameters/X-Snowth-Datapoints'
+      tags:
+        - Data Submission
+      summary: Accepts all types of measurement data at arbitrary frequencies.
+      requestBody:
+        description: |
+          Data may be submitted via 
+          * [TSV](https://docs.circonus.com/irondb/api/data-submission/#tsv-numeric-or-text-metric-format)
+          * [Flatbuffer MetricList](https://github.com/circonus-labs/reconnoiter/blob/master/src/flatbuffers/metric_list.fbs).
+        required: true
+        content:
+          application/text:
+            schema:
+              $ref: '#/components/schemas/RawTSVFormat'
+          application/tsv:
+            schema:
+              $ref: '#/components/schemas/RawTSVFormat'
+          application/x-circonus-metric-list-flatbuffer:
+            schema:
+              type: string
+              example: "<binary>"
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FivePointResponse'
+        "429":
+          description: >
+            Indicates the user has sent too many requests in a given amount of time
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: raw ingestion is currently disabled
+        "503":
+          description: >
+            No capacity is available to accept the submitted data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: service unavailable
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /raw/{check_uuid}/{metric_name}:
+    parameters:
+      - $ref: '#/components/parameters/CheckUUID'
+      - $ref: '#/components/parameters/PathCanonicalMetricName'
+      - $ref: '#/components/parameters/StartTS'
+      - $ref: '#/components/parameters/EndTS'
+    get:
+      tags:
+        - Deprecated 
+      deprecated: true
+      summary: >
+        Fetches raw (full resolution) numeric data from the raw database.  Use /fetch instead.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NumericTuples"
+        "404":
+          description: >
+            Error will indicate whether this is because the metric name could not be found in the surrogate db, or "[proxy:] not found" if there is no data in that time range.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: metric foo|ST[bar:baz] not in surrogate-db.
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /full/tags:
+    parameters:
+      - $ref: '#/components/parameters/X-Snowth-Account-Id'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit-Positive'
+      - $ref: '#/components/parameters/X-Snowth-Confirm-Delete'
+      - $ref: '#/components/parameters/TagQuery'
+    delete:
+      tags:
+        - Data Deletion
+      summary: Full delete all samples from the database, and remove the metric(s) for this node.
+      responses:
+        "200":
+          description: >
+            Success.
+          headers:
+            X-Snowth-Incomplete-Results:
+              schema:
+                type: boolean
+              description: True if request could not be fully completed due to a maximum number of operations/values being reached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /raw/tags:
+    parameters:
+      - $ref: '#/components/parameters/X-Snowth-Account-Id'
+      - $ref: '#/components/parameters/X-Snowth-Confirm-Delete'
+      - $ref: '#/components/parameters/X-Snowth-Delete-Time'
+      - $ref: '#/components/parameters/TagQuery'
+    delete:
+      tags:
+        - Data Deletion
+      summary: Delete samples from the raw database for this node.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /nnt/tags:
+    parameters:
+      - $ref: '#/components/parameters/X-Snowth-Account-Id'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit-Positive'
+      - $ref: '#/components/parameters/X-Snowth-Confirm-Delete'
+      - $ref: '#/components/parameters/X-Snowth-Delete-Time'
+      - $ref: '#/components/parameters/X-Snowth-Delete-Rollups'
+      - $ref: '#/components/parameters/X-Snowth-Full-Delete'
+      - $ref: '#/components/parameters/TagQuery'
+    delete:
+      tags:
+        - Data Deletion
+      summary: Delete samples from the numeric rollups database for this node.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /text/tags:
+    parameters:
+      - $ref: '#/components/parameters/X-Snowth-Account-Id'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit-Positive'
+      - $ref: '#/components/parameters/X-Snowth-Confirm-Delete'
+      - $ref: '#/components/parameters/X-Snowth-Full-Delete'
+      - $ref: '#/components/parameters/TagQuery'
+    delete:
+      tags:
+        - Data Deletion
+      summary: Delete text samples from the database for this node.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /histogram/tags:
+    parameters:
+      - $ref: '#/components/parameters/X-Snowth-Account-Id'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit-Positive'
+      - $ref: '#/components/parameters/X-Snowth-Confirm-Delete'
+      - $ref: '#/components/parameters/X-Snowth-Delete-Time'
+      - $ref: '#/components/parameters/X-Snowth-Delete-Rollups'
+      - $ref: '#/components/parameters/X-Snowth-Full-Delete'
+      - $ref: '#/components/parameters/TagQuery'
+    delete:
+      tags:
+        - Data Deletion
+      summary: Delete histogram samples from the database for this node.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /histogram_raw/tags:
+    parameters:
+      - $ref: '#/components/parameters/X-Snowth-Account-Id'
+      - $ref: '#/components/parameters/X-Snowth-Advisory-Limit-Positive'
+      - $ref: '#/components/parameters/X-Snowth-Confirm-Delete'
+      - $ref: '#/components/parameters/X-Snowth-Delete-Time'
+      - $ref: '#/components/parameters/X-Snowth-Delete-Rollups'
+      - $ref: '#/components/parameters/X-Snowth-Metadata-Flush'
+      - $ref: '#/components/parameters/TagQuery'
+    delete:
+      tags:
+        - Data Deletion
+      summary: Delete histogram samples that match the provided query from the raw histogram database for this node.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        default:
+          description: Some sort of error occurred during the request.  The response  will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /histogram_raw/{check_uuid}/{metric_name}:
+    parameters:
+      - $ref: '#/components/parameters/CheckUUID'
+      - $ref: '#/components/parameters/PathCanonicalMetricName'
+      - $ref: '#/components/parameters/StartTS'
+      - $ref: '#/components/parameters/EndTS'
+    get:
+      tags:
+        - Deprecated
+      summary: Fetches histogram data from the raw histogram database.
+      deprecated: true
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistogramRawTuples'
+        default:
+          description: Some sort of error occurred during the request.  The response  will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /read/{start}/{end}/{check_uuid}/{metric_name}:
+    parameters:
+      - $ref: '#/components/parameters/CheckUUID'
+      - $ref: '#/components/parameters/PathCanonicalMetricName'
+      - $ref: '#/components/parameters/PathStart'
+      - $ref: '#/components/parameters/PathEnd'
+    get:
+      tags:
+        - Deprecated 
+      deprecated: true
+      summary: >
+        Retrieves text streams.  Use /fetch instead.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TextTuples"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /rollup/{check_uuid}/{metric_name}:
+    parameters:
+      - $ref: '#/components/parameters/CheckUUID'
+      - $ref: '#/components/parameters/PathCanonicalMetricName'
+      - $ref: '#/components/parameters/StartTS'
+      - $ref: '#/components/parameters/EndTS'
+      - in: query
+        name: rollup_span
+        required: true
+        schema:
+          type: string
+          format: "NNN<s|ms>"
+        description: >
+          The granularity of the rollup with a units suffix. `s` for seconds, `ms` for milliseconds.
+        example: 60000ms
+      - in: query
+        name: get_engine
+        schema:
+          type: string
+          enum:
+            - dispatch
+            - dispatch_coarsen
+            - nnt
+            - recalc
+          default: dispatch
+        description: |
+          Qualifiers on the retrieval.
+          * `dispatch` - read first from rollups and then fill in with recalculated raw data
+          * `dispatch_coarsen` - *experimental/internal/do-not-use* read first from rollups and then fill in recalculated rollups from raw and then backfill with less granular rollups if the first fill failed (this can have poor performance and should not be used outside debugging)
+          * `nnt`  - behave like the read endpoint, i.e. only read already rolled up data
+          * `recalc` - read raw data and generate rollups on the fly
+      - in: query
+        name: type
+        schema:
+          type: string
+          enum:
+            - count
+            - average
+            - derive
+            - derivative
+            - counter
+            - average_stddev
+            - derive_stddev
+            - derivative_stddev
+            - counter_stddev
+            - derive2
+            - derivative2
+            - counter2
+            - derive2_stddev
+            - derivative2_stddev
+            - counter2_stddev
+            - all
+          default: average
+        description: >
+           The type of data for which to pull results.
+    get:
+      tags:
+        - Deprecated 
+      deprecated: true
+      summary: >
+        Fetches rolled up numeric data.  Use /fetch instead.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/ObjectTuplesAllTypes"
+                  - $ref: "#/components/schemas/NumericTuples"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /write/nnt:
+    post:
+      tags:
+        - Deprecated
+      deprecated: true
+      summary: >
+        Submission of numeric metrics.  Use /raw instead.
+      requestBody:
+        required: true
+        description: Data should be added for the smallest rollup period that exists on the IRONdb node. 
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                allOf:
+                - $ref: '#/components/schemas/NumericSampleParts'
+                - type: object
+                  required:
+                    - metric
+                    - id
+                  properties:
+                    metric: 
+                      $ref: '#/components/schemas/CanonicalMetricName'
+                    id:
+                      type: string
+                      format: uuid
+                      description: UUID of the check for the metric being submitted.
+                    offset:
+                      type: integer
+                      description: The timestamp, represented in time since the epoch, for which data is added.
+                    parts:
+                      type: array
+                      description: >
+                        An optional array that contains the raw values that were used to calculate the values used above. The data is in the form of a tuple: the period (in seconds) that makes up the partial data, and an array of JSON objects that contains all of the fields above, except for “offset”, “metric”, and “id”. The period value should be the values that are used to make up the smallest rollup. For example, if the smallest rollup is 300 seconds (five minutes) and that data was formed using 60 second (one minute) data, the “parts” data should have a period of 60, followed by five JSON objects describing the data at each interval.
+                      items:
+                        allOf:
+                          - type: integer
+                          - type: array
+                            items: 
+                              $ref: '#/components/schemas/NumericSampleParts'
+                      example: [60, [{"count": 1,"value": 100,"derivative": 0,"counter": 0,"stddev": 0,"derivative_stddev": 0,"counter_stddev": 0}]]
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FourPointResponse'
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /write/text:
+    post:
+      tags:
+        - Deprecated
+      deprecated: true
+      summary: >
+        Submission of text metrics.  Use /raw instead.
+      requestBody:
+        description: |
+          Data may be submitted via 
+          * [TSV](https://docs.circonus.com/irondb/api/data-submission/#tsv-numeric-or-text-metric-format)
+          * [Flatbuffer MetricList](https://github.com/circonus-labs/reconnoiter/blob/master/src/flatbuffers/metric_list.fbs).
+        required: true
+        content:
+          application/text:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  metric: 
+                    $ref: '#/components/schemas/CanonicalMetricName'
+                  id:
+                    type: string
+                    format: uuid
+                    description: UUID of the check for the metric being submitted.
+                  offset:
+                    type: string
+                    format: integer
+                    description: The epoch timestamp of the sample, sent as a string.
+                  value: 
+                    type: string
+                    description: The text value of the sample.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FourPointResponse'
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  parameters:
+    AccountId:
+      name: accountid
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+      example: 1
+      description: >
+        All data in IRONdb is partitioned under an account id.
+    GraphiteQueryPrefix:
+      name: queryPrefix
+      in: path
+      required: true
+      schema:
+        type: string
+      example: graphite.
+      description: >
+        The queryPrefix can be used to simplify metric names. You can place any non-glob part of the prefix of a query into the queryPrefix and it will be prepended to any incoming query for metric names.  This causes the prefix to be removed from the metrics names in the result.  This is often used to simplify metric names in graphite-web or grafana and also to make IRONdb graphite metrics match metric names from an older time series system.
+    GraphiteMetricFindQuery:
+      name: query
+      in: query
+      required: true
+      schema:
+        type: string
+      example: prod.counters.*
+      description: >
+        A graphite metric query.
+    GraphiteMetricFindQueryCirconus:
+      name: irondb_tag_filter
+      in: query
+      required: false
+      schema:
+        type: string
+      example: and(__type:numeric)
+      description: >
+        Complementary to a graphite metric query to filter the returned metrics using a circonus-style tag-query.
+    GraphiteTagQuery:
+      name: query
+      in: query
+      required: true
+      schema:
+        type: string
+      example: category1=value1
+      description: >
+        The tag query syntax is the same as supported by Graphite version >= 1.1. See [Graphite Tag Querying](http://graphite.readthedocs.io/en/latest/tags.html#querying).
+    PathCanonicalMetricName:
+      name: metric_name
+      in: path
+      required: true
+      schema:
+        type: string
+      example: latency|ST[host:alpha4.internal]
+      description: >
+        The full [canonical metric name](https://docs.circonus.com/irondb/metric-names-tags-queries/#canonical-metric-names). 
+    CheckUUID:
+      name: check_uuid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: >
+        All metrics in IRONdb are partitioned under check uuid.
+    FindTagsActivityData:
+      in: query
+      name: activity
+      required: false
+      schema:
+        type: integer
+        default: 1
+        minimum: 0
+        maximum: 1
+      description: >
+        Specify if the return set should include activity window data.  0 : Do not return activity window data. This is useful for reducing payload size if the data is not needed.  1 : Include activity window in the return set.
+    FindTagsLatestData:
+      in: query
+      name: latest
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+        maximum: 2
+      description: > 
+        Specify if the two most recent values for the metric should be returned. Parameters: 0 : Do not return latest values. 1 : Return latest values if they are cached 2 : Return latest values even if additional work must be performed (slower performance), and turn on tracking for this metric so it will be cached for future calls to latest=1. This will usually return the latest two values, but there are circumstances where it will only return a single value.
+    FindTagsCountOnly:
+      in: query
+      name: count_only
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+        maximum: 1
+      description: If set to 1, the query will only return the total count, not individual metrics.  The result value will include  an "estimate" boolean field. This field will be true if a node in the cluster was down, or a timeout occurred, making a full count impossible.
+    FindTagsExplain:
+      in: query
+      name: explain
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+        maximum: 1
+      description: If set to 1, this will cause IRONdb to return multiple `X-Snowth-Find-<uuid>` headers along with the result set.  Each header contains any parsed find query that was proxied to the node uuid provided in order to answer the request.
+    PathStart:
+      in: path
+      name: start
+      required: true
+      schema:
+        type: integer
+      description: The start time (lower bound) from which to pull data, represented in seconds since the unix epoch.
+    PathEnd:
+      in: path
+      name: end
+      required: true
+      schema:
+        type: integer
+      description: The end time (upper bound) from which to pull data, represented in seconds since the unix epoch.
+    PathPeriod:
+      in: path
+      name: period
+      required: true
+      schema:
+        type: integer
+      description: The period, in seconds.
+    X-Circonus-Account:
+      name: X-Circonus-Account
+      in: header
+      schema:
+        type: integer
+        minimum: 0
+      example: 1
+      description: >
+        This header value specifies which account the metrics being fetched must be under.
+    X-Snowth-Account-Id:
+      name: X-Snowth-Account-Id
+      in: header
+      required: true
+      schema:
+        type: integer
+        minimum: 0
+      example: 1
+      description: >
+        This header value specifies which account the metrics being fetched must be under.
+    X-Snowth-Advisory-Limit:
+      name: X-Snowth-Advisory-Limit
+      in: header
+      schema:
+        type: integer
+        minimum: 0
+        default: 10000
+      description: >
+        This header value specifies the maximum number of results to be returned by the API call.  If set to -1, it will be interpreted as "unlimited."
+    X-Snowth-Advisory-Limit-Positive:
+      name: X-Snowth-Advisory-Limit
+      in: header
+      schema:
+        type: integer
+        minimum: 0
+        default: 10000
+      description: >
+        This header value specifies the maximum number of results to be returned by the API call.
+    X-Snowth-Advisory-Limit-Graphite:
+      name: X-Snowth-Advisory-Limit
+      in: header
+      schema:
+        type: integer
+        minimum: 0
+        default: -1
+      description: >
+        This header value specifies the maximum number of results to be returned by the API call.  If set to -1, it will be interpreted as "unlimited."  Unlimited searches, especially when used with a `*.` query prefix, can use too much memory and cause out-of-memory conditions.
+
+    X-Snowth-Confirm-Delete:
+      name: X-Snowth-Confirm-Delete
+      in: header
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1
+      example: 0
+      description: >
+        This header must be present, and equal to 1 for a deletion to actually occur.  Otherwise it will execute as a "dry-run."
+    X-Snowth-Delete-Rollups:
+      name: X-Snowth-Delete-Rollups
+      in: header
+      schema:
+        type: string
+      description: >
+        By default, all rollups will be deleted.  The delete can be limited to certain rollups, by specifying the rollups to be deleted, separated by commas.
+      example: 60,300
+    X-Snowth-Full-Delete:
+      name: X-Snowth-Full-Delete
+      in: header
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1
+        default: 0
+      example: 0
+      description: >
+        This setting header to 1 will perform the delete across all nodes.  By default, the delete operation is local to the receiving node.  Not to be confused with the full delete API.
+    X-Snowth-Delete-Time:
+      name: X-Snowth-Delete-Time
+      in: header
+      required: true
+      schema:
+        type: string
+        minimum: 0
+      description: >
+        Epoch end timestamp for the delete operation.  All data older than this time will be deleted.  This header must be present. Format may be any of (integer) seconds since the unix epoch, "all" to delete all data, or (string) [[now]/[epoch]] [+/-] [timestring] where [now] is the literal string "now", [epoch] is seconds since unix epoch, and [timestring] is any combination of [integer][unit] where [unit] must be any of (s, sec, m, min, h, hr, hour, d, day, w, wk, week). [[now]/[epoch]] may be omitted and "now" will be assumed. [timestring] must follow [+/-].
+      examples:
+        epoch:
+          value: 10000
+          summary: 10000 seconds after unix epoch
+        all:
+          value: all
+          summary: Delete all data
+        first:
+          value: now - 1h 5s
+          summary: 3605 seconds ago
+        second:
+          value: -1h5s
+          summary: 3605 seconds ago, "now" omitted
+        third:
+          value: 10000 + 1 h 5 s
+          summary: 3605 seconds past "10000"
+    X-Snowth-Datapoints:
+      name: X-Snowth-Datapoints
+      in: header
+      schema:
+        type: integer
+        minimum: 1
+      example: 1
+      required: true
+      description: >
+        Number of datapoints within the submission.
+    X-Snowth-Proxied:
+      name: X-Snowth-Proxied
+      in: header
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1
+        default: 0
+      description: >
+        This header is used internally by IRONdb to tell a node that this request is a proxied request from a different node.  As such results should be limited only to the local answer and not proxied further.   This can be useful to operators for querying against a single node only by specifying it as 1.  
+    X-Snowth-Timeout:
+      name: X-Snowth-Timeout
+      in: header
+      schema:
+        type: string
+        format: duration
+        default: 60s
+        example: 10000ms
+      description: >
+        A duration string for how long the operation should run before giving up.  Must contain both an amount and a unit (s/ms/etc) or it will be ignored.
+    X-Snowth-Deadline:
+      name: X-Snowth-Deadline
+      in: header
+      schema:
+        type: integer
+        default: 0
+        example: 1681231456
+      description: >
+        An epoch timestamp that gives a point in time where if the request is not completed, the request will time out. This header supercedes X-Snowth-Timeout, which will only be used if this header is not provided.
+    X-Snowth-Verify-Owner:
+      name: X-Snowth-Verify-Owner
+      in: header
+      schema:
+        type: boolean
+        default: false
+      description: >
+        This HTTP Header can be set to true on a request forcing validation of a node’s locality of data. This extra validation step is expensive and should not be used typically outside of debugging.  While normally defaulting to false, during a cluster rebalance the system will default this to true to ensure accurate results.
+    X-Snowth-Metadata-Flush:
+      name: X-Snowth-Metadata-Flush
+      in: header
+      schema:
+        type: integer
+        default: 1
+        description: >
+          A value of 0 will disable metadata flush. Any other value will enable it.
+      description: >
+        This HTTP Header is used to determine whether or not to perform a metadata flush before retrieving search results. Forcing a flush is slower, but will result in potentially more accurate results.
+    CAQLQuery:
+      name: query
+      in: query
+      required: true
+      schema:
+        type: string
+        format: CAQL query
+      description: > 
+        A well-formed [CAQL query](https://docs.circonus.com/caql/reference/)
+      example: find('my_counter','and(dc:east)') | stats:sum()
+    SuggestTagsPartial:
+      name: partial
+      in: query
+      required: true
+      schema:
+        type: string
+      description: > 
+        Prefix of the desired tag values in the return set.
+      example: a
+    SuggestTagsCharCount:
+      name: char_count
+      in: query
+      schema:
+        type: integer
+        default: 0
+      description: > 
+        Maximal partial limitation of the desired predicted characters after the provided `partial` field.  Set to 0 for auto mode.  The system may return suggestions smaller than this limit.
+    SuggestTagsCategory:
+      name: category
+      in: query
+      schema:
+        type: string
+        default: __name
+      description: > 
+        The tag category for which we want values.
+    TagQuery:
+      name: query
+      in: query
+      required: true
+      schema:
+        type: string
+        format: tag query
+      description: > 
+        A Circonus [tag query](https://docs.circonus.com/irondb/metric-names-tags-queries/#tag-queries)
+      example: and(__name:my_metric_name,tagcat:tagval)
+    TagQueryOptional:
+      name: query
+      in: query
+      schema:
+        type: string
+        format: tag query
+      description: > 
+        An optional Circonus [tag query](https://docs.circonus.com/irondb/metric-names-tags-queries/#tag-queries) to further filter target results.
+      example: and(__name:my_metric_name,tagcat:tagval)
+    TagValsCategory:
+      name: category
+      in: query
+      required: true
+      schema:
+        type: string
+      description: > 
+        The category to return values for.  Only metrics filtered by the tag query will be considered for values.
+      example: host
+    ActivityStartSecs:
+      in: query
+      name: activity_start_secs
+      required: false
+      schema:
+        type: string
+      description: The start time (lower bound) from which to pull data. Format may be either of (integer) seconds since the unix epoch or (string) [[now]/[epoch]] [<+/-><duration string>] where [now] is the literal string "now", [epoch] is seconds since unix epoch, and <duration string> is any combination of [integer][unit] where [unit] must be any of (s, sec, m, min, h, hr, hour, d, day, w, wk, week). [[now]/[epoch]] may be omitted and "now" will be assumed. <duration string> must follow <+/->.
+      examples:
+        epoch:
+          value: 10000
+          summary: 10000 seconds after unix epoch
+        first:
+          value: now - 1h 5s
+          summary: 3605 seconds ago
+        second:
+          value: -1h5s
+          summary: 3605 seconds ago, "now" omitted
+        third:
+          value: 10000 + 1 h 5 s
+          summary: 3605 seconds past "10000"
+    ActivityEndSecs:
+      in: query
+      name: activity_end_secs
+      required: false
+      schema:
+        type: string
+      description: The end time (upper bound) from which to pull data. Format may be either of (integer) seconds since the unix epoch or (string) [[now]/[epoch]] [<+/-><duration string>] where [now] is the literal string "now", [epoch] is seconds since unix epoch, and <duration string> is any combination of [integer][unit] where [unit] must be any of (s, sec, m, min, h, hr, hour, d, day, w, wk, week). [[now]/[epoch]] may be omitted and "now" will be assumed. <duration string> must follow <+/->.
+      examples:
+        epoch:
+          value: 10000
+          summary: 10000 seconds after unix epoch
+        first:
+          value: now - 1h 5s
+          summary: 3605 seconds ago
+        second:
+          value: -1h5s
+          summary: 3605 seconds ago, "now" omitted
+        third:
+          value: 10000 + 1 h 5 s
+          summary: 3605 seconds past "10000"
+    StartTS:
+      in: query
+      name: start_ts
+      required: true
+      schema:
+        type: string
+        format: "%lu.%03lu"
+      description: >
+        The start time from which to pull data, represented in seconds.milliseconds since the unix epoch.  If defined, milliseconds must always be specified to 3 digits.
+      example: 1529509020.100
+    EndTS:
+      in: query
+      name: end_ts
+      required: true
+      schema:
+        type: string
+        format: "%lu.%03lu"
+      description: >
+        The end time up to which data is pulled, represented in seconds.milliseconds since the unix epoch.  If defined, milliseconds must always be specified to 3 digits.
+      example: 1529509200     
+    GraphiteActivityStartSecs:
+      in: query
+      name: activity_start_secs
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+      description: The start time (lower bound) from which to pull data in seconds. Required if activity_end_secs is present. Minimum value 1.
+    GraphiteActivityEndSecs:
+      in: query
+      name: activity_end_secs
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+      description: The end time (upper bound) from which to pull data in seconds. Required if activity_start_secs is present. Minimum value 1.
+    GraphiteQueryStart:
+      in: query
+      name: start
+      required: true
+      schema:
+        type: integer
+        description: Lower bound unix epoch time of the range.
+        example: 1625616000
+    GraphiteQueryEnd:
+      in: query
+      name: end
+      required: true
+      schema:
+        type: integer
+        description: Upper bound unix epoch time of the range.
+        example: 1625702400
+    GraphiteQueryName:
+      in: query
+      name: name
+      required: true
+      schema:
+        type: string
+        description: Graphite leaf metric name
+        example: graphite.dev.metric.one
+    TopoHash:
+      name: topohash
+      in: path
+      required: true
+      schema:
+        type: string
+        format: md5
+      description: >
+        The hash for the topology.
+  schemas:
+    NumericSampleParts:
+      type: object
+      required:
+        - count
+        - value
+        - derivative
+        - counter
+        - stddev
+        - derivative_stddev
+        - counter_stddev
+      properties:
+        count:
+          type: integer
+          description: The number of data points received for the metric over the sample period.
+        value: 
+          type: number
+          description: The average value for the metric over the sample period.
+        derivative:
+          type: number
+          description: The derivative value for the metric over the sample period. 
+        counter:
+          type: number
+          description: The counter value for the metric over the sample period. 
+        stddev:
+          type: number
+          description: The standard deviation of the average value for the metric over the sample period. 
+        derivative_stddev:
+          type: number
+          description: The standard deviation of the derivative value for the metric over the sample period.
+        counter_stddev:
+          type: number
+          description: The standard deviation of the counter value for the metric over the sample period.    
+    CanonicalMetricName:
+      type: string
+      example: latency|ST[host:alpha4.internal]
+      description: >
+        The full [canonical metric name](https://docs.circonus.com/irondb/metric-names-tags-queries/#canonical-metric-names). 
+    EnumIRONdbDataTypes:
+      type: string
+      enum:
+        - numeric
+        - text
+        - histogram
+      example: numeric
+    NumericTransforms:
+      type: string
+      description: Numeric operations
+      enum:
+        - average
+        - sum
+        - count
+        - counter
+        - counter_stddev
+        - derivative
+        - derivative_stddev
+        - stddev
+    HistogramTransforms:
+      type: string
+      description: Histogram operations
+      enum:
+        - none
+        - count
+        - rate
+        - count_above
+        - count_below
+        - inverse_percentile
+        - inverse_quantile
+        - percentile
+        - quantile
+        - sum
+        - mean
+    TextTransforms:
+      description: Text operations
+      type: string
+      enum:
+        - none
+        - count
+        - count_cumulative
+        - count_distinct
+        - count_distinct_cumulative
+        - count_transition
+        - count_transition_cumulative
+        - rate
+        - rate_distinct
+        - rate_distinct_cumulative
+        - rate_transition
+    GlobalReduces:
+      description: Numeric, Histogram, or Text reduce operations
+      type: string
+      enum:
+        - pass
+    NumericReduces:
+      description: Numeric reduce operations
+      type: string
+      enum:
+        - groupby_mean
+        - groupby_sum
+        - mean
+        - sum
+    NumericOrHistogramReduces:
+      description: Numeric or Histogram reduce operations
+      type: string
+      enum:
+        - groupby_merge
+        - merge
+        - topk
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: A human readable description of the error.
+          example: Cannot parse tag query
+    DeleteResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          metric_name:
+            type: string
+            description: The name of the matching metric.
+            example: my_metric|ST[foo:bar]
+          delete_result:
+            type: string
+            description: Result of the delete attempt for this metric.
+            example: found - resubmit with confirmation to attempt delete
+          payload:
+            type: string
+            description: Additional info about the response, if any.
+            example: "(null)"
+    FetchPostBody:
+      type: object
+      properties:
+        start: 
+          type: number
+          format: double
+          description: Epoch seconds of the lower time bound to be considered for the data fetch.
+          example: 1621382400
+        period:
+          type: number
+          format: double
+          description: Number of seconds to use for the period between samples.
+          example: 300
+        count: 
+          type: integer
+          minimum: 1
+          description: Number of samples to return.
+          example: 200
+        streams: 
+          description: Each metric stream to be fetched, with the mathematical transforms that should be applied as the stream's output.
+          type: array
+          minItems: 1
+          items: 
+            type: object
+            properties:
+              uuid: 
+                type: string
+                format: uuid
+              name:
+                type: string
+                description: Canonical metric name
+                example: my_latency_histogram|ST[foo:bar]
+              kind:
+                allOf: 
+                  - $ref: "#/components/schemas/EnumIRONdbDataTypes"
+                example: histogram
+              transform:
+                description: What operation to perform on the stream over the period.
+                anyOf: 
+                  - $ref: "#/components/schemas/NumericTransforms"
+                  - $ref: "#/components/schemas/HistogramTransforms"
+                  - $ref: "#/components/schemas/TextTransforms"
+                example: inverse_percentile
+              transform_params:
+                type: array
+                description: > 
+                  Several functions need a parameter to operate on.  For those that don't, this should be an empty array.   Transforms that require a treshold value: `count_above`, `count_below`, `inverse_percentile`, `inverse_quantile`.  The `percentile` transform requires a param between [0,100].  The `quantile` transform requires a param between [0,1].  
+                items:
+                  type: string
+                  format: quoted integer or quoted double
+                  minItems: 0
+                example: ["300"]
+        reduce:
+          description: A set of transformations, applied in order, to output streams.  All but `none` and `topk` will reduce the fetch output to a single result stream.
+          type: array
+          minItems: 1
+          items: 
+            type: object
+            properties:
+              label:
+                type: string
+                description: Label to be applied to the output.  May be overwritten by certain methods.
+                example: "topk"
+              method:
+                type: string
+                anyOf: 
+                  - $ref: "#/components/schemas/GlobalReduces"
+                  - $ref: "#/components/schemas/NumericReduces"
+                  - $ref: "#/components/schemas/NumericOrHistogramReduces"
+                example: topk
+              method_params:
+                description: Parameters for the method. `groupby_mean`, `groupby_sum`, and `groupby_merge` should pass a list of tag categories on which to perform grouping.  `topk` should pass `[ K, <mech>, <mech_param> ]` Where `mech` is `mean`, `max`, or `quantile`.  The `quantile mech` value requires a mech_param in the range [0,1].  The calculated value will rank the streams, allowing through the top `K` ranks.  Other methods have no parameters and should pass an empty array.
+                type: array
+                minItems: 0
+                items:
+                  type: string
+                example: ["10", "quantile", "0.99"]
+    DF4Result:
+      type: object
+      properties:
+        version:
+          type: string
+          description: Explicit version info.  Should always be "DF4"
+          example: "DF4"
+        head:
+          type: object
+          description: Global meta-data about the response
+          properties:
+            start:
+              type: integer
+              description: Epoch value of start time
+              example: 15723923500
+            period:
+              type: integer
+              description: Number of seconds in the return period
+              example: 60
+            count:
+              type: integer
+              description: Number of datapoints per stream.
+              example: 5
+            warning:
+              type: string
+              description: A string, or array of strings, describing warnings encountered while servicing the request. 
+              example: ["function foo is deprecated","response X is an estimate"]
+            error:
+              type: string
+              description: A string, or array of strings, describing errors encountered while servicing the request. 
+              example: "could not parse"   
+        meta:
+          type: array
+          description: Per-stream meta-data.
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+                description: Display label for the output stream.
+                example: "CAQL: 1"
+              kind:
+                type: string
+                enum:
+                  - numeric
+                  - histogram
+        data:
+          type: array
+          description: Data for the described result streams.
+          items:
+            type: array
+            items:
+              type: number
+          example: [[1.1,1,1,1,1.1],[2.2,2,2,2,2.2]]
+    GraphiteFindResult:
+      type: array
+      items:
+        type: object
+        properties:
+          leaf: 
+            type: boolean
+            example: false
+          name:
+            type: string
+            description: Name of the check this metric belongs to.
+            example: "graphite.dev"
+    GraphiteTagResult:
+      type: array
+      items:
+        type: object
+        properties:
+          leaf: 
+            type: boolean
+            example: false
+          name:
+            type: string
+            description: Name of the check this metric belongs to.
+            example: "graphite.dev"
+          leaf_data:
+            type: object
+    GraphiteSeriesMultiPostBody:
+      type: object
+      required:
+        - start
+        - end
+        - names
+      properties:
+        start:
+          type: integer
+          description: Lower bound unix epoch time of the range.
+          example: 1625616000
+        end:
+          type: integer
+          description: Upper bound unix epoch time of the range.
+          example: 1625702400
+        names:
+          type: array
+          items:
+            type: string
+          description: List of the graphite metric names to fetch.
+          example: [ "graphite.dev.metric.one", "graphite.prod.metric.two"]
+        step:
+          type: integer
+          description: Number of seconds that should be used as the step for the returned data.
+          example: 300
+        database_rollups:
+          type: boolean
+          description: If set to false, this will force IRONdb to return data in the minimum rollup span (default 1 min, configurable via `//snowth/graphite/@min_rollup_span_ms`).
+          default: true
+    GraphiteSeriesMultiJSON:
+      type: object
+      example: {"from": 1630692240,"to": 1630695900,"step": 60,"series": {"haggar.agent.0.metrics.12": [578.833,507.333,711.5]}}
+    OpenTSDBObject:
+      type: object
+      properties:
+        metric:
+          type: string
+          example: my.metric.name
+        timestamp:
+          type: integer
+          example: 1544678300
+        value:
+          type: number
+          example: 1.1
+        tags:
+          type: object
+          description: A javascript object filled with key:value pairs.
+          example: {"datacenter":"east","env":"prod"}
+    SuggestTagsResult:
+      type: array
+      items:
+        type: object
+        properties:
+          value: 
+            type: string
+            description: Tag value, or suggested partial tag value.
+            example: av
+          partial:
+            type: boolean
+            description: If the result is a full tag value, or a partial completion object.
+      example: [{"value": "ag","partial": true},{"value": "al","partial": true},{"value": "application","partial": false},{"value": "av","partial": true}]
+    FindTagsResult:
+      type: object
+      properties:
+        uuid: 
+          type: string
+          format: uuid
+          description: Uuid of the check this metric belongs to.
+          example: 33f66a25-941f-4efe-b782-0634bb2d2d31
+        check_name:
+          type: string
+          description: Name of the check this metric belongs to.
+          example: "HTTP stats"
+        check_tags:
+          type: array
+          items:
+            type: string
+          description: All tags that are inherited from the check for this metric.  
+          example: ["__check_module:httptrap","__check_name:User-check-name", "__check_target:some.host.com","__check_bundle_id:52871","__check_broker:broker-cn","user-defined:check-tag-value","__check_id:11111" ]
+        metric_name: 
+          type: string
+          description: The canonical metric name
+          example: foo|ST[app:myapp,region:us-east-1]
+        type: 
+          allOf: 
+            - $ref: "#/components/schemas/EnumIRONdbDataTypes"
+          description: The data type of the metric.
+        account_id:
+          type: integer
+          description: The account that this metric belongs to.
+        activity:
+          type: array
+          items: 
+            type: integer
+            minItems: 2
+            maxItems: 2
+          description: Epoch times representing the activity window boundaries for this metric.
+          example: [ [ 1558029600, 1558032300 ], [ 1559746800, 1569273300 ] ]
+        latest:
+          type: object
+          description: >
+            If activity tracking is turned on this will include activity windows for the metric.  An object will be returned with a key of the data type (multiple if the metric has more than one type of data associated) and an array of the two most recent timestamp/values tuples.  Two are provided in case the caller wishes to calcuate a derivative. If called in "no-work" mode (1) and no value is freely available, an empty object will be returned.
+          example: { "numeric": [ [ 1569271882337, 2991012437 ], [ 1569271942930, 2991020000 ] ] }
+    FindTagCatsResult:
+      type: array
+      items:
+        type: string
+      example: [ "app", "region" ]
+    FindTagValsResult:
+      type: array
+      items:
+        type: string
+      example: [ "myapp", "us-east-1" ]
+    FindActiveCountResult:
+      type: object
+      properties:
+        account_id:
+          type: integer
+          example: 1
+        activity_start:
+          type: integer
+          description: Epoch start time of the requested period.  This may not match the requested start time, as the system will align the start time to match internal tracking boundaries.
+          example: 1623445800
+        estimate:
+          type: boolean
+          description: If a cluster node is unavailable, IRONdb cannot correctly answer the question, but will attempt to estimate the answer instead, and set this field to `true` in those situations.
+        period_counts:
+          type: array
+          items:
+            type: integer
+            description: An array of metrics active during each 5 minute time slice starting from `activity_start` and moving forward in time to the requested end-time.
+          example: [58765,58618,58427]
+    FourPointResponse:
+      type: object
+      properties:
+        records:
+          type: integer
+        updated:
+          type: integer
+        misdirected: 
+          type: integer
+        errors:
+          type: integer
+    FivePointResponse:
+      type: object
+      properties:
+        records:
+          type: integer
+        updated:
+          type: integer
+        misdirected: 
+          type: integer
+        discarded:
+          type: integer
+          description: Count of metrics in batch that matched [discard_data_filter](https://docs.circonus.com/irondb/getting-started/configuration/#discard_data_filter) and were not ingested. (disabled by default, configurable via `//snowth/discard_data_filter/@tag`)
+        errors:
+          type: integer
+    LocateResponse:
+      type: object
+      xml:
+        name: nodes
+      properties:
+        key:
+          type: string
+          format: <check_uuid>-<metric>
+          description: The key used to locate the metric.
+          example: 33f66a25-941f-4efe-b782-0634bb2d2d31-latency|ST[host:alpha4.internal]
+        location:
+          $ref: '#/components/schemas/TopoDataResponse'
+    NumericTuples:
+      type: array
+      minItems: 0
+      description: An array of samples.  The first value is the epoch timestamp in milliseconds.  The second value is the sample at that time.
+      items:
+        type: array
+        minItems: 2
+        maxItems: 2
+        items:
+          type: number
+      example: [[1529509063064,1],[1529509122985,1.1],[1529509183764,1]]
+    ObjectTuplesAllTypes:
+      type: array
+      minItems: 0
+      description: An array of samples.  The first value is the epoch timestamp in milliseconds.  The second value is an object with all of the different rollup types available.
+      items:
+        type: array
+        minItems: 2
+        maxItems: 2
+        items:
+          anyOf:
+            - type: integer
+            - type: object
+      example: [[1529509063064,{"count": 1,"value": 0,"stddev": 0,"derivative": 0,"derivative_stddev": 0,"counter": 0,"counter_stddev": 0,"derivative2": 0,"derivative2_stddev": 0,"counter2": 0,"counter2_stddev": 0}],[1529509183764,    {"count": 1,"value": 0,"stddev": 0,"derivative": 0,"derivative_stddev": 0,"counter": 0,"counter_stddev": 0,"derivative2": 0,"derivative2_stddev": 0,"counter2": 0,"counter2_stddev": 0}]]
+    TopoDataResponse:
+      type: array
+      xml:
+        name: nodes
+        wrapped: true
+      items:
+        type: object
+        xml:
+          name: node
+        properties:
+          id:
+            type: string
+            format: uuid
+            description: The UUID of the node
+            xml:
+              attribute: true
+          address:
+            type: string
+            format: ipaddress
+            description: The IP address of the node
+            example: "192.168.1.100"
+            xml:
+              attribute: true
+          port:
+            type: integer
+            description: The port the node is listening on.
+            default: 8112
+            xml:
+              attribute: true
+          apiport:
+            type: integer
+            description: The port the API is listening on.
+            default: 8112
+            xml:
+              attribute: true
+          weight:
+            type: integer
+            description: A value representing how heavily the data to be stored on this node is weighted.
+            example: 32
+            xml:
+              attribute: true
+          n:
+            type: integer
+            description: >
+              The number of nodes on this ring on which data is stored.  Note:  In the XML format, this value is an attribute on the <nodes> level.
+            example: 2
+            xml:
+              attribute: true
+          side:
+            type: string
+            description: What side of a sided cluster the metric lives.
+            example: "both"
+            xml:
+              attribute: true    
+    TextTuples:
+      type: array
+      minItems: 0
+      description: An array of samples tuples.  The first value is the epoch timestamp in milliseconds.  The second value is the sample at that time.  The stream is returned as a front-edge-triggered list. In otherwords, if the same value is submitted multiple times sequentially, the result set fetched will have only the first occurrence or the “front-edge” of the signal.
+      items:
+        type: array
+        minItems: 2
+        maxItems: 2
+        items:
+          anyOf:
+          - type: number
+          - type: string
+      example: [[1529509063064,"test_value"],[1529509122985,"test_value2"]]
+    HistogramTuples:
+      type: array
+      minItems: 0
+      description: An array of histogram samples.  The first value is the epoch timestamp in milliseconds.  The second value is the period.  The third an object map with all of the different buckets as keys, and number of samples as values.
+      items:
+        type: array
+        minItems: 3
+        maxItems: 3
+        items:
+          anyOf:
+            - type: integer
+            - type: object
+      example: [[1380000000,300,{"1": 1,"2": 1,"3": 1,"4": 1,"5": 1}],[1380000300,300,{"1": 1,"2": 1,"3": 1,"4": 1,"5": 1}]]
+    HistogramRawTuples:
+      type: array
+      minItems: 0
+      description: An array of raw histogram samples. The first value is the epoch timestamp in milliseconds. The second is an object map with all of the different buckets as keys, and number of samples as values.
+      items:
+        type: array
+        minItems: 2
+        maxItems: 2
+        items:
+          anyOf:
+            - type: integer
+            - type: object
+      example: [[1380000000,{"1": 1,"2": 1,"3": 1,"4": 1,"5": 1}],[1380000300,{"1": 1,"2": 1,"3": 1,"4": 1,"5": 1}]]
+    RawTSVFormat:
+      type: string
+      example: |
+        M  1512691226.137  example.com`http`c_123_987654::http`1b988fd7-d1e1-48ec-848e-55709511d43f  duration  I  1
+        H1  1512691200.000  example.com`ping_icmp`c_123_45678::ping_icmp`c50361d8-7565-4f04-8128-3cd2613dbc82  maximum  AAFQ/gAB    
+tags:
+  - name: Data Submission
+  - name: Metric Search
+    description: >
+      Ways to search for and pull data about metrics or tags on metrics. 
+  - name: Retrieving and Transforming Data
+  - name: State and Topology
+  - name: Data Deletion
+  - name: Lua Extensions
+    description: >
+      CAQL and other Lua-based extensions
+  - name: Graphite Compatibility
+    description: >
+      For more information see [Whisper Drop-in Replacement](https://docs.circonus.com/irondb/integrations/graphite/).
+  - name: OpenTSDB Compatibility
+    description: >
+      For more information see [OpenTSDB Ingestion Replacement](https://docs.circonus.com/irondb/integrations/opentsdb/).
+  - name: Deprecated
+    description: >
+      Supported, but discouraged endpoints. 

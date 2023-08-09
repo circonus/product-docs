@@ -19,15 +19,15 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: "Circonus 2.0",
-    link: "/circonus3/category/getting-started",
+    link: "/circonus/getting-started/introduction",
   },
   {
     title: "IRONdb",
-    link: "/circonus3/category/getting-started",
+    link: "/irondb/category/getting-started",
   },
   {
     title: "CAQL",
-    link: "/circonus3/category/getting-started",
+    link: "/caql/getting-started",
   },
 ];
 

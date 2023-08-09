@@ -1,0 +1,803 @@
+openapi: 3.0.2
+info:
+  title: IRONdb Internal APIs
+  version: "0.1"
+  description: >
+    These APIs should not be used by humans typically. They are for IRONdb to communicate with itself, or completely unready for consumer use.
+paths:
+  /activate/{topohash}:
+    parameters:
+      - $ref: '#/components/parameters/TopoHash'
+    get:
+      tags:
+        - State and Topology
+      summary: >
+        DANGER.  Changes a node to a new topology.  This should  never run by a user.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: TODO
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /reconstitute/{node_uuid}:
+    parameters:
+      -  name: node_uuid
+         in: path
+         required: true
+         schema:
+           type: string
+           format: uuid
+         description: >
+           The UUID of the node that is requesting reconstitute information.
+    get:
+      tags:
+        - Reconstitute
+      summary: >
+        Retrieves metadata needed to perform a reconstitute.
+      responses:
+        "200":
+          description: >
+            "Success."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  checkpoint:
+                    type: string
+                    example: "00000001:00000001"
+                    description: >
+                      A checkpoint representing the current end of the redo log for the provided node on the destination. This is used to update the jlog when the reconstitute is finished to avoid replaying duplicate data. A value of "00000000:00000000" indicates that the jlog checkpoint should not be updated.
+                  metrics:
+                    type: array
+                    maxItems: 0
+                    minItems: 0
+                    description: >
+                      Deprecated. Used to contain a list of metric names, will now always be empty.
+                    items:
+                      type: string
+                      description: >
+                        A metric name. Unused.
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /reconstitute_state:
+    get:
+      tags:
+        - Reconstitute
+      summary: >
+        Returns information about whether a reconstitute is running on the snowth cluster or not.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReconstituteStateResponse"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /reconstitute_state/{node_uuid}:
+    parameters:
+       - name: node_uuid
+         in: path
+         required: true
+         description: >
+           The UUID of the node you with to inform the server is reconstituting.
+         schema:
+          type: string
+          format: uuid
+       - name: in_progress
+         in: query
+         required: true
+         description: >
+           A boolean value for whether you want to manually set the "reconstitute in progress" value to true or false.
+         schema:
+           type: boolean
+           example: true
+    put:
+      tags:
+        - Reconstitute
+      summary: >
+        Informs the node whether or not the node at the provided {node_uuid} is reconstituting or not.
+      responses:
+        "200":
+          description: >
+            Success.
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /checkpoint/{node_uuid}/{jlog_checkpoint_log}/{jlog_checkpoint_marker}:
+    parameters:
+     - name: node_uuid
+       in: path
+       required: true
+       schema:
+         type: string
+         format: uuid
+       description: >
+         The UUID of the node you wish to update the target's jlog for
+     - name: jlog_checkpoint_log
+       in: path
+       required: true
+       schema:
+         type: string
+         format: "[0-9A-Fa-f]{8}"
+         example: "0123ABCD"
+       description: >
+         The jlog checkpoint log file you wish to update the target to
+     - name: jlog_checkpoint_marker
+       in: path
+       required: true
+       schema:
+         type: string
+         format: "[0-9A-Fa-f]{8}"
+         example: "ABCD0123"
+       description: >
+         The jlog checkpoint marker within the log file you wish to update the target to
+     - $ref: '#/components/parameters/X-Snowth-Update-Asynchronous'
+    put:
+      tags:
+        - Reconstitute
+      summary: >
+        DANGER. This takes the redo log on a node and updates it to the position provided. This happens as part of the reconstitute process. If used improperly, it can cause data loss. It should never be run manually by a user.
+      responses:
+        "200":
+          description: >
+            "Success."
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /clean_rollup_suppressed_metrics:
+    delete:
+      tags:
+        - Data Deletion
+      summary: >
+        Manually triggers a cleanup to remove metric surrogates that match the configured /snowth/raw_database/@suppress_rollup_filter and no longer have samples in the raw database.  This process is normally automatically triggered by raw shard deletion and should typically not need to be used.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              example: 
+                message: Job triggered.
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: Job triggered but has nothing to do because suppress_rollup_filter is not configured within IRONdb.
+  /journal/{num_entries}:
+    parameters:
+      - name: num_entries
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 50000
+          minimum: 1
+        description: >
+          The number of distinct entries contained in the journal message.
+    post:
+      tags:
+        - Data Submission
+      summary: Submits messages to a node for processing, typically sent by other nodes' stored jlogs.  These are normally ingested data records, but can be delete messages, log messages, or lua commands as well.
+      requestBody:
+        content:
+          application/snowth-journal:
+            schema:
+              type: object
+              example: "<binary data>"
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: integer
+                    example: 50000
+                  failures:
+                    type: integer
+                    example: 0
+                  errors:
+                    type: integer
+                    example: 0
+        "500":
+          description: >
+            Some data failed to process.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: integer
+                    example: 50000
+                  failures:
+                    type: integer
+                    example: 25000
+                  errors:
+                    type: integer
+                    example: 25000
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /journal/tracer:
+    parameters:
+      - name: msg
+        in: query
+        required: false
+        schema:
+          type: string
+          default: "-"
+          example: "a9ba4e49-db80-4c3e-8a8d-4a766dcb2ef9"
+    get:
+      tags:
+        - Testing
+      summary: >
+        Sends a message to the jlog of all nodes on the cluster, which will print the message to the error log.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tracer:
+                    type: string
+                    example: "a9ba4e49-db80-4c3e-8a8d-4a766dcb2ef9"
+  /rebalance/activate/{topohash}:
+    parameters:
+      - $ref: '#/components/parameters/TopoHash'
+    post:
+      tags:
+        - Rebalance
+      summary: >
+        DANGER.  Changes a node to a new topology after a rebalance.  This should never run by a user.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: TODO
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /merge/histogram:
+    parameters:
+      - $ref: '#/components/parameters/X-Target-Topology'
+    patch:
+      tags:
+        - Rebalance
+      summary: >
+        Destination endpoint for rebalance pushes of histogram data.  NOTE:  This actually uses the HTTP verb `MERGE` but OpenAPI 3 doesn't allow that as an HTTP verb.
+      requestBody:
+        content:
+          application/x-circonus-metric-list-flatbuffer:
+            schema:
+              type: string
+              example: "<flatbuffer>"
+      responses:
+        "200":
+          description: Success.
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /merge/metric:
+    parameters:
+      - $ref: '#/components/parameters/X-Target-Topology'
+    patch:
+      tags:
+        - Rebalance
+      summary: >
+        Destination endpoint for rebalance pushes of raw data.  NOTE:  This actually uses the HTTP verb `MERGE` but OpenAPI 3 doesn't allow that as an HTTP verb.
+      requestBody:
+        content:
+          application/text:
+            schema:
+              type: string
+              example: "M records"
+      responses:
+        "200":
+          description: Success.
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /merge/nntbs:
+    parameters:
+      - $ref: '#/components/parameters/X-Target-Topology'
+    patch:
+      tags:
+        - Rebalance
+      summary: >
+        Destination endpoint for rebalance pushes of numeric data.  NOTE:  This actually uses the HTTP verb `MERGE` but OpenAPI 3 doesn't allow that as an HTTP verb.
+      requestBody:
+        content:
+          application/x-circonus-metric-list-flatbuffer:
+            schema:
+              type: string
+              example: "<flatbuffer>"
+      responses:
+        "200":
+          description: Success.
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /merge/surrogate:
+    parameters:
+      - $ref: '#/components/parameters/X-Target-Topology'
+    patch:
+      tags:
+        - Rebalance
+      summary: >
+        Destination endpoint for rebalance pushes of surrogate data.  NOTE:  This actually uses the HTTP verb `MERGE` but OpenAPI 3 doesn't allow that as an HTTP verb.
+      requestBody:
+        content:
+          application/x-circonus-metric-list-flatbuffer:
+            schema:
+              type: string
+              example: "<flatbuffer>"
+      responses:
+        "200":
+          description: Success.
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /merge/text:
+    parameters:
+      - $ref: '#/components/parameters/X-Target-Topology'
+    patch:
+      tags:
+        - Rebalance
+      summary: >
+        Destination endpoint for rebalance pushes of text data.  NOTE:  This actually uses the HTTP verb `MERGE` but OpenAPI 3 doesn't allow that as an HTTP verb.
+      requestBody:
+        content:
+          application/x-circonus-metric-list-flatbuffer:
+            schema:
+              type: string
+              example: "<flatbuffer>"
+      responses:
+        "200":
+          description: Success.
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /nntbs:
+    post:
+      tags:
+        - Data Submission
+      summary: >
+        Inserts data directly into the NNTBS database. It will not journal the data out to other nodes; it is the responsibility of the caller to make sure the data is correct. Generally used internally for data migration.
+      requestBody:
+        content:
+          application/snowth-nntbs:
+            schema:
+              type: object
+              example: "<flatbuffer>"
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FourPointResponse'
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /nntbs/reconstitute_by_shard:
+    parameters:
+      - $ref: '#/components/parameters/X-Topo'
+      - $ref: '#/components/parameters/X-Nodes-Down'
+      - name: node
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: >
+          The uuid of the requesting node for which the data should be sent.
+      - name: batch_size
+        in: query
+        required: true
+        schema:
+          type: integer
+          minimum: 0
+      - name: starting_period
+        in: query
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+      - name: starting_block
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+    get:
+      tags:
+        - Reconstitute
+      summary: >
+        Endpoint to request data from.  The reconstituting node will call this. 
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/X-Circonus-NNTMerge-Flatbuffer:
+              schema:
+                type: string
+                example: <binary>
+  /raw/reconstitute/surrogate:
+    parameters:
+      - $ref: '#/components/parameters/X-Topo'
+      - $ref: '#/components/parameters/X-Nodes-Down'
+      - name: node
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: >
+          The uuid of the node that is requesting raw reconstitute data
+    get:
+      tags:
+        - Reconstitute
+      summary: >
+        The endpoint that a reconstituting node will access to get the required surrogate data during a reconstitute
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            aapplication/X-Circonus-SurrogateDataList-Flatbuffer:
+              schema:
+                type: string
+                example: <flatbuffer>
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /raw/reconstitute_by_shard:
+    parameters:
+      - $ref: '#/components/parameters/X-Topo'
+      - $ref: '#/components/parameters/X-Nodes-Down'
+      - name: node
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: >
+          The uuid of the node that is requesting raw reconstitute data
+      - name: batch_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 500
+        description: >
+          The number of records to be sent back by the target node per batch.
+      - name: starting_block
+        in: query
+        required: true
+        schema:
+          type: integer
+          example: 1628726400
+        description: >
+          The starting floor of the raw shard to be reconstituted, represented in epoch seconds.
+    get:
+      tags:
+        - Reconstitute
+      summary: >
+        The endpoint that a reconstituting node will access to get the required raw numeric data during a reconstitute.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/X-Circonus-NomDBShardMerge-Flatbuffer:
+              schema:
+                type: string
+                example: <binary>
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /raw/text/{node_uuid}:
+    parameters:
+      - $ref: '#/components/parameters/ReconstituteNodeId'
+      - $ref: '#/components/parameters/ReconstituteHexHash'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+      - $ref: '#/components/parameters/X-Nodes-Down'
+      - $ref: '#/components/parameters/X-Topo'
+    get:
+      tags:
+        - Reconstitute
+      summary: >
+        Pulls down a subset of text data used during a reconstitute. Based on how the node is configured, there will be <X> number of streams to download. The hex hash specifies which one to pull.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/snowth-text:
+              schema:
+                description: >
+                  A binary stream of data representing the portion of the text database requested. This binary data can be directly imported by snowth.
+                type: string
+                example: <binary>
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /histogram/raw/{node_uuid}:
+    parameters:
+      - $ref: '#/components/parameters/ReconstituteNodeId'
+      - $ref: '#/components/parameters/ReconstituteHexHash'
+      - $ref: '#/components/parameters/X-Snowth-Separate-Raw'
+      - $ref: '#/components/parameters/X-Snowth-Timeout'
+      - $ref: '#/components/parameters/X-Nodes-Down'
+      - $ref: '#/components/parameters/X-Topo'
+    get:
+      tags:
+        - Reconstitute
+      summary: >
+        Pulls down a subset of histogram data used during a reconstitute. Based on how the node is configured, there will be <X> number of streams to download. The hex hash specifies which one to pull.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/snowth-hist:
+              schema:
+                description: >
+                  A binary stream of data representing the portion of the histogram database requested. This binary data can be directly imported by snowth.
+                type: string
+                example: <binary>
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /ingestion:
+    parameters:
+      - $ref: '#/components/parameters/QueryControl'
+    get:
+      tags:
+        - Data Submission
+      summary: >
+        Disable types of ingestion on the running node.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The current state of any disabled ingestion.
+                properties:
+                  disabled:
+                    type: array
+                    items:
+                      type: string
+                      enum:
+                        - raw
+                        - graphite
+                        - opentsdb
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  parameters:
+    TopoHash:
+      name: topohash
+      in: path
+      required: true
+      schema:
+        type: string
+        format: md5
+      description: >
+        The hash for the topology.
+    ReconstituteNodeId:
+      name: node_uuid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: >
+        The UUID of the node that is requesting reconstitute information.
+    ReconstituteHexHash:
+      name: hex_hash
+      in: query
+      required: true
+      schema:
+        type: string
+        format: hexadecimal
+        example: "f"
+      description: >
+        A hex string that specified which portion of the data to pull. Data is pulled down in a configurable set of streams to allow concurrency. This value will pull down the data that matches the hex value provided.
+    X-Snowth-Update-Asynchronous:
+      name: X-Snowth-Update-Asynchronous
+      in: header
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1
+      example: 1
+      required: false
+      description: >
+        Tells the snowth node if the requsted operation should be performed synchronously or asynchronously. If not specified, the action will be performed synchronously.
+    X-Nodes-Down:
+      name: X-Nodes-Down
+      in: header
+      schema:
+        type: string
+      description: >
+        A comma-separated list of nodes in the cluster that are down. The reconstitute process will use this to determine which metrics to pull from which nodes.
+    X-Target-Topology:
+      name: X-Topo
+      in: header
+      required: true
+      schema:
+        type: string
+      description: >
+        The target topology into which data is merged.
+      example: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+    X-Topo:
+      name: X-Topo
+      in: header
+      required: false
+      schema:
+        type: string
+      description: >
+        The long_topo_id of the topology the node should use for determining what data to send.   If not specified, the current topology will be used.
+    X-Snowth-Separate-Raw:
+      name: X-Snowth-Separate-Raw
+      in: header
+      required: false
+      schema:
+        type: integer
+      description: >
+        Whether or not to send raw histogram data separately. This is only relevant if the node is using histogram shards. Any positive integer value will set this to true. A value less than or equal to zero, or if the header is missing, will set it to false.
+    X-Snowth-Timeout:
+      name: X-Snowth-Timeout
+      in: header
+      required: false
+      schema:
+        type: string
+        format: "[0-9]?(s|ms)"
+      description: >
+        A timeout, provided in second or milliseconds (s or ms), for how long to allow the operation to run for before timing out with an error. In not specified, there will be no timeout.
+    QueryControl:
+      name: control
+      in: query
+      schema:
+        type: string
+        enum:
+          - raw-on
+          - raw-off
+          - graphite-on(todo)
+          - graphite-off(todo)
+          - opentsdb-on(todo)
+          - opentsdb-off(todo)
+          - all-on
+          - all-off
+      description: >
+        The type of ingestion to turn on or off.  This field can be left blank to return the current state.
+
+  schemas:
+    FourPointResponse:
+      type: object
+      properties:
+        records:
+          type: integer
+          description: Total number of records seen
+          example: 50000
+        updated:
+          type: integer
+          description: Total number of local records updated
+          example: 50000
+        misdirected:
+          type: integer
+          description: Total number of records received that do not belong on the receiving node
+          example: 0
+        errors:
+          type: integer
+          description: Total number of datapoints that contain errors
+          example: 0
+    ReconstituteStateResponse:
+      type: object
+      description: Information about reconstitutes running on the snowth cluster.
+      properties:
+        any_in_progress:
+          type: boolean
+          description: Whether or not a reconstitute is running on any node in the snowth cluster.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: A human readable description of the error.
+          example: Cannot parse tag query
+tags:
+  - name: State and Topology
+  - name: Data Deletion
+  - name: Data Submission
+  - name: Rebalance
+  - name: Reconstitute
+  - name: Testing
+  - name: Deprecated
+    description: >
+      Supported, but discouraged endpoints. 
