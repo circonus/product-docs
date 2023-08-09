@@ -1,1 +1,2 @@
 /circonus/integrations/library /circonus3/integrations/library 301
+/circonus/integrations/library/* /circonus3/integrations/library/:splat 301
