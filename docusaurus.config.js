@@ -46,17 +46,6 @@ const config = {
   ],
 
   plugins: [
-    // [
-    //   "@docusaurus/plugin-client-redirects",
-    //   {
-    //     redirects: [
-    //       {
-    //         to: "/circonus3/integrations/library",
-    //         from: "/circonus/integrations/library",
-    //       },
-    //     ],
-    //   },
-    // ],
     [
       "@docusaurus/plugin-content-docs",
       {
@@ -121,13 +110,13 @@ const config = {
           src: "img/logo.svg",
         },
         items: [
-          {
-            type: "docSidebar",
-            sidebarId: "defaultSidebar",
-            position: "left",
-            label: "Passport",
-            docsPluginId: "passport",
-          },
+          // {
+          //   type: "docSidebar",
+          //   sidebarId: "defaultSidebar",
+          //   position: "left",
+          //   label: "Passport",
+          //   docsPluginId: "passport",
+          // },
           {
             type: "docSidebar",
             sidebarId: "defaultSidebar",
@@ -135,12 +124,6 @@ const config = {
             label: "Circonus 3.0",
             docsPluginId: "circonus3",
           },
-          // { to: "/blog", label: "Blog", position: "left" },
-          // {
-          //   href: "https://github.com/facebook/docusaurus",
-          //   label: "GitHub",
-          //   position: "right",
-          // },
         ],
       },
       footer: {
@@ -169,7 +152,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Circonus, Inc.`,
       },
       prism: {
         theme: lightCodeTheme,
