@@ -11,7 +11,7 @@ const config = {
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: "https://docs.circonus.com",
+  url: "https://docs.field-sandbox.circonus.com",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
@@ -102,7 +102,26 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: "img/docusaurus-social-card.jpg",
+      algolia: {
+        // The application ID provided by Algolia
+        appId: "JFRZ7DGOY2",
+
+        // Public API key: it is safe to commit it
+        apiKey: "2aacf51fc732efb258bf7ca3f0751781",
+
+        indexName: "circonus",
+
+        // Optional: see doc section below
+        contextualSearch: false,
+        // Optional: Algolia search parameters
+        searchParameters: {},
+
+        // Optional: path for search page that enabled by default (`false` to disable it)
+        searchPagePath: "search",
+
+        //... other Algolia params
+      },
+      // image: "img/docusaurus-social-card.jpg",
       navbar: {
         title: "Circonus Docs",
         logo: {
