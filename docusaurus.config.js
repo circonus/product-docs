@@ -46,17 +46,17 @@ const config = {
   ],
 
   plugins: [
-    [
-      "@docusaurus/plugin-client-redirects",
-      {
-        redirects: [
-          {
-            to: "/circonus3/integrations/library",
-            from: "/circonus/integrations/library",
-          },
-        ],
-      },
-    ],
+    // [
+    //   "@docusaurus/plugin-client-redirects",
+    //   {
+    //     redirects: [
+    //       {
+    //         to: "/circonus3/integrations/library",
+    //         from: "/circonus/integrations/library",
+    //       },
+    //     ],
+    //   },
+    // ],
     [
       "@docusaurus/plugin-content-docs",
       {
