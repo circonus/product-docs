@@ -5,7 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "pwd && ls /opt/buildhome/repo/circonus3/integrations/library/ && node /opt/buildhome/repo/build_tools/create_integrations_json.js && docusaurus build",
+    "build": "pwd && ls /opt/buildhome/repo/circonus3 && node /opt/buildhome/repo/build_tools/create_integrations_json.js && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
