@@ -3,6 +3,10 @@ var fs = require("fs"),
 
 const testFolder = "circonus3/integrations/library/";
 
+fs.readdirSync(testFolder).forEach((file) => {
+  console.log(file);
+});
+
 const integrationsObj = [
   {
     title: "Graphite (Pickle)",
@@ -161,6 +165,6 @@ fs.readdirSync(testFolder).forEach((file) => {
 });
 
 fs.writeFileSync(
-  "static/integrations_library.json",
+  "static/circonus/integrations_library.json",
   JSON.stringify(integrationsObj)
 );
