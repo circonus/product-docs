@@ -1,7 +1,8 @@
 ---
 title: GCP Load Balancing
 sidebar_custom_props:
-image: gcp-load-balancing.svg
+  image: gcp-load-balancing.svg
+logo_light: /img/library/gcp-load-balancing.svg
 description: ""
 implementation: cua
 module: httptrap:cua:stackdriver_circonus:loadbalancing.googleapis.com

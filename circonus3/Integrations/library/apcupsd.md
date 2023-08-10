@@ -1,7 +1,8 @@
 ---
 title: Apcupsd
 sidebar_custom_props:
-image: apc.svg
+  image: apc.svg
+logo_light: /img/library/apc.svg
 description: ""
 implementation: cua
 module: httptrap:cua:apcupsd

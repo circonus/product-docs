@@ -1,7 +1,8 @@
 ---
 title: SNMP
 sidebar_custom_props:
-image: snmp.svg
+  image: snmp.svg
+logo_light: /img/library/snmp.svg
 description: ""
 implementation: cua
 module: httptrap:cua:snmp

@@ -1,7 +1,8 @@
 ---
 title: Apache
 sidebar_custom_props:
-image: apache.svg
+  image: apache.svg
+logo_light: /img/library/apache.svg
 description: ""
 legacy: true
 implementation: broker

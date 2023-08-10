@@ -1,7 +1,8 @@
 ---
 title: OpenTSDB
 sidebar_custom_props:
-image: opentsdb.svg
+  image: opentsdb.svg
+logo_light: /img/library/opentsdb.svg
 description: ""
 implementation: broker
 module: opentsdb

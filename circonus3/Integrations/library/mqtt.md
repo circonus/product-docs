@@ -1,7 +1,8 @@
 ---
 title: MQTT
 sidebar_custom_props:
-image: mqtt.svg
+  image: mqtt.svg
+logo_light: /img/library/mqtt.svg
 description: ""
 implementation: cua
 module: httptrap:cua:mqtt_consumer

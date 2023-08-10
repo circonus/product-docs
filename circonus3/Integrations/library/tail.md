@@ -1,7 +1,8 @@
 ---
 title: Tail
 sidebar_custom_props:
-image: tail.svg
+  image: tail.svg
+logo_light: /img/library/tail.svg
 description: ""
 implementation: cua
 module: httptrap:cua:tail

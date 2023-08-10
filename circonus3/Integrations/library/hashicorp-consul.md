@@ -1,7 +1,8 @@
 ---
 title: Hashicorp Consul
 sidebar_custom_props:
-image: hashicorp-consul.svg
+  image: hashicorp-consul.svg
+logo_light: /img/library/hashicorp-consul.svg
 description: ""
 implementation: cua
 module: httptrap:cua:consul

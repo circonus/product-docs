@@ -1,8 +1,9 @@
 ---
 title: Riemann Listener
 sidebar_custom_props:
-image: riemann.png
-logo_dark: "/images/circonus/library/riemann-dark.png"
+  image: riemann.png
+logo_light: /img/library/riemann.png
+logo_dark: /img/library/riemann-dark.png
 description: ""
 implementation: cua
 module: httptrap:cua:riemann_listener

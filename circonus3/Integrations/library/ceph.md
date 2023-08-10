@@ -1,7 +1,8 @@
 ---
 title: Ceph
 sidebar_custom_props:
-image: ceph.svg
+  image: ceph.svg
+logo_light: /img/library/ceph.svg
 description: ""
 implementation: cua
 module: httptrap:cua:ceph

@@ -1,7 +1,8 @@
 ---
 title: Tengine
 sidebar_custom_props:
-image: tengine.svg
+  image: tengine.svg
+logo_light: /img/library/tengine.svg
 description: ""
 implementation: cua
 module: httptrap:cua:tengine

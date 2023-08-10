@@ -1,7 +1,8 @@
 ---
 title: Jenkins
 sidebar_custom_props:
-image: jenkins.svg
+  image: jenkins.svg
+logo_light: /img/library/jenkins.svg
 description: ""
 implementation: cua
 module: httptrap:cua:jenkins

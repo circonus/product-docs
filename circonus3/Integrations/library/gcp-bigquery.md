@@ -1,7 +1,8 @@
 ---
 title: GCP BigQuery
 sidebar_custom_props:
-image: gcp-bigquery.svg
+  image: gcp-bigquery.svg
+logo_light: /img/library/gcp-bigquery.svg
 description: ""
 implementation: cua
 module: httptrap:cua:stackdriver_circonus:bigquery.googleapis.com

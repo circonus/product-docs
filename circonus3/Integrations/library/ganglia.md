@@ -1,7 +1,8 @@
 ---
 title: Ganglia
 sidebar_custom_props:
-image: ganglia.svg
+  image: ganglia.svg
+logo_light: /img/library/ganglia.svg
 description: ""
 implementation: broker
 module: ganglia

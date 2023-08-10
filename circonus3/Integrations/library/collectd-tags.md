@@ -1,8 +1,9 @@
 ---
 title: collectd + tags
 sidebar_custom_props:
-image: collectd+tags.svg
-logo_dark: "/images/circonus/library/collectd+tags-dark.svg"
+  image: collectd+tags.svg
+logo_light: /img/library/collectd+tags.svg
+logo_dark: /img/library/collectd+tags-dark.svg
 description: ""
 implementation: broker
 module: opentsdb:collectd_write_tsdb

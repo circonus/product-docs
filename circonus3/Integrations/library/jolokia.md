@@ -1,7 +1,8 @@
 ---
 title: Jolokia
 sidebar_custom_props:
-image: jolokia.png
+  image: jolokia.png
+logo_light: /img/library/jolokia.png
 description: ""
 implementation: cua
 module: httptrap:cua:jolokia2

@@ -1,7 +1,8 @@
 ---
 title: JSON:Pull
 sidebar_custom_props:
-image: json.svg
+  image: json.svg
+logo_light: /img/library/json.svg
 description: ""
 implementation: broker
 module: json

@@ -1,7 +1,8 @@
 ---
 title: Memcached
 sidebar_custom_props:
-image: memcached.svg
+  image: memcached.svg
+logo_light: /img/library/memcached.svg
 description: ""
 legacy: true
 implementation: broker

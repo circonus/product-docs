@@ -1,8 +1,9 @@
 ---
 title: OPC UA Client
 sidebar_custom_props:
-image: opcua.svg
-logo_dark: "/images/circonus/library/opcua-dark.svg"
+  image: opcua.svg
+logo_light: /img/library/opcua.svg
+logo_dark: /img/library/opcua-dark.svg
 description: ""
 implementation: cua
 module: httptrap:cua:opcua

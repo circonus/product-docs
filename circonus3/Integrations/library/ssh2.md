@@ -1,7 +1,8 @@
 ---
 title: SSH2
 sidebar_custom_props:
-image: ssh2.svg
+  image: ssh2.svg
+logo_light: /img/library/ssh2.svg
 description: ""
 implementation: broker
 module: ssh2

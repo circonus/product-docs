@@ -1,8 +1,9 @@
 ---
 title: Logstash
 sidebar_custom_props:
-image: logstash.svg
-logo_dark: "/images/circonus/library/logstash-dark.svg"
+  image: logstash.svg
+logo_light: /img/library/logstash.svg
+logo_dark: /img/library/logstash-dark.svg
 description: ""
 implementation: cua
 module: httptrap:cua:logstash

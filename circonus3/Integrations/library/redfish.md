@@ -1,7 +1,8 @@
 ---
 title: Redfish
 sidebar_custom_props:
-image: redfish.png
+  image: redfish.png
+logo_light: /img/library/redfish.png
 description: ""
 implementation: cua
 module: httptrap:cua:redfish

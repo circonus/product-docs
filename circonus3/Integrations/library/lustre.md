@@ -1,7 +1,8 @@
 ---
 title: Lustre
 sidebar_custom_props:
-image: lustre.png
+  image: lustre.png
+logo_light: /img/library/lustre.png
 description: ""
 implementation: cua
 module: httptrap:cua:lustre2

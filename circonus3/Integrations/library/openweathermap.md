@@ -1,7 +1,8 @@
 ---
 title: OpenWeatherMap
 sidebar_custom_props:
-image: openweathermap.svg
+  image: openweathermap.svg
+logo_light: /img/library/openweathermap.svg
 description: ""
 implementation: cua
 module: httptrap:cua:openweathermap

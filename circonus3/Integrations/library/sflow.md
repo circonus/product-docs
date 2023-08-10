@@ -1,8 +1,9 @@
 ---
 title: SFlow
 sidebar_custom_props:
-image: sflow.png
-logo_dark: "/images/circonus/library/sflow-dark.png"
+  image: sflow.png
+logo_light: /img/library/sflow.png
+logo_dark: /img/library/sflow-dark.png
 description: ""
 implementation: cua
 module: httptrap:cua:sflow

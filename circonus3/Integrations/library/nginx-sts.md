@@ -1,7 +1,8 @@
 ---
 title: NGINX Stream Traffic Status (STS)
 sidebar_custom_props:
-image: nginx.svg
+  image: nginx.svg
+logo_light: /img/library/nginx.svg
 description: ""
 implementation: cua
 module: httptrap:cua:nginx_sts

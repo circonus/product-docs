@@ -1,7 +1,8 @@
 ---
 title: DNS
 sidebar_custom_props:
-image: dns.svg
+  image: dns.svg
+logo_light: /img/library/dns.svg
 description: ""
 legacy: true
 implementation: broker

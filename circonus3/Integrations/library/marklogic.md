@@ -1,7 +1,8 @@
 ---
 title: MarkLogic
 sidebar_custom_props:
-image: marklogic.svg
+  image: marklogic.svg
+logo_light: /img/library/marklogic.svg
 description: ""
 implementation: cua
 module: httptrap:cua:marklogic

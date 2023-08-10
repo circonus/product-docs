@@ -1,7 +1,8 @@
 ---
 title: Suricata
 sidebar_custom_props:
-image: suricata.svg
+  image: suricata.svg
+logo_light: /img/library/suricata.svg
 description: ""
 implementation: cua
 module: httptrap:cua:suricata

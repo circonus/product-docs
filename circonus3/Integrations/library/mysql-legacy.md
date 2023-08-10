@@ -1,7 +1,8 @@
 ---
 title: MySQL
 sidebar_custom_props:
-image: mysql.svg
+  image: mysql.svg
+logo_light: /img/library/mysql.svg
 description: ""
 legacy: true
 implementation: broker

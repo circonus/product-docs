@@ -1,7 +1,8 @@
 ---
 title: Riak
 sidebar_custom_props:
-image: riak.svg
+  image: riak.svg
+logo_light: /img/library/riak.svg
 description: ""
 legacy: true
 implementation: broker

@@ -1,7 +1,8 @@
 ---
 title: Redis
 sidebar_custom_props:
-image: redis.svg
+  image: redis.svg
+logo_light: /img/library/redis.svg
 description: ""
 legacy: true
 implementation: broker

@@ -1,7 +1,8 @@
 ---
 title: Intel RDT
 sidebar_custom_props:
-image: intel.svg
+  image: intel.svg
+logo_light: /img/library/intel.svg
 description: ""
 implementation: cua
 module: httptrap:cua:intel_rdt

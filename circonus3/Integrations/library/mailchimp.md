@@ -1,8 +1,9 @@
 ---
 title: Mailchimp
 sidebar_custom_props:
-image: mailchimp.svg
-logo_dark: "/images/circonus/library/mailchimp-dark.svg"
+  image: mailchimp.svg
+logo_light: /img/library/mailchimp.svg
+logo_dark: /img/library/mailchimp-dark.svg
 description: ""
 implementation: cua
 module: httptrap:cua:mailchimp

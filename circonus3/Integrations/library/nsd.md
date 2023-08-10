@@ -1,7 +1,8 @@
 ---
 title: NSD
 sidebar_custom_props:
-image: nsd.svg
+  image: nsd.svg
+logo_light: /img/library/nsd.svg
 description: ""
 implementation: cua
 module: httptrap:cua:nsd

@@ -1,7 +1,8 @@
 ---
 title: GCP Cloud Storage
 sidebar_custom_props:
-image: gcp-cloud-storage.svg
+  image: gcp-cloud-storage.svg
+logo_light: /img/library/gcp-cloud-storage.svg
 description: ""
 implementation: cua
 module: httptrap:cua:stackdriver_circonus:storage.googleapis.com

@@ -1,7 +1,8 @@
 ---
 title: Prometheus
 sidebar_custom_props:
-image: prometheus.svg
+  image: prometheus.svg
+logo_light: /img/library/prometheus.svg
 description: ""
 legacy: true
 implementation: broker

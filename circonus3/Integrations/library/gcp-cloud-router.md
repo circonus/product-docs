@@ -1,7 +1,8 @@
 ---
 title: GCP Cloud Router
 sidebar_custom_props:
-image: gcp-cloud-router.svg
+  image: gcp-cloud-router.svg
+logo_light: /img/library/gcp-cloud-router.svg
 description: ""
 implementation: cua
 module: httptrap:cua:stackdriver_circonus:router.googleapis.com

@@ -1,8 +1,9 @@
 ---
 title: Arista LANZ
 sidebar_custom_props:
-image: arista.svg
-logo_dark: "/images/circonus/library/arista-dark.svg"
+  image: arista.svg
+logo_light: /img/library/arista.svg
+logo_dark: /img/library/arista-dark.svg
 description: ""
 implementation: cua
 module: httptrap:cua:lanz

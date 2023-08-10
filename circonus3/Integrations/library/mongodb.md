@@ -1,7 +1,8 @@
 ---
 title: MongoDB
 sidebar_custom_props:
-image: mongodb.svg
+  image: mongodb.svg
+logo_light: /img/library/mongodb.svg
 description: ""
 implementation: cua
 module: httptrap:cua:mongodb

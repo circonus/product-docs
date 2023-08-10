@@ -1,7 +1,8 @@
 ---
 title: Fireboard
 sidebar_custom_props:
-image: fireboard.svg
+  image: fireboard.svg
+logo_light: /img/library/fireboard.svg
 description: ""
 implementation: cua
 module: httptrap:cua:fireboard

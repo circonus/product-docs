@@ -1,8 +1,9 @@
 ---
 title: Webhooks
 sidebar_custom_props:
-image: webhooks.svg
-logo_dark: "/images/circonus/library/webhooks-dark.svg"
+  image: webhooks.svg
+logo_light: /img/library/webhooks.svg
+logo_dark: /img/library/webhooks-dark.svg
 description: ""
 implementation: cua
 module: httptrap:cua:webhooks

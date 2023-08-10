@@ -1,7 +1,8 @@
 ---
 title: NGINX Plus
 sidebar_custom_props:
-image: nginx-plus.svg
+  image: nginx-plus.svg
+logo_light: /img/library/nginx-plus.svg
 description: ""
 implementation: cua
 module: httptrap:cua:nginx_plus

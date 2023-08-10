@@ -1,8 +1,9 @@
 ---
 title: gNMI
 sidebar_custom_props:
-image: grpc.svg
-logo_dark: "/images/circonus/library/grpc-dark.svg"
+  image: grpc.svg
+logo_light: /img/library/grpc.svg
+logo_dark: /img/library/grpc-dark.svg
 description: ""
 implementation: cua
 module: httptrap:cua:gnmi

@@ -1,7 +1,8 @@
 ---
 title: OpenNTPD
 sidebar_custom_props:
-image: openntpd.png
+  image: openntpd.png
+logo_light: /img/library/openntpd.png
 description: ""
 implementation: cua
 module: httptrap:cua:openntpd

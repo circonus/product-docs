@@ -1,7 +1,8 @@
 ---
 title: NSQ
 sidebar_custom_props:
-image: nsq.svg
+  image: nsq.svg
+logo_light: /img/library/nsq.svg
 description: ""
 implementation: cua
 module: httptrap:cua:nsq

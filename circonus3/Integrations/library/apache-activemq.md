@@ -1,7 +1,8 @@
 ---
 title: Apache ActiveMQ
 sidebar_custom_props:
-image: apache-activemq.svg
+  image: apache-activemq.svg
+logo_light: /img/library/apache-activemq.svg
 description: ""
 implementation: cua
 module: httptrap:cua:activemq

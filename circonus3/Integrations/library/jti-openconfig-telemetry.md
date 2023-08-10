@@ -1,8 +1,9 @@
 ---
 title: JTI OpenConfig Telemetry
 sidebar_custom_props:
-image: juniper-networks.svg
-logo_dark: "/images/circonus/library/juniper-networks-dark.svg"
+  image: juniper-networks.svg
+logo_light: /img/library/juniper-networks.svg
+logo_dark: /img/library/juniper-networks-dark.svg
 description: ""
 implementation: cua
 module: httptrap:cua:jti_openconfig_telemetry

@@ -1,7 +1,8 @@
 ---
 title: Docker
 sidebar_custom_props:
-image: docker.svg
+  image: docker.svg
+logo_light: /img/library/docker.svg
 description: ""
 implementation: cua
 module: httptrap:cua:docker

@@ -1,7 +1,8 @@
 ---
 title: Ethtool
 sidebar_custom_props:
-image: ethtool.svg
+  image: ethtool.svg
+logo_light: /img/library/ethtool.svg
 description: ""
 implementation: cua
 module: httptrap:cua:ethtool

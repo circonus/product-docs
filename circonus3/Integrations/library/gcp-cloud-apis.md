@@ -1,7 +1,8 @@
 ---
 title: GCP Cloud APIs
 sidebar_custom_props:
-image: gcp-cloud-apis.svg
+  image: gcp-cloud-apis.svg
+logo_light: /img/library/gcp-cloud-apis.svg
 description: ""
 implementation: cua
 module: httptrap:cua:stackdriver_circonus:serviceruntime.googleapis.com

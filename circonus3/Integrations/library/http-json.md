@@ -1,7 +1,8 @@
 ---
 title: HTTP JSON
 sidebar_custom_props:
-image: json.svg
+  image: json.svg
+logo_light: /img/library/json.svg
 description: ""
 implementation: cua
 module: httptrap:cua:circ_http_json

@@ -2,7 +2,8 @@
 title: Aerospike
 description: ""
 sidebar_custom_props:
-image: aerospike.svg
+  image: aerospike.svg
+logo_light: /img/library/aerospike.svg
 ---
 
 # Aerospike

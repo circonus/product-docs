@@ -1,7 +1,8 @@
 ---
 title: Unbound
 sidebar_custom_props:
-image: unbound.svg
+  image: unbound.svg
+logo_light: /img/library/unbound.svg
 description: ""
 implementation: cua
 module: httptrap:cua:unbound

@@ -1,7 +1,8 @@
 ---
 title: Ping
 sidebar_custom_props:
-image: ping.svg
+  image: ping.svg
+logo_light: /img/library/ping.svg
 description: ""
 legacy: true
 implementation: broker

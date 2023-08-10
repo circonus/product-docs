@@ -1,7 +1,8 @@
 ---
 title: Dovecot
 sidebar_custom_props:
-image: dovecot.svg
+  image: dovecot.svg
+logo_light: /img/library/dovecot.svg
 description: ""
 implementation: cua
 module: httptrap:cua:dovecot

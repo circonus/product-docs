@@ -1,8 +1,9 @@
 ---
 title: Fibaro
 sidebar_custom_props:
-image: fibaro.svg
-logo_dark: "/images/circonus/library/fibaro-dark.svg"
+  image: fibaro.svg
+logo_light: /img/library/fibaro.svg
+logo_dark: /img/library/fibaro-dark.svg
 description: ""
 implementation: cua
 module: httptrap:cua:fibaro

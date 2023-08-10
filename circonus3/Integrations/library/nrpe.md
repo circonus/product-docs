@@ -1,8 +1,9 @@
 ---
 title: NRPE
 sidebar_custom_props:
-image: nagios.svg
-logo_dark: "/images/circonus/library/nagios-dark.svg"
+  image: nagios.svg
+logo_light: /img/library/nagios.svg
+logo_dark: /img/library/nagios-dark.svg
 description: ""
 implementation: broker
 module: nrpe

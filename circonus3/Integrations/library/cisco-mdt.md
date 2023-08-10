@@ -1,7 +1,8 @@
 ---
 title: Cisco MDT
 sidebar_custom_props:
-image: cisco.svg
+  image: cisco.svg
+logo_light: /img/library/cisco.svg
 description: ""
 implementation: cua
 module: httptrap:cua:cisco_telemetry_mdt

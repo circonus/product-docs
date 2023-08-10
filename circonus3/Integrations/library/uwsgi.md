@@ -1,8 +1,9 @@
 ---
 title: uWSGI
 sidebar_custom_props:
-image: uwsgi.svg
-logo_dark: "/images/circonus/library/uwsgi-dark.svg"
+  image: uwsgi.svg
+logo_light: /img/library/uwsgi.svg
+logo_dark: /img/library/uwsgi-dark.svg
 description: ""
 implementation: cua
 module: httptrap:cua:uwsgi

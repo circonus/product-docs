@@ -1,7 +1,8 @@
 ---
 title: HAProxy
 sidebar_custom_props:
-image: haproxy.svg
+  image: haproxy.svg
+logo_light: /img/library/haproxy.svg
 description: ""
 legacy: true
 implementation: broker

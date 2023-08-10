@@ -1,7 +1,8 @@
 ---
 title: CouchDB
 sidebar_custom_props:
-image: couchdb.svg
+  image: couchdb.svg
+logo_light: /img/library/couchdb.svg
 description: ""
 implementation: cua
 module: httptrap:cua:couchdb

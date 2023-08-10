@@ -1,7 +1,8 @@
 ---
 title: TCP
 sidebar_custom_props:
-image: tcp.svg
+  image: tcp.svg
+logo_light: /img/library/tcp.svg
 description: ""
 implementation: broker
 module: tcp

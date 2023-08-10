@@ -1,7 +1,8 @@
 ---
 title: Apache Aurora
 sidebar_custom_props:
-image: apache-aurora.svg
+  image: apache-aurora.svg
+logo_light: /img/library/apache-aurora.svg
 description: ""
 implementation: cua
 module: httptrap:cua:aurora

@@ -1,7 +1,8 @@
 ---
 title: SMTP
 sidebar_custom_props:
-image: smtp.svg
+  image: smtp.svg
+logo_light: /img/library/smtp.svg
 description: ""
 implementation: broker
 module: smtp

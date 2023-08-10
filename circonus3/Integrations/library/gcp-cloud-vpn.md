@@ -1,7 +1,8 @@
 ---
 title: GCP Cloud VPN
 sidebar_custom_props:
-image: gcp-cloud-vpn.svg
+  image: gcp-cloud-vpn.svg
+logo_light: /img/library/gcp-cloud-vpn.svg
 description: ""
 implementation: cua
 module: httptrap:cua:stackdriver_circonus:vpn.googleapis.com

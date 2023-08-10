@@ -1,7 +1,8 @@
 ---
 title: x509 Certificate
 sidebar_custom_props:
-image: x509-certificate.svg
+  image: x509-certificate.svg
+logo_light: /img/library/x509-certificate.svg
 description: ""
 implementation: cua
 module: httptrap:cua:x509_cert

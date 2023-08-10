@@ -1,7 +1,8 @@
 ---
 title: Exec
 sidebar_custom_props:
-image: exec.svg
+  image: exec.svg
+logo_light: /img/library/exec.svg
 description: ""
 implementation: cua
 module: httptrap:cua:exec

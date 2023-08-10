@@ -1,7 +1,8 @@
 ---
 title: Microsoft SQLServer
 sidebar_custom_props:
-image: microsoft-sqlserver.svg
+  image: microsoft-sqlserver.svg
+logo_light: /img/library/microsoft-sqlserver.svg
 description: ""
 implementation: cua
 module: httptrap:cua:sqlserver

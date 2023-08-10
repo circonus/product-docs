@@ -1,7 +1,8 @@
 ---
 title: Custom
 sidebar_custom_props:
-image: custom.svg
+  image: custom.svg
+logo_light: /img/library/custom.svg
 description: ""
 implementation: broker
 module: custom

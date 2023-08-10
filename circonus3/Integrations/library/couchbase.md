@@ -1,7 +1,8 @@
 ---
 title: Couchbase
 sidebar_custom_props:
-image: couchbase.svg
+  image: couchbase.svg
+logo_light: /img/library/couchbase.svg
 description: ""
 implementation: cua
 module: httptrap:cua:couchbase

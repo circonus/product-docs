@@ -1,8 +1,9 @@
 ---
 title: GitHub
 sidebar_custom_props:
-image: github.svg
-logo_dark: "/images/circonus/library/github-dark.svg"
+  image: github.svg
+logo_light: /img/library/github.svg
+logo_dark: /img/library/github-dark.svg
 description: ""
 implementation: cua
 module: httptrap:cua:github

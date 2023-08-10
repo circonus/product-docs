@@ -1,7 +1,8 @@
 ---
 title: Salesforce
 sidebar_custom_props:
-image: salesforce.svg
+  image: salesforce.svg
+logo_light: /img/library/salesforce.svg
 description: ""
 implementation: cua
 module: httptrap:cua:salesforce

@@ -1,7 +1,8 @@
 ---
 title: Apache Zookeeper
 sidebar_custom_props:
-image: apache-zookeeper.svg
+  image: apache-zookeeper.svg
+logo_light: /img/library/apache-zookeeper.svg
 description: ""
 implementation: cua
 module: httptrap:cua:zookeeper

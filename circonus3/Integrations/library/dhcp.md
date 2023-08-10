@@ -1,7 +1,8 @@
 ---
 title: DHCP
 sidebar_custom_props:
-image: dhcp.svg
+  image: dhcp.svg
+logo_light: /img/library/dhcp.svg
 description: ""
 implementation: broker
 module: dhcp
