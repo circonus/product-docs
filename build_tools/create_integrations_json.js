@@ -1,11 +1,7 @@
 var fs = require("fs"),
   fm = require("front-matter");
 
-const testFolder = "circonus3/integrations/library/";
-
-fs.readdirSync(testFolder).forEach((file) => {
-  console.log(file);
-});
+const integrationsFolder = "/product-docs/circonus3/integrations/library/";
 
 const integrationsObj = [
   {
@@ -156,7 +152,7 @@ const createIntegrationsJSON = function (data, fileName) {
   integrationsObj.push(payload);
 };
 
-fs.readdirSync(testFolder).forEach((file) => {
+fs.readdirSync(integrationsFolder).forEach((file) => {
   const data = fs.readFileSync(
     `circonus3/integrations/library/${file}`,
     "utf8"
