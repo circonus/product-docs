@@ -1,7 +1,7 @@
 ---
 title: OpenSMTPD
 sidebar_custom_props:
-  image: opensmtpd.png
+image: opensmtpd.png
 description: ""
 implementation: cua
 module: httptrap:cua:opensmtpd

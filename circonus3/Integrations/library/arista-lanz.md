@@ -1,7 +1,7 @@
 ---
 title: Arista LANZ
 sidebar_custom_props:
-  image: arista.svg
+image: arista.svg
 logo_dark: "/images/circonus/library/arista-dark.svg"
 description: ""
 implementation: cua

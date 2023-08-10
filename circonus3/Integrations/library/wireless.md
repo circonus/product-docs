@@ -1,7 +1,7 @@
 ---
 title: Wireless
 sidebar_custom_props:
-  image: wireless.svg
+image: wireless.svg
 logo_dark: "/images/circonus/library/wireless-dark.svg"
 description: ""
 implementation: cua

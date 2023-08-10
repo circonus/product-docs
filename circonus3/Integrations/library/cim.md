@@ -1,7 +1,7 @@
 ---
 title: CIM
 sidebar_custom_props:
-  image: cim.svg
+image: cim.svg
 description: ""
 implementation: broker
 module: cim

@@ -2,7 +2,7 @@
 title: Amazon CloudWatch
 description: ""
 sidebar_custom_props:
-  image: amazon-cloudwatch.svg
+image: amazon-cloudwatch.svg
 ---
 
 # Amazon CloudWatch

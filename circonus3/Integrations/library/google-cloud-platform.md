@@ -1,7 +1,7 @@
 ---
 title: Google Cloud Platform
 sidebar_custom_props:
-  image: google-cloud-platform.svg
+image: google-cloud-platform.svg
 description: ""
 implementation: cua
 module: httptrap:cua:stackdriver_circonus

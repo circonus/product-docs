@@ -1,7 +1,7 @@
 ---
 title: Apache Mesos
 sidebar_custom_props:
-  image: apache-mesos.svg
+image: apache-mesos.svg
 description: ""
 implementation: cua
 module: httptrap:cua:mesos

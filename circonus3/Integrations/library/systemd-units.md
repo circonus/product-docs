@@ -1,7 +1,7 @@
 ---
 title: systemd Units
 sidebar_custom_props:
-  image: systemd.svg
+image: systemd.svg
 logo_dark: "/images/circonus/library/systemd-dark.svg"
 description: ""
 implementation: cua

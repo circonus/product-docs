@@ -1,7 +1,7 @@
 ---
 title: Prometheus
 sidebar_custom_props:
-  image: prometheus.svg
+image: prometheus.svg
 description: ""
 implementation: cua
 module: httptrap:cua:prometheus

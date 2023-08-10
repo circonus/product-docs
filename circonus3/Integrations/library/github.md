@@ -1,7 +1,7 @@
 ---
 title: GitHub
 sidebar_custom_props:
-  image: github.svg
+image: github.svg
 logo_dark: "/images/circonus/library/github-dark.svg"
 description: ""
 implementation: cua

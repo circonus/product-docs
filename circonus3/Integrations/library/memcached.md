@@ -1,7 +1,7 @@
 ---
 title: Memcached
 sidebar_custom_props:
-  image: memcached.svg
+image: memcached.svg
 description: ""
 implementation: cua
 module: httptrap:cua:memcached

@@ -1,7 +1,7 @@
 ---
 title: ZFS
 sidebar_custom_props:
-  image: zfs.svg
+image: zfs.svg
 description: ""
 implementation: cua
 module: httptrap:cua:zfs

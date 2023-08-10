@@ -1,7 +1,7 @@
 ---
 title: OpenTelemetry
 sidebar_custom_props:
-  image: opentelemetry.svg
+image: opentelemetry.svg
 description: ""
 implementation: broker
 module: otlphttp

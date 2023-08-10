@@ -1,7 +1,7 @@
 ---
 title: IMAP
 sidebar_custom_props:
-  image: imap.svg
+image: imap.svg
 description: ""
 implementation: broker
 module: imap

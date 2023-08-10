@@ -1,7 +1,7 @@
 ---
 title: PowerDNS
 sidebar_custom_props:
-  image: powerdns.svg
+image: powerdns.svg
 description: ""
 implementation: cua
 module: httptrap:cua:powerdns

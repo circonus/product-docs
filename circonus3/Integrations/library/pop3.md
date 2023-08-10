@@ -1,7 +1,7 @@
 ---
 title: POP3
 sidebar_custom_props:
-  image: pop3.svg
+image: pop3.svg
 description: ""
 implementation: broker
 module: pop3

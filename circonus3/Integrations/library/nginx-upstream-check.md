@@ -1,7 +1,7 @@
 ---
 title: NGINX Upstream Check
 sidebar_custom_props:
-  image: nginx.svg
+image: nginx.svg
 description: ""
 implementation: cua
 module: httptrap:cua:nginx_upstream_check

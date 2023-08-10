@@ -1,7 +1,7 @@
 ---
 title: Munin
 sidebar_custom_props:
-  image: munin.svg
+image: munin.svg
 logo_dark: "/images/circonus/library/munin-dark.svg"
 description: ""
 implementation: broker

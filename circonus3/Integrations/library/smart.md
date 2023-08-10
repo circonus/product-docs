@@ -1,7 +1,7 @@
 ---
 title: S.M.A.R.T.
 sidebar_custom_props:
-  image: smart.svg
+image: smart.svg
 description: ""
 implementation: cua
 module: httptrap:cua:smart

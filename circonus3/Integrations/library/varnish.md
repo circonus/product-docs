@@ -1,7 +1,7 @@
 ---
 title: Varnish
 sidebar_custom_props:
-  image: varnish.svg
+image: varnish.svg
 description: ""
 implementation: cua
 module: httptrap:cua:varnish

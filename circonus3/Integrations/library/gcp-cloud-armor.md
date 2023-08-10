@@ -1,7 +1,7 @@
 ---
 title: GCP Cloud Armor
 sidebar_custom_props:
-  image: gcp-cloud-armor.svg
+image: gcp-cloud-armor.svg
 description: ""
 implementation: cua
 module: httptrap:cua:stackdriver_circonus:networksecurity.googleapis.com

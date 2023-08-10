@@ -1,7 +1,7 @@
 ---
 title: Modbus
 sidebar_custom_props:
-  image: modbus.svg
+image: modbus.svg
 description: ""
 implementation: cua
 module: httptrap:cua:modbus

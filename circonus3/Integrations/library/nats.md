@@ -1,7 +1,7 @@
 ---
 title: NATS
 sidebar_custom_props:
-  image: nats.svg
+image: nats.svg
 description: ""
 implementation: cua
 module: httptrap:cua:nats

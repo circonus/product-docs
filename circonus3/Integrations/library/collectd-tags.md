@@ -1,7 +1,7 @@
 ---
 title: collectd + tags
 sidebar_custom_props:
-  image: collectd+tags.svg
+image: collectd+tags.svg
 logo_dark: "/images/circonus/library/collectd+tags-dark.svg"
 description: ""
 implementation: broker

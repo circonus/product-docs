@@ -1,7 +1,7 @@
 ---
 title: PgBouncer
 sidebar_custom_props:
-  image: postgresql.svg
+image: postgresql.svg
 description: ""
 implementation: cua
 module: httptrap:cua:pgbouncer

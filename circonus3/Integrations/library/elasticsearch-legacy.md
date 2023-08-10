@@ -1,7 +1,7 @@
 ---
 title: Elasticsearch
 sidebar_custom_props:
-  image: elasticsearch.svg
+image: elasticsearch.svg
 logo_dark: "/images/circonus/library/elasticsearch-dark.svg"
 description: ""
 legacy: true

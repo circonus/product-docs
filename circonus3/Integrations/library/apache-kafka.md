@@ -1,7 +1,7 @@
 ---
 title: Apache Kafka
 sidebar_custom_props:
-  image: apache-kafka.svg
+image: apache-kafka.svg
 logo_dark: "/images/circonus/library/apache-kafka-dark.svg"
 description: ""
 implementation: cua

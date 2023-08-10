@@ -1,7 +1,7 @@
 ---
 title: Webhooks
 sidebar_custom_props:
-  image: webhooks.svg
+image: webhooks.svg
 logo_dark: "/images/circonus/library/webhooks-dark.svg"
 description: ""
 implementation: cua

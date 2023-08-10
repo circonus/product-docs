@@ -1,7 +1,7 @@
 ---
 title: Wireguard
 sidebar_custom_props:
-  image: wireguard.svg
+image: wireguard.svg
 description: ""
 implementation: cua
 module: httptrap:cua:wireguard

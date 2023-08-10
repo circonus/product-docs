@@ -1,7 +1,7 @@
 ---
 title: GCP Network Topology
 sidebar_custom_props:
-  image: gcp-network-topology.svg
+image: gcp-network-topology.svg
 description: ""
 implementation: cua
 module: httptrap:cua:stackdriver_circonus:networking.googleapis.com

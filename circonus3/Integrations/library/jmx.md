@@ -1,7 +1,7 @@
 ---
 title: JMX
 sidebar_custom_props:
-  image: java.svg
+image: java.svg
 description: ""
 implementation: broker
 module: jmx

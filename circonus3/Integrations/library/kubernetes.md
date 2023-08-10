@@ -1,7 +1,7 @@
 ---
 title: Kubernetes
 sidebar_custom_props:
-  image: kubernetes.svg
+image: kubernetes.svg
 description: ""
 implementation: kubernetes_agent
 module: httptrap:kubernetes

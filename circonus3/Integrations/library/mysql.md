@@ -1,7 +1,7 @@
 ---
 title: MySQL
 sidebar_custom_props:
-  image: mysql.svg
+image: mysql.svg
 description: ""
 implementation: cua
 module: httptrap:cua:mysql

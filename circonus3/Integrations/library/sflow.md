@@ -1,7 +1,7 @@
 ---
 title: SFlow
 sidebar_custom_props:
-  image: sflow.png
+image: sflow.png
 logo_dark: "/images/circonus/library/sflow-dark.png"
 description: ""
 implementation: cua

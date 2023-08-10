@@ -1,7 +1,7 @@
 ---
 title: OpenLDAP
 sidebar_custom_props:
-  image: openldap.png
+image: openldap.png
 description: ""
 implementation: cua
 module: httptrap:cua:openldap

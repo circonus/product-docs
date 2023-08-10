@@ -1,7 +1,7 @@
 ---
 title: BIND
 sidebar_custom_props:
-  image: bind.svg
+image: bind.svg
 description: ""
 implementation: cua
 module: httptrap:cua:bind

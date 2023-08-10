@@ -1,7 +1,7 @@
 ---
 title: Riemann Listener
 sidebar_custom_props:
-  image: riemann.png
+image: riemann.png
 logo_dark: "/images/circonus/library/riemann-dark.png"
 description: ""
 implementation: cua

@@ -1,7 +1,7 @@
 ---
 title: NSQ Consumer
 sidebar_custom_props:
-  image: nsq.svg
+image: nsq.svg
 description: ""
 implementation: cua
 module: httptrap:cua:nsq_consumer

@@ -1,7 +1,7 @@
 ---
 title: Solr
 sidebar_custom_props:
-  image: solr.svg
+image: solr.svg
 description: ""
 implementation: cua
 module: httptrap:cua:solr

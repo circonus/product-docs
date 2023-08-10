@@ -1,7 +1,7 @@
 ---
 title: Proxmox
 sidebar_custom_props:
-  image: proxmox.svg
+image: proxmox.svg
 logo_dark: "/images/circonus/library/proxmox-dark.svg"
 description: ""
 implementation: cua

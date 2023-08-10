@@ -1,7 +1,7 @@
 ---
 title: NGINX
 sidebar_custom_props:
-  image: nginx.svg
+image: nginx.svg
 description: ""
 legacy: true
 implementation: broker

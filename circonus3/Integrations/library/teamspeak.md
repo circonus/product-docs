@@ -1,7 +1,7 @@
 ---
 title: Teamspeak
 sidebar_custom_props:
-  image: teamspeak.svg
+image: teamspeak.svg
 description: ""
 implementation: cua
 module: httptrap:cua:teamspeak

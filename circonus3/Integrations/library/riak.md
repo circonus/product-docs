@@ -1,7 +1,7 @@
 ---
 title: Riak
 sidebar_custom_props:
-  image: riak.svg
+image: riak.svg
 description: ""
 implementation: cua
 module: httptrap:cua:riak

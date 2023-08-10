@@ -1,7 +1,7 @@
 ---
 title: Apache
 sidebar_custom_props:
-  image: apache.svg
+image: apache.svg
 description: ""
 implementation: cua
 module: httptrap:cua:apache

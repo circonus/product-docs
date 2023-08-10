@@ -1,7 +1,7 @@
 ---
 title: GrayLog
 sidebar_custom_props:
-  image: graylog.svg
+image: graylog.svg
 description: ""
 implementation: cua
 module: httptrap:cua:graylog

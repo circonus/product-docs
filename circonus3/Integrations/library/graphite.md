@@ -1,7 +1,7 @@
 ---
 title: Graphite
 sidebar_custom_props:
-  image: graphite.png
+image: graphite.png
 description: ""
 implementation: broker
 module: graphite

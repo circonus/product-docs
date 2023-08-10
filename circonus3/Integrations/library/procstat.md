@@ -1,7 +1,7 @@
 ---
 title: ProcStat
 sidebar_custom_props:
-  image: procstat.svg
+image: procstat.svg
 description: ""
 implementation: cua
 module: httptrap:cua:ProcStat

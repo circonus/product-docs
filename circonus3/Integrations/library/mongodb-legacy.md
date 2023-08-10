@@ -1,7 +1,7 @@
 ---
 title: MongoDB
 sidebar_custom_props:
-  image: mongodb.svg
+image: mongodb.svg
 description: ""
 legacy: true
 implementation: broker

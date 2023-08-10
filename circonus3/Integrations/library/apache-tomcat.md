@@ -1,7 +1,7 @@
 ---
 title: Apache Tomcat
 sidebar_custom_props:
-  image: apache-tomcat.svg
+image: apache-tomcat.svg
 description: ""
 implementation: cua
 module: httptrap:cua:tomcat

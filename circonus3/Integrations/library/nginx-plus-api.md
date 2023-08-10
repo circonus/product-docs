@@ -1,7 +1,7 @@
 ---
 title: NGINX Plus API
 sidebar_custom_props:
-  image: nginx-plus.svg
+image: nginx-plus.svg
 description: ""
 implementation: cua
 module: httptrap:cua:nginx_plus_api

@@ -1,7 +1,7 @@
 ---
 title: OpenMetrics
 sidebar_custom_props:
-  image: openmetrics.svg
+image: openmetrics.svg
 description: ""
 implementation: broker
 module: promtext

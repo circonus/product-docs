@@ -1,7 +1,7 @@
 ---
 title: gNMI
 sidebar_custom_props:
-  image: grpc.svg
+image: grpc.svg
 logo_dark: "/images/circonus/library/grpc-dark.svg"
 description: ""
 implementation: cua

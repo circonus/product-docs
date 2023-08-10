@@ -1,7 +1,7 @@
 ---
 title: Mailchimp
 sidebar_custom_props:
-  image: mailchimp.svg
+image: mailchimp.svg
 logo_dark: "/images/circonus/library/mailchimp-dark.svg"
 description: ""
 implementation: cua

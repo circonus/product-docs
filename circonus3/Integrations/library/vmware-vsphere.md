@@ -1,7 +1,7 @@
 ---
 title: VMware vSphere
 sidebar_custom_props:
-  image: vmware.svg
+image: vmware.svg
 logo_dark: "/images/circonus/library/vmware-dark.svg"
 description: ""
 implementation: cua

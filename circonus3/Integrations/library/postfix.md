@@ -1,7 +1,7 @@
 ---
 title: Postfix
 sidebar_custom_props:
-  image: postfix.png
+image: postfix.png
 description: ""
 implementation: cua
 module: httptrap:cua:postfix

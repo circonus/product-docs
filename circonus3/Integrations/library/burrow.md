@@ -1,7 +1,7 @@
 ---
 title: Burrow
 sidebar_custom_props:
-  image: apache-kafka.svg
+image: apache-kafka.svg
 description: ""
 implementation: cua
 module: httptrap:cua:burrow

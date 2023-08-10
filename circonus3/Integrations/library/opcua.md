@@ -1,7 +1,7 @@
 ---
 title: OPC UA Client
 sidebar_custom_props:
-  image: opcua.svg
+image: opcua.svg
 logo_dark: "/images/circonus/library/opcua-dark.svg"
 description: ""
 implementation: cua

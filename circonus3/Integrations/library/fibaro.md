@@ -1,7 +1,7 @@
 ---
 title: Fibaro
 sidebar_custom_props:
-  image: fibaro.svg
+image: fibaro.svg
 logo_dark: "/images/circonus/library/fibaro-dark.svg"
 description: ""
 implementation: cua

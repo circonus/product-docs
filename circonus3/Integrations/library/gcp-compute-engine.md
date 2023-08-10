@@ -1,7 +1,7 @@
 ---
 title: GCP Compute Engine
 sidebar_custom_props:
-  image: gcp-compute-engine.svg
+image: gcp-compute-engine.svg
 description: ""
 implementation: cua
 module: httptrap:cua:stackdriver_circonus:compute.googleapis.com

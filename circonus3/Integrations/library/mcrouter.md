@@ -1,7 +1,7 @@
 ---
 title: Mcrouter
 sidebar_custom_props:
-  image: mcrouter.svg
+image: mcrouter.svg
 description: ""
 implementation: cua
 module: httptrap:cua:mcrouter

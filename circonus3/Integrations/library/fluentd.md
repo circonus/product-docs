@@ -1,7 +1,7 @@
 ---
 title: Fluentd
 sidebar_custom_props:
-  image: fluentd.svg
+image: fluentd.svg
 description: ""
 implementation: cua
 module: httptrap:cua:fluentd

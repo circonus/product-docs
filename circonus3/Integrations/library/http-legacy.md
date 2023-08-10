@@ -1,7 +1,7 @@
 ---
 title: HTTP
 sidebar_custom_props:
-  image: http.svg
+image: http.svg
 description: ""
 legacy: true
 implementation: broker

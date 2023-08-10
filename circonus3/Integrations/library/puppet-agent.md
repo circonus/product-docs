@@ -1,7 +1,7 @@
 ---
 title: Puppet Agent
 sidebar_custom_props:
-  image: puppet.svg
+image: puppet.svg
 description: ""
 implementation: cua
 module: httptrap:cua:puppetagent

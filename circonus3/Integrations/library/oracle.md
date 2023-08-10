@@ -1,7 +1,7 @@
 ---
 title: Oracle
 sidebar_custom_props:
-  image: oracle.svg
+image: oracle.svg
 description: ""
 implementation: cua
 module: httptrap:cua:oracle

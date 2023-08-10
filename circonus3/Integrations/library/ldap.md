@@ -1,7 +1,7 @@
 ---
 title: LDAP
 sidebar_custom_props:
-  image: ldap.svg
+image: ldap.svg
 description: ""
 implementation: broker
 module: ldap

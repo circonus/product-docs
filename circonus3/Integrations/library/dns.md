@@ -1,7 +1,7 @@
 ---
 title: DNS
 sidebar_custom_props:
-  image: dns.svg
+image: dns.svg
 description: ""
 implementation: cua
 module: httptrap:cua:dns_query

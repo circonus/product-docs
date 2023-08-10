@@ -1,7 +1,7 @@
 ---
 title: NTP
 sidebar_custom_props:
-  image: ntp.svg
+image: ntp.svg
 description: ""
 implementation: broker
 module: ntp

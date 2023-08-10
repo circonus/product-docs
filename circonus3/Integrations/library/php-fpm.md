@@ -1,7 +1,7 @@
 ---
 title: PHP-FPM
 sidebar_custom_props:
-  image: php.svg
+image: php.svg
 description: ""
 implementation: cua
 module: httptrap:cua:phpfpm

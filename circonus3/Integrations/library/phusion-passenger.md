@@ -1,7 +1,7 @@
 ---
 title: Phusion Passenger
 sidebar_custom_props:
-  image: phusion-passenger.svg
+image: phusion-passenger.svg
 description: ""
 implementation: cua
 module: httptrap:cua:passenger

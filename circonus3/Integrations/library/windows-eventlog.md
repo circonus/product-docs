@@ -1,7 +1,7 @@
 ---
 title: Windows Eventlog
 sidebar_custom_props:
-  image: windows.svg
+image: windows.svg
 description: ""
 implementation: cua
 module: httptrap:cua:win_eventlog

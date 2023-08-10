@@ -1,7 +1,7 @@
 ---
 title: Ping
 sidebar_custom_props:
-  image: ping.svg
+image: ping.svg
 description: ""
 implementation: cua
 module: httptrap:cua:ping

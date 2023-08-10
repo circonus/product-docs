@@ -1,7 +1,7 @@
 ---
 title: GCP Logging
 sidebar_custom_props:
-  image: gcp-logging.svg
+image: gcp-logging.svg
 description: ""
 implementation: cua
 module: httptrap:cua:stackdriver_circonus:logging.googleapis.com

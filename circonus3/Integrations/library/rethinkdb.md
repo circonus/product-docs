@@ -1,7 +1,7 @@
 ---
 title: RethinkDB
 sidebar_custom_props:
-  image: rethinkdb.svg
+image: rethinkdb.svg
 logo_dark: "/images/circonus/library/rethinkdb-dark.svg"
 description: ""
 implementation: cua

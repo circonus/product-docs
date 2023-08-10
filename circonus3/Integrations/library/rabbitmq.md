@@ -1,7 +1,7 @@
 ---
 title: RabbitMQ
 sidebar_custom_props:
-  image: rabbitmq.svg
+image: rabbitmq.svg
 description: ""
 implementation: cua
 module: httptrap:cua:rabbitmq

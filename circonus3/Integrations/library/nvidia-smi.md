@@ -1,7 +1,7 @@
 ---
 title: Nvidia SMI
 sidebar_custom_props:
-  image: nvidia.svg
+image: nvidia.svg
 description: ""
 implementation: cua
 module: httptrap:cua:nvidia_smi

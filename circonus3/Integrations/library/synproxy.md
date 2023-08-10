@@ -1,7 +1,7 @@
 ---
 title: Synproxy
 sidebar_custom_props:
-  image: synproxy.svg
+image: synproxy.svg
 description: ""
 implementation: cua
 module: httptrap:cua:synproxy

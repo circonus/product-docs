@@ -1,7 +1,7 @@
 ---
 title: sysstat
 sidebar_custom_props:
-  image: sysstat.svg
+image: sysstat.svg
 description: ""
 implementation: cua
 module: httptrap:cua:sysstat

@@ -1,7 +1,7 @@
 ---
 title: CAQL
 sidebar_custom_props:
-  image: caql.svg
+image: caql.svg
 description: ""
 implementation: broker
 module: caql

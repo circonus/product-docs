@@ -1,7 +1,7 @@
 ---
 title: GCP Firewall Insights
 sidebar_custom_props:
-  image: gcp-firewall-insights.svg
+image: gcp-firewall-insights.svg
 description: ""
 implementation: cua
 module: httptrap:cua:stackdriver_circonus:firewallinsights.googleapis.com
