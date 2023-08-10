@@ -1,7 +1,7 @@
 var fs = require("fs"),
   fm = require("front-matter");
 
-const integrationsFolder = "/product-docs/circonus3/integrations/library/";
+const integrationsFolder = "product-docs/circonus3/integrations/library/";
 
 const integrationsObj = [
   {
