@@ -114,7 +114,9 @@ const config = {
         // Optional: see doc section below
         contextualSearch: true,
         // Optional: Algolia search parameters
-        searchParameters: {},
+        searchParameters: {
+          // facetFilters: ["docusaurus_tag:docs-circonus3-current"],
+        },
 
         // Optional: path for search page that enabled by default (`false` to disable it)
         searchPagePath: "search",
