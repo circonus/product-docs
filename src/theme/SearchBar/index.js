@@ -50,11 +50,14 @@ function DocSearch({ contextualSearch, externalUrlRegex, ...props }) {
   const processSearchResultUrl = useSearchResultUrlProcessor();
   const contextualSearchFacetFilters = useAlgoliaContextualFacetFilters();
   const location = useLocation();
-  const product = location.pathname.split("/")[1]
-    ? location.pathname.split("/")[1]
-    : "circonus3";
+  const product = location.pathname.split("/")[1];
 
-  const newFilters = [contextualSearchFacetFilters[0], productToFacet[product]];
+  const newFilters = [
+    contextualSearchFacetFilters[0],
+    productToFacet[product]
+      ? productToFacet[product]
+      : contextualSearchFacetFilters[0],
+  ];
   const configFacetFilters = props.searchParameters?.facetFilters ?? [];
   const facetFilters = contextualSearch
     ? // Merge contextual search filters with config filters
