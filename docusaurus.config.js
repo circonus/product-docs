@@ -109,10 +109,10 @@ const config = {
         // Public API key: it is safe to commit it
         apiKey: "2aacf51fc732efb258bf7ca3f0751781",
 
-        indexName: "circonus",
+        indexName: "crawler_Dev Crawler",
 
         // Optional: see doc section below
-        contextualSearch: false,
+        contextualSearch: true,
         // Optional: Algolia search parameters
         searchParameters: {},
 
