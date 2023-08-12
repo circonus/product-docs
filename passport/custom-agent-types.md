@@ -1,6 +1,6 @@
 ---
 title: Custom Agent Types
-sidebar_position: 3
+sidebar_position: 7
 ---
 
 # Custom Agent Types

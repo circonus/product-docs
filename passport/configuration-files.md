@@ -5,11 +5,25 @@ sidebar_position: 4
 
 # Configuration files
 
-Configuration files for agents can be either imported or created with a low-code flow build. Below outlines how to accomplish this.
+Configuration files for managed agents can be either imported or created with a low-code flow build within Circonus UI. While the flow build only supports a limited amount of agent-type configurations, the sky is the limit for uploading your specific configuration file types.
 
-**What are some best practices and how to do other things??**
+From the Circonus UI, you can fully manage the lifecycle of your agent's various configuration files with built-in versioning whenever the file is first created or uploaded and throughout any edits or cloning.
+
+:::danger
+
+When a configuration file is deleted, it is gone forever.
+
+:::
+
+The following instructions outline how to add configuration files from the Circonus UI to your account located in the main menu **Passport > Configurations**.
 
 ![flow builder](./img/configurations-list-view.png)
+
+:::tip Keep in mind
+
+By default, when a configuration file is added to your Circonus account, it is not being managed by the Agent Manager until you add it to a specific Agent Manager.
+
+:::
 
 ## Import a Configuration files
 
@@ -41,9 +55,9 @@ Once in the flow builder, what you see will be determined in part by which agent
 
 In the left menu, you will see a list of supported plugins broken out by the plugin category supported by the target agent.
 
-You can filter the results by using the search box. To use a plugin, simply drag it from the left menu and drop it over a compatible node on the canvas. The plugins that can connect is agent specific. 
+You can filter the results by using the search box. To use a plugin, simply drag it from the left menu and drop it over a compatible node on the canvas. The plugins that can connect is agent specific.
 
-:::info Example
+:::note Example
 
 When working with Telegraf, you can drag an output plugin over an input plugin, but not the other way around because the output plugin is the last plugin type in that agent's plugin pipeline model.
 

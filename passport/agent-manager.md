@@ -1,6 +1,6 @@
 ---
 title: Agent Manager
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # Agent Manager
@@ -11,15 +11,21 @@ Passport aims to simplify this process through the use of an agent manager. The 
 
 ## Installation
 
-The Circonus Agent Manager is supported on both Linux and macOS operating systems with Windows soon to come. the following installation instructions will guide you through installing Agent Manager on your host(s) and then being able to control them from the Circonus UI.
+The Circonus Agent Manager is supported on both Linux and macOS operating systems with Windows soon to come. The following installation instructions will guide you through installing Agent Manager on your host(s) and then being able to control them from the Circonus UI.
 
-:::tip
+:::tip Pro Tip
 
-Circonus **recommends** installing one or more [supported agents](*/introduction#supported-agents) before installing the Agent Manager.
+Circonus recommends installing one or more [supported agents](*/introduction#supported-agents) before installing the Agent Manager.
 
 :::
 
-### Linux
+### Platform type
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="Linux" label="Linux" default>
 
 #### Step 1 - Install
 
@@ -44,13 +50,8 @@ The service does not auto-start when installed via .deb. To start the service ru
 ```
 systemctl start circonus-am
 ```
-
-<!-- Soon to come
-### macOS
-
-#### Step 1 - Install
-
-#### Step 2 - Register
-
-#### Step 3 - Start
- -->
+  </TabItem>
+  <TabItem value="macOS" label="macOS">
+    Coming soon!
+  </TabItem>
+</Tabs>

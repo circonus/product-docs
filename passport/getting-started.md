@@ -1,9 +1,9 @@
 ---
-title: Quick Start
-sidebar_position: 1
+title: Getting Started
+sidebar_position: 2
 ---
 
-# Quick Start
+# Getting Started
 
 ## Overview
 

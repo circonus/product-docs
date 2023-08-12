@@ -3,7 +3,7 @@ title: Introduction
 sidebar_position: 1
 ---
 
-# Passport
+# Passport [Beta]
 
 ![Work in progress image](./img/work-in-progress-image.png)
 
