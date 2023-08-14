@@ -56,12 +56,18 @@ import TabItem from '@theme/TabItem';
 
 <Tabs>
   <TabItem value="event-based" label="Event-driven" default>
-    Black Friday holiday shopping season
+
+  ![Work in progress image](../img/work-in-progress-image.png)
+
   </TabItem>
   <TabItem value="alert-response" label="Alert-driven">
-    Alert happens, xyz configuration gets loaded.
+
+  ![Work in progress image](../img/work-in-progress-image.png)
+
   </TabItem>
   <TabItem value="minimal-ingest" label="Minimal Ingestion">
-    ...
+
+  ![Work in progress image](../img/work-in-progress-image.png)
+
   </TabItem>
 </Tabs>

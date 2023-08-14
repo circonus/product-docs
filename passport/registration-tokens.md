@@ -15,7 +15,7 @@ The very first step in getting started with the Passport platform is to create a
 
 Navigate to the **Passport > Registration Tokens** list view page and click on **Create token** to create and specify an expiration date and then click **Save**.
 
-All successfully created registration tokens will populate in the list view page seen below.
+All successfully created registration tokens will populate the list view page seen below.
 
 ![Registration list view image](./img/registration-token-list-view.png)
 

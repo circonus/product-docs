@@ -19,7 +19,6 @@ Circonus recommends installing one or more [supported agents](*/introduction#sup
 
 :::
 
-
 **Supported Platforms**
 
 import Tabs from '@theme/Tabs';
@@ -118,6 +117,7 @@ sudo /opt/circonus/am/sbin/circonus-am --inventory
 ```
 sudo systemctl start circonus-am
 ```
+
 <details><summary>Example</summary>
 <p>
 
@@ -161,9 +161,6 @@ lines 1-14/14 (END)
   </TabItem>
 </Tabs>
 
-
-
-
 ## Uninstalling
 
 <Tabs groupId="operating-systems">
@@ -172,7 +169,7 @@ lines 1-14/14 (END)
 To uninstall Agent Manage, run the following CMD.
 
 ```
-Sudo apt remove circonus-am
+sudo apt remove circonus-am
 ```
 
   </TabItem>
@@ -180,9 +177,6 @@ Sudo apt remove circonus-am
     Coming soon!
   </TabItem>
 </Tabs>
-
-
-
 
 ## Troubleshooting
 
