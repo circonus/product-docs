@@ -23,4 +23,6 @@ The Passport UI provides a place to view the current inventory of all agents und
 
 ## Supported Agents
 
-- [Telegraf](https://github.com/influxdata/telegraf)
+- [Telegraf](https://github.com/influxdata/telegraf) (enhanced support with low-code builder)
+
+Add agents from agent research and add the ability for custom agent types

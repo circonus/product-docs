@@ -1,6 +1,6 @@
 ---
 title: Configuration Files
-sidebar_position: 4
+sidebar_position: 1
 ---
 
 # Configuration files
@@ -17,7 +17,7 @@ When a configuration file is deleted, it is gone forever.
 
 The following instructions outline how to add configuration files from the Circonus UI to your account located in the main menu **Passport > Configurations**.
 
-![flow builder](./img/configurations-list-view.png)
+![flow builder](../img/configurations-list-view.png)
 
 :::tip Keep in mind
 
@@ -31,7 +31,7 @@ From the configurations list page, select **Import Configuration**.
 
 You have the option to upload a local file or simply paste the configuration in the code block. Fill in the rest of the form and select **Import**.
 
-![flow builder](./img/configurations-import-configuration.png)
+![flow builder](../img/configurations-import-configuration.png)
 
 Once the configuration file is imported, it will be displayed on the **Passport > Configurations** list page.
 
@@ -45,13 +45,13 @@ Go to **Passport > Configurations** and click the **Create Configuration** butto
 
 Fill in the relevant information for your config and click "Add" at the bottom of the form.
 
-![screenshot of the form to create a new flow builder config](./img/passport-create-configuration-form.png)
+![screenshot of the form to create a new flow builder config](../img/passport-create-configuration-form.png)
 
 ### Using the flow builder
 
 Once in the flow builder, what you see will be determined in part by which agent you are creating a config for. However, some elements are common to all.
 
-![flow builder](./img/passport-flow-builder.png)
+![flow builder](../img/passport-flow-builder.png)
 
 In the left menu, you will see a list of supported plugins broken out by the plugin category supported by the target agent.
 
@@ -67,6 +67,6 @@ Your configurations will appear on the right.
 
 To save, click the **Save** button in the canvas button list:
 
-![flow builder](./img/passport-save.png)
+![flow builder](../img/passport-save.png)
 
 Once the configuration file is imported, it will be displayed on the **Passport > Configurations** list page.
