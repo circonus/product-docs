@@ -11,7 +11,7 @@ Passport aims to simplify this process through the use of an agent manager. The 
 
 ## Installation
 
-The Circonus Agent Manager is supported on both Linux and macOS operating systems with Windows soon to come. The following installation instructions will guide you through installing Agent Manager on your host(s) and then being able to control them from the Circonus UI.
+The Circonus Agent Manager is supported on both Linux and macOS operating systems with Windows soon to come. The following installation instructions will guide you through installing Agent Manager on your host(s) and then being able to create/assign configurations to them from the Circonus UI.
 
 :::tip Pro Tip
 
@@ -19,7 +19,7 @@ Circonus recommends installing one or more [supported agents](*/introduction#sup
 
 :::
 
-### Platform type
+### Supported Platforms
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

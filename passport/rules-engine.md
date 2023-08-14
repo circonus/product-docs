@@ -23,8 +23,6 @@ All created rules will be listed in the Rules tab and if more than 1 rule has be
 
 ## Manage Rules
 
-Many **Actions** are available to take for the rules such as **Edit, Clone, Copy to other configurations** or **Delete** the rule
+Many **Actions** are available to take for the rules such as **Edit, **Clone, **Copying** to other** **configurations** or **Deleting** the rule.
 
 ![Configurations Rules Tab](./img/configurations-rules-tab-list-view-expanded.png)
-
-## Use cases
