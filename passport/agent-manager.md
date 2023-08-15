@@ -50,7 +50,7 @@ Log into the Passport UI and navigate to `Passport > Agent Management > Registra
 Register Agent Manager with the following CMD `circonus-am --register=<token>`.
 
 ```
-/opt/circonus/am/sbin$ sudo ./circonus-am --register=<validRegistrationToken>
+sudo /opt/circonus/am/sbin/circonus-am --register=<validRegistrationToken>
 ```
 
 If the registration is successful, then you should see the following
