@@ -31,17 +31,9 @@ import TabItem from '@theme/TabItem';
 
 Download and install the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
 
-<details><summary>Example</summary>
-<p>
-
-#### Download the Agent Manager to a folder on your Linux machine and install it.
-
-```jsx title="Linux Ubuntu"
-sudo apt install /path/to/downloded/package/circonus-am_x.x.x_amd64.deb
 ```
-
-</p>
-</details>
+sudo apt install path/to/file/circonus-am_x.x.x_amd64.deb
+```
 
 #### Step 2 - Register
 
@@ -53,31 +45,15 @@ Register Agent Manager with the following CMD `circonus-am --register=<token>`.
 sudo /opt/circonus/am/sbin/circonus-am --register=<validRegistrationToken>
 ```
 
-If the registration is successful, then you should see the following
+:::info Success
+
+If the registration is successful, then you should see the following output.
 
 ```
 {"level":"info","pkg":"manager","time":1692032136,"message":"registration complete"}
 ```
 
-<details><summary>Example</summary>
-<p>
-
-#### Register Agent Manager and confirm the registration token.
-
-```jsx title="Linux Ubuntu"
-// highlight-start
-ubuntu-testing-dev-box:/opt/circonus/am/sbin$ sudo ./circonus-am --register=<validRegistrationToken>
-// highlight-end
-{"level":"info","name":"circonus-am","version":"x.x.x","time":1692032134,"message":"starting"}
-{"level":"info","time":1692032134,"message":"starting registration"}
-{"level":"info","agent":"telegraf","time":1692032136,"message":"found"}
-// highlight-start
-{"level":"info","pkg":"manager","time":1692032136,"message":"registration complete"}
-// highlight-end
-```
-
-</p>
-</details>
+:::
 
 #### Step 3 - Start
 
@@ -87,9 +63,134 @@ The service does not auto-start when installed via .deb. To start the service ru
 sudo systemctl start circonus-am
 ```
 
+<details><summary>Example - Successful installation</summary>
+<p>
+
+Highlighted lines show the CMDs listed above.
+
+```jsx {1,38,43} title="Linux Ubuntu" showLineNumbers
+ubuntu-host:~$ sudo apt install ~/downloads/circonus-am_0.1.3_amd64.deb
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Note, selecting 'circonus-am' instead of '/home/joshuajohnson/downloads/circonus-am_0.1.3_amd64.deb'
+The following package was automatically installed and is no longer required:
+  libnuma1
+Use 'sudo apt autoremove' to remove it.
+The following NEW packages will be installed:
+  circonus-am
+0 upgraded, 1 newly installed, 0 to remove and 73 not upgraded.
+Need to get 0 B/4273 kB of archives.
+After this operation, 10.7 MB of additional disk space will be used.
+Get:1 /home/joshuajohnson/downloads/circonus-am_0.1.3_amd64.deb circonus-am amd64 0.1.3 [4273 kB]
+Selecting previously unselected package circonus-am.
+(Reading database ... 124495 files and directories currently installed.)
+Preparing to unpack .../circonus-am_0.1.3_amd64.deb ...
+Unpacking circonus-am (0.1.3) ...
+Setting up circonus-am (0.1.3) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/circonus-am.service → /lib/systemd/system/circonus-am.service.
+Scanning processes...
+Scanning candidates...
+Scanning linux images...
+
+Restarting services...
+Service restarts being deferred:
+ /etc/needrestart/restart.d/dbus.service
+ systemctl restart docker.service
+ systemctl restart networkd-dispatcher.service
+ systemctl restart unattended-upgrades.service
+ systemctl restart user@1008.service
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+ubuntu-host:/opt/circonus/am/etc$ sudo /opt/circonus/am/sbin/circonus-am --register=6850a610-51b6-4829-baf3-f2cc40897211
+{"level":"info","name":"circonus-am","version":"0.1.3","time":1692125508,"message":"starting"}
+{"level":"info","time":1692125508,"message":"starting registration"}
+{"level":"info","agent":"telegraf","time":1692125508,"message":"found"}
+{"level":"info","pkg":"manager","time":1692125508,"message":"registration complete"}
+ubuntu-host:/opt/circonus/am/etc$ sudo systemctl start circonus-am
+ubuntu-host:/opt/circonus/am/etc$ sudo systemctl status circonus-am
+● circonus-am.service - Circonus Agent Manager
+     Loaded: loaded (/lib/systemd/system/circonus-am.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2023-08-15 19:01:14 UTC; 44s ago
+       Docs: https://github.com/circonus/agent-manager
+   Main PID: 4101958 (circonus-am)
+      Tasks: 7 (limit: 9525)
+     Memory: 2.6M
+        CPU: 6ms
+     CGroup: /system.slice/circonus-am.service
+             └─4101958 /opt/circonus/am/sbin/circonus-am --config=/opt/circonus/am/etc/circonus-am.yaml
+
+Aug 15 19:01:14 ubuntu-host systemd[1]: Started Circonus Agent Manager.
+Aug 15 19:01:14 ubuntu-host circonus-am[4101958]: {"level":"info","name":"circonus-am","version":"0.1.3","time">
+Aug 15 19:01:14 ubuntu-host circonus-am[4101958]: {"level":"info","interval":"1m0s","time":1692126074,"message">
+lines 1-14/14 (END)
+```
+
+</p>
+</details>
+
   </TabItem>
   <TabItem value="macOS" label="macOS">
-    Coming soon!
+
+
+#### Step 1 - Install
+
+Download and install the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
+
+```jnx 
+brew tap circonus/homebrew-circonus-agent-manager
+```
+
+```jnx 
+
+
+```
+
+#### Step 2 - Register
+
+Log into the Passport UI and navigate to `Passport > Agent Management > Registration` to retrieve a valid registration token.
+
+Register Agent Manager with the following CMD `circonus-am --register=<token>`.
+
+```
+sudo /opt/circonus/am/sbin/circonus-am --register=<validRegistrationToken>
+```
+
+:::info Success
+
+If the registration is successful, then you should see the following output.
+
+```
+{"level":"info","pkg":"manager","time":1692032136,"message":"registration complete"}
+```
+
+:::
+
+#### Step 3 - Start
+
+The service does not auto-start when installed via .deb. To start the service run the following cmd.
+
+```
+sudo systemctl start circonus-am
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </TabItem>
 </Tabs>
 
@@ -118,12 +219,23 @@ sudo /opt/circonus/am/sbin/circonus-am --inventory
 sudo systemctl start circonus-am
 ```
 
-<details><summary>Example</summary>
+:::info Success
+
+Example of what the output will look like when a **telegraf** agent has been found.
+
+```jnx showLineNumbers
+{"level":"info","agent":"telegraf","time":1692044346,"message":"found"}
+{"level":"info","pkg":"manager","time":1692044346,"message":"invetory complete"}
+```
+
+:::
+
+<details><summary>Example - Successful re-inventory</summary>
 <p>
 
-#### Re-inventory Agent Manager and check its status.
+Highlighted lines show the CMDs listed above.
 
-```jsx title="Linux Ubuntu"
+```jsx title="Linux Ubuntu" showLineNumbers
 // highlight-start
 ubuntu-testing-dev-box:/opt/circonus/am/etc$ sudo systemctl stop circonus-am
 ubuntu-testing-dev-box:/opt/circonus/am/etc$ sudo /opt/circonus/am/sbin/circonus-am --inventory
@@ -228,10 +340,10 @@ Aug 14 19:34:30 ubuntu-testing-dev-box circonus-am[1359376]: {"level":"info","in
 
 View the logs of Agent Manager while it is running
 
-```jsx {1} title="Linux Ubuntu"
-$ sudo journalctl -u circonus-am.service -f
-Aug 14 16:01:04 ubuntu-testing-dev-box systemd[1]: Started Circonus Agent Manager.
-...
+```jsx {1} title="Linux Ubuntu" showLineNumbers
+ubuntu-host:/opt/circonus/am/etc$ sudo journalctl -u circonus-am.service
+Aug 15 18:07:28 ubuntu-qa21-1-observability systemd[1]: Started Circonus Agent Manager.
+Aug 15 18:07:28 ubuntu-qa21-1-observability circonus-am[4079997]: {"level":"info","name":"circonus-am","version":"0.1.3","time":1692122848,"message":"starting"}
 ...
 ```
 
