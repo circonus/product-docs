@@ -5,9 +5,11 @@ sidebar_position: 1
 
 # Configuration files
 
-Configuration files for managed agents can be either imported or created with a low-code flow build within Circonus UI. While the flow build only supports a limited amount of agent-type configurations, the sky is the limit for uploading your specific configuration file types.
+Passport makes it easy to manage your configuration files and agents all in one place. With Passport, you can import or create configuration files for your agents using the intuitive UI.
 
-From the Circonus UI, you can fully manage the lifecycle of your agent's various configuration files with built-in versioning whenever the file is first created or uploaded and throughout any edits or cloning.
+From the Circonus UI, you can fully manage the lifecycle of your agent’s various configuration files with built-in versioning whenever the file is first created or uploaded and throughout any edits or cloning.
+
+Passport supports many agent types such as Telegraf, Fluent-bit, Datadog-agent, Vector, New Relic Infrastructure agent, Filebeat, Metricbeat, Pktvisor and others. With the Passport enhanced low-code configuration building tool, you can build complex configuration files for supported agent types with ease.
 
 :::danger
 

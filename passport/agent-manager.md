@@ -7,7 +7,11 @@ sidebar_position: 3
 
 ## Overview
 
-Passport aims to simplify this process through the use of an agent manager. The Passport Agent Manager functions as a sidecar utility that checks for new configuration files and triggers the appropriate restart/reload functionality of the supported agent. The agent manager is kept intentionally simple, with the goal that it only needs to be installed once and updated very infrequently.
+The Passport Agent Manager is the ultimate sidekick for your configuration files. It’s always on the lookout for new files and triggers the appropriate restart/reload functionality of the [supported agents](/passport/intro#supported-agents). With its simple installation and infrequent updates, you can rest assured that your configuration files are always up-to-date and running smoothly.
+
+And the best part? Once you install the agent manager on a host where your collection agents are located, you can manage everything through the intuitive Circonus UI. Say goodbye to the hassle of manual restarts and hello to the Passport Agent Manager!
+
+![Configurations List Selected](./img/agent-manager-grid-view.png)
 
 ## Installation
 
@@ -15,7 +19,7 @@ The Circonus Agent Manager is supported on both Linux and macOS operating system
 
 :::tip Pro Tip
 
-Circonus recommends installing one or more [supported agents](*/introduction#supported-agents) before installing the Agent Manager. If an agent is installed after the Agent Manager's installation then you will need to stop, re-inventory and restart the Agent Manager for it to detect the new agents.
+Circonus recommends installing one or more [supported agents](/passport/intro#supported-agents) before installing the Agent Manager. If an agent is installed after the Agent Manager's installation then you will need to stop, re-inventory and restart the Agent Manager for it to detect the new agents.
 
 :::
 
@@ -31,7 +35,7 @@ import TabItem from '@theme/TabItem';
 
 Download and install the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
 
-```
+```bash
 sudo apt install path/to/file/circonus-am_x.x.x_amd64.deb
 ```
 
@@ -41,7 +45,7 @@ Log into the Passport UI and navigate to `Passport > Agent Management > Registra
 
 Register Agent Manager with the following CMD `circonus-am --register=<token>`.
 
-```
+```bash
 sudo /opt/circonus/am/sbin/circonus-am --register=<validRegistrationToken>
 ```
 
@@ -49,7 +53,7 @@ sudo /opt/circonus/am/sbin/circonus-am --register=<validRegistrationToken>
 
 If the registration is successful, then you should see the following output.
 
-```
+```bash
 {"level":"info","pkg":"manager","time":1692032136,"message":"registration complete"}
 ```
 
@@ -59,7 +63,7 @@ If the registration is successful, then you should see the following output.
 
 The service does not auto-start when installed via .deb. To start the service run the following cmd.
 
-```
+```bash
 sudo systemctl start circonus-am
 ```
 
@@ -136,18 +140,18 @@ lines 1-14/14 (END)
   </TabItem>
   <TabItem value="macOS" label="macOS">
 
-
 #### Step 1 - Install
 
 Download and install the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
 
-```jnx 
+The Circonus Manager is available to both install and update via Homebrew.
+
+```bash
 brew tap circonus/homebrew-circonus-agent-manager
 ```
 
-```jnx 
-
-
+```bash
+brew install circonus/circonus-agent-manager/circonus-am
 ```
 
 #### Step 2 - Register
@@ -156,15 +160,15 @@ Log into the Passport UI and navigate to `Passport > Agent Management > Registra
 
 Register Agent Manager with the following CMD `circonus-am --register=<token>`.
 
-```
-sudo /opt/circonus/am/sbin/circonus-am --register=<validRegistrationToken>
+```bash
+/opt/homebrew/opt/circonus-am/sbin/circonus-am --register="registration token"
 ```
 
 :::info Success
 
 If the registration is successful, then you should see the following output.
 
-```
+```bash
 {"level":"info","pkg":"manager","time":1692032136,"message":"registration complete"}
 ```
 
@@ -174,22 +178,9 @@ If the registration is successful, then you should see the following output.
 
 The service does not auto-start when installed via .deb. To start the service run the following cmd.
 
+```bash
+brew services start circonus-am
 ```
-sudo systemctl start circonus-am
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   </TabItem>
 </Tabs>
@@ -203,19 +194,19 @@ If additional agents have been added to the host where Agent Manager is running,
 
 #### Stop Agent Manager
 
-```
+```bash
 sudo systemctl stop circonus-am
 ```
 
 #### Re-inventory local agents
 
-```
+```bash
 sudo /opt/circonus/am/sbin/circonus-am --inventory
 ```
 
 #### Start Agent Manager
 
-```
+```bash
 sudo systemctl start circonus-am
 ```
 
@@ -269,8 +260,36 @@ lines 1-14/14 (END)
 
   </TabItem>
   <TabItem value="macOS" label="macOS">
-    Coming soon!
-  </TabItem>
+
+#### Stop Agent Manager
+
+```bash
+brew services stop circonus-am
+```
+
+#### Re-inventory local agents
+
+```bash
+/opt/homebrew/opt/circonus-am/sbin/circonus-am --inventory
+```
+
+#### Start Agent Manager
+
+```bash
+brew services start circonus-am
+```
+
+:::info Success
+
+Example of what the output will look like when a **telegraf** agent has been found.
+
+```jnx showLineNumbers
+{"level":"info","agent":"telegraf","time":1692044346,"message":"found"}
+{"level":"info","pkg":"manager","time":1692044346,"message":"invetory complete"}
+```
+
+:::
+</TabItem>
 </Tabs>
 
 ## Uninstalling
@@ -280,13 +299,19 @@ lines 1-14/14 (END)
    
 To uninstall Agent Manage, run the following CMD.
 
-```
+```bash
 sudo apt remove circonus-am
 ```
 
   </TabItem>
   <TabItem value="macOS" label="macOS">
-    Coming soon!
+
+To uninstall Agent Manage, run the following CMD.
+
+```bash
+brew remove circonus/circonus-agent-manager/circonus-am
+```
+
   </TabItem>
 </Tabs>
 
@@ -349,6 +374,50 @@ Aug 15 18:07:28 ubuntu-qa21-1-observability circonus-am[4079997]: {"level":"info
 
   </TabItem>
   <TabItem value="macOS" label="macOS">
-    Coming soon!
+
+Agent Manager usage flags
+
+```jsx {1} title="macOS (Silicon) Homebrew" showLineNumbers
+➜  ~ /opt/homebrew/opt/circonus-am/sbin/circonus-am -h
+Manager for local agents (metrics, logs, etc.)
+
+Usage:
+  circonus-am [flags]
+
+Flags:
+      --apiurl string              [ENV: CAM_API_URL] Circonus API URL (default "https://web-api.svcs-np.circonus.net/configurations/v1")
+      --aws-ec2-tags stringArray   [ENV: CAM_AWS_EC2_TAGS] AWS EC2 tags for registration meta data
+  -c, --config string              config file (default: /opt/homebrew/Cellar/circonus-am/0.1.4/etc/circonus-am.yaml|.json|.toml)
+  -d, --debug                      [ENV: CAM_DEBUG] Enable debug messages
+  -h, --help                       help for circonus-am
+      --inventory                  [ENV: CAM_INVENTORY] Inventory installed agents
+      --log-level string           [ENV: CAM_LOG_LEVEL] Log level [(panic|fatal|error|warn|info|debug|disabled)] (default "info")
+      --log-pretty                 Output formatted/colored log lines [ignored on windows]
+      --poll-interval string       [ENV: CAM_POLL_INTERVAL] Polling interval for actions (default "60s")
+      --register string            [ENV: CAM_REGISTER] Registration token
+  -V, --version                    Show version and exit
+```
+
+Check to see if the Agent Manager is running
+
+```jsx {1} title="macOS (Silicon) Homebrew" showLineNumbers
+➜  ~ brew services info circonus-am
+circonus-am (homebrew.mxcl.circonus-am)
+Running: ✔
+Loaded: ✔
+Schedulable: ✔
+```
+
+View the logs of Agent Manager while it is running
+
+```jsx {1} title="macOS (Silicon) Homebrew" showLineNumbers
+➜  ~ brew services start circonus-am && tail -f -n20 /opt/homebrew/var/log/circonus-agent-manager.log
+==> Successfully started `circonus-am` (label: homebrew.mxcl.circonus-am)
+{"level":"fatal","error":"open /opt/homebrew/etc/circonus-am.yaml: no such file or directory","config_file":"/opt/homebrew/etc/circonus-am.yaml","time":1692194609,"message":"unable to load config file"}
+{"level":"fatal","error":"open /opt/homebrew/etc/circonus-am.yaml: no such file or directory","config_file":"/opt/homebrew/etc/circonus-am.yaml","time":1692194619,"message":"unable to load config file"}
+{"level":"fatal","error":"open /opt/homebrew/etc/circonus-am.yaml: no such file or directory","config_file":"/opt/homebrew/etc/circonus-am.yaml","time":1692194629,"message":"unable to load config file"}
+...
+```
+
   </TabItem>
 </Tabs>
