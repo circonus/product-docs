@@ -7,7 +7,7 @@ weight: 50
 
 Dashboards provide a unified visualization framework for your cloud services, infrastructure, and applications and make it easy for you to explore your metric, log, or trace data within the platform.
 
-From real-time infrastructure monitoring (IM) to application performance monitoring (APM), distributed tracing, and outage response and data exploration, dashboards give you the the visualizations needed to graphically represent trends, outliers, and patterns in your data.
+From real-time infrastructure monitoring (IM) to application performance monitoring (APM), distributed tracing, outage response and data exploration, dashboards give you the visualizations needed to graphically represent trends, outliers, and patterns in your data.
 
 ## Dashboard Use Cases
 
@@ -52,7 +52,7 @@ Initially, the pie contains a single "slice." That’s because the default searc
 
 ![Pie Chart Inital Display](../img/getting-started-create-pie-inital-display.png)
 
-To specify which slices to display in the pie, you use a Circonus [Bucket aggregation](/circonus3/visualizations/aggregations/bucket-agg/). This aggregation sorts the documents that match your search criteria into different categories, also known as _buckets_.
+To specify which slices to display in the pie, you use a Circonus [Bucket aggregation](/circonus3/visualizations/aggregations/bucket-agg). This aggregation sorts the documents that match your search criteria into different categories, also known as _buckets_.
 Use a bucket aggregation to establish multiple ranges of OSes and out what percentage of OS types are being used.
 
 1. In the **Buckets** pane, click **Split Slices**.
