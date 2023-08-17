@@ -1,6 +1,6 @@
 ---
 title: Agent Manager
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # Agent Manager
@@ -9,7 +9,7 @@ sidebar_position: 3
 
 The Passport Agent Manager is the ultimate sidekick for your configuration files. It’s always on the lookout for new files and triggers the appropriate restart/reload functionality of the [supported agents](/passport/intro#supported-agents). With its simple installation and infrequent updates, you can rest assured that your configuration files are always up-to-date and running smoothly.
 
-And the best part? Once you install the agent manager on a host where your collection agents are located, you can manage everything through the intuitive Circonus UI. Say goodbye to the hassle of manual restarts and hello to the Passport Agent Manager!
+Once you install the agent manager on a host where your collection agents are located, you can manage everything through the intuitive Circonus UI. 
 
 ![Configurations List Selected](./img/agent-manager-grid-view.png)
 
@@ -70,9 +70,7 @@ sudo systemctl start circonus-am
 <details><summary>Example - Successful installation</summary>
 <p>
 
-Highlighted lines show the CMDs listed above.
-
-```jsx {1,38,43} title="Linux Ubuntu" showLineNumbers
+```jsx title="Linux Ubuntu" showLineNumbers
 ubuntu-host:~$ sudo apt install ~/downloads/circonus-am_0.1.3_amd64.deb
 Reading package lists... Done
 Building dependency tree... Done
@@ -224,19 +222,13 @@ Example of what the output will look like when a **telegraf** agent has been fou
 <details><summary>Example - Successful re-inventory</summary>
 <p>
 
-Highlighted lines show the CMDs listed above.
-
 ```jsx title="Linux Ubuntu" showLineNumbers
-// highlight-start
 ubuntu-testing-dev-box:/opt/circonus/am/etc$ sudo systemctl stop circonus-am
 ubuntu-testing-dev-box:/opt/circonus/am/etc$ sudo /opt/circonus/am/sbin/circonus-am --inventory
-// highlight-end
 {"level":"info","name":"circonus-am","version":"0.1.3","time":1692044346,"message":"starting"}
 {"level":"info","agent":"telegraf","time":1692044346,"message":"found"}
 {"level":"info","pkg":"manager","time":1692044346,"message":"invetory complete"}
-// highlight-start
 ubuntu-testing-dev-box:/opt/circonus/am/etc$ sudo systemctl start circonus-am
-// highlight-end
 ubuntu-testing-dev-box:/opt/circonus/am/etc$ sudo systemctl status circonus-am
 ● circonus-am.service - Circonus Agent Manager
      Loaded: loaded (/lib/systemd/system/circonus-am.service; enabled; vendor preset: enabled)
@@ -322,7 +314,7 @@ brew remove circonus/circonus-agent-manager/circonus-am
    
 Agent Manager usage flags
 
-```jsx {1} title="Linux Ubuntu" showLineNumbers
+```jsx title="Linux Ubuntu" showLineNumbers
 ubuntu-testing-dev-box:/opt/circonus/am/sbin$ sudo ./circonus-am -h
 Manager for local agents (metrics, logs, etc.)
 
@@ -345,7 +337,7 @@ Flags:
 
 Check to see if the Agent Manager is running
 
-```jsx {1} title="Linux Ubuntu" showLineNumbers
+```jsx title="Linux Ubuntu" showLineNumbers
 ubuntu-testing-dev-box:/opt/circonus/am/sbin$ sudo systemctl status circonus-am
 ● circonus-am.service - Circonus Agent Manager
      Loaded: loaded (/lib/systemd/system/circonus-am.service; enabled; vendor preset: enabled)
@@ -365,7 +357,7 @@ Aug 14 19:34:30 ubuntu-testing-dev-box circonus-am[1359376]: {"level":"info","in
 
 View the logs of Agent Manager while it is running
 
-```jsx {1} title="Linux Ubuntu" showLineNumbers
+```jsx title="Linux Ubuntu" showLineNumbers
 ubuntu-host:/opt/circonus/am/etc$ sudo journalctl -u circonus-am.service
 Aug 15 18:07:28 ubuntu-qa21-1-observability systemd[1]: Started Circonus Agent Manager.
 Aug 15 18:07:28 ubuntu-qa21-1-observability circonus-am[4079997]: {"level":"info","name":"circonus-am","version":"0.1.3","time":1692122848,"message":"starting"}
@@ -377,7 +369,7 @@ Aug 15 18:07:28 ubuntu-qa21-1-observability circonus-am[4079997]: {"level":"info
 
 Agent Manager usage flags
 
-```jsx {1} title="macOS (Silicon) Homebrew" showLineNumbers
+```jsx title="macOS (Silicon) Homebrew" showLineNumbers
 ➜  ~ /opt/homebrew/opt/circonus-am/sbin/circonus-am -h
 Manager for local agents (metrics, logs, etc.)
 
@@ -400,7 +392,7 @@ Flags:
 
 Check to see if the Agent Manager is running
 
-```jsx {1} title="macOS (Silicon) Homebrew" showLineNumbers
+```jsx title="macOS (Silicon) Homebrew" showLineNumbers
 ➜  ~ brew services info circonus-am
 circonus-am (homebrew.mxcl.circonus-am)
 Running: ✔
@@ -410,7 +402,7 @@ Schedulable: ✔
 
 View the logs of Agent Manager while it is running
 
-```jsx {1} title="macOS (Silicon) Homebrew" showLineNumbers
+```jsx title="macOS (Silicon) Homebrew" showLineNumbers
 ➜  ~ brew services start circonus-am && tail -f -n20 /opt/homebrew/var/log/circonus-agent-manager.log
 ==> Successfully started `circonus-am` (label: homebrew.mxcl.circonus-am)
 {"level":"fatal","error":"open /opt/homebrew/etc/circonus-am.yaml: no such file or directory","config_file":"/opt/homebrew/etc/circonus-am.yaml","time":1692194609,"message":"unable to load config file"}

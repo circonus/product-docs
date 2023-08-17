@@ -17,6 +17,8 @@ When a configuration file is deleted, it is gone forever.
 
 :::
 
+## Import Configuration files
+
 The following instructions outline how to add configuration files from the Circonus UI to your account located in the main menu **Passport > Configurations**.
 
 ![flow builder](../img/configurations-list-view.png)
@@ -26,8 +28,6 @@ The following instructions outline how to add configuration files from the Circo
 By default, when a configuration file is added to your Circonus account, it is not being managed by the Agent Manager until you add it to a specific Agent Manager.
 
 :::
-
-## Import a Configuration files
 
 From the configurations list page, select **Import Configuration**.
 
