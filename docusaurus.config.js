@@ -136,13 +136,13 @@ const config = {
           src: "img/logo.svg",
         },
         items: [
-          // {
-          //   type: "docSidebar",
-          //   sidebarId: "defaultSidebar",
-          //   position: "left",
-          //   label: "Passport",
-          //   docsPluginId: "passport",
-          // },
+          {
+            type: "docSidebar",
+            sidebarId: "defaultSidebar",
+            position: "left",
+            label: "Passport",
+            docsPluginId: "passport",
+          },
           {
             type: "docSidebar",
             sidebarId: "defaultSidebar",
