@@ -1,6 +1,6 @@
 ---
 title: Log Ingestion
-weight: 35
+sidebar_position: 6
 ---
 
 # Log Collection and Ingestion

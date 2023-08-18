@@ -1,6 +1,6 @@
 ---
 title: Supported Query Languages
-weight: 150
+sidebar_position: 2
 ---
 
 # Supported Query Languages

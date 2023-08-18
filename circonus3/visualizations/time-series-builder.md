@@ -1,6 +1,6 @@
 ---
 title: Time Series Builder Visualizations
-weight: 20
+sidebar_position: 4
 ---
 
 # Time Series Builder Visualizations

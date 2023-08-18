@@ -1,6 +1,6 @@
 ---
 title: Bucket Aggregations
-weight: 230
+sidebar_position: 3
 ---
 
 # Bucket aggregations

@@ -1,13 +1,13 @@
 ---
 title: Dashboards
-sidebar_position: 3
+sidebar_position: 2
 ---
 
 # Circonus Dashboards
 
 Circonus dashboards provide a unified visualization framework for your cloud services, infrastructure, and applications and make it easy for you to explore your metric, log, or trace data within the platform.
 
-From real-time infrastructure monitoring (IM) to application performance monitoring (APM), distributed tracing, and outage response and data exploration, Circonus dashboards give you the the visualizations needed to graphically represent trends, outliers, and patterns in your data.
+From real-time infrastructure monitoring (IM) to application performance monitoring (APM), distributed tracing, outage response and data exploration, Circonus dashboards give you the visualizations needed to graphically represent trends, outliers, and patterns in your data.
 
 Circonus dashboards also provide exceptional versatility. The image below depicts a dashboard in fullscreen mode with web traffic logs filtered to show US customers using either OSX or iOS devices.
 
@@ -17,7 +17,7 @@ Circonus dashboards also provide exceptional versatility. The image below depict
 
 With the main menu undocked, a dashboard will consume the entire width of the browser window. Otherwise, it will automatically resize to accommodate the width of the main menu.
 
-To dock or undock the main menu on the left hand side of the screen, select **Dock navigation** or **Undock navigation** at the bottom of the menu below **Recently viewed**.
+To dock or undock the main menu on the left-hand side of the screen, select **Dock navigation** or **Undock navigation** at the bottom of the menu below **Recently viewed**.
 
 Every dashboard consists of four different sections:
 
@@ -30,35 +30,35 @@ Every dashboard consists of four different sections:
 
 ### Dashboard Command Bar
 
-The dashboard **command bar**, which is located in the upper right corner of the dashboard, allows you to place the dashboard into full screen mode, share the dashboard, clone the dashboard, access reports for the dashboard, or choose to edit the dashboard.
+The dashboard **command bar**, which is located in the upper right corner of the dashboard, allows you to place the dashboard into full-screen mode, share the dashboard, clone the dashboard, access reports for the dashboard, or choose to edit the dashboard.
 
-- **Full screen** is designed for the large screens often used in Operations centers. It places the browser into full screen mode and hides the title bar to maximize screen real estate. You can exit full screen mode by clicking on the **Exit full screen** button in the bottom left hand corner of the dashboard or by simply hitting the `esc` key.
+- **Full screen** is designed for the large screens often used in Operations centers. It places the browser into full-screen mode and hides the title bar to maximize screen real estate. You can exit full-screen mode by clicking on the **Exit full-screen** button in the bottom left-hand corner of the dashboard or by simply hitting the `esc` key.
 
 - **Share** is designed to make it easy to share the dashboard as a permalink or embed the dashboard as an iFrame.
 
   If you choose to embed the dashboard in an existing application using an iframe or intranet site, you can control which elements are exposed such as the **Top menu** and **Query bar**. The permalink does not give you this display control.
 
-  Both the permalink and embed sharing options allow you to choose between a `Snapshot` (which is fixed to current time, filters, etc.) or a `Saved object` (which links to a live dashboard). You can toggle the use of a `Short URL` for both options.
+  Both the permalink and embed sharing options allow you to choose between a `Snapshot` (which is fixed to the current time, filters, etc.) or a `Saved object` (which links to a live dashboard). You can toggle the use of a `Short URL` for both options.
 
 - **Clone** allows you to clone an existing dashboard and modify or edit it as required.
 
 - **Reporting** allows you to download the dashboard as a PDF or PNG, and/or create a report definition from the dashboard that can be scheduled.
 
-- The **Edit** button (far top right corner) allows you to edit the current dashboard if you have rights to edit or modify the dashboard displayed.
+- The **Edit** button (far top right corner) allows you to edit the current dashboard if you have permission to edit or modify the dashboard displayed.
 
 ### Search Query Bar
 
 Within the **Search query bar**, you can filter the data displayed on a dashboard by applying a saved query or by entering search criteria.
 
-Saved queries include both the search criteria and filters. To apply a saved query, click the disk icon on the left of the **Search query bar**. Then, click the query name to apply it to the dashboard. While a saved query is applied, click the disk icon to manage the query. Saved queries can be modifed (**Save Changes**), duplicated (**Save as new**) or deleted (by hovering over its name and clicking the trash can icon). To stop applying a saved query, click the disk icon again and then the **Clear** link. If a saved query is not already applied, you can save the existing search criteria and filters as a new query by clicking the disk icon and then the **Save current query** button.
+Saved queries include both the search criteria and filters. To apply a saved query, click the disk icon on the left of the **Search query bar**. Then, click the query name to apply it to the dashboard. While a saved query is applied, click the disk icon to manage the query. Saved queries can be modified (**Save Changes**), duplicated (**Save as new**) or deleted (by hovering over its name and clicking the trash can icon). To stop applying a saved query, click the disk icon again and then the **Clear** link. If a saved query is not already applied, you can save the existing search criteria and filters as a new query by clicking the disk icon and then the **Save current query** button.
 
 Search criteria can be expressed in [DQL (Dashboards Query Language)](/circonus3/additional-resources/query-languages/dql/) or [Lucene](/circonus3/additional-resources/query-languages/lucene-support/) by clicking on **DQL** on the right of the **Search query bar** and toggling the option for DQL. Please note that Lucene is recommended for advanced users only.
 
 ### Date and Time Filters
 
-Date and time filters can be applied in a couple different ways.
+Date and time filters can be applied in a couple of different ways.
 
-Clicking on the calendar icon on the left side of the date/time field reveals a number of options. At the top, you can quickly configure a new time frame, such as the last 20 minutes. If you use this **Quick select** option, don't forget to click the **Apply** button to the right of the dropdowns. You can also choose from **Commonly used** or **Recently used** time frames. Lastly, you can select the refresh rate within the **Refresh every** section, or stop the dashboard from refreshing by using the **Stop** button within this section.
+Clicking on the calendar icon on the left side of the date/time field reveals several options. At the top, you can quickly configure a new time frame, such as the last 20 minutes. If you use this **Quick select** option, don't forget to click the **Apply** button to the right of the dropdowns. You can also choose from **Commonly used** or **Recently used** time frames. Lastly, you can select the refresh rate within the **Refresh every** section, or stop the dashboard from refreshing by using the **Stop** button within this section.
 
 ![Quick Select Filters](./img/dashboard-date_time.png)
 
@@ -70,7 +70,7 @@ Data filters let you refine a dashboard by using fields or tags supported by the
 
 ![Dashboard filters](./img/dashboard-filter.png)
 
-A filter is a single field, operator (condition), and value. If multiple filters are defined, they will be combined into a single logical filter using **"and"**. For example, if you specified three filters, they would joined together as Filter1 **and** Filter2 **and** Filter3.
+A filter is a single field, operator (condition), and value. If multiple filters are defined, they will be combined into a single logical filter using **"and"**. For example, if you specified three filters, they would be joined together as Filter1 **and** Filter2 **and** Filter3.
 
 To create a filter, click the **+Add filter** link and select a **Field**, **Operator** (e.g., is, is not, is one of, is not one of, exists, does not exist) and **Value** (if applicable given the **Operator**). The operators available will be dependent on the type of field selected.
 
@@ -91,7 +91,7 @@ You can manage how all filters are applied by clicking the filter icon to the le
 To manage any specific filter, simply click on its name. This will display a menu where you can take the following actions for the filter:
 
 - **Pin across all apps**
-- **Edit filter** which lets you edit the field name, list operation, and value (is applicable)
+- **Edit filter** which lets you edit the field name, list operation, and value (if applicable)
 - **Exclude results** (applies a `NOT` to the filter)
 - **Temporarily disable** or **Re-enable** the filter
 - **Delete** the filter
@@ -106,23 +106,23 @@ To create a new dashboard, first choose **Dashboards** from the main menu. Then 
 
 ![List of Circonus Dashboard ](./img/dashboard-create.png)
 
-This will create a blank dashboard to which you can be begin adding visualization panels (objects).
+This will create a blank dashboard to which you can begin adding visualization panels (objects).
 
 ### Editing Dashboards
 
-You can edit a dashboard by first viewing it and selecting **Edit** from its **Command bar**. You can also choose to edit a dashboard by clicking the pencil icon within the **Actions** column for the desired dashboard within the dashboards list.
+You can edit a dashboard by first viewing it and selecting **Edit** from its **Command bar**. You can also choose to edit a dashboard by clicking the pencil icon within the **Actions** column for the desired dashboard within the dashboard list.
 
-Once in edit mode, you have the same tools available as you would during creation of a new dashboard.
+Once in edit mode, you have the same tools available as you would during the creation of a new dashboard.
 
 ### Adding Visualizations
 
 You can create new visualizations for your dashboard or select from existing ones. Please note that you must first be editing a dashboard to add new or existing visualizations to it.
 
-To create a new visualization panel while editing a dashboard, click on the **+ Create new** button within the **Command bar**. If the dashboard is empty, you can also click this button within the placeholder panel on the left hand side of the dashboard.
+To create a new visualization panel while editing a dashboard, click on the **+ Create new** button within the **Command bar**. If the dashboard is empty, you can also click this button within the placeholder panel on the left-hand side of the dashboard.
 
 ![New Dashboard](./img/dashboard-create_new.png)
 
-The **New Visualization** dialog allows you to select from a number of different charts and visualizations.
+The **New Visualization** dialog allows you to select from several different charts and visualizations.
 
 ![New Visualization](./img/visualizations-select.png)
 
@@ -142,7 +142,7 @@ Resize a visualization panel by clicking on the bottom right corner of the panel
 
 ![Resizing Visualization panels](./img/dashboard-panel_resize.png)
 
-To move a visualzation panel, simply click on the title. Once the title is highlighted, you can simply drag the panel to the desired position on the dashboard.
+To move a visualization panel, simply click on the title. Once the title is highlighted, you can simply drag the panel to the desired position on the dashboard.
 
 ![Moving Visualization panels around a dashboard](./img/dashboard-panel_move.png)
 
@@ -158,7 +158,7 @@ Once a visualization has been added to a dashboard, you may be able to inspect t
 
 ![Visualization Panel Data Inspection](./img/visualizations-inspect.png)
 
-You can download a visualization's data as a comma separated values (CSV) file in Formatted or Raw format. Formatted downloads the data in table format. Raw downloads the data as provided — dates are timestamps, numbers don’t have thousand separators, and so on.
+You can download a visualization's data as a comma-separated values (CSV) file in Formatted or Raw format. Formatted downloads the data in table format. Raw downloads the data as provided — dates are timestamps, numbers don’t have a thousand separators, and so on.
 
 ![Visualization Panel Data Inspection](./img/visualizations-inspect_data.png)
 
@@ -166,7 +166,7 @@ To view the requests that collected the data, select **Requests** from the **Vie
 
 ### Deleting Dashboards
 
-If you wish to delete a dashboard, first navigate to the dashboards list by selecting **Dashboards** within the main menu. Click the checkbox in front of the title of the dashboard you'd like to delete. Repeat this action for all dashboards you'd like to delete. A red **Delete** button will appear indicating the number of dashboards selected for deletion.
+If you wish to delete a dashboard, first navigate to the dashboard list by selecting **Dashboards** within the main menu. Click the checkbox in front of the title of the dashboard you'd like to delete. Repeat this action for all dashboards you'd like to delete. A red **Delete** button will appear indicating the number of dashboards selected for deletion.
 
 ![Deleting Circonus Dashboards ](./img/dashboard-delete.png)
 

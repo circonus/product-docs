@@ -1,6 +1,6 @@
 ---
 title: Event Analytics
-weight: 20
+sidebar_position: 4
 ---
 
 # Event Analytics

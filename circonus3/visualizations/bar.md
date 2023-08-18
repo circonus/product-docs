@@ -1,6 +1,6 @@
 ---
 title: Bar, Line, and Area Chart Visualizations
-weight: 30
+sidebar_position: 5
 ---
 
 # Bar, Line, and Area Chart Visualizations

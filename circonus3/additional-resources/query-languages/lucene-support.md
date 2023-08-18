@@ -1,6 +1,6 @@
 ---
 title: Lucene Support
-weight: 100
+sidebar_position: 2
 ---
 
 # Lucene Query Support

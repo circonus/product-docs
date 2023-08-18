@@ -1,6 +1,6 @@
 ---
-title: Observability
-weight: 1
+title: Introduction
+sidebar_position: 1
 ---
 
 # Observability
@@ -10,7 +10,7 @@ questions about that system without knowing its inner workings. Observability al
 allows you to easily troubleshoot and handle novel problems (i.e. "unknown
 unknowns”) and enables us to answer the question, "Why is this happening?"
 
-Circonus Observability is collection of analytics and tools that allows you to answer these questions by discovering, exploring, and visualizing traces, events and metric data stored within the platform.
+Circonus Observability is a collection of analytics and tools that allows you to answer these questions by discovering, exploring, and visualizing traces, events and metric data stored within the platform.
 
 ![Circonus Observability](../../img/analytics-observability_trace_analytics.png)
 

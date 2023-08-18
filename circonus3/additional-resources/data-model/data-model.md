@@ -1,6 +1,6 @@
 ---
 title: Data Model
-weight: 35
+sidebar_position: 2
 ---
 
 # Data Model

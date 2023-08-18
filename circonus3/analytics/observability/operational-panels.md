@@ -1,6 +1,6 @@
 ---
 title: Operational Panels
-weight: 30
+sidebar_position: 5
 ---
 
 # Operational Panels

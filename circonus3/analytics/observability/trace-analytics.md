@@ -1,6 +1,6 @@
 ---
 title: Trace Analytics
-weight: 15
+sidebar_position: 3
 ---
 
 # Trace Analytics

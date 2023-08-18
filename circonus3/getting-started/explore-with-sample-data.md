@@ -1,6 +1,6 @@
 ---
 title: Explore with Sample Data
-weight: 20
+sidebar_position: 4
 ---
 
 # Explore with Sample Data

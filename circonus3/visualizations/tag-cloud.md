@@ -1,6 +1,6 @@
 ---
 title: Tag Cloud Visualizations
-weight: 80
+sidebar_position: 11
 ---
 
 # Working with Tag Clouds

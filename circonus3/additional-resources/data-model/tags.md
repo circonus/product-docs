@@ -1,6 +1,6 @@
 ---
 title: Tags
-weight: 90
+sidebar_position: 1
 ---
 
 # Tags

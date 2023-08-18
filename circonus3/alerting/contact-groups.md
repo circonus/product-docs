@@ -1,6 +1,6 @@
 ---
 title: Contact Groups
-weight: 50
+sidebar_position: 4
 ---
 
 # Contact Groups

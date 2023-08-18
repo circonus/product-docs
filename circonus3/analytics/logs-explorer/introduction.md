@@ -1,6 +1,6 @@
 ---
-title: Logs Explorer
-weight: 10
+title: Introduction
+sidebar_position: 1
 ---
 
 # Logs Explorer

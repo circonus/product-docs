@@ -1,6 +1,6 @@
 ---
 title: Circonus Platform
-weight: 10
+sidebar_position: 2
 ---
 
 # Circonus Platform Overview

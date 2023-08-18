@@ -1,6 +1,6 @@
 ---
 title: Scheduling Reports with Cron
-weight: 30
+sidebar_position: 2
 ---
 
 # Scheduling Reports with Cron

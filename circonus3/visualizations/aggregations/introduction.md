@@ -1,6 +1,6 @@
 ---
-title: Aggregations
-weight: 200
+title: Introduction
+sidebar_position: 1
 ---
 
 # Aggregations

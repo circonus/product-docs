@@ -1,6 +1,6 @@
 ---
-title: Alerting
-weight: 5
+title: Introduction
+sidebar_position: 1
 ---
 
 # Alerting

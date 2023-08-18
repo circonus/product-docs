@@ -1,6 +1,6 @@
 ---
 title: Metric Aggregations
-weight: 220
+sidebar_position: 2
 ---
 
 # Metric aggregations

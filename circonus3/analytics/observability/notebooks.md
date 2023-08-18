@@ -1,6 +1,6 @@
 ---
 title: Notebooks
-weight: 70
+sidebar_position: 6
 ---
 
 # Notebooks

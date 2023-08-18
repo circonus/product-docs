@@ -1,6 +1,6 @@
 ---
 title: Map Visualizations
-weight: 40
+sidebar_position: 6
 ---
 
 # Map Visualizations

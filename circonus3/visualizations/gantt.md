@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Gantt Chart Visualizations
-weight: 50
+sidebar_position: 7
 ---
 
 # Gantt Chart Visualizations

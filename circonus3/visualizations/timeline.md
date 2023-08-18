@@ -1,6 +1,6 @@
 ---
 title: Timeline Visualizations
-weight: 90
+sidebar_position: 12
 ---
 
 # Timeline Visualizations

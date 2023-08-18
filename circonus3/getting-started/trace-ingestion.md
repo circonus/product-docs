@@ -1,6 +1,6 @@
 ---
 title: Trace Ingestion
-weight: 40
+sidebar_position: 7
 ---
 
 # Trace Ingestion

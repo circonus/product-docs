@@ -1,6 +1,6 @@
 ---
 title: Browser compatibility
-weight: 20
+sidebar_position: 10
 ---
 
 # Browser compatibility

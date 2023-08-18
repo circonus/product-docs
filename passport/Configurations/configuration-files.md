@@ -3,7 +3,7 @@ title: Configuration Files
 sidebar_position: 1
 ---
 
-# Configuration files
+# Configuration Files
 
 Passport makes it easy to manage your configuration files and agents all in one place. With Passport, you can import or create configuration files for your agents using the intuitive UI.
 

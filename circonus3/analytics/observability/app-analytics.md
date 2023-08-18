@@ -1,6 +1,6 @@
 ---
 title: Application Analytics
-weight: 10
+sidebar_position: 2
 ---
 
 # Application Analytics

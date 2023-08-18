@@ -1,6 +1,6 @@
 ---
 title: Pie and Donut Visualizations
-weight: 70
+sidebar_position: 10
 ---
 
 # Working with Pie and Donut Charts

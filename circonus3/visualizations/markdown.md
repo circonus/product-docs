@@ -1,6 +1,6 @@
 ---
 title: Markdown Visualization
-weight: 65
+sidebar_position: 9
 ---
 
 # Markdown Visualization

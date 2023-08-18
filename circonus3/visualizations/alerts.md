@@ -1,6 +1,6 @@
 ---
 title: Alert Visualizations
-weight: 15
+sidebar_position: 3
 ---
 
 # Alert Visualizations

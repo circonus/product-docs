@@ -1,6 +1,6 @@
 ---
 title: Dashboards Query Language (DQL)
-weight: 100
+sidebar_position: 1
 ---
 
 # Dashboards Query Language (DQL)

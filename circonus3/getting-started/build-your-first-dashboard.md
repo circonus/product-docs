@@ -1,6 +1,6 @@
 ---
 title: Build Your First Dashboard
-weight: 50
+sidebar_position: 8
 ---
 
 # Build Your First Dashboard

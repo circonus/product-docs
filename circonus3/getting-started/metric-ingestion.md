@@ -1,6 +1,6 @@
 ---
 title: Metric Ingestion
-weight: 30
+sidebar_position: 5
 ---
 
 # Metric Ingestion

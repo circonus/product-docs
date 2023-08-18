@@ -1,6 +1,6 @@
 ---
 title: Working with Visualizations
-weight: 10
+sidebar_position: 2
 ---
 
 # Working with Visualizations

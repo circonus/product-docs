@@ -1,6 +1,6 @@
 ---
 title: Heatmap Visualizations
-weight: 60
+sidebar_position: 8
 ---
 
 # Working with Heatmaps

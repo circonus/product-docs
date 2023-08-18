@@ -1,7 +1,7 @@
 ---
-title: Visualizations
+title: Inroduction
 hidecards: true
-weight: 2
+sidebar_position: 1
 ---
 
 # Visualizations

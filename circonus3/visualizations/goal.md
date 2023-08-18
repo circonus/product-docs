@@ -1,6 +1,6 @@
 ---
 title: Goal and Gauge Visualizations
-weight: 50
+sidebar_position: 7
 ---
 
 # Working with the Goal and Gauge Visualization
