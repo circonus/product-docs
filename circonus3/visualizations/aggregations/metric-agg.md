@@ -37,7 +37,7 @@ There are two types of Metric aggregations:
 
 - The **Percentiles** aggregation divides the values in a numeric field into percentile bands that you specify. S
 
-- The **Percentiles Rank** aggregation returns the percentile rankings for the values in the numeric field you specify. 
+- The **Percentiles Rank** aggregation returns the percentile rankings for the values in the numeric field you specify.
 
 ### `sum`, `min`, `max`, and `avg`
 
@@ -321,15 +321,15 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-Statistic | Description
-:--- | :---
-`count` | The number of samples measured.
-`mean` | The average value of the field measured from the sample.
-`variance` | How far the values of the field measured are spread out from its mean value. The larger the variance, the more it's spread from its mean value.
-`skewness` | An asymmetric measure of the distribution of the field's values around the mean.
-`kurtosis` | A measure of the tail heaviness of a distribution. As the tail becomes lighter, kurtosis decreases. As the tail becomes heavier, kurtosis increases. To learn about kurtosis, see [Wikipedia](https://en.wikipedia.org/wiki/Kurtosis).
-`covariance` | A measure of the joint variability between two fields. A positive value means their values move in the same direction and vice versa.
-`correlation` | A measure of the strength of the relationship between two fields. The valid values are between [-1, 1]. A value of -1 means that the value is negatively correlated and a value of 1 means that it's positively correlated. A value of 0 means that there's no identifiable relationship between them.
+| Statistic     | Description                                                                                                                                                                                                                                                                                            |
+| :------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `count`       | The number of samples measured.                                                                                                                                                                                                                                                                        |
+| `mean`        | The average value of the field measured from the sample.                                                                                                                                                                                                                                               |
+| `variance`    | How far the values of the field measured are spread out from its mean value. The larger the variance, the more it's spread from its mean value.                                                                                                                                                        |
+| `skewness`    | An asymmetric measure of the distribution of the field's values around the mean.                                                                                                                                                                                                                       |
+| `kurtosis`    | A measure of the tail heaviness of a distribution. As the tail becomes lighter, kurtosis decreases. As the tail becomes heavier, kurtosis increases. To learn about kurtosis, see [Wikipedia](https://en.wikipedia.org/wiki/Kurtosis).                                                                 |
+| `covariance`  | A measure of the joint variability between two fields. A positive value means their values move in the same direction and vice versa.                                                                                                                                                                  |
+| `correlation` | A measure of the strength of the relationship between two fields. The valid values are between [-1, 1]. A value of -1 means that the value is negatively correlated and a value of 1 means that it's positively correlated. A value of 0 means that there's no identifiable relationship between them. |
 
 ### `percentile` and `percentile_ranks`
 
@@ -595,10 +595,10 @@ The `scripted_metric` metric is a multi-value metric aggregation that returns me
 
 A script has four stages: the initial stage, the map stage, the combine stage, and the reduce stage.
 
-* `init_script`: (OPTIONAL) Sets the initial state and executes before any collection of documents.
-* `map_script`: Checks the value of the `type` field and executes the aggregation on the collected documents.
-* `combine_script`: Aggregates the state returned from every shard. The aggregated value is returned to the coordinating node.
-* `reduce_script`: Provides access to the variable states; this variable combines the results from the `combine_script` on each shard into an array.
+- `init_script`: (OPTIONAL) Sets the initial state and executes before any collection of documents.
+- `map_script`: Checks the value of the `type` field and executes the aggregation on the collected documents.
+- `combine_script`: Aggregates the state returned from every shard. The aggregated value is returned to the coordinating node.
+- `reduce_script`: Provides access to the variable states; this variable combines the results from the `combine_script` on each shard into an array.
 
 The following example aggregates the different HTTP response types in web log data:
 

@@ -39,7 +39,7 @@ For example, type `%md` for markdown, `%sql` for SQL, and `%ppl` for PPL.
 
 ##### Sample markdown block
 
-```
+```bash
 %md
 Add in text formatted in markdown.
 ```
@@ -53,7 +53,7 @@ Select * from opensearch_dashboards_sample_data_flights limit 20;
 
 ##### Sample PPL block
 
-```
+```bash
 %ppl
 source=opensearch_dashboards_sample_data_logs | head 20
 ```
@@ -94,8 +94,3 @@ You can use notebooks to create PNG and PDF reports:
 
 1. To create a schedule-based report, choose **Create report definition**. For steps to create a report definition, see [Create reports using a definition](/circonus3/analytics/reporting/managing-reports/#create-reports-using-a-definition).
 1. To see all your reports, choose **View all reports**.
-
-## Related links
-
-- [Circonus Dashboards](/circonus3/dashboards/introduction/)
-- [Getting Started with Circonus](/circonus3/getting-started/)

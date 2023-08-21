@@ -5,9 +5,9 @@ sidebar_position: 11
 
 # Working with Tag Clouds
 
-A tag cloud visualization is a visual representation of text data, typically used to visualize free form text.
+A tag cloud visualization is a visual representation of text data, typically used to visualize free-form text.
 
-![tagcloud](../img/visualizations-tag_cloud.png)
+![tag cloud](../img/visualizations-tag_cloud.png)
 
 Tags are usually single words, and the importance of each tag is shown with `font size or color`.
 
@@ -48,13 +48,13 @@ For each of the parent pipeline aggregations, you have to define the metric for 
 
 - The **Moving Average** aggregation will slide a window across the data and emit the average value of that window.
 
-- The **Serial Diff** (differencing) is a technique where values in a time series are subtracted from itself at different time lags or period.
+- The **Serial Diff** (differencing) is a technique where values in a time series are subtracted from itself at different time lags or periods.
 
 #### Sibling Pipeline Aggregations
 
-Just like with parent pipeline aggregations you need to provide a metric for which to calculate the sibling aggregation.
+Just like with parent pipeline aggregations, you need to provide a metric for which to calculate the sibling aggregation.
 
-On top of that you also need to provide a bucket aggregation which will define the buckets on which the sibling aggregation will run.
+On top of that, you also need to provide a bucket aggregation that will define the buckets on which the sibling aggregation will run.
 
 - The **Average Bucket** calculates the (mean) average value of a specified metric in a sibling aggregation.
 
@@ -70,15 +70,15 @@ Enter a string in the **Custom Label** field to change the display label.
 
 The _buckets_ aggregations determine what information is being retrieved from your data set.
 
-Before you choose a buckets aggregation, select the **Split Tags** option.
+Before you choose the **buckets aggregation**, select the **Split Tags** option.
 
-- **Field** specify the name the field that aggregation uses.
+- The **Field** specifies the name field that aggregation uses.
 
-- **Order** can be descending or acending depending on value.
+- **Order** can be descending or ascending depending on value.
 
-- **Size** determines the number of tags shown in the cloud. Its based on values and is in effect a Top N filter.
+- The **Size** determines the number of tags shown in the cloud. It's based on values and is in effect a Top N filter.
 
-- **Group other values in separate bucket** allows you to group values that not in the list as defined by size into a _Other_ bucket. You can customize the name for the _Other_ bucket.
+- The option **Group other values in a separate bucket** allows you to group values that are not in the list as defined by size into _Other_ bucket. You can customize the name for the _Other_ bucket.
 
 - **Show missing values** if a document is missing values you group it into a _Missing_ bucket. You can customize the name for the _Missing bucket_
 
@@ -90,11 +90,6 @@ Select the Options tab to change the following aspects of the chart.
 
 - **Text Scale** allows you to select _Linear_, _Log_, or _Square root_ scales for the text scale. You can use a log scale to display data that varies exponentially or a square root scale to regularize the display of data sets with variabilities that are themselves highly variable.
 
-- **Orientations** allows you to select how to orientate your text in the tag cloud. You can choose one of the following options: Single, right angles and multiple.
+- The **Orientations** allows you to select how to orientate your text in the tag cloud. You can choose one of the following options: Single, right angles or multiple.
 
-- **Font Size range in pixels** allows you using the slider to set minimum and maximum font size to use for this visualization.
-
-## Related links
-
-- [Circonus Dashboards](/circonus3/dashboards/introduction/)
-- [Getting Started with Circonus](/circonus3/getting-started/)
+- **Font Size range in pixels** allows you to use the slider to set minimum and maximum font sizes to use for this visualization.

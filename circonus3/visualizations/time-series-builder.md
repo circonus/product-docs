@@ -89,11 +89,11 @@ To add annotations to a **Time Series** visualization within the Time Series Bui
 
    > The available icons types are `*` (asterisk), `Bell`, `Bolt` (lightening), `Comment` (bubble), `Map Marker`, `Map Pin`, `Star`, `Tag` _(default)_, `Bomb`, `Bug`, `Exclamation circle`, `Exclamation triangle`, `Fire`, `Flag` and `Heart`.
 
-9. Enter the fields you wish to use in the annotation as a comma separated list.
+9. Enter the fields you wish to use in the annotation as a comma-separated list.
 
 10. The **Row Template** can be specified using the [mustache template language](http://mustache.github.io/mustache.5.html). For example: `{{field}}`.
 
-You can delete Annotations by clicking on the _red garbage bin_ icon in the top right hand corner of the annotations panel.
+You can delete Annotations by clicking on the _red garbage bin_ icon in the top right-hand corner of the annotations panel.
 
 ### Markdown
 
@@ -125,9 +125,9 @@ To edit **Panel options** for a visualization:
 
 2. Under **Style**, specify how you want the visualization to look. The style options will differ based on the visualization.
 
-- Style specifies axis scaling, position, color options, and legend and tool tip options.
+- Style specifies axis scaling, position, color options, and legend and tooltip options.
 
-  - The **Metric**, **Top N**, **Gauge** visualization support specific color rules (conditional formatting) that set the background, text, bar, and gauge color based on the conditions.
+  - The **Metric**, **Top N**, and **Gauge** visualization support specific color rules (conditional formatting) that set the background, text, bar, and gauge color based on the conditions.
 
   - A **Style** section is not available for the Markdown or Table visualizations. Markdown does support the use of custom CSS.
 
@@ -135,15 +135,10 @@ To edit **Panel options** for a visualization:
 
    - **Index pattern** selects which indices are used. By default, it uses `logs-*`.
 
-   - **Time field** allows you to select from the available time fields within the selected series.
+   - The **time field** allows you to select from the available time fields within the selected series.
 
    - **Interval** is set to auto by default. You can choose a time range **(1m, 1h, 7d, 1w, 1y or expressed as condition >=1m)** and compare the same or different time series using a time offset of a number of _minutes_ (m), _hours_ (h), _days_ (d), _weeks_ (w), or _years_ (y).
 
    - Enter the **Search** [DQL](/circonus3/additional-resources/query-languages/dql/) query string.
 
-   - Choose whether you want to **Ignore** _global or panel filters_. By default, this is set to **Yes**. Set it to **No** if you wish to use the [dashboard filters](circonus3/Dashboards/#data-filters) or a [Controls Visualization](/circonus3/visualizations/introduction/#controls-visualizations).
-
-## Related links
-
-- [Circonus Dashboards](/circonus3/dashboards/introduction/)
-- [Getting Started with Circonus](/circonus3/getting-started/)
+   - Choose whether you want to **Ignore** _global or panel filters_. By default, this is set to **Yes**. Set it to **No** if you wish to use the [dashboard filters](/circonus3/dashboards/#data-filters) or a [Controls Visualization](/circonus3/visualizations/introduction/#controls-visualizations).

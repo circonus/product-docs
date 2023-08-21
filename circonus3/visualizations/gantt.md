@@ -1,5 +1,4 @@
 ---
-layout: default
 title: Gantt Chart Visualizations
 sidebar_position: 7
 ---
@@ -12,7 +11,7 @@ For example, consider an index of log data. The fields in a typical set of log d
 
 To create a Gantt chart, perform the following steps:
 
-1. On the main visualizations page, choose **Create visualization** and **Gantt Chart**.
+1. On the main visualizations page, choose **Create Visualization** and **Gantt Chart**.
 1. Choose a source for the chart (e.g. some log data).
 1. Under **Metrics**, choose **Event**. For log data, each log is an event.
 1. Select the **Start Time** and **Duration** fields from your data set. The start time is the timestamp for the begining of an event. The duration is the amount of time to add to the start time.
@@ -23,8 +22,3 @@ To create a Gantt chart, perform the following steps:
 ![Gantt Chart](../img/visualizations-gantt.png)
 
 This Gantt chart displays the ID of each log on the y-axis. Each bar is a unique event that spans some amount of time. Hover over a bar to see the duration of that event.
-
-## Related links
-
-- [Circonus Dashboards](/circonus3/dashboards/introduction/)
-- [Getting Started with Circonus](/circonus3/getting-started/)

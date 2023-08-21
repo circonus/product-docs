@@ -5,13 +5,13 @@ sidebar_position: 10
 
 # Working with Pie and Donut Charts
 
-Pie and donut visualizations provide a quick breakdown of overall composition as well as a comparison of slices to an overall pie. If you're specifically looking to compare slices, this is better done with a bar chart. Please note that pie and donut visualizations are optimized for logs and trace data.
+Pie and donut visualizations provide a quick breakdown of the overall composition as well as a comparison of slices to an overall pie. If you're specifically looking to compare slices, this is better done with a bar chart. Please note that pie and donut visualizations are optimized for logs and trace data.
 
 ![Pie and Donut Visualization](../img/visualizations-pie.png)
 
 ## Pie or Donut Chart Aggregations
 
-In Circonus, slice size is determined by metric aggregation. The following metric aggregations are available:
+In Circonus, slice size is determined by metric aggregation. The following metrics aggregations are available:
 
 - The **Count** aggregation returns a raw count of the elements in the selected index pattern.
 
@@ -66,13 +66,8 @@ The availability of these options varies depending on the aggregation you choose
 
 Select the **Options** tab to change the following aspects of the table:
 
-- **Donut** display the chart as a sliced ring instead of a sliced pie.
+- A **Donut** will display the chart as a sliced ring instead of a sliced pie.
 
 - Check **Show Tooltip** to enable the display of tooltips.
 
 After changing options, click the **Apply changes** button to update your visualization or the grey **Discard changes** button to keep your visualization in its current state.
-
-## Related links
-
-- [Circonus Dashboards](/circonus3/dashboards/introduction/)
-- [Getting Started with Circonus](/circonus3/getting-started/)

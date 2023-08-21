@@ -57,7 +57,7 @@ The _buckets_ aggregations determine what information is being retrieved from yo
 
 Before you choose a buckets aggregation, specify if you are defining buckets for X or Y axis within a single chart or splitting into multiple charts. A multiple chart split must run before any other aggregations. When you split a chart, you can change if the splits are displayed in a row or a column by clicking the **Rows | Columns** selector.
 
-This chart’s X and Y axes supports the following aggregations.
+This chart’s X and Y axes support the following aggregations.
 
 - [Date Histogram](/circonus3/visualizations/aggregations/pipeline-agg/#sibling-pipeline-aggregations)
 - [Date Range](/circonus3/visualizations/aggregations/pipeline-agg/#sibling-pipeline-aggregations)
@@ -75,6 +75,7 @@ You can click the Advanced link to display more customization options for your m
 - **JSON Input** is a text field where you can add specific JSON-formatted properties to merge with the aggregation definition, as in the following example:
 
 `{ "script" : "doc['grade'].value * 1.2" }`
+
 The availability of these options varies depending on the aggregation you choose.
 
 ## Options
@@ -87,11 +88,11 @@ Select the **Options** tab to change the following aspects of the chart:
 
 - Check **Show tooltips** to enable the display of tooltips.
 
-- Check **Highlight** to enable highlighting of elements with same label.
+- Check **Highlight** to enable the highlighting of elements with the same label.
 
 ### Heatmap setting
 
-- **Color schema** alows you to select an existing color schema or define your own custom colors in the legend. The predefined available color ranges include:
+- The **Color schema** will allow you to select an existing color schema or define your custom colors in the legend. The predefined available color ranges include:
 
   - Green to Red
   - Yellow to Red
@@ -107,7 +108,7 @@ Select the **Options** tab to change the following aspects of the chart:
 
 - **Percentage Mode** will show legend values as percentages.
 
-- **Number of Colors** specifies the number of color buckets to create. Minimum is 2 and maximum is 10.
+- The **Number of Colors** specifies the number of color buckets to create: Minimum is 2 and maximum is 10.
 
 - **Custom Range** allows you to define custom ranges for your color buckets. For each of the color buckets, you need to specify the minimum value (inclusive) and the maximum value (exclusive) of a range.
 
@@ -120,8 +121,3 @@ Select the **Options** tab to change the following aspects of the chart:
 - **Overwrite automatic color** allows you to override the automatic label coloring by setting a specific color.
 
 - **Color** is enabled if **Overwrite automatic color** is selected. Here, you can select from a color picker or specify the value in RGB hex codes.
-
-## Related links
-
-- [Circonus Dashboards](/circonus3/dashboards/introduction/)
-- [Getting Started with Circonus](/circonus3/getting-started/)

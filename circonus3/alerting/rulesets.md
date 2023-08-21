@@ -193,7 +193,7 @@ The extraction query editor gives you greater flexibility in your query (using [
 
 For instance, this [DSL query](/circonus3/additional-resources/query-languages/dql/) averages the `cpu_usage` field:
 
-```shell
+```json
 {
   "size": 0,
   "query": {
@@ -211,7 +211,7 @@ For instance, this [DSL query](/circonus3/additional-resources/query-languages/d
 
 You can even filter query results using `{% raw %}{{period_start}}{% endraw %}` and `{% raw %}{{period_end}}{% endraw %}`.
 
-```shell
+```json
 {
   "size": 0,
   "query": {
@@ -255,7 +255,7 @@ Bucket-level rulesets require you to specify more information in your trigger co
 
 For example, you might have a script that looks like the following:
 
-```shell
+```json
 {
   "buckets_path": {
     "count_var": "_count"

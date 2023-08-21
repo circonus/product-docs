@@ -55,13 +55,8 @@ A time series metric is any visualization that has a query that spans over a tim
 
 ##### Example
 
-```
+```bash
 source = <index_name> | ... | ... | stats ... by span(<timestamp_field>, 1h)
 ```
 
 Choose **Line** in visualization configurations to create a time series metric.
-
-## Related links
-
-- [Circonus Dashboards](/circonus3/dashboards/introduction/)
-- [Getting Started with Circonus](/circonus3/getting-started/)

@@ -144,8 +144,3 @@ Configure a Terms aggregation. The term is the key that is used to join the resu
 - **Legend Position:** the location on the screen where the legend should be rendered.
 
 - **Show Tooltip:** indicates whether a tooltip should be displayed when hovering over a shape..
-
-## Related links
-
-- [Circonus Dashboards](/circonus3/dashboards/introduction/)
-- [Getting Started with Circonus](/circonus3/getting-started/)

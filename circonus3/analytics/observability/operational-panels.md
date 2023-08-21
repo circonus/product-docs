@@ -22,8 +22,3 @@ To create an operational panel and add visualizations:
 1. Choose **Add**.
 
 To search for a particular visualization in your operational panels, use PPL queries to search for data you've already added to your panel.
-
-## Related links
-
-- [Circonus Dashboards](/circonus3/dashboards/introduction/)
-- [Getting Started with Circonus](/circonus3/getting-started/)

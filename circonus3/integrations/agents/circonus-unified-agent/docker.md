@@ -17,7 +17,7 @@ This page outlines the installation and configuration of CUA for Docker.
 
 Use one of the following commands:
 
-```sh
+```bash
 docker run -d --name=circonus-unified-agent \
     -v $PWD/circonus-unified-agent.conf:/etc/circonus-unified-agent/circonus-unified-agent.conf:ro \
     circonus/circonus-unified-agent
@@ -25,7 +25,7 @@ docker run -d --name=circonus-unified-agent \
 
 or
 
-```sh
+```bash
 docker run -d --name=circonus-unified-agent \
     --mount type=bind,src=$PWD/circonus-unified-agent.conf,dst=/etc/circonus-unified-agent/circonus-unified-agent.conf \
     circonus/circonus-unified-agent
@@ -33,9 +33,9 @@ docker run -d --name=circonus-unified-agent \
 
 ## Integrations
 
-In some cases, you may wish to collect host metrics from within the container. To do so, use one of the following commands:
+In some cases, you may wibash to collect host metrics from within the container. To do so, use one of the following commands:
 
-```sh
+```bash
 docker run -d --name=circonus-unified-agent \
     -v $PWD/circonus-unified-agent.conf:/etc/circonus-unified-agent/circonus-unified-agent.conf:ro \
     -v /:/hostfs:ro \
@@ -51,7 +51,7 @@ docker run -d --name=circonus-unified-agent \
 
 or
 
-```sh
+```bash
 docker run -d --name=circonus-unified-agent \
     --mount type=bind,src=$PWD/circonus-unified-agent.conf,dst=/etc/circonus-unified-agent/circonus-unified-agent.conf \
     -v /:/hostfs:ro \

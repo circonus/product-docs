@@ -13,7 +13,7 @@ A one-step installer script is provided on the CUA configuration page within Cir
 
 The Linux installer may be easily executed by running the following command as root:
 
-```sh
+```bash
 curl -sSL "https://raw.githubusercontent.com/circonus-labs/circonus-unified-agent/master/install/install_linux.sh" | bash -s -- --key <circonus api key>
 ```
 

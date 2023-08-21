@@ -19,7 +19,7 @@ Let's review some of the features within Logs Explorer.
 
 You can set a time filter if your data contains time-based fields or events.
 
-The time filters in Logs Explorer function identically to those on the [dashboards](/circonus3/dashboards/introduction/#date-and-time-filters). You can use the time picker to choose from **Quick select**, **Recently used**, **Absolute time**, **Relative time**, or **Now** (current date and time). The time filter restricts the search results to a specific time period.
+The time filters in Logs Explorer function identically to those on the [dashboards](/circonus3/dashboards#data-filters). You can use the time picker to choose from **Quick select**, **Recently used**, **Absolute time**, **Relative time**, or **Now** (current date and time). The time filter restricts the search results to a specific time period.
 
 You can also manipulate the time frame and interval using the histogram at the top of the Logs Explorer screen.
 

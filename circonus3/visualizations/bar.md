@@ -17,15 +17,15 @@ To create a bar, line, or area chart with this visualization type, you will you 
 
 ### Y-axis metrics
 
-![Y-axis Metric Aggegations](../img/visualizations-bar_metric_agg.png)
+![Y-axis Metric Aggregations](../img/visualizations-bar_metric_agg.png)
 
-You can define multiple values for the Y-axis by clicking on the **+ Add** link at the bottom of the **Metrics** > **Y-axis** panel. The **+ Add** link allows you to define either a Y-axis value or dot size.
+You can define multiple values for the Y-axis by clicking on the **+ Add** link at the bottom of the **Metrics** > **Y-axis** panel. The **+ Add** link allows you to define either a Y-axis value or a dot size.
 
 To define your Y-axis values:
 
 1. Select your preferred Y-axis aggregation.
 
-   There are multiple aggregations that can be applied to the Y-axis field, including:
+   Multiple aggregations can be applied to the Y-axis field, including:
 
 - [Count](/circonus3/visualizations/aggregations/metric-agg/#available-metric-aggregations)
 - [Average](/circonus3/visualizations/aggregations/metric-agg/#available-metric-aggregations)
@@ -45,13 +45,13 @@ To define your Y-axis values:
 
 The **> Advanced** area enables you to create the query using **JSON**. This is recommended for advanced users only.
 
-For an explanation of all available Y-axis aggreggations, see: [Metric Aggregations](http://localhost:1313/circonus3/visualizations/aggregations/metric-agg/).
+For an explanation of all available Y-axis aggregations, see: [Metric Aggregations](http://localhost:1313/circonus3/visualizations/aggregations/metric-agg/).
 
 ### X-axis buckets
 
 The X-axis of this chart is the buckets axis. You define buckets for the X-axis, for a split area on the chart, or for split charts.
 
-![X-axis Bucket Aggegations](../img/visualizations-bar_bucket_agg.png)
+![X-axis Bucket Aggregations](../img/visualizations-bar_bucket_agg.png)
 
 Bucket aggregations determine what information is being retrieved from your data set.
 
@@ -104,7 +104,7 @@ The availability of these options varies depending on the aggregation you choose
 
 ## Metrics & axes
 
-Select the **Metrics & axes** tab to change the way each individual metric is shown on the chart. The data series are styled in the Metrics section, while the axes are styled in the X and Y axis sections.
+Select the **Metrics & Axes** tab to change the way each metric is shown on the chart. The data series are styled in the Metrics section, while the axes are styled in the X and Y axis sections.
 
 **Metrics**
 
@@ -116,7 +116,7 @@ Modify how each metric from the Data panel is visualized on the chart.
 
 - **Value Axis** allows you to choose the axis to which you want to plot this data (the properties of each are configured under Y-axes).
 
-- **Line mode** allows you to choose whether the outline of lines or area charts appear smooth, straight, or stepped.
+- **Line mode** allows you to choose whether the outline of lines or area charts appears smooth, straight, or stepped.
 
 **Y-axis**
 
@@ -124,11 +124,11 @@ Style all the Y-axes of the chart.
 
 - The **Position** of the Y-axis (left or right for vertical charts, and top or bottom for horizontal charts).
 
-- **Mode** defaults to normal, but you can select silhouette, wiggle or percentage.
+- The **Mode** will default to normal, but you can select silhouette, wiggle or percentage.
 
 - **Scale type** scaling of the values (linear, log, or square root).
 
-- **Title** allows you to set the title of axis. If defaults to the metric name.
+- The **Title** allows you to set the title of an axis. If defaults to the metric name.
 
 - **Show Labels** allows you to hide axis labels.
 
@@ -150,7 +150,7 @@ Style all the Y-axes of the chart.
 
 - **Show axis lines and labels** allows you to hide axis labels.
 
-- **Show labels** allows you to hide labels.
+- **Show labels** allow you to hide labels.
 
 - If **Filter Labels** is enabled, some labels will be hidden in case there is not enough space to display them.
 
@@ -164,23 +164,18 @@ These settings apply to the entire chart and not just the individual data series
 
 **Settings**
 
-- **Show Tooltip** allows you to enable or disable the display of tooltip on hovering over chart objects.
-- **Current Time Marker** shows a line that indicates the current time.
-- **Show values on chart** allows you to display the values on charts.
+- **Show Tooltip** allows you to enable or disable the display of tooltips by hovering over chart objects.
+- The **Current Time Marker** shows a line that indicates the current time.
+- **Show values on charts** will allow you to display values on charts.
 
 **Grid options**
 
-You can enable grid on the chart. By default, grid is displayed on the category axis only.
+You can enable the grid on the chart. By default, a grid is displayed on the category axis only.
 
 - **X-axis** allows you to disable the display of grid lines on the category axis.
 
-- **Y-axis** allows you to choose on which (if any) of the value axes you want to display grid lines.
+- **Y-axis** allows you to choose which (if any) of the value axes you want to display grid lines.
 
 **Threshold line**
 
-Allows you to enable a **Threshold line**. You can choose the threshold value, the line weight, style _(Full, Dashed, Dot-dashed)_ and the color.
-
-## Related links
-
-- [Circonus Dashboards](/circonus3/dashboards/introduction/)
-- [Getting Started with Circonus](/circonus3/getting-started/)
+Allows you to enable a **Threshold line**. You can choose the threshold value, the line weight, the style _(Full, Dashed, Dot-dashed)_ and the color.

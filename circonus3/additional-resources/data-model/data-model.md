@@ -17,8 +17,8 @@ Add a pic/screenshot here to represent the above and to break up this section. C
 
 A **check** consists of a group of metrics typically dedicated to assessing a single service. Examples:
 
-- [HTTP checks](https://docs.circonus.com/circonus/integrations/library/http/) assess the availability of a website and contain metrics 'duration', 'code', etc.
-- [Agent checks](https://docs.circonus.com/circonus/integrations/agents/) collect telemetry data from a host and have metrics 'cpu'idle', 'vm'memory'free', etc.
+- [HTTP checks](/circonus3/integrations/library/http) assess the availability of a website and contain metrics 'duration', 'code', etc.
+- [Agent checks](/circonus3/category/agents) collect telemetry data from a host and have metrics 'cpu'idle', 'vm'memory'free', etc.
 
 A complete list of checks can be found on the [supported integrations library](/circonus3/integrations/library/) page.
 

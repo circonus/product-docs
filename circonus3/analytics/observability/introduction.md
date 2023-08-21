@@ -106,10 +106,5 @@ If you're new to exploring data, we recommend trying a workflow like the followi
 2. Use [Trace Analytics](/circonus3/analytics/observability/trace-analytics/) for at-a-glance visibility into application performance and the ability to drill down into individual distributed traces.
 3. Use [Event Analytics](/circonus3/analytics/observability/event-analytics/) to turn data-driven events into visualizations.
 4. Create [Operational Panels](/circonus3/analytics/observability/operational-panels/) and add visualizations to compare data the way you like.
-5. Use [Log Analytics](/circonus3/analytics/observability/log-analytics/) to transform unstructured log data.
+5. Use [Log Analytics](/circonus3/analytics/logs-explorer/introduction) to transform unstructured log data.
 6. Leverage [Notebooks](/circonus3/analytics/observability/notebooks/) to combine different visualizations and code blocks that you can share with team members.
-
-## Related links
-
-- [Circonus Dashboards](/circonus3/dashboards/introduction/)
-- [Getting Started with Circonus](/circonus3/getting-started/)

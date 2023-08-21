@@ -108,7 +108,7 @@ For each of the parent pipeline aggregations, you have to define the metric for 
 
 - The **Moving Average** aggregation will slide a window across the data and emit the average value of that window.
 
-- The **Serial Diff** *(differencing)* is a technique where values in a time series are subtracted from itself at different time lags or period.
+- The **Serial Diff** _(differencing)_ is a technique where values in a time series are subtracted from itself at different time lags or period.
 
 Parent aggregations must have `min_doc_count` set to 0 (default for `histogram` aggregations) and the specified metric must be a numeric value. If `min_doc_count` is greater than `0`, some buckets are omitted, which might lead to incorrect results.
 
@@ -120,7 +120,7 @@ Sibling aggregations take the output of a nested aggregation and produce new buc
 
 Just like with parent pipeline aggregations, you need to provide a metric for which to calculate the sibling aggregation. On top of that, you also need to provide a bucket aggregation which will define the buckets on which the sibling aggregation will run.
 
-The *buckets* aggregations determine what information is being retrieved from your data set.
+The _buckets_ aggregations determine what information is being retrieved from your data set.
 
 - The **Average Bucket** calculates the (mean) average value of a specified metric in a sibling aggregation.
 
@@ -130,7 +130,7 @@ The *buckets* aggregations determine what information is being retrieved from yo
 
 - The **Max Bucket** calculates the maximum value of a specified metric in a sibling aggregation.
 
-- A **Date Histogram** is built from a numeric field and organized by date. You can specify a time frame for the intervals in seconds, minutes, hours, days, weeks, months, or years. 
+- A **Date Histogram** is built from a numeric field and organized by date. You can specify a time frame for the intervals in seconds, minutes, hours, days, weeks, months, or years.
 
 - A **Histogram** is built from a numeric field. Specify an integer interval for this field.
 
@@ -314,10 +314,10 @@ The basic syntax is:
 {
   "bucket_script": {
     "buckets_path": {
-    "my_var1": "the_sum",
-    "my_var2": "the_value_count"
-  },
- "script": "params.my_var1 / params.my_var2"
+      "my_var1": "the_sum",
+      "my_var2": "the_value_count"
+    },
+    "script": "params.my_var1 / params.my_var2"
   }
 }
 ```
@@ -425,10 +425,10 @@ The basic syntax is:
 {
   "bucket_selector": {
     "buckets_path": {
-    "my_var1": "the_sum",
-    "my_var2": "the_value_count"
-  },
-  "script": "params.my_var1 / params.my_var2"
+      "my_var1": "the_sum",
+      "my_var2": "the_value_count"
+    },
+    "script": "params.my_var1 / params.my_var2"
   }
 }
 ```
@@ -513,13 +513,13 @@ Syntax
 {
   "bucket_sort": {
     "sort": [
-    {"sort_field_1": {"order": "asc"}},
-    {"sort_field_2": {"order": "desc"}},
-    "sort_field_3"
+      { "sort_field_1": { "order": "asc" } },
+      { "sort_field_2": { "order": "desc" } },
+      "sort_field_3"
     ],
- "from":1,
- "size":3
- }
+    "from": 1,
+    "size": 3
+  }
 }
 ```
 
@@ -546,7 +546,7 @@ GET opensearch_dashboards_sample_data_logs/_search
             "sort": [
               { "total_bytes": { "order": "desc" } }
             ],
-            "size": 3                                
+            "size": 3
           }
         }
       }
@@ -872,14 +872,14 @@ GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
   "aggs": {
-    "my_date_histogram": {                                
+    "my_date_histogram": {
       "date_histogram": {
         "field": "@timestamp",
         "calendar_interval": "month"
       },
       "aggs": {
         "sum_of_bytes": {
-          "sum": { "field": "bytes" }                 
+          "sum": { "field": "bytes" }
         },
         "moving_avg_of_sum_of_bytes": {
           "moving_avg": { "buckets_path": "sum_of_bytes" }
@@ -892,7 +892,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 **Sample response**
 
-```json  
+```json
 ...
 "aggregations" : {
   "my_date_histogram" : {
@@ -1217,7 +1217,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 {
    "size": 0,
    "aggs": {
-      "my_date_histogram": {                  
+      "my_date_histogram": {
          "date_histogram": {
             "field": "@timestamp",
             "calendar_interval": "month"
@@ -1225,11 +1225,11 @@ GET opensearch_dashboards_sample_data_logs/_search
          "aggs": {
             "the_sum": {
                "sum": {
-                  "field": "bytes"     
+                  "field": "bytes"
                }
             },
             "thirtieth_difference": {
-               "serial_diff": {                
+               "serial_diff": {
                   "buckets_path": "the_sum",
                   "lag" : 30
                }
