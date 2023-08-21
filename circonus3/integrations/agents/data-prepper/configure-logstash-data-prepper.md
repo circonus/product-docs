@@ -1,6 +1,6 @@
 ---
 title: Configure Logstash for Data Prepper
-weight: 12
+sidebar_position: 5
 ---
 
 # Configure Logstash for Data Prepper
@@ -22,7 +22,7 @@ As of the Data Prepper 1.2 release, the following plugins from the Logstash conf
 
 ## Running Data Prepper with a Logstash configuration
 
-1. To install Data Prepper's Docker image, see the _Installation_ section in the [Getting Started](/circonus3/integrations/data-prepper/getting-started) guide.
+1. To install Data Prepper's Docker image, see the _Installation_ section in the [Getting Started](/circonus3/category/getting-started) guide.
 
 2. Run the Docker image installed in Step 1 by supplying your `logstash.conf` configuration.
 

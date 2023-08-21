@@ -1,6 +1,6 @@
 ---
 title: MacOS
-weight: 60
+sidebar_position: 5
 ---
 
 # CUA for MacOS
@@ -13,7 +13,7 @@ A one-step installer script is provided on the [CUA configuration page](https://
 
 The MacOS installer may be easily executed by running the following command as root:
 
-```sh
+```bash
 curl -sSL "https://raw.githubusercontent.com/circonus-labs/circonus-unified-agent/master/install/install_macos.sh" | bash -s -- --key <circonus api key>
 ```
 

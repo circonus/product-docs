@@ -1,23 +1,23 @@
 ---
-title: Aggregations
-weight: 200
+title: Introduction
+sidebar_position: 1
 ---
 
 # Aggregations
 
 Circonus aggregations let you tap into our powerful analytics engine to analyze your data and extract statistics from it.
 
-The use cases for aggregations vary from analyzing data in real-time to take some action to visualizing data within a dashboard.
+The use cases for aggregations vary from analyzing data in real time to taking some action and visualizing data within a dashboard.
 
 Circonus can perform aggregations on massive datasets in milliseconds. Compared to queries, aggregations consume more CPU cycles and memory.
 
 ## Aggregations on text fields
 
-By default, Circonus doesn't support aggregations on a text field. Because text fields are tokenized, an aggregation on a text field has to reverse the tokenization process back to its original string and then formulate an aggregation based on that. This kind of an operation consumes significant memory and degrades cluster performance.
+By default, Circonus doesn't support aggregations on a text field. Because text fields are tokenized, an aggregation on a text field has to reverse the tokenization process back to its original string and then formulate an aggregation based on that. This type of operation consumes significant memory and degrades cluster performance.
 
 While you can enable aggregations on text fields by setting the `fielddata` parameter to `true` in the mapping, the aggregations are still based on the tokenized words and not on the raw text.
 
-We recommend keeping a raw version of the text field as a `keyword` field that you can aggregate on.
+We recommend keeping a raw version of the text field as a `keyword` field that you can aggregate.
 
 In this case, you can perform aggregations on the `title.raw` field, instead of on the `title` field:
 
@@ -64,7 +64,7 @@ The name of the aggregation helps you to distinguish between different aggregati
 
 ## Sample aggregation
 
-This section uses sample eCommerce and web log data. To add the sample data, log in to Circonus, navigate to **Home** within the main menu, and then choose **Try our sample data**. For **Sample eCommerce orders** and **Sample web logs**, choose **Add data**.
+This section uses sample eCommerce and web log data. To add the sample data, log in to Circonus, navigate to **Home** within the main menu, and then choose **Try our sample data**. For **Sample eCommerce orders** and **Sample weblogs**, choose **Add data**.
 
 **avg**
 
@@ -88,25 +88,25 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 ```json
 {
-  "took" : 1,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "skipped" : 0,
-    "failed" : 0
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
   },
-  "hits" : {
-    "total" : {
-      "value" : 4675,
-      "relation" : "eq"
+  "hits": {
+    "total": {
+      "value": 4675,
+      "relation": "eq"
     },
-    "max_score" : null,
-    "hits" : [ ]
+    "max_score": null,
+    "hits": []
   },
-  "aggregations" : {
-    "avg_taxful_total_price" : {
-      "value" : 75.05542864304813
+  "aggregations": {
+    "avg_taxful_total_price": {
+      "value": 75.05542864304813
     }
   }
 }
@@ -124,7 +124,7 @@ There are three main types of aggregations:
 
 ## Nested aggregations
 
-Aggregations within aggregations are called nested or subaggregations.
+Aggregations within aggregations are called nested or sub-aggregations.
 
 Metric aggregations produce simple results and can't contain nested aggregations.
 

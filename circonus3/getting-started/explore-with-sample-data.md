@@ -1,11 +1,11 @@
 ---
 title: Explore with Sample Data
-weight: 20
+sidebar_position: 4
 ---
 
 # Explore with Sample Data
 
-Circonus offers a sample data set that you can use to explore the platform before connecting your own data. This sample data includes pre-loaded web [logs](/circonus3/additional-resources/glossary/#log) as well as a prepackaged dashboard and visualizations depicting these logs.
+Circonus offers a sample data set that you can use to explore the platform before connecting your data. This sample data includes pre-loaded [web-logs](/circonus3/additional-resources/glossary/#log) as well as a prepackaged dashboard and visualizations depicting these logs.
 
 If the sample data is not already loaded into your account, select **Home** within the main menu, then **Add sample data** and **Add data**.
 
@@ -45,7 +45,7 @@ You can also add filters manually. In the filter bar, click Add a Filter and spe
 
 You can enter a DQL query to narrow the view of data.
 
-To find all data related to clientip 130.194.187.55, submit the following DQL query:
+To find all data related to client IP 130.194.187.55, submit the following DQL query:
 
 ```toml
 clientip:130.194.187.55
@@ -57,7 +57,7 @@ For a more complex query with AND and OR, try this:
 clientip:130.194.187.55 AND (machine.os:win xp OR machine.os:osx)
 ```
 
-The dashboard updates to show data relating to clientip 130.194.187.55 and machine.os wind xp.
+The dashboard updates to show data relating to client IP 130.194.187.55 and `machine.os wind xp`.
 
 ![DQL Complex Query](../img/getting-started-dql_complex_query.png)
 
@@ -90,7 +90,7 @@ You have edit permissions for the **Sample Web Traffic Log** dashboard so you ca
 1. Go to the **Sample Web Traffic Log** dashboard.
 2. In the command bar, click **Edit**.
 3. In the **Visitors by OS** visualization, click the gear icon in the upper right.
-4. From the **Options** menu, select **Edit visualization**.
+4. From the **Options** menu, select **Edit **Visualization.
 
 **Visitors by OS** is a metric visualization. To specify which groups to display in this visualization, you use a Circonus bucket aggregation. This aggregation sorts the documents that match your search criteria into different categories, or buckets.
 

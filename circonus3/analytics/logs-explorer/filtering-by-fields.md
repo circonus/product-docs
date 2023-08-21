@@ -1,6 +1,6 @@
 ---
 title: Filtering by Fields
-weight: 20
+sidebar_position: 2
 ---
 
 # Filtering by Fields

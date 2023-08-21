@@ -1,6 +1,6 @@
 ---
 title: Windows
-weight: 70
+sidebar_position: 7
 ---
 
 # CUA for Windows
@@ -11,9 +11,9 @@ This page outlines the installation and configuration of CUA for Windows.
 
 A one-step installer script is provided on the [CUA configuration page](https://login.circonus.com/?whereTo=%2Fchecks%3Ftype%3Dhttptrap%3Acua%3Ahost%3Awindows) within Circonus.
 
-The Windows installer may be easily executed by opening Windows Powershell (version 5 or greater) as administrator and executing the following command:
+The Windows installer may be easily executed by opening Windows bash (version 5 or greater) as administrator and executing the following command:
 
-```powershell
+```bash
 . {iwr -useb https://raw.githubusercontent.com/circonus-labs/circonus-unified-agent/master/install/install_windows.ps1 } | iex; install -key <circonus api key>
 ```
 
@@ -34,19 +34,19 @@ A sample configuration file can be found [here](https://github.com/circonus-labs
 The only required argument is your Circonus API Key, which will be auto-populated by the one-step installer referenced above. CUA will collect CUA health metrics default on Windows systems.
 
 For any changes to the configuration to take effect, restart the CUA service by issuing the following command:
-```powershell
+```bash
 Restart-Service -Name circonus-unified-agent
 ```
 
-You may wish to manage your configs from a central location without hard coding secrets into the CUA configuration file. CUA can use Windows environment variables. The environment variables need to be visible by the account which runs CUA, which by default is Local System. You can use the standard GUI based approach to editing system environment variables, or use the powershell command below.
+You may wish to manage your configs from a central location without hard coding secrets into the CUA configuration file. CUA can use Windows environment variables. The environment variables need to be visible by the account which runs CUA, which by default is Local System. You can use the standard GUI based approach to editing system environment variables, or use the bash command below.
 
-```powershell
+```bash
 [Environment]::SetEnvironmentVariable("CIRCONUS_API_TOKEN", "<circonus_api_token>", "Machine")
 ```
 
 Then make changes(s) to your circonus-unified-agent.conf file to make use of the variables
 
-```toml
+```bash
   [agent.circonus]
     api_token = "${CIRCONUS_API_TOKEN}"
 ```

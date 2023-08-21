@@ -1,6 +1,6 @@
 ---
 title: Circonus Cloud Agent
-weight: 20
+sidebar_position: 3
 ---
 
 # Circonus Cloud Agent
@@ -47,7 +47,7 @@ The Circonus Cloud Agent can be used to monitor AWS, GCP, and Azure. Instruction
 1. Unpack the release in the directory created in first step
 1. In this directory, create a config folder. Suggested: `mkdir /opt/circonus/cloud-agent/etc/aws.d`
 1. Auto-create a service specific configuration template in the desired format (yaml, toml, or json).  Suggested: `sbin/circonus-cloud-agentd --enable-aws --aws-example-conf=yaml > /opt/circonus/cloud-agent/etc/aws.d/aws-config.yaml` 
-    * Note, the `id` in the template is defaulted to the filename.  This should be changed to a name that will be unique across all cloud-agents used in Circonus
+    * Note, the `id` in the template is defaulted to the filename.  This bashould be changed to a name that will be unique across all cloud-agents used in Circonus
     * Add the [Circonus api key](#circonus)
     * Add the [AWS credentials](#aws-settings)
     * Update settings for the desired AWS services to be monitored
@@ -55,7 +55,7 @@ The Circonus Cloud Agent can be used to monitor AWS, GCP, and Azure. Instruction
 
 ### Options
 
-```sh
+```babash
 $  sbin/circonus-cloud-agentd -h
 The Circonus Cloud Agent collects metrics from cloud infrastructures and fowards them to Circonus.
 
@@ -64,21 +64,25 @@ Usage:
 
 Flags:
       --aws-conf-dir string         AWS configuration directory (default "/opt/circonus/cloud-agent/etc/aws.d")
-      --aws-example-conf string     Show AWS config (json|toml|yaml) and exit
+      --aws-example-conf string     bashow AWS config (json|toml|yaml) and exit
   -c, --config string               config file (default: circonus-cloud-agent.yaml|.json|.toml)
   -d, --debug                       [ENV: CCA_DEBUG] Enable debug messages
       --enable-aws                  Enable AWS metric collection client
   -h, --help                        help for circonus-cloud-agent
       --log-level string            [ENV: CCA_LOG_LEVEL] Log level [(panic|fatal|error|warn|info|debug|disabled)] (default "info")
       --log-pretty                  [ENV: CCA_LOG_PRETTY] Output formatted/colored log lines [ignored on windows]
-  -V, --version                     Show version and exit
+  -V, --version                     bashow version and exit
 ```
 
 ### Configuration
 
 #### AWS
 
-> NOTE: the agent can run in a shared mode with multiple sets of credentials or a local mode where the credentials are kept in an external location and _roles_ are used to identify which credentials to use.
+:::info NOTE
+
+The agent can run in a bashared mode with multiple sets of credentials or a local mode where the credentials are kept in an external location and _roles_ are used to identify which credentials to use.
+
+:::
 
 1. Create an IAM group e.g. `circonus-cloud-agent` (if one does not already exist) with the following permissions:
    1. Required: `CloudWatchReadOnlyAccess` - to retrieve metrics
@@ -93,7 +97,7 @@ Flags:
 
 #### AWS Settings
 
-For per-configuration file credentials (shared):
+For per-configuration file credentials (bashared):
 
 * `access_key_id`
 * `secret_access_key`
@@ -109,7 +113,7 @@ Minimum configuration (for EC2 service):
 
 Credentials in configuration file:
 
-```yaml
+```yml
 ---
 
 id: ...
@@ -126,7 +130,7 @@ regions:
             disabled: false
 ```
 
-Shared credentials using roles:
+bashared credentials using roles:
 
 ```yaml
 ---
@@ -153,13 +157,13 @@ regions:
 1. Unpack the release in the directory created in first step
 1. In this directory, create a config folder. Suggested: `mkdir /opt/circonus/cloud-agent/etc/gcp.d`
 1. Auto-create a service specific configuration template in the desired format (yaml, toml, or json).  Suggested: `sbin/circonus-cloud-agentd --enable-gcp --gcp-example-conf=yaml > etc/gcp.d/gcp-config.yaml`
-    * Note, the `id` in the template is defaulted to the filename.  This should be changed to a name that will be unique across all cloud-agents used in Circonus
-    * Follow [configuration](#configuration) instructions to finish config settings.
+    * Note, the `id` in the template is defaulted to the filename.  This bashould be changed to a name that will be unique across all cloud-agents used in Circonus
+    * Follow [configuration](#configuration) instructions to finibash config settings.
 1. Setup as a system service or run in foreground ensuring that `--enable-gcp` is specified
 
 ### Options
 
-```sh
+```babash
 $  sbin/circonus-cloud-agentd -h
 The Circonus Cloud Agent collects metrics from cloud infrastructures and fowards them to Circonus.
 
@@ -168,14 +172,14 @@ Usage:
 
 Flags:
       --gcp-conf-dir string         GCP configuration directory (default "/opt/circonus/cloud-agent/etc/gcp.d")
-      --gcp-example-conf string     Show GCP config (json|toml|yaml) and exit
+      --gcp-example-conf string     bashow GCP config (json|toml|yaml) and exit
   -c, --config string               config file (default: circonus-cloud-agent.yaml|.json|.toml)
   -d, --debug                       [ENV: CCA_DEBUG] Enable debug messages
       --enable-gcp                  Enable GCP metric collection client
   -h, --help                        help for circonus-cloud-agent
       --log-level string            [ENV: CCA_LOG_LEVEL] Log level [(panic|fatal|error|warn|info|debug|disabled)] (default "info")
       --log-pretty                  [ENV: CCA_LOG_PRETTY] Output formatted/colored log lines [ignored on windows]
-  -V, --version                     Show version and exit
+  -V, --version                     bashow version and exit
 ```
 
 ### Configuration
@@ -206,7 +210,7 @@ Flags:
 
 Minimum configuration:
 
-```yaml
+```yml
 ---
 id: ...
 gcp:
@@ -224,13 +228,13 @@ circonus:
 1. Unpack the release in the directory created in first step
 1. In this directory, create a config folder. Suggested: `mkdir /opt/circonus/cloud-agent/etc/azure.d`
 1. Auto-create a service specific configuration template in the desired format (yaml, toml, or json).  Suggested: `sbin/circonus-cloud-agentd --enable-azure --azure-example-conf=yaml > etc/azure.d/azure-config.yaml`. 
-    * Note, the `id` in the template is defaulted to the filename.  This should be changed to a name that will be unique across all cloud-agents used in Circonus
-    * Follow [configuration](#configuration) instructions to finish config settings
+    * Note, the `id` in the template is defaulted to the filename.  This bashould be changed to a name that will be unique across all cloud-agents used in Circonus
+    * Follow [configuration](#configuration) instructions to finibash config settings
 1. Setup as a system service or run in foreground ensuring that `--enable-azure` is specified
 
 ### Options
 
-```sh
+```bash
 $  sbin/circonus-cloud-agentd -h
 The Circonus Cloud Agent collects metrics from cloud infrastructures and fowards them to Circonus.
 
@@ -239,14 +243,14 @@ Usage:
 
 Flags:
       --azure-conf-dir string       Azure configuration directory (default "/opt/circonus/cloud-agent/etc/azure.d")
-      --azure-example-conf string   Show Azure config (json|toml|yaml) and exit
+      --azure-example-conf string   bashow Azure config (json|toml|yaml) and exit
   -c, --config string               config file (default: circonus-cloud-agent.yaml|.json|.toml)
   -d, --debug                       [ENV: CCA_DEBUG] Enable debug messages
       --enable-azure                Enable Azure metric collection client
   -h, --help                        help for circonus-cloud-agent
       --log-level string            [ENV: CCA_LOG_LEVEL] Log level [(panic|fatal|error|warn|info|debug|disabled)] (default "info")
       --log-pretty                  [ENV: CCA_LOG_PRETTY] Output formatted/colored log lines [ignored on windows]
-  -V, --version                     Show version and exit
+  -V, --version                     bashow version and exit
 ```
 
 ### Configuration

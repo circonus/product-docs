@@ -1,6 +1,6 @@
 ---
 title: Dashboards Query Language (DQL)
-weight: 100
+sidebar_position: 1
 ---
 
 # Dashboards Query Language (DQL)
@@ -17,25 +17,25 @@ This section uses the **Sample Web Traffic Log** data. To add this sample data i
 
 The most basic query is to just specify the term you're searching for:
 
-```
-host:www.example.com
+```js
+host: www.example.com;
 ```
 
 To access an object's nested field, list the complete path to the field separated by periods. For example, to retrieve the `lat` field in the `coordinates` object:
 
-```
+```js
 coordinates.lat:43.7102
 ```
 
 DQL also supports leading and trailing wildcards, so you can search for any terms that match your pattern.
 
-```
+```js
 host.keyword:*.example.com/*
 ```
 
 To check if a field exists or has any data, use a wildcard to see if any results will be returned:
 
-```
+```js
 host.keyword:*
 ```
 
@@ -43,13 +43,13 @@ host.keyword:*
 
 To mix and match or combine multiple queries for more refined results, you can use the boolean operators `and`, `or`, and `not`. DQL is not case sensitive, so `AND` and `and` are the same.
 
-```
+```js
 host.keyword:www.example.com and response.keyword:200
 ```
 
 The following example demonstrates how to use multiple operators in one query.
 
-```
+```js
 geo.dest:US or response.keyword:200 and host.keyword:www.example.com
 ```
 
@@ -81,9 +81,9 @@ If you have a document with nested fields, you have to specify which parts of th
 
 Suppose that you have the following document:
 
-``` shell
+```json
 {
-  "superheroes":[
+  "superheroes": [
     {
       "hero-name": "Superman",
       "real-identity": "Clark Kent",
@@ -110,24 +110,24 @@ Suppose that you have the following document:
 
 The following example demonstrates how to use DQL to retrieve a specific field.
 
-```
+```json
 superheroes: {hero-name: Superman}
 ```
 
 If you want to retrieve multiple objects from your document, just specify all of the fields you want to retrieve.
 
-```
+```js
 superheroes: {hero-name: Superman} and superheroes: {hero-name: Batman}
 ```
 
 The previous boolean and range queries still work, so you can submit a more refined query.
 
-```
+```js
 superheroes: {hero-name: Superman and age < 50}
 ```
 
 If your document has an object nested within another object, you can still retrieve data by specifying all of the levels.
 
-```
+```js
 justice-league.superheroes: {hero-name:Superman}
 ```

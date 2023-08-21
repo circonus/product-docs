@@ -1,6 +1,6 @@
 ---
 title: Bucket Aggregations
-weight: 230
+sidebar_position: 3
 ---
 
 # Bucket aggregations
@@ -15,7 +15,7 @@ The `terms` aggregation dynamically creates a bucket for each unique term of a f
 
 The following example uses the `terms` aggregation to find the number of documents per response code in web log data:
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -32,7 +32,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 **Sample Response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "response_codes" : {
@@ -81,7 +81,7 @@ Circonus features that rely on an accurate document count illustrate the importa
 
 **Example usage**
 
-``` shell
+``` bash
 PUT /my_index/_doc/1
 {
   "response_code": 404,
@@ -118,7 +118,7 @@ GET /my_index/_search
 
 **Sample response**
 
-```shell
+```bash
 {
   "took" : 20,
   "timed_out" : false,
@@ -172,7 +172,7 @@ Parameter | Description
 
 **Sample Request**
 
-```shell
+```bash
 GET sample-index100/_search
 {
   "size": 0,
@@ -196,7 +196,7 @@ GET sample-index100/_search
 
 **Sample response**
 
-```shell
+```bash
 {
   "took": 118,
   "timed_out": false,
@@ -277,7 +277,7 @@ The results are approximate but closely represent the distribution of the real d
 
 The basic syntax is:
 
-```shell
+```bash
 “aggs”: {
   "SAMPLE": {
     "sampler": {
@@ -292,7 +292,7 @@ The `shard_size` property tells Circonus how many documents (at most) to collect
 
 The following example limits the number of documents collected on each shard to 1,000 and then buckets the documents by a `terms` aggregation:
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -315,7 +315,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "sample" : {
@@ -345,7 +345,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 The `diversified_sampler` aggregation lets you reduce the bias in the distribution of the sample pool. You can use the `field` setting to control the maximum number of documents collected on any one shard which shares a common value:
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -369,7 +369,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "sample" : {
@@ -401,7 +401,7 @@ A foreground set is the set of documents that you filter. A background set is a 
 
 In the sample web log data, each document has a field containing the `user-agent` of the visitor. This example searches for all requests from an iOS operating system. A regular `terms` aggregation on this foreground set returns Firefox because it has the most number of documents within this bucket. On the other hand, a `significant_terms` aggregation returns Internet Explorer (IE) because IE has a significantly higher appearance in the foreground set as compared to the background set.
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -424,7 +424,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "significant_response_codes" : {
@@ -465,7 +465,7 @@ You can set the following parameters:
 
 Assume that you have the complete works of Shakespeare indexed by Circonus. You can find significant texts in relation to the word "breathe" in the `text_entry` field:
 
-```shell
+```bash
 GET shakespeare/_search
 {
   "query": {
@@ -493,7 +493,7 @@ GET shakespeare/_search
 
 **Sample response**
 
-```shell
+```bash
 "aggregations" : {
   "my_sample" : {
     "doc_count" : 59,
@@ -537,12 +537,12 @@ The most significant texts in relation to `breathe` are `air`, `dead`, and `life
 The `significant_text` aggregation has the following limitations:
 
 - Doesn't support child aggregations, because child aggregations come at a high memory cost. As a workaround, you can add a follow-up query using a `terms` aggregation with an include clause and a child aggregation.
-- Doesn't support nested objects because it works with the document shell source.
+- Doesn't support nested objects because it works with the document bash source.
 - The counts of documents might have some (typically small) inaccuracies as it's based on summing the samples returned from each shard. You can use the `shard_size` parameter to fine-tune the trade-off between accuracy and performance. By default, the `shard_size` is set to -1 to automatically estimate the number of shards and the `size` parameter.
 
 For both `significant_terms` and `significant_text` aggregations, the default source of statistical information for background term frequencies is the entire index. You can narrow this scope with a background filter for more focus:
 
-```shell
+```bash
 GET shakespeare/_search
 {
   "query": {
@@ -578,7 +578,7 @@ If you have documents in your index that don’t contain the aggregating field a
 
 The following example adds any missing values to a bucket named "N/A":
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -596,7 +596,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 Because the default value for the `min_doc_count` parameter is 1, the `missing` parameter doesn't return any buckets in its response. Set `min_doc_count` parameter to 0 to see the "N/A" bucket in the response:
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -615,7 +615,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "response_codes" : {
@@ -652,7 +652,7 @@ With `histogram` aggregations, you can visualize the distributions of values in 
 
 The following example buckets the `number_of_bytes` field by 10,000 intervals:
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -669,7 +669,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 Sample Response
 
-```shell
+```bash
 ...
 "aggregations" : {
   "number_of_bytes" : {
@@ -692,7 +692,7 @@ The `date_histogram` aggregation uses date math to generate histograms for time-
 
 For example, you can find how many hits your website gets per month:
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -709,7 +709,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "logs_per_month" : {
@@ -744,7 +744,7 @@ The `range` aggregation lets you define the range for each bucket.
 For example, you can find the number of bytes between 1000 and 2000, 2000 and 3000, and 3000 and 4000.
 Within the `range` parameter, you can define ranges as objects of an array.
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -776,7 +776,7 @@ The response includes the `from` key values and excludes the `to` key values:
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "number_of_bytes_distribution" : {
@@ -808,7 +808,7 @@ The response includes the `from` key values and excludes the `to` key values:
 The `date_range` aggregation is conceptually the same as the `range` aggregation, except that it lets you perform date math.
 For example, you can get all documents from the last 10 days. To make the date more readable, include the format with a `format` parameter:
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -831,7 +831,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "number_of_bytes" : {
@@ -852,7 +852,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 The `ip_range` aggregation is for IP addresses. It works on `ip` type fields. You can define the IP ranges and masks in the [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) notation.
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -877,7 +877,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "access" : {
@@ -902,7 +902,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 If you add a document with malformed fields to an index that has `ip_range` set to `false` in its mappings, Circonus rejects the entire document. You can set `ignore_malformed` to `true` to specify that Circonus should ignore malformed fields. The default is `false`.
 
-```shell
+```bash
 ...
 "mappings": {
   "properties": {
@@ -920,7 +920,7 @@ A `filter` aggregation is a query clause, exactly like a search query — `match
 
 The following example shows the `avg` aggregation running within the context of a filter. The `avg` aggregation only aggregates the documents that match the `range` query:
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_ecommerce/_search
 {
   "size": 0,
@@ -947,7 +947,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "low_value" : {
@@ -964,7 +964,7 @@ A `filters` aggregation is the same as the `filter` aggregation, except that it 
 
 To create a bucket for all the documents that didn't match the any of the filter queries, set the `other_bucket` property to `true`:
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -999,7 +999,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "200_os" : {
@@ -1034,7 +1034,7 @@ The `global` aggregations lets you break out of the aggregation context of a fil
 
 The following example returns the `avg` value of the `taxful_total_price` field from all documents in the index:
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_ecommerce/_search
 {
   "size": 0,
@@ -1062,7 +1062,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "total_avg_amount" : {
@@ -1087,7 +1087,7 @@ You can only use the `geo_distance` aggregation on fields mapped as `geo_point`.
 
 A point is a single geographical coordinate, such as your current location shown by your smart-phone. A point in Circonus is represented as follows:
 
-```shell
+```bash
 {
   "location": {
     "type": "point",
@@ -1113,7 +1113,7 @@ Field | Description | Required
 
 The syntax is as follows:
 
-```shell
+```bash
 {
   "aggs": {
     "aggregation_name": {
@@ -1146,7 +1146,7 @@ This example forms buckets from the following distances from a `geo-point` field
 - From 50 to 100 km
 - Above 100 km
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -1186,7 +1186,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "position" : {
@@ -1232,7 +1232,7 @@ The number of results returned by a query might be far too many to display each 
 
 The web logs example data is spread over a large geographical area, so you can use a lower precision value. You can zoom in on this map by increasing the precision value:
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
@@ -1249,7 +1249,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "geo_hash" : {
@@ -1293,7 +1293,7 @@ Use the `adjacency_matrix` aggregation to discover how concepts are related by v
 
 For example, in the sample eCommerce dataset, we can analyze how the different manufacturing companies are related:
 
-```shell
+```bash
 GET opensearch_dashboards_sample_data_ecommerce/_search
 {
   "size": 0,
@@ -1325,7 +1325,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 **Sample response**
 
- ```shell
+ ```bash
  {
    ...
    "aggregations" : {
@@ -1363,7 +1363,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
  Let’s take a closer look at the result:
 
- ```shell
+ ```bash
  {
     "key" : "grpA&grpB",
     "doc_count" : 590
@@ -1382,7 +1382,7 @@ The `nested` aggregation lets you aggregate on fields inside a nested object. Th
 
 With the `object` type, all the data is stored in the same document, so matches for a search can go across sub documents. For example, imagine a `logs` index with `pages` mapped as an `object` datatype:
 
-```shell
+```bash
 PUT logs/_doc/0
 {
   "response": "200",
@@ -1401,7 +1401,7 @@ PUT logs/_doc/0
 
 Circonus merges all sub-properties of the entity relations, which looks something like this:
 
-```shell
+```bash
 {
   "logs": {
     "pages": ["landing", "blog"],
@@ -1414,7 +1414,7 @@ So, if you wanted to search this index with `pages=landing` and `load_time=500`,
 
 If you want to make sure such cross-object matches don’t happen, map the field as a `nested` type:
 
-```shell
+```bash
 PUT logs
 {
   "mappings": {
@@ -1431,11 +1431,11 @@ PUT logs
 }
 ```
 
-Nested documents allow you to index the same shell document but will keep your pages in separate Lucene documents, making only searches like `pages=landing` and `load_time=200` return the expected result. Internally, nested objects index each object in the array as a separate hidden document, meaning that each nested object can be queried independently of the others.
+Nested documents allow you to index the same bash document but will keep your pages in separate Lucene documents, making only searches like `pages=landing` and `load_time=200` return the expected result. Internally, nested objects index each object in the array as a separate hidden document, meaning that each nested object can be queried independently of the others.
 
 You have to specify a nested path relative to parent that contains the nested documents:
 
-```shell
+```bash
 GET logs/_search
 {
   "query": {
@@ -1456,7 +1456,7 @@ GET logs/_search
 
 **Sample response**
 
-```shell
+```bash
 ...
 "aggregations" : {
   "pages" : {
@@ -1473,7 +1473,7 @@ You can also aggregate values from nested documents to their parent; this aggreg
 
 The `reverse_nested` aggregation is a sub-aggregation inside a nested aggregation. It accepts a single option named `path`. This option defines how many steps backwards in the document hierarchy Circonus takes to calculate the aggregations.
 
-```shell
+```bash
 GET logs/_search
 {
   "query": {
@@ -1510,7 +1510,7 @@ GET logs/_search
 
 **Sample response**
 
-``` shell
+``` bash
 ...
 "aggregations" : {
   "pages" : {

@@ -1,6 +1,6 @@
 ---
 title: Fluent-bit
-weight: 30
+sidebar_position: 5
 ---
 
 # Fluent-bit
@@ -31,23 +31,26 @@ We’ve provided a list below of all the terms we’ll cover, but we recommend r
 ### Event or Record
 
 Every incoming piece of data that belongs to a log or a metric that is retrieved by Fluent-bit is considered an event or a record.
-```
+
+```bash
 As an example consider the following content of a Syslog file:
 Jan 18 12:52:16 flb systemd[2222]: Starting GNOME Terminal Server
 Jan 18 12:52:16 flb dbus-daemon[2243]: [session uid=1000 pid=2243] Successfully activated service 'org.gnome.Terminal'
 Jan 18 12:52:16 flb systemd[2222]: Started GNOME Terminal Server.
 Jan 18 12:52:16 flb gsd-media-keys[2640]: # watch_fast: "/org/gnome/terminal/legacy/" (establishing: 0, active: 0)
 ```
+
 It contains four lines and all of them represent **four** independent events.
 
 Internally, an event always has two components (in an array form):
-``[TIMESTAMP, MESSAGE]``
+`[TIMESTAMP, MESSAGE]`
 
 ### Filtering
 
 In some cases, it is required to perform modifications on the events content. The process to alter, enrich, or drop events is called filtering.
 
 There are many use cases when filtering is required, such as to:
+
 - Append specific information to the Event like an IP address or metadata.
 - Select a specific piece of the Event content.
 - Drop Events that matches certain pattern.
@@ -58,7 +61,7 @@ Every event that gets into Fluent-bit gets assigned a tag. This tag is an intern
 
 Most of the tags are assigned manually in the configuration. If a tag is not specified, Fluent-bit will assign the name of the input plugin instance from where that Event was generated.
 
->**_The only input plugin** that **does NOT** assign tags is input. This plugin speaks the Fluentd wire protocol called [Forward](https://docs.fluentbit.io/manual/pipeline/inputs/forward) where every event already comes with an associated tog. Fluent-bit will always use the incoming tag set by the client.
+> **\_The only input plugin** that **does NOT** assign tags is input. This plugin speaks the Fluentd wire protocol called [Forward](https://docs.fluentbit.io/manual/pipeline/inputs/forward) where every event already comes with an associated tog. Fluent-bit will always use the incoming tag set by the client.
 
 A tagged record must always have a matching rule.
 
@@ -68,17 +71,20 @@ To learn more about tags and matches, check out the [Router](https://docs.fluent
 
 The timestamp represents the time when an event was created. Every event contains an associated timestamp. The timestamp is a numeric fractional integer in the format:
 
-``SECONDS.NANOSECONDS``
+`SECONDS.NANOSECONDS`
 
 #### Seconds
+
 The number of seconds that have elapsed since the Unix epoch.
 
 #### Nanoseconds
+
 Fractional second or one thousand-millionth of a second.
 
->A timestamp always exists, either set by the input plugin or discovered through a data parsing process.
+> A timestamp always exists, either set by the input plugin or discovered through a data parsing process.
 
 ### Match
+
 Fluent-bit lets you deliver your collected and processed events to one or multiple destinations. This is done through a routing phase. A match represents a simple rule to select events where a tag matches a defined rule.
 
 To learn more about tags and matches, check out the [Router](https://docs.fluentbit.io/manual/concepts/data-pipeline/router) section in the Fluent-bit Documentation.
@@ -89,17 +95,17 @@ Source events may or may not have a structure. A structure defines a set of keys
 
 #### No Structured Message
 
-``"Project Fluent Bit created on 1398289291"``
+`"Project Fluent Bit created on 1398289291"`
 
 #### Structured Message
 
-``{"project": "Fluent Bit", "created": 1398289291}``
+`{"project": "Fluent Bit", "created": 1398289291}`
 
 At a low level, both are just an array of bytes, but the structured message defines keys and values. Having a structure helps to implement faster operations on data modifications.
 
->Fluent-bit **always** handles every event message as a structured message. For performance reasons, a binary serialization data format called [MessagePack](https://msgpack.org/) is used.
+> Fluent-bit **always** handles every event message as a structured message. For performance reasons, a binary serialization data format called [MessagePack](https://msgpack.org/) is used.
 >
->Consider [MessagePack](https://msgpack.org/) as a binary version of JSON on steroids.
+> Consider [MessagePack](https://msgpack.org/) as a binary version of JSON on steroids.
 
 ## Data pipeline
 
@@ -126,20 +132,20 @@ Installation instructions for:
 
 #### Server GPG key
 
-The first step is to add our server GPG key to your keyring to ensure you can get our signed packages. Follow the official Debian wiki guidance: DebianRepository/UseThirdParty - [Debian Wiki](https://wiki.debian.org/DebianRepository/UseThirdParty#OpenPGP\_Key\_distribution)
+The first step is to add our server GPG key to your keyring to ensure you can get our signed packages. Follow the official Debian wiki guidance: DebianRepository/UseThirdParty - [Debian Wiki](https://wiki.debian.org/DebianRepository/UseThirdParty#OpenPGP_Key_distribution)
 
-```ssh
+```bash
 curl https://packages.fluentbit.io/fluentbit.key | gpg --dearmor > /usr/share/keyrings/fluentbit-keyring.gpg
 
 ```
 
-#### Updated key from March 2022 
+#### Updated key from March 2022
 
 From the 1.9.0 and 1.8.15 releases please note that the GPG key has been updated at https://packages.fluentbit.io/fluentbit.key so ensure this new one is added.
 
 The GPG Key fingerprint of the new key is:
 
-```ssh
+```bash
 C3C0 A285 34B9 293E AF51  FABD 9F9D DC08 3888 C1CD
 Fluentbit releases (Releases signing key) <releases@fluentbit.io>
 ```
@@ -148,7 +154,7 @@ The previous key is still available at https://packages.fluentbit.io/fluentbit-l
 
 The GPG Key fingerprint of the old key is:
 
-```ssh
+```bash
 F209 D876 2A60 CD49 E680 633B 4FF8 368B 6EA0 722A
 ```
 
@@ -156,37 +162,37 @@ Refer to the [supported platform documentation](https://docs.fluentbit.io/manual
 
 #### Update your sources list
 
-On Ubuntu, you need to add our APT server entry to your sources lists, please add the following content at bottom of your **/etc/apt/sources.list** file - ensure to set ``CODENAME`` to your specific [Ubuntu release name](https://wiki.ubuntu.com/Releases) (e.g. focal for Ubuntu 20.04):
+On Ubuntu, you need to add our APT server entry to your sources lists, please add the following content at bottom of your **/etc/apt/sources.list** file - ensure to set `CODENAME` to your specific [Ubuntu release name](https://wiki.ubuntu.com/Releases) (e.g. focal for Ubuntu 20.04):
 
-```ssh
+```bash
 deb [signed-by=/usr/share/keyrings/fluentbit-keyring.gpg] https://packages.fluentbit.io/ubuntu/${CODENAME} ${CODENAME} main
 ```
 
 #### Update your repositories database
 
-Now let your system update the *apt* database:
+Now let your system update the _apt_ database:
 
-```ssh
+```bash
 sudo apt-get update
 ```
 
-- We recommend upgrading your system (``sudo apt-get upgrade``). This could avoid potential issues with expired certificates.
+- We recommend upgrading your system (`sudo apt-get upgrade`). This could avoid potential issues with expired certificates.
 
-- If you have the following error "Certificate verification failed", you might want to check if the package ``ca-certificates`` is properly installed (``sudo apt-get install ca-certificates``).
+- If you have the following error "Certificate verification failed", you might want to check if the package `ca-certificates` is properly installed (`sudo apt-get install ca-certificates`).
 
 #### Install Fluent-bit
 
-Using the following *apt-get* command you are able now to install the latest *fluent-bit*:
+Using the following _apt-get_ command you are able now to install the latest _fluent-bit_:
 
-```ssh
+```bash
 sudo apt-get install fluent-bit
 ```
 
 #### Update the Fluent-bit configuration file
 
-Configure the Fluent-bit configuration file to collect logs and sent them to the c3-exporter ``fluent-bit.conf``. See the attached complete fluent-bit.conf file. 
+Configure the Fluent-bit configuration file to collect logs and sent them to the c3-exporter `fluent-bit.conf`. See the attached complete fluent-bit.conf file.
 
-```ssh
+```bash
 # Example config
 
 [SERVICE]
@@ -229,7 +235,7 @@ Configure the Fluent-bit configuration file to collect logs and sent them to the
     http_server  Off
     http_listen  0.0.0.0
     http_port    2020
-    
+
     # Storage
     # =======
     # Fluent Bit can use memory and filesystem buffering based mechanisms
@@ -278,7 +284,7 @@ Configure the Fluent-bit configuration file to collect logs and sent them to the
     tag            systemd
     strip_underscores on
     read_from_tail on
-    
+
 # Optional
 [INPUT]
     name   syslog
@@ -328,25 +334,26 @@ Configure the Fluent-bit configuration file to collect logs and sent them to the
 #    match *
 ```
 
->**Optional:** Adding syslogs as an ``[INPUT]`` collection
+> **Optional:** Adding syslogs as an `[INPUT]` collection
 >
->In the following directory, **/etc/rsyslog.d/** Create a file called **60-c3opensearch.conf** with the following content **action(type="omfwd" target="127.0.0.1" port="5140" protocol="TCP")** to start collecting syslogs using the configuration example from above.
+> In the following directory, **/etc/rsyslog.d/** Create a file called **60-c3opensearch.conf** with the following content **action(type="omfwd" target="127.0.0.1" port="5140" protocol="TCP")** to start collecting syslogs using the configuration example from above.
 >
->```ssh
->cat /etc/rsyslog.d/60-c3opensearch.conf 
->action(type="omfwd" target="127.0.0.1" port="5140" protocol="tcp")
->```
->After creating the file, restart the rsyslog ``sudo systemctl restart rsyslog``
+> ```bash
+> cat /etc/rsyslog.d/60-c3opensearch.conf
+> action(type="omfwd" target="127.0.0.1" port="5140" protocol="tcp")
+> ```
+>
+> After creating the file, restart the rsyslog `sudo systemctl restart rsyslog`
 
 Now the following step is to instruct **systemd** to enable the service:
 
-```ssh
+```bash
 sudo systemctl start fluent-bit
 ```
 
 If you do a status check, you should see a similar output like this:
 
-```ssh
+```bash
 sudo systemctl status fluent-bit.service
 ● fluent-bit.service - Fluent Bit
      Loaded: loaded (/lib/systemd/system/fluent-bit.service; disabled; vendor preset: enabled)
@@ -517,6 +524,7 @@ Outputs
 For comprehensive instructions on Fluent-bit configuration, see: [Configuring Fluent-bit](https://docs.fluentbit.io/manual/administration/configuring-fluent-bit)
 
 ## Related links
+
 - [Fluent-bit Documentation](https://docs.fluentbit.io/manual/)
 - [Fluent-bit Sandbox Environment (Instruqt)](https://play.instruqt.com/embed/Fluent/tracks/fluent-bit-getting-started-101?token=em_S2zOzhhDQepM0vDS)
 - [Circonus Dashboards](/circonus3/dashboards/introduction/)

@@ -1,6 +1,6 @@
 ---
 title: Log Ingestion
-weight: 35
+sidebar_position: 6
 ---
 
 # Log Collection and Ingestion
@@ -41,7 +41,7 @@ After, you logs have been setup to be shipped to Circonus, we will then create a
 
 A simple installation script is provided to be used for most Linux targets. This will by default install the most recent version released.
 
-```ssh
+```bash
 curl https://raw.githubusercontent.com/fluent/fluent-bit/master/install.sh | sh
 ```
 
@@ -51,11 +51,11 @@ Modify the Fluent-bit configuration file to collect logs and sent them to the c3
 
 Using nano as an example to edit the file:
 
-```ssh
+```bash
 sudo nano /etc/fluent-bit/fluent-bit.conf
 ```
 
-```ssh
+```bash
 # Example config
 
 [SERVICE]
@@ -200,20 +200,20 @@ sudo nano /etc/fluent-bit/fluent-bit.conf
 >
 > Run the following command to create the file.
 >
-> ```ssh
+> ```bash
 > $ sudo echo 'action(type="omfwd" target="127.0.0.1" port="5140" protocol="TCP")' > /etc/rsyslog.d/60-c3opensearch.conf
 > ```
 >
 > Check the contents of the newly created file
 >
-> ```ssh
+> ```bash
 > $ cat /etc/rsyslog.d/60-c3opensearch.conf
 > action(type="omfwd" target="127.0.0.1" port="5140" protocol="tcp")
 > ```
 >
 > After creating the file, restart the rsyslog service
 >
-> ```ssh
+> ```bash
 > sudo systemctl restart rsyslog
 > ```
 
@@ -221,13 +221,13 @@ sudo nano /etc/fluent-bit/fluent-bit.conf
 
 Now the following step is to instruct **systemd** to enable the service:
 
-```ssh
+```bash
 sudo systemctl start fluent-bit
 ```
 
 Checking Fluent-bit's status
 
-```ssh
+```bash
 sudo systemctl status fluent-bit.service
 ● fluent-bit.service - Fluent Bit
      Loaded: loaded (/lib/systemd/system/fluent-bit.service; disabled; vendor preset: enabled)
@@ -257,7 +257,7 @@ The default configuration of **fluent-bit** is collecting metrics of CPU usage a
 
 Modify the Fluent-bit configuration file to collect logs and sent them to the c3-exporter found at `C:\Program Files\fluent-bit\conf\fluent-bit.conf`
 
-```ssh
+```bash
 [SERVICE]
     # Flush
     # =====
@@ -377,7 +377,7 @@ Using Windows Powershell, you can manage the Fluent-bit service
 
 Create and start a new Fluent-bit service, and check its status.
 
-```ssh
+```bash
 PS> New-Service fluent-bit -BinaryPathName "C:\PROGRA~1\fluent-bit\bin\fluent-bit.exe -c C:\PROGRA~1\fluent-bit\conf\fluent-bit.conf" -StartupType Automatic && Start-Service fluent-bit && get-service fluent-bit
 ```
 
@@ -385,7 +385,7 @@ Fluent-bit's service can also be managed with the native Windows **Services Mana
 
 1. Right-click on the Start button to open the WinX Menu
 2. Select Run
-3. Type services.msc in the Run box which opens
+3. Type `services.msc` in the Run box which opens
 4. Windows Services Manager will open.
 5. Search for fluent-bit under the **Name** column
 
@@ -407,7 +407,7 @@ Choose the Debian [package](https://github.com/circonus/c3-exporter/releases) fo
 
 Once the package is downloaded on your host, Install the package
 
-```ssh
+```bash
 sudo apt install /path/to/exporter/c3-exporter_0.0.9_amd64.deb
 ```
 
@@ -417,7 +417,7 @@ Next, set up the exporter to send data to your account. The configuration file i
 
 Example **c3-exporter.yaml** file
 
-```ssh
+```bash
 server:
   listen_address: ":9200"
   cert_file: ""
@@ -450,7 +450,7 @@ A full list of configuration options can be found at the [Circonus exporter GitH
 
 Restart the exporter so the configuration file changes will take effect and data will start being sent to Circonus.
 
-```ssh
+```bash
 sudo systemctl restart circonus-c3-exporter.service
 ```
 
@@ -462,7 +462,7 @@ sudo systemctl restart circonus-c3-exporter.service
 
 Check if the Fluent-bit service is running
 
-```ssh
+```bash
 ~$ sudo systemctl status fluent-bit.service
 ● fluent-bit.service - Fluent Bit
      Loaded: loaded (/lib/systemd/system/fluent-bit.service; disabled; vendor preset: enabled)
@@ -481,7 +481,7 @@ Feb 13 15:27:25 ubuntu-c3playground-observability-v1 fluent-bit[1265874]: [2023/
 
 View the Fluent-bit logs while the service is running
 
-```ssh
+```bash
 ~$ sudo journalctl -u fluent-bit.service -f
 Apr 05 19:52:04 ubuntu-c3-staging-observability-v1 fluent-bit[688648]: [2023/04/05 19:52:04] [ info] [fluent bit] version=2.0.9, commit=, pid=688648
 Apr 05 19:52:04 ubuntu-c3-staging-observability-v1 fluent-bit[688648]: [2023/04/05 19:52:04] [ info] [storage] ver=1.4.0, type=memory, sync=normal, checksum=off, max_chunks_up=128
@@ -494,7 +494,7 @@ Additional information can be found on [Fluent-bit's](https://docs.fluentbit.io/
 
 Check if the Fluent-bit service is running
 
-```ssh
+```bash
 PS> get-service fluent-bit
 
 Status   Name               DisplayName
@@ -504,19 +504,19 @@ Running  fluent-bit         fluent-bit
 
 Start the service
 
-```ssh
+```bash
 PS> Start-Service fluent-bit
 ```
 
 Stop the service
 
-```ssh
+```bash
 PS> Stop-Service fluent-bit
 ```
 
 Remove the service
 
-```ssh
+```bash
 PS> Remove-Service fluent-bit
 ```
 
@@ -524,7 +524,7 @@ Fluent-bit's service can also be managed with the native Windows **Services Mana
 
 1. Right-click on the Start button to open the WinX Menu
 2. Select Run
-3. Type services.msc in the Run box which opens
+3. Type ``services.msc`` in the Run box which opens
 4. Windows Services Manager will open.
 5. Search for fluent-bit under the **Name** column
 
@@ -532,7 +532,7 @@ Additional information can be found on [Fluent-bit's](https://docs.fluentbit.io/
 
 ### Circonus Pipeline Exporter
 
-```ssh
+```bash
 ~$ sudo systemctl status circonus-c3-exporter.service
 ● circonus-c3-exporter.service - Circonus C3 Data Exporter
      Loaded: loaded (/lib/systemd/system/circonus-c3-exporter.service; enabled; vendor preset: enabled)
@@ -552,7 +552,7 @@ Apr 06 13:51:19 ubuntu-c3-staging-observability-v1 c3-exporterd[615963]: {"level
 
 View the circonus-c3-exporter logs while the service is running
 
-```ssh
+```bash
 sudo journalctl -u circonus-c3-exporter -f
 Feb 08 22:20:02 ubuntu-c3playground-observability systemd[1]: circonus-c3-exporter.service: Main process exited, code=exited, status=1/FAILURE
 Feb 08 22:20:02 ubuntu-c3playground-observability systemd[1]: circonus-c3-exporter.service: Failed with result 'exit-code'.
@@ -563,7 +563,7 @@ Feb 08 22:20:03 ubuntu-c3playground-observability systemd[1]: Stopped Circonus C
 
 Example of data being processed and sent to Circonus.
 
-```ssh
+```bash
 Feb 08 23:01:02 ubuntu-c3playground-observability c3-exporterd[20077]: {"level":"info","req_id":"ec6ed8da-8b49-4488-9634-a5f7c12d6308","remote":"127.0.0.1:56120","proto":"HTTP/1.1","method":"POST","URI":"/_bulk","upstream_resp_code":200,"handle_dur":"283.960295ms","ups"
 ```
 

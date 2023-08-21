@@ -1,6 +1,6 @@
 ---
 title: Pipelines
-weight: 20
+sidebar_position: 4
 ---
 
 # Pipelines
@@ -70,7 +70,7 @@ conditional-routing-sample-pipeline:
 
 ## Examples
 
-This section provides some pipeline examples that you can use to start creating your own pipelines. For more information, see the [Data Prepper configuration reference](/circonus3/integrations/data-prepper/data-prepper-reference/) guide.
+This section provides some pipeline examples that you can use to start creating your own pipelines. For more information, see the [Data Prepper configuration reference](/circonus3/integrations/agents/data-prepper/data-prepper-reference) guide.
 
 ### Log ingestion pipeline
 

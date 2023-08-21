@@ -1,6 +1,6 @@
 ---
 title: Trace Analytics
-weight: 15
+sidebar_position: 3
 ---
 
 # Trace Analytics
@@ -30,8 +30,3 @@ To drill down on the traces that make up a trace group, choose the number of tra
 ![Service view](../../img/analytics-observability_trace_services.png)
 
 The **Services** view lists all services in the application, plus an interactive map that shows how the various services connect to each other. In contrast to the dashboard, which helps identify problems by operation, the service map helps identify problems by service. Try sorting by error rate or latency to get a sense of potential problem areas within your application.
-
-## Related links
-
-- [Circonus Dashboards](/circonus3/dashboards/introduction/)
-- [Getting Started with Circonus](/circonus3/getting-started/)

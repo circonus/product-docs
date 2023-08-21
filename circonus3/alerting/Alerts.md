@@ -1,6 +1,6 @@
 ---
 title: Alerts
-weight: 20
+sidebar_position: 2
 ---
 
 # Alerts

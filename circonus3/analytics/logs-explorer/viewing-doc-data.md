@@ -1,6 +1,6 @@
 ---
 title: Viewing Document Data
-weight: 40
+sidebar_position: 3
 ---
 
 # Viewing Document Data

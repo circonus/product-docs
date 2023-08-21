@@ -1,6 +1,6 @@
 ---
 title: Circonus Kubernetes Agent
-weight: 25
+sidebar_position: 4
 ---
 
 # Circonus Kubernetes Agent
@@ -35,18 +35,18 @@ spec:
     k8s-app: kube-dns
   type: ClusterIP
   ports:
-  - name: dns
-    port: 53
-    protocol: UDP
-    targetPort: 53
-  - name: dns-tcp
-    port: 53
-    protocol: TCP
-    targetPort: 53
-  - name: metrics
-    port: 9153
-    protocol: TCP
-    targetPort: 9153
+    - name: dns
+      port: 53
+      protocol: UDP
+      targetPort: 53
+    - name: dns-tcp
+      port: 53
+      protocol: TCP
+      targetPort: 53
+    - name: metrics
+      port: 9153
+      protocol: TCP
+      targetPort: 9153
 ```
 
 > NOTE: If the annotations are _not_ defined on the service and the service cannot be modified to add the annotations but the pods backing the kube-dns service _do_ expose metrics, use `kube-dns-metrics-port` to define the port from which to request `/metrics`.
@@ -59,9 +59,9 @@ spec:
 
 1. Clone [repo](https://github.com/circonus-labs/circonus-kubernetes-agent)
 1. In `deploy/default/configuration.yaml` set the following required attributes:
-   * Circonus API Token - `circonus-api-key`
-   * Kubernetes Cluster Name - `kubernetes-name` - short, unique string w/o spaces
-   * Circonus Alert Email - `default-alerts.json`->`contact.email` - email address for default alerts
+   - Circonus API Token - `circonus-api-key`
+   - Kubernetes Cluster Name - `kubernetes-name` - short, unique string w/o spaces
+   - Circonus Alert Email - `default-alerts.json`->`contact.email` - email address for default alerts
 1. Apply `kubectl apply -f deploy/default/`
 
 #### Custom
@@ -69,10 +69,10 @@ spec:
 1. Clone [repo](https://github.com/circonus-labs/circonus-kubernetes-agent)
 1. Verify `deploy/custom/authrbac.yaml`, alter any applicable settings for cluster security
 1. Change any applicable settings in `deploy/custom/configuration.yaml`, minimum required:
-   * Circonus API Token
-   * Check Target (optional, Kubernetes cluster name will be used if not supplied) - so agent can find check on restart (short, unique string w/o spaces - normally this is a FQDN)
-   * Kubernetes Cluster Name - used for check title when creating a check
-   * Circonus Alert Email - email address for default alerts
+   - Circonus API Token
+   - Check Target (optional, Kubernetes cluster name will be used if not supplied) - so agent can find check on restart (short, unique string w/o spaces - normally this is a FQDN)
+   - Kubernetes Cluster Name - used for check title when creating a check
+   - Circonus Alert Email - email address for default alerts
 1. Change any applicable settings in `deploy/custom/deployment.yaml`
 1. Apply `kubectl apply -f deploy/custom/`
 
@@ -82,8 +82,8 @@ spec:
 
 1. Clone [repo](https://github.com/circonus-labs/circonus-kubernetes-agent)
 1. In `deploy/observation/configuration.yaml` set the following required attributes:
-   * Circonus API Token - `circonus-api-key`
-   * Kubernetes Cluster Name - `kubernetes-name` - short, unique string w/o spaces
+   - Circonus API Token - `circonus-api-key`
+   - Kubernetes Cluster Name - `kubernetes-name` - short, unique string w/o spaces
 1. Apply `kubectl apply -f deploy/observation/`
 
 ### `helm` (contrib)
@@ -92,7 +92,7 @@ spec:
 1. Make updates to files in `contrib/helm` to customize settings
 1. Install
 
-```sh
+```bash
 helm install contrib/helm \
   --name=<Helm release name> \
   --set=circonus_api_key=<some valid Circonus API key> \
@@ -103,7 +103,7 @@ helm install contrib/helm \
 
 ## Options
 
-```shell
+```bash
 Usage:
   circonus-kubernetes-agent [flags]
 
@@ -174,7 +174,7 @@ Dynamic collection simplifies gathering desirable metrics exposed in Prometheus 
 
 The configuration is defined in the [custom deployment yaml configuration file](https://github.com/circonus-labs/circonus-kubernetes-agent/blob/master/deploy/custom/configuration.yaml).
 
-```shell
+```bash
 collectors:
   - name: ""           # required
     disable: false     # disable this collector
@@ -206,42 +206,42 @@ collectors:
     label_tags: ""     # comma separated list of labels on the item to add as tags
 ```
 
-| Option | Required | Description | Default |
-| ------- | ---------| ----------- | ------- |
-| name | yes | name of this collector | n/a |
-| disable | no | disable a collector, but keep the configuration | false |
-| type | yes | type of the collector (`endpoints`, `nodes`, `pods`, `services`) | n/a |
-| selectors || define what items of the type to collect ||
-| selectors.label | no | a [labelSelector](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors) for the type | all for type |
-| selectors.field | no | a [fieldSelector](https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors/) for the type | all for type |
-| control || controls collection of metrics (string parsed as boolean) ||
-| control.annotation | no | annotation to use e.g. `"monitor"` ||
-| control.label | no | label to use  e.g. `"metricsCollect"` ||
-| control.value | no | static value (`1`, `t`, `T`, `TRUE`, `true`, `True`, `0`, `f`, `F`, `FALSE`, `false`, `False`) | `"true"`|
-| metric_port || defines the port to use for the metric request ||
-| metric_port.annotation | no | annotation to use ||
-| metric_port.label | no | label to use ||
-| metric_port.value | no | static port for all instances (e.g. `"8080"`) ||
-| metric_path || defines the path to use for the metric request ||
-| metric_path.annotation | no | annotation to use ||
-| metric_path.label | no | label to use ||
-| metric_path.value | no | static path to use for all instances | `"/metrics"`|
-| schema | no | HTTP request schema `http` or `https` ||
-| schema.annotation | no | annotation to use ||
-| schema.label | no | label to use ||
-| schema.value | no | static schema for all instances | `"http"` |
-| rollup | no | control rolling up metrics (string parsed as boolean) ||
-| rollup.annotation | no | annotation to use ||
-| rollup.label | no | label to use ||
-| rollup.value | no | static value (`1`, `t`, `T`, `TRUE`, `true`, `True`, `0`, `f`, `F`, `FALSE`, `false`, `False`) | `"false"` |
-| tags | no | comma separated list of static tags to add e.g. `"app:myapp,foo:bar"` ||
-| label_tags | no | comma separated list of labels to use as tags e.g. `"environment,location"` ||
+| Option                 | Required | Description                                                                                                               | Default      |
+| ---------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| name                   | yes      | name of this collector                                                                                                    | n/a          |
+| disable                | no       | disable a collector, but keep the configuration                                                                           | false        |
+| type                   | yes      | type of the collector (`endpoints`, `nodes`, `pods`, `services`)                                                          | n/a          |
+| selectors              |          | define what items of the type to collect                                                                                  |              |
+| selectors.label        | no       | a [labelSelector](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors) for the type | all for type |
+| selectors.field        | no       | a [fieldSelector](https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors/) for the type        | all for type |
+| control                |          | controls collection of metrics (string parsed as boolean)                                                                 |              |
+| control.annotation     | no       | annotation to use e.g. `"monitor"`                                                                                        |              |
+| control.label          | no       | label to use e.g. `"metricsCollect"`                                                                                      |              |
+| control.value          | no       | static value (`1`, `t`, `T`, `TRUE`, `true`, `True`, `0`, `f`, `F`, `FALSE`, `false`, `False`)                            | `"true"`     |
+| metric_port            |          | defines the port to use for the metric request                                                                            |              |
+| metric_port.annotation | no       | annotation to use                                                                                                         |              |
+| metric_port.label      | no       | label to use                                                                                                              |              |
+| metric_port.value      | no       | static port for all instances (e.g. `"8080"`)                                                                             |              |
+| metric_path            |          | defines the path to use for the metric request                                                                            |              |
+| metric_path.annotation | no       | annotation to use                                                                                                         |              |
+| metric_path.label      | no       | label to use                                                                                                              |              |
+| metric_path.value      | no       | static path to use for all instances                                                                                      | `"/metrics"` |
+| schema                 | no       | HTTP request schema `http` or `https`                                                                                     |              |
+| schema.annotation      | no       | annotation to use                                                                                                         |              |
+| schema.label           | no       | label to use                                                                                                              |              |
+| schema.value           | no       | static schema for all instances                                                                                           | `"http"`     |
+| rollup                 | no       | control rolling up metrics (string parsed as boolean)                                                                     |              |
+| rollup.annotation      | no       | annotation to use                                                                                                         |              |
+| rollup.label           | no       | label to use                                                                                                              |              |
+| rollup.value           | no       | static value (`1`, `t`, `T`, `TRUE`, `true`, `True`, `0`, `f`, `F`, `FALSE`, `false`, `False`)                            | `"false"`    |
+| tags                   | no       | comma separated list of static tags to add e.g. `"app:myapp,foo:bar"`                                                     |              |
+| label_tags             | no       | comma separated list of labels to use as tags e.g. `"environment,location"`                                               |              |
 
 ### Examples
 
 From `endpoints` with the label `kubernetes.io/name=KubeDNS`, collect metrics from port `9153` using the default path of `/metrics`.
 
-```shell
+```bash
 collectors:
   - name: "kube-dns"
     type: "endpoints"
@@ -253,7 +253,7 @@ collectors:
 
 From all `pods` with a label `appName` set to `myapp`, collect if the pod has an annotation `metricsCollect` with a value of `true`, use the values of the `metricsPort` and `metricsPath` annotations when constructing the metric request URL. Add the static tag `env:prod` and use the item labels `appName` and `location` as tags.
 
-```shell
+```bash
 collectors:
   - name: "myapp"
     type: "pods"

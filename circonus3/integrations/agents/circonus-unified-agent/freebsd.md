@@ -1,6 +1,6 @@
 ---
 title: FreeBSD
-weight: 40
+sidebar_position: 3
 ---
 
 # CUA for FreeBSD
@@ -13,7 +13,7 @@ A one-step installer script is provided on the [CUA configuration page](https://
 
 The FreeBSD installer may be easily executed by running the following command as root:
 
-```sh
+```bash
 curl -sSL "https://raw.githubusercontent.com/circonus-labs/circonus-unified-agent/master/install/install_freebsd.sh" | bash -s -- --key <circonus api key>
 ```
 

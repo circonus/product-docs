@@ -1,6 +1,6 @@
 ---
 title: Managing Reports
-weight: 20
+sidebar_position: 1
 ---
 
 # Managing Reports

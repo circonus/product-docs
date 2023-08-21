@@ -1,13 +1,13 @@
 ---
 title: Getting Started
-weight: 10
+sidebar_position: 2
 ---
 
-# Getting started with Data Prepper
+# Getting Started with Data Prepper
 
-Data Prepper is an independent component that converts data for use with Circonus. 
+Data Prepper is an independent component that converts data for use with Circonus.
 
-If you are migrating from Open Distro Data Prepper, visit the [Migrating from Open Distro](/circonus3/integrations/data-prepper/migrate-open-distro/) page. 
+If you are migrating from Open Distro Data Prepper, visit the [Migrating from Open Distro](/circonus3/integrations/agents/data-prepper/migrate-open-distro) page.
 
 ## 1. Installing Data Prepper
 
@@ -21,7 +21,7 @@ you use this approach if you have [Docker](https://www.docker.com) available.
 
 You can pull the Docker image:
 
-```
+```bash
 docker pull opensearchproject/data-prepper:latest
 ```
 
@@ -31,8 +31,8 @@ You must configure Data Prepper with a pipeline before running it.
 
 You will configure two files:
 
-* `data-prepper-config.yaml`
-* `pipelines.yaml`
+- `data-prepper-config.yaml`
+- `pipelines.yaml`
 
 ## 3. Defining a pipeline
 
@@ -78,6 +78,7 @@ After starting Data Prepper, you should see log output and some UUIDs after a fe
 e51e700e-5cab-4f6d-879a-1c3235a77d18
 b4ed2d7e-cf9c-4e9d-967c-b18e8af35c90
 ```
+
 The remainder of this page provides examples for running Data Prepper from the Docker image.
 
 However you configure your pipeline, you will run Data Prepper the same way. You run the Docker
@@ -85,25 +86,26 @@ image and supply both the `pipelines.yaml` and `data-prepper-config.yaml` files.
 
 For Data Prepper 2.0 or later, use this command:
 
-```
+```bash
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/config/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
 
 For Data Prepper before version 2.0, use this command:
 
-```
+```bash
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/data-prepper:1.x
 ```
 
 Once Data Prepper is running, it will process data until it is shut down. Once you are done, shut it down with the following command:
 
-```
+```bash
 curl -X POST http://localhost:4900/shutdown
 ```
+
 ### Additional configurations
 
-For Data Prepper 2.0 or later, the Log4j 2 configuration file is read from `config/log4j2.properties` in the application's home directory. 
-By default, it uses `log4j2-rolling.properties` in the *shared-config* directory.
+For Data Prepper 2.0 or later, the Log4j 2 configuration file is read from `config/log4j2.properties` in the application's home directory.
+By default, it uses `log4j2-rolling.properties` in the _shared-config_ directory.
 
-For Data Prepper 1.5 or earlier, optionally add `"-Dlog4j.configurationFile=config/log4j2.properties"` to the command if you would 
-like to pass a custom log4j2 properties file. If no properties file is provided, Data Prepper will default to the log4j2.properties file in the *shared-config* directory.
+For Data Prepper 1.5 or earlier, optionally add `"-Dlog4j.configurationFile=config/log4j2.properties"` to the command if you would
+like to pass a custom log4j2 properties file. If no properties file is provided, Data Prepper will default to the log4j2.properties file in the _shared-config_ directory.

@@ -1,13 +1,13 @@
 ---
 title: Goal and Gauge Visualizations
-weight: 50
+sidebar_position: 7
 ---
 
 # Working with the Goal and Gauge Visualization
 
 ![Goal and Gauge](../img/visualizations-goal_gauge.png)
 
-The goal visualization displays how your metric value is performing with respect to a single, fixed goal. In contrast, a gauge visualization features multiple, predefined ranges and displays where your metric falls with respect to these.
+The goal visualization displays how your metric value is performing concerning a single, fixed goal. In contrast, a gauge visualization features multiple, predefined ranges and displays where your metric includes the following.
 
 ## Metric aggregations
 
@@ -73,15 +73,19 @@ Click the **Options** tab to change the following options:
 
 ### Ranges
 
-**Ranges** gives you the ability add custom ranges to the arc or circle. Each range will get assigned a color. If a value falls within that range, it will get assigned that color.
+**Ranges** give you the ability to add custom ranges to the arc or circle. Each range will get assigned a color. If a value falls within that range, it will get assigned that color.
 
-> **Caution:** Field formatters can be applied to the displayed value causing the range values and the displayed values to be different.
->
-> **For example:** The bytes field formatter applied to the Metrics field will have displayed values like "30MB". The raw value is really closer to 30,000,000. You will need to set your range values to the raw value and not the formatted value.
+:::caution
+
+Field formatters can be applied to the displayed value causing the range values and the displayed values to be different.
+
+**Example:** The bytes field formatter applied to the Metrics field will have displayed values like "30MB". The raw value is really closer to 30,000,000. You will need to set your range values to the raw value and not the formatted value.
+
+:::
 
 - **Percentage Mode** will show all values as percentages.
 
-- **Auto extend range** extends the range to the maximum in your data.
+- The **Auto-extend range** extends the range to the maximum in your data.
 
 - **Color schema** lets you define how to color your ranges (which color schema to use). Color options are only visible if more than one range is defined. You have the following color range options:
 
@@ -91,7 +95,7 @@ Click the **Options** tab to change the following options:
   - Greys
   - Reds
 
-- **Reverse schema** reverses the starting color of color range.
+- **Reverse schema** reverses the starting color or range.
 
 - **Show scale** shows or hides the scale.
 
@@ -103,11 +107,11 @@ Click the **Options** tab to change the following options:
 
 ### Labels
 
-- **Show Labels** selects whether you want to show or hide the labels.
+- **Show Labels** will either show or hide the labels.
 
-- **Sub label** is text for the label that appears below the value.
+- **Sub label** is the text for the label that appears below the value.
 
-- **Display warnings** shows a warning if not all labels can be shown.
+- **Display warnings** will display a warning if not all labels can be shown.
 
 ## Related links
 

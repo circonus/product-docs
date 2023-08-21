@@ -1,6 +1,6 @@
 ---
-title: Circonus Unified Agent
-weight: 5
+title: Introduction
+sidebar_position: 1
 ---
 
 # Circonus Unified Agent
@@ -27,11 +27,11 @@ CUA can easily be installed using the one-step installer. A number of target pla
 
 To get started using CUA, please select your platform:
 
-[Windows](/circonus3/integrations/agents/circonus-unified-agent/windows/ "CUA for Windows")
-[Linux](/circonus3/integrations/agents/circonus-unified-agent/linux/ "CUA for Linux")
-[macOS](/circonus3/integrations/agents/circonus-unified-agent/macos/ "CUA for macOS")
-[Docker](/circonus3/integrations/agents/circonus-unified-agent/docker/ "CUA for Docker")
-[FreeBSD](/circonus3/integrations/agents/circonus-unified-agent/freebsd/ "CUA for FreeBSD")
+- [Windows](/circonus3/integrations/agents/circonus-unified-agent/windows/ "CUA for Windows")
+- [Linux](/circonus3/integrations/agents/circonus-unified-agent/linux/ "CUA for Linux")
+- [macOS](/circonus3/integrations/agents/circonus-unified-agent/macos/ "CUA for macOS")
+- [Docker](/circonus3/integrations/agents/circonus-unified-agent/docker/ "CUA for Docker")
+- [FreeBSD](/circonus3/integrations/agents/circonus-unified-agent/freebsd/ "CUA for FreeBSD")
 
 [Packages](https://www.github.com/circonus-labs/circonus-unified-agent/releases/latest) are also available for 64-bit x86 and Arm v8 architectures. For other architectures, use a source install.
 
@@ -66,12 +66,12 @@ These plugins are designed to be easy to develop and contribute. Pull requests a
 - 64-bit x86 packages are available for all platforms on the list. Arm v8 packages are available for all platforms except Windows and MacOS.
 - CUA supports the latest updates to Windows Server 2008 R2 with the most recent Windows updates installed, however [ there is a known issue with clock drift and Go][6] that affects this environment.
 
-[1]: /circonus/agents/circonus-unified-agent/basic_usage/docker/
-[2]: /circonus/agents/circonus-unified-agent/basic_usage/freebsd/
-[3]: /circonus/agents/circonus-unified-agent/basic_usage/linux/
-[4]: /circonus/agents/circonus-unified-agent/basic_usage/macos/
-[5]: /circonus/agents/circonus-unified-agent/basic_usage/windows/
-[6]: https://github.com/golang/go/issues/24489
+[1]: /circonus3/integrations/agents/circonus-unified-agent/docker
+[2]: /circonus3/integrations/agents/circonus-unified-agent/freebsd
+[3]: /circonus3/integrations/agents/circonus-unified-agent/linux
+[4]: /circonus3/integrations/agents/circonus-unified-agent/macos
+[5]: /circonus3/integrations/agents/circonus-unified-agent/windows
+[6]: /circonus3/integrations/agents/circonus-unified-agent/windows
 
 ## Troubleshooting
 
@@ -83,19 +83,19 @@ If you just installed CUA, you will need to wait at least 5 minutes before proce
 
 Restart CUA on **MacOS** by entering the following command in the terminal:
 
-```
+```bash
 sudo launchctl kickstart -k system/com.circonus.circonus-unified-agent
 ```
 
 Restart CUA on **Linux** by entering the following command in the terminal:
 
-```
+```bash
 sudo systemctl restart circonus-unified-agent
 ```
 
 Restart CUA on **Windows** by entering the following command in the terminal:
 
-```
+```bash
 Restart-Service -Name circonus-unified-agent
 ```
 
@@ -105,7 +105,7 @@ Test your internet connectivity either using a web browser or a command terminal
 
 Below is an example of a successful ping from macOS or a Linux terminal to the public internet:
 
-```
+```bash
 ~ > ping -c 4 www.api.circonus.com                                      3s 01:36:45 PM
 ping www.api.circonus.com (23.202.231.169): 56 data bytes
 64 bytes from 23.202.231.169: icmp_seq=0 ttl=49 time=23.973 ms
@@ -128,7 +128,7 @@ As you execute CUA in debug mode, you can see the application start up and proce
 
 The following is an example of CUA successfully running without any errors.
 
-```
+```bash
 ~ > cd /opt/circonus/unified-agent/sbin
 ~ /opt/circonus/unified-agent/sbin > ./circonus-unified-agentd --debug
 2022-06-23T15:14:46Z I! Starting Circonus Unified Agent 0.0.43-SNAPSHOT-e4c599a
@@ -159,13 +159,13 @@ The following is an example of CUA successfully running without any errors.
 
 The following output indicates that host metrics were successfully submitted to Circonus without any errors: “E:none” indicates no errors with the submission.
 
-```
+```bash
 2022-06-23T15:14:57Z D! [outputs.circonus] host:host::: flush -- C:187b092b-092f-40b5-be91-dffbe16c0be3, S:n/a, E:none, Stats:285, Filtered:0, Bytes:3027, Encode:6.8115ms, Submit:66.1295ms, LastReq:64.392375ms, Flush:72.945208ms
 ```
 
 Example of CUA running into an snmp.inputs plugin error.
 
-```
+```bash
 C2022-06-23T15:15:01Z E! [inputs.snmp::Asus_Router_Test] Error in plugin: gather (input snmp): initializing table ifTable: initializing field ifIndex: translating: : signal: interrupt
 ```
 
@@ -173,7 +173,7 @@ Example of CUA encountering a configuration file invalid TOML syntax error.
 
 Configuration syntax errors are easy to create, but they can be avoided by editing the CUA configuration file in a text editor, like VSCode, with a TOML syntax extension that shows errors in the syntax.
 
-```
+```bash
 2022-06-23T22:19:46Z E! [circonus-unified-agent] Error running agent: loadconfig (): Error loading config file /opt/circonus/unified-agent/etc/circonus-unified-agent.conf: error parsing data: line 405: invalid TOML syntax
 ```
 
@@ -181,7 +181,7 @@ Configuration syntax errors are easy to create, but they can be avoided by editi
 
 The following is an example of CUA successfully running without any errors.
 
-```
+```bash
 PS C:\Program Files\Circonus\Circonus-Unified-Agent\sbin> .\circonus-unified-agentd.exe --debug
 2022-06-24T00:42:42Z I! Starting Circonus Unified Agent 0.0.41
 2022-06-24T00:42:42Z I! Using config file: C:\Program Files\Circonus\Circonus-Unified-Agent\etc\circonus-unified-agent.conf
@@ -213,13 +213,13 @@ PS C:\Program Files\Circonus\Circonus-Unified-Agent\sbin> .\circonus-unified-age
 
 The following output indicates that metrics were successfully submitted to Circonus without any Errors: “E:none” indicates no errors with the submission.
 
-```
+```bash
 2022-06-24T00:42:53Z D! [outputs.circonus] host:host::: flush -- C:925586d6-0818-4912-a6f7-fbba957e18a9, S:n/a, E:none, Stats:145, Filtered:0, Bytes:2231, Encode:1.0484ms, Submit:55.9393ms, LastReq:55.4242ms, Flush:56.9877ms
 ```
 
 Example of CUA running into an inputs.ping parameter error.
 
-```
+```bash
 PS C:\Program Files\Circonus\Circonus-Unified-Agent\sbin> .\circonus-unified-agentd.exe --debug
 2022-06-23T20:54:56Z I! Starting Circonus Unified Agent 0.0.41
 2022-06-23T20:54:56Z I! Using config file: C:\Program Files\Circonus\Circonus-Unified-Agent\etc\circonus-unified-agent.conf
@@ -230,7 +230,7 @@ Example of CUA encountering a configuration file syntax error.
 
 Configuration syntax errors are easy to create and can be avoided by editing the CUA configuration file in a text editor, like VSCode, with a TOML syntax extension that shows errors in the syntax.
 
-```
+```bash
 PS C:\Program Files\Circonus\Circonus-Unified-Agent\sbin> .\circonus-unified-agentd.exe --debug
 2022-06-23T22:19:46Z I! Starting Circonus Unified Agent 0.0.41
 2022-06-23T22:19:46Z I! Using config file: C:\Program Files\Circonus\Circonus-Unified-Agent\etc\circonus-unified-agent.conf
@@ -249,19 +249,19 @@ This section will introduce you to various CUA terminal commands and show you ho
 
 MacOS and Linux directory:
 
-```
+```bash
 /opt/circonus/unified-agent/sbin > ./circonus-unified-agentd [commands|flags]
 ```
 
 Windows directory:
 
-```
+```bash
 C:\Program Files\Circonus\Circonus-Unified-Agent\sbin > .\circonus-unified-agents [commands|flags]
 ```
 
 Example: A successful `--test` command to see what metrics CUA is pushing to Circonus from MacOS:
 
-```
+```bash
 ~ > /opt/circonus/unified-agent/sbin/./circonus-unified-agentd --test                                                                               19s 03:13:19 PM
 2022-06-24T19:19:57Z I! Starting Circonus Unified Agent 0.0.43-SNAPSHOT-e4c599a
 2022-06-24T19:19:57Z I! Using config file: /opt/circonus/unified-agent/etc/circonus-unified-agent.conf
@@ -276,7 +276,7 @@ Example: A successful `--test` command to see what metrics CUA is pushing to Cir
 
 ### Available Commands
 
-```
+```bash
 Usage:
 
   circonus-unified-agent [commands|flags]
