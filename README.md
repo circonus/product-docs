@@ -40,7 +40,7 @@ This project can be used as a basic checkout from the GitHub repository. Simply:
 git clone https://github.com/circonus/product-docs.git
 ```
 
-To generate the associated docs HTML, run make from within the project directory:
+To generate the associated docs HTML, run ```yarn start``` from within the project directory:
 
 ```bash
 yarn start
