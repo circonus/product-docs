@@ -1,6 +1,6 @@
 ---
 title: Circonus Cloud Agent
-weight: 20
+sidebar_position: 3
 ---
 
 # Circonus Cloud Agent

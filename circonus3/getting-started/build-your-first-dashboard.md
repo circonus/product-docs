@@ -25,7 +25,7 @@ In Circonus, a dashboard is a collection of charts, graphs, gauges, and other vi
 
 ![Real-time search, monitoring, and analysis](../img/dashboard-linux_perf_filters.png)
 
-Get ready to build a custom dashboard using either sample or your data.
+Get ready to build a custom dashboard using either Circonus samples or your data.
 
 - Discover and explore the data
 - Visualize the data
@@ -67,7 +67,7 @@ To save this chart so you can use it later, click **Save** in the command bar an
 
 ## Bar chart
 
-You’ll use a bar chart to look at the **Web log** data set, and visualize the count of `osx` contained in the `machine.os.keyword` field.
+You’ll use a bar chart to look at the **Web **log** data set and visualize the count of `osx` contained in the `machine.os.keyword` field.
 
 Create a **Vertical Bar** chart and set the search source to `opensearch_dashboards_sample_data_logs`.
 
@@ -102,7 +102,7 @@ The final visualization is a Markdown widget that renders formatted text.
 1. Create a **Markdown** visualization.
 2. In the textbox, enter the following
 
-```sh
+```bash
 # This is a tutorial dashboard!
 The Markdown widget uses **markdown** syntax.
 > Blockquotes in Markdown use the > character.

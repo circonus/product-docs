@@ -5,11 +5,11 @@ sidebar_position: 4
 
 # Time Series Builder Visualizations
 
-The **Time Series Builder** is a powerful tool, empowering you to create different charts and visualizations from your metric, log, and trace time series data. You can leverage the Time Series Builder to produce both straightforward visualizations and extemely complex ones with relative ease.
+The **Time Series Builder** is a powerful tool, that empowers you to create different charts and visualizations from your metric, log, and trace time series data. You can leverage the Time Series Builder to produce both straightforward visualizations and extremely complex ones with relative ease.
 
 ## Creating a new visualization
 
-The basic process behind the Time Series Builder is straight forward. You choose the data source and series you want to display, then choose how you want to display the data with the available options, which depend on the specific time series visualization selected.
+The basic process behind the Time Series Builder is straightforward. You choose the data source and series you want to display, then choose how you want to display the data with the available options, which depend on the specific time series visualization selected.
 
 ![The Time Series Builder](../img/visualizations-time_series_builder.png)
 
@@ -25,13 +25,13 @@ To add a single series:
 
 1. Select the visualization type.
 
-2. Select the **Data Source**, specifying either logs or metrics. Note that logs data sources include both logs and traces.
+2. Select the **Data Source**, specifying either logs or metrics. Note that logs data sources include both logs and traces. [Title](http://localhost:3000/circonus3/visualizations/bar)
 
-   ![Time Series Builder Data Souorce Selection](../img/visualizations-time_series_builder_data_source.png)
+   ![Time Series Builder Data Source Selection](../img/visualizations-time_series_builder_data_source.png)
 
-3. Define the times series data that you're interested in.
+3. Define the time series data that you're interested in.
 
-If you chose a metrics data source, you can query the data using either **Metric filters** or **Advanced analytics - CAQL**. CAQL, or Circonus Analytics Query Language, provides tremendous flexiblity but is recommended for advanced users only. For more information, see our [CAQL documentation](/caql/).
+If you chose a metrics data source, you can query the data using either **Metric filters** or **Advanced analytics - CAQL**. CAQL, or Circonus Analytics Query Language, provides tremendous flexibility but is recommended for advanced users only. For more information, see our [CAQL documentation](/caql/getting-started).
 
 ![Time Series Builder Metrics Data Source Selection](../img/visualizations-time_series_builder_data_source_metrics.png)
 
@@ -39,7 +39,7 @@ If you chose a metrics data source, you can query the data using either **Metric
 
 To create a filter, simply select a field name and list operation (e.g., is, is not, contains, starts with, ends with), then set a value. The list of operations available will depend on the type of field selected.
 
-For the field selection, you can select from a list which includes properties such as the **Metric Name** or the originating **Integration Name**, **Tag**, or **Host**, among many others.
+For the field selection, you can select from a list that includes properties such as the **Metric Name** or the originating **Integration Name**, **Tag**, or **Host**, among many others.
 
 ![Time Series Builder Metrics Filter](../img/visualizations-time_series_builder_data_source_metrics_filter.png)
 
@@ -53,15 +53,15 @@ To specify the time series data that you're interested in from a logs data sourc
 
 4. Specify the formatting options for a series by clicking on the **Options** tab for that series.
 
-   Data formating options include:
+   Data formatting options include:
 
-- **Data Formatter** determines how metrics are displayed, i.e., as `Bytes`, `Number`, `Percent`, `Duration` or a `Custom` format.
+   - **Data Formatter** determines how metrics are displayed, i.e., as `Bytes`, `Number`, `Percent`, `Duration` or a `Custom` format.
 
-- **Format string** to format numbers. [See Numeral.js for more details](http://numeraljs.com/#format)
+   - **Format string** to format numbers. [See Numeral.js for more details](http://numeraljs.com/#format)
 
-- **Template** supports [mustache template language](http://mustache.github.io/mustache.5.html). For example, in a log series grouped by term, you can use `{{key}}` to add the term.
+   - The **Template** supports [mustache template language](http://mustache.github.io/mustache.5.html). For example, in a log series grouped by term, you can use `{{key}}` to add the term.
 
-- **Offset series time by (1m, 1h, 1w, 1d)** allows you to compare the same or different time series using a time offset of a number of _minutes_ (m), _hours_ (h), _days_ (d), and _weeks_ (w).
+   - **Offset series time by (1m, 1h, 1w, 1d)** allows you to compare the same or different time series using a time offset for _minutes_ (m), _hours_ (h), _days_ (d), and _weeks_ (w).
 
 ### Time series annotations
 
@@ -73,17 +73,17 @@ To add annotations to a **Time Series** visualization within the Time Series Bui
 
 1. Select the **Annotations** tab.
 
-2. Click **Add data source**, then specify the options. You will see that Index pattern, Time field, Icon, Fields and Row template are required to use the annotations feature.
+2. Click **Add Data Source**, then specify the options. You will see that Index pattern, Time field, Icon, Fields and Row template are required to use the annotations feature.
 
 3. Select the Log Index Pattern for the annotations (by default it is set to `*` which means all logs; you can modify the pattern to be more specific).
 
-4. Set the color for the annotation. Select the color patch to the left of the Index pattern. This will display a color picker which allows you to choose the color for the annotation.
+4. Set the color for the annotation. Select the color patch to the left of the Index pattern. This will display a color picker that allows you to choose the color for the annotation.
 
 5. Select the **Time field** from the drop-down list of valid time fields available in that index.
 
 6. Enter the **Search** [DQL](/circonus3/additional-resources/query-languages/dql/) query string.
 
-7. Choose whether you want to **Ignore** _global or panel filters_. By default, this is set to **Yes**. Set it to **No** if you wish to use the [dashboard filters](/circonus3/dashboards/introduction/#data-filters) or a [Controls Visualization](/circonus3/visualizations/introduction/#controls-visualizations).
+7. Choose whether you want to **Ignore** _global or panel filters_. By default, this is set to **Yes**. Set it to **No** if you wish to use the [dashboard filters](circonus3/Dashboards/#data-filters) or a [Controls Visualization](/circonus3/visualizations/introduction/#controls-visualizations).
 
 8. Select the **icon** you want to use within the annotation. The log entry will display upon hover of the icon.
 
@@ -141,7 +141,7 @@ To edit **Panel options** for a visualization:
 
    - Enter the **Search** [DQL](/circonus3/additional-resources/query-languages/dql/) query string.
 
-   - Choose whether you want to **Ignore** _global or panel filters_. By default, this is set to **Yes**. Set it to **No** if you wish to use the [dashboard filters](/circonus3/dashboards/introduction/#data-filters) or a [Controls Visualization](/circonus3/visualizations/introduction/#controls-visualizations).
+   - Choose whether you want to **Ignore** _global or panel filters_. By default, this is set to **Yes**. Set it to **No** if you wish to use the [dashboard filters](circonus3/Dashboards/#data-filters) or a [Controls Visualization](/circonus3/visualizations/introduction/#controls-visualizations).
 
 ## Related links
 

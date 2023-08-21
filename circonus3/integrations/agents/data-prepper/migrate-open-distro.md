@@ -1,6 +1,6 @@
 ---
 title: Migrating from Open Distro Data Prepper
-weight: 2
+sidebar_position: 2
 ---
 
 # Migrating from Open Distro Data Prepper

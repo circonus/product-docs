@@ -1,6 +1,6 @@
 ---
 title: Fluent-bit
-weight: 30
+sidebar_position: 5
 ---
 
 # Fluent-bit

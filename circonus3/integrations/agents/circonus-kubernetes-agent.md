@@ -1,6 +1,6 @@
 ---
 title: Circonus Kubernetes Agent
-weight: 25
+sidebar_position: 4
 ---
 
 # Circonus Kubernetes Agent

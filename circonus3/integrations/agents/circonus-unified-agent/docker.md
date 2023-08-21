@@ -1,6 +1,6 @@
 ---
 title: Docker
-weight: 30
+sidebar_position: 2
 ---
 
 # CUA for Docker

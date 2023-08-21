@@ -1,9 +1,9 @@
 ---
 title: Getting Started
-weight: 10
+sidebar_position: 2
 ---
 
-# Getting started with Data Prepper
+# Getting Started with Data Prepper
 
 Data Prepper is an independent component that converts data for use with Circonus. 
 

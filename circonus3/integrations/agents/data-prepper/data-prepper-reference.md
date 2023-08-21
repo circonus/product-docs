@@ -1,6 +1,6 @@
 ---
 title: Configuration reference
-weight: 30
+sidebar_position: 6
 ---
 
 # Data Prepper configuration reference

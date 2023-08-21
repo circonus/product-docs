@@ -7,7 +7,7 @@ sidebar_position: 3
 
 Circonus dashboards provide a unified visualization framework for your cloud services, infrastructure, and applications and make it easy for you to explore your metric, log, or trace data within the platform.
 
-From real-time infrastructure monitoring (IM) to application performance monitoring (APM), distributed tracing, and outage response and data exploration, Circonus dashboards give you the visualizations needed to graphically represent trends, outliers, and patterns in your data.
+From real-time infrastructure monitoring (IM) to application performance monitoring (APM), distributed tracing, outage response and data exploration, Circonus dashboards give you the visualizations needed to graphically represent trends, outliers, and patterns in your data.
 
 Circonus dashboards also provide exceptional versatility. The image below depicts a dashboard in fullscreen mode with web traffic logs filtered to show US customers using either OSX or iOS devices.
 

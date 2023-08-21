@@ -16,11 +16,11 @@ To start collecting metrics from any of these integrations, you first need to in
 CUA can be installed within containers, hosts, or in the cloud. Installing CUA in most cases is done by a single line command and simply resetting CUA.
 Follow the link to your specific platform by clicking on it below to see instructions for installing CUA.
 
-[Windows](/circonus3/integrations/agents/circonus-unified-agent/windows/ "CUA for Windows")
-[Linux](/circonus3/integrations/agents/circonus-unified-agent/linux/ "CUA for Linux")
-[macOS](/circonus3/integrations/agents/circonus-unified-agent/macos/ "CUA for macOS")
-[Docker](/circonus3/integrations/agents/circonus-unified-agent/docker/ "CUA for Docker")
-[FreeBSD](/circonus3/integrations/agents/circonus-unified-agent/freebsd/ "CUA for FreeBSD")
+- [Windows](/circonus3/integrations/agents/circonus-unified-agent/windows/ "CUA for Windows")
+- [Linux](/circonus3/integrations/agents/circonus-unified-agent/linux/ "CUA for Linux")
+- [macOS](/circonus3/integrations/agents/circonus-unified-agent/macos/ "CUA for macOS")
+- [Docker](/circonus3/integrations/agents/circonus-unified-agent/docker/ "CUA for Docker")
+- [FreeBSD](/circonus3/integrations/agents/circonus-unified-agent/freebsd/ "CUA for FreeBSD")
 
 A [check](/circonus3/additional-resources/glossary/#check) will be created once you have installed CUA on your particular platform which contains specific metrics. If you need additional metrics from other applications, such as Kubernetes, then you will need to configure an integration.
 
@@ -32,13 +32,13 @@ The API Key is added to the CUA configuration file.
 
 **Linux/macOS**
 
-```
+```bash
 /opt/circonus/unified-agent/etc/circonus-unified-agent.conf
 ```
 
 **Windows**
 
-```
+```bash
 C:\Program Files\Circonus\Circonus-Unified-Agent\etc\circonus-unified-agent.conf
 ```
 
@@ -46,7 +46,7 @@ Learn more about using [API tokens](/circonus3/integrations/api/api-tokens/).
 
 ## Ports
 
-CUA communicates with public Circonus brokers via TLS over port 43191, and with the Circonus API over Port 443.
+CUA communicates with public Circonus brokers via TLS over port 43191 and with the Circonus API over Port 443.
 
 ## Troubleshooting
 
@@ -64,9 +64,9 @@ The following example will demonstrate how to add the ping integration to CUA th
 
 ### Step 1 - Install
 
-Open the `circonus-unified-agent.conf` configuration file found in the directory `/opt/circonus/unified-agent/etc/` and search for "inputs.ping". There you will find specific parameters that will need to be both uncommented and modified. Below is an example of the inputs.ping integration that is set up to ping https://www.google.com. Keep in mind that this is a `TOML` file so the syntax is important. After you make changes to the file you will need to save and close it.
+Open the `circonus-unified-agent.conf` configuration file found in the directory `/opt/circonus/unified-agent/etc/` and search for "inputs.ping". There you will find specific parameters that will need to be both uncommented and modified. Below is an example of the `inputs.ping` integration that is set up to ping https://www.google.com. Keep in mind that this is a `TOML` file so the syntax is important. After you make changes to the file you will need to save and close it.
 
-```toml
+```bash
 [[inputs.ping]]  # Google Homepage Test
 instance_id = "Google_Homepage" ## REQUIRED
 
@@ -88,12 +88,12 @@ count = 2
 
 Restart macOS CUA by entering the following command in the terminal:
 
-```
+```bash
 sudo launchctl kickstart -k system/com.circonus.circonus-unified-agent
 ```
 
 ### Step 3 - Validation
 
-If the CUA configuration file was successfully modified and the inputs.ping integration plugin was correctly configured, you will see the [metrics](/circonus3/additional-resources/glossary/#metric) in your Circonus account under that particular integration.
+If the CUA configuration file was successfully modified and the `inputs.ping` integration plugin was correctly configured, you will see the [metrics](/circonus3/additional-resources/glossary/#metric) in your Circonus account under that particular integration.
 
 Join the [Circonus Labs Slack channel](https://slack.s.circonus.com/) to ask questions to the Circonus team now!

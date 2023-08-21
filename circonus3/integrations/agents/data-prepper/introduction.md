@@ -1,6 +1,6 @@
 ---
-title: Data Prepper
-weight: 1
+title: Introduction
+sidebar_position: 1
 ---
 
 # Data Prepper Introduction

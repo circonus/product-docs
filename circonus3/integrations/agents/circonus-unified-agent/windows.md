@@ -1,6 +1,6 @@
 ---
 title: Windows
-weight: 70
+sidebar_position: 7
 ---
 
 # CUA for Windows

@@ -1,6 +1,6 @@
 ---
 title: Linux
-weight: 50
+sidebar_position: 4
 ---
 
 # CUA for Linux

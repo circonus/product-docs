@@ -1,20 +1,19 @@
 ---
 title: Inroduction
-hidecards: true
 sidebar_position: 1
 ---
 
 # Visualizations
 
-Circonus [dashboards](/circonus3/dashboards/introduction/) are a collection of visualization panels. Circonus provides many different types of visualizations.
+Circonus [dashboards](/circonus3/dashboards/) are a collection of visualization panels. Circonus provides many different types of visualizations.
 
 ![Examples of Dashboard Visualization Panels](../img/visualizations-examples.png)
 
-These visualizations enable you to ask the important questions about your data performance, such as:
+These visualizations enable you to ask important questions about your data performance, such as:
 
 - **_Who_** is being impacted by app or infrastructure issues? (i.e., which customers or employees)
 - **_What_** is the checkout transaction performance?
-- **_When_** will my applications exhaust current capacity?
+- **_When_** will my applications exhaust their current capacity?
 - **_Why_** am I seeing spikes in performance?
 - **_How_** can I determine the root cause of an incident and eliminate the issue in the future?
 
@@ -24,13 +23,13 @@ Choosing a type of visualization can be challenging. In addition to considering 
 
 For example:
 
-- An **IT Operations center** team member could be interested in current [status](#alert-visualizations) and [trends](#the-time-series-builder) as well as potential [hot spots](#heat-map) that could represent an emerging issue.
+- An **IT Operations center** team member could be interested in current status and trends as well as potential hot spots that could represent an emerging issue.
 
-- An **Architect** could be interested in application or infrastructure [constraints and trends](#the-time-series-builder), [top consumers](<(#pie-and-donut-visualizations)>), and [hot spots](#heat-map) as well as [patterns](#tag-cloud) that need to be investigated. They may also need to respond to an [existing incident](#alert-visualizations).
+- An **Architect** could be interested in application or infrastructure [constraints and trends](/circonus3/visualizations/time-series-builder), [top consumers](/circonus3/visualizations/pie), and hot spots as well as [patterns](/circonus3/visualizations/tag-cloud) that need to be investigated. They may also need to respond to an [existing incident](/circonus3/visualizations/alerts).
 
-- A **Site Reliablity Engineer (SRE)** could be interested in [current performance](#the-time-series-builder), application or infrastructure [hot spots](#heat-map), [request flows and response times](/visualizations/visualizations-overview/#gantt-chart), and [patterns](#tag-cloud) as well as underlying [trends](#the-time-series-builder).
+- A **Site **Reliability** Engineer (**SRE)\*\* could be interested in [current performance](/circonus3/visualizations/time-series-builder), application or infrastructure hot spots, [request flows and response times](/circonus3/visualizations/gantt), and [patterns](/circonus3/visualizations/tag-cloud) as well as underlying [trends](/circonus3/visualizations/time-series-builder).
 
-- A **Director of Cloud Infrastructure** cloud be interested in [service level trends](#goal-or-gauge-visualization), [general trends](#the-time-series-builder), and [current statuses](#alert-visualizations).
+- A **Director of Cloud Infrastructure** interested in [service level trends](/circonus3/visualizations/goal), [general trends](/circonus3/visualizations/time-series-builder), and [current statuses](/circonus3/visualizations/alerts).
 
 ## Visualization Types
 
@@ -44,11 +43,10 @@ The **Alerts** visualization allows you to depict alert trends or a table of act
 
 The Alerts visualization supports two visualization types:
 
-**Trend** allows you to create **line** or **bar** charts showing alerts trends, supports stacking, and can display all alerts or a filtered set.
+- **Trend** allows you to create **line** or **bar** charts showing alert trends, supports stacking, and can display all alerts or a filtered set.
+- The **Table** allows you to display a filtered set of alerts, showing the alert name, status, the time it occurred, severity and available actions.
 
-**Table** allows you display a filtered set of alerts, showing alert name, status, time it occured, severity and available actions.
-
-See [Alert Visualizations](/circonus3/visualizations/alerts/) for further information on specific configuration options availble.
+See [Alert Visualizations](/circonus3/visualizations/alerts/) for further information on specific configuration options available.
 
 ### Time Series Builder Visualizations
 
@@ -62,7 +60,7 @@ The Time Series Builder supports line, area, and bar charts, single metric panel
 
 The Time Series Builder supports the creation of area, line, and bar charts via the **Time Series** type. Bar charts are often used for comparison, whereas line and area charts are used to show trends over time. For all Time Series charts, you can specify whether each series is stacked or not as well as customize the colors, point size, line thickness, fill opacity, etc.
 
-With the Time Series type, multiple series can on displayed that use different chart types. Also, you can compare two time periods by shifting time windows and annotate the graph with log entries.
+With the Time Series type, multiple series can on displayed that use different chart types. Also, you can compare two time periods by shifting time windows and annotating the graph with log entries.
 
 #### Metric
 
@@ -74,11 +72,11 @@ The **Top N** visualization is a horizontal bar chart, with each time series rep
 
 #### Gauge
 
-The **Gauge** visualization is a single value gauge visualization based on the latest value in a series.
+The **Gauge** visualization is a single-value gauge visualization based on the latest value in a series.
 
 #### Markdown
 
-The **Markdown** visualization allows you create a Rich Text panel. It supports the embedding of fields and values using the Mustache variable syntax.
+The **Markdown** visualization allows you to create a Rich Text panel. It supports the embedding of fields and values using the Mustache variable syntax.
 
 #### Table
 
@@ -112,13 +110,13 @@ A **Coordinate Map** displays a geographic area overlaid with circles keyed to t
 
 ![Region Maps](../img/visualizations-maps_county_region.png)
 
-A **Region Map** is a thematic map in which boundary vector shapes are colored using a gradient. Higher intensity colors indicate larger values, and lower intensity colors indicate smaller values. These are also known as choropleth maps.
+A **Region Map** is a thematic map in which boundary vector shapes are colored using a gradient. Higher-intensity colors indicate larger values, and lower-intensity colors indicate smaller values. These are also known as choropleth maps.
 
 See [Map Visualizations](/circonus3/visualizations/maps/) for further information on specific configuration options.
 
 ### Gantt Chart Visualizations
 
-**Gantt Charts** provide a timeline of activites, often referred to as a waterfall view. This visualization type, which is optimized for log and trace data, is particularly useful for viewing call, transaction, or request flows.
+**Gantt Charts** provide a timeline of activities, often referred to as a waterfall view. This visualization type, which is optimized for log and trace data, is particularly useful for viewing call, transaction, or request flows.
 
 ![Working with Maps](../img/visualizations-gantt.png)
 
@@ -150,7 +148,7 @@ See [Markdown Visualizations](/circonus3/visualizations/markdown/) for further i
 
 ### Pie and Donut Visualizations
 
-The **Pie** and **Donut** visualizations are designed to provide a quick breakdown of overall composition or a comparison of individual elements to a whole. The size of each slide is determined by a metrics aggregation. Pie and donut visualizations are optimized for log and trace data.
+The **Pie** and **Donut** visualizations are designed to provide a quick breakdown of the overall composition or a comparison of individual elements to a whole. The size of each slide is determined by a metrics aggregation. Pie and donut visualizations are optimized for log and trace data.
 
 ![Pie and Donut Visualization](../img/visualizations-pie.png)
 
@@ -168,7 +166,7 @@ See [Tag Cloud Visualizations](/circonus3/visualizations/tag-cloud/) for further
 
 ### Timeline Visualizations
 
-The Timeline Visualization is a time series data visualizer that enables you to combine totally independent log or trace data sources within a single visualization.
+Timeline Visualization is a time series data visualizer that enables you to combine independent log or trace data sources within a single visualization.
 
 ![Timeline Visualization](../img/visualizations-timeline.png)
 

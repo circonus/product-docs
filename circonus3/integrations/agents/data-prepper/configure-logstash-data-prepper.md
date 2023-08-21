@@ -1,6 +1,6 @@
 ---
 title: Configure Logstash for Data Prepper
-weight: 12
+sidebar_position: 5
 ---
 
 # Configure Logstash for Data Prepper

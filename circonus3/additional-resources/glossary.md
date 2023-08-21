@@ -5,9 +5,9 @@ sidebar_position: 9
 
 # Glossary
 
-#### Acknowledgement ("Ack")
+#### Acknowledgment ("Ack")
 
-A recognition of an alert accompanied by a specified duration during which notifications and escalations will not be sent. Acknowledgments let other team members know that you are working to resolve the issue associated with the alert. Often abbreviated as "ack".
+Recognition of an alert accompanied by a specified duration during which notifications and escalations will not be sent. Acknowledgments let other team members know that you are working to resolve the issue associated with the alert. Often abbreviated as "ack".
 
 #### Action Group
 
@@ -27,7 +27,7 @@ A manual identification made by a Circonus user within a visualization. For exam
 
 #### Bundle
 
-This is a collection of checks that have the same configuration and target, but collect from different brokers. A bundle can have one check or many checks in it, and changing the bundle affects all the associated checks.
+This is a collection of checks that have the same configuration and target but collect from different brokers. A bundle can have one check or many checks in it, and changing the bundle affects all the associated checks.
 
 #### Chart
 
@@ -51,7 +51,7 @@ The series of main links or actions for a given page within Circonus. This eleme
 
 #### Contact Group
 
-A collection of one or more email addresses or webhook URLs that can be selected for a notification. Contact groups are assigned to rules along with an associated severity. [See Contact Groups Documentation](/circonus3/alerting/contact-groups/).
+A collection of one or more email addresses or webhook URLs that can be selected for notification. Contact groups are assigned to rules along with an associated severity. [See Contact Groups Documentation](/circonus3/alerting/contact-groups/).
 
 #### Dashboards Query Language (DQL)
 
@@ -59,7 +59,7 @@ A syntax that enables users to search for data and visualizations within Circonu
 
 #### Distributed Tracing
 
-Dributed Tracing more commonly known as tracing, records the path and performance of
+Distributed Tracing more commonly known as tracing, records the path and performance of
 taken by requests (made by an application or end-user) as they propagate through or [span](/circonus3/getting-started/glossary/#span)
 multi-service architectures, like microservice and serverless
 applications.
@@ -92,7 +92,7 @@ Circonus' scalable, efficient, and fault-tolerant time series database. [See IRO
 
 #### Log
 
-A record of operating system or application events.  Its normally stored as log or json file in semi-structured format.
+A record of the operating system or application events. It's normally stored as a log or JSON file in a semi-structured format.
 
 #### Maintenance
 
@@ -100,17 +100,16 @@ A scheduled maintenance window for an account, check bundle, ruleset, or host. D
 
 #### Metric
 
-Metrics are numeric data about your infrastructure or application. Each data stream produced by a check.
-
-Examples include: system error rate, CPU utilization, request rate for a given service, round-trip latency,  CPU Utilization is another.
+Metrics are numeric data about your infrastructure or application. Each data stream is produced by a check.
+Examples include system error rate, CPU utilization, request rate for a given service, round-trip latency, and CPU Utilization.
 
 #### Main Menu
 
-The principal navigation links within Circonus, located on the left side of the app within desktop view when the menu is either docked or expanded.
+The principal navigation links within Circonus, are located on the left side of the app within the desktop view when the menu is either docked or expanded.
 
 #### Notification
 
-A message sent to a specified contact group when rule conditions are met and an alert is triggered.
+A message is sent to a specified contact group when rule conditions are met and an alert is triggered.
 
 #### Permission
 
@@ -118,7 +117,7 @@ An individual action, such as creating an index (e.g. `indices:admin/create`). F
 
 #### Role
 
-Security roles define a logical group or permission scope action, that defines both rights to functional capabilities or data.  In Circonus we support three levels of roles by admin, normal (general user with read/write) and read-only.
+Security roles define a logical group or permission scope action, that defines both rights to functional capabilities or data. In Circonus we support three levels of roles admin, normal (general user with read/write) and read-only.
 
 #### Role Mapping
 
@@ -134,7 +133,7 @@ A collection of rules applied to a given metric that generates alerts when viola
 
 #### Severity
 
-A level between 1 and 5 which specifies the relative importance and priority of an alert. Level 1 is the most severe, while level 5 is the least severe.
+A level between 1 and 5 specifies the relative importance and priority of an alert. Level 1 is the most severe, while level 5 is the least severe.
 
 #### Span
 
@@ -144,19 +143,19 @@ which that operation was executed. Multiple spans are combined to form a [distri
 
 #### Stream Tag
 
-Metadata composed of a category and value affixed to a metric name which is used to help identify and organize the metric.
+Metadata is composed of a category and value affixed to a metric name which is used to help identify and organize the metric.
 
 #### Service Level Indicator (SLI)
 
-An SLI is a measurement of a service'sbehavior. A good SLI measures your service from the perspective of your users. An example SLI can be the speed at which a web page loads.
+An SLI is a measurement of a service's behavior. A good SLI measures your service from the perspective of your users. An example of SLI can be the speed at which a web page loads.
 
 #### Service Level Objective (SLO)
 
-An SLO is the means by which reliability is communicated to an organization/other teams. This is accomplished by attaching one or more SLIs to business value.
+An SLO is how reliability is communicated to an organization/other teams. This is accomplished by attaching one or more SLIs to business value.
 
 #### Trace
 
-Detailed records of the actions performed by the application and also of the messages about events that occurred during operation of an application.
+Detailed records of the actions performed by the application and also of the messages about events that occurred during the operation of an application.
 
 #### User
 
@@ -164,8 +163,8 @@ An individual using Circonus. A user has credentials (e.g. a username and passwo
 
 #### User Menu
 
-The list of actions and resources within a Circonus account which are available to a specific user. Examples include User Profile and Preferences. The user menu is located in the upper right corner of the Circonus app within the desktop mode.
+The list of actions and resources within a Circonus account that are available to a specific user. Examples include User Profiles and Preferences. The user menu is located in the upper right corner of the Circonus app within the desktop mode.
 
 #### Widget
 
-A visualization type that can be added to a droppable area within a custom dashboard section. Examples include metrics trends, single metric, heatmap, list, etc.
+A visualization type that can be added to a droppable area within a custom dashboard section. Examples include metrics trends, single metrics, heatmaps, lists, etc.

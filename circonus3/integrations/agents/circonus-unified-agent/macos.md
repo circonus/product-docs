@@ -1,6 +1,6 @@
 ---
 title: MacOS
-weight: 60
+sidebar_position: 5
 ---
 
 # CUA for MacOS

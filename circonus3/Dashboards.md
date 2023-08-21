@@ -23,7 +23,7 @@ Every dashboard consists of four different sections:
 
 1. [Command bar](#dashboard-command-bar)
 2. [Search query bar](#search-query-bar)
-3. [Time and data filters](#filters)
+3. [Time and data filters](#data-filters)
 4. [Visualization panels](/circonus3/visualizations/introduction/#working-with-visualization-panels)
 
 ![Dashboard Sections](./img/dashboard-sections.png)
@@ -58,7 +58,7 @@ Search criteria can be expressed in [DQL (Dashboards Query Language)](/circonus3
 
 Date and time filters can be applied in a couple of different ways.
 
-Clicking on the calendar icon on the left side of the date/time field reveals several options. At the top, you can quickly configure a new time frame, such as the last 20 minutes. If you use this **Quick select** option, don't forget to click the **Apply** button to the right of the dropdowns. You can also choose from **Commonly used** or **Recently used** time frames. Lastly, you can select the refresh rate within the **Refresh every** section, or stop the dashboard from refreshing by using the **Stop** button within this section.
+Clicking on the calendar icon on the left side of the date/time field reveals several options. At the top, you can quickly configure a new time frame, such as the last 20 minutes. If you use this **Quick Select** option, don't forget to click the **Apply** button to the right of the dropdowns. You can also choose from **Commonly used** or **Recently used** time frames. Lastly, you can select the refresh rate within the **Refresh every** section, or stop the dashboard from refreshing by using the **Stop** button within this section.
 
 ![Quick Select Filters](./img/dashboard-date_time.png)
 
@@ -102,7 +102,7 @@ To manage any specific filter, simply click on its name. This will display a men
 
 Dashboards can be created by cloning existing dashboards or by creating new dashboards from scratch.
 
-To create a new dashboard, first choose **Dashboards** from the main menu. Then select the **+ Create dashboard** button in the right corner above the **Dashboard** list.
+To create a new dashboard, first, choose **Dashboards\*\*** from the main menu. Then select the **+ Create dashboard** button in the right corner above the **Dashboard** list.
 
 ![List of Circonus Dashboard ](./img/dashboard-create.png)
 
