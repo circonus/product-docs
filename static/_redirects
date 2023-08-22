@@ -1,3 +1,4 @@
 /circonus/integrations/library /circonus3/integrations/library 301
 /circonus/integrations/library/\* /circonus3/integrations/library/:splat 301
 /circonus3/ /circonus3/category/getting-started 301
+/circonus3/getting-started/ /circonus3/getting-started/introduction 301
