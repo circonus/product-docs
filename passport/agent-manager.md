@@ -3,19 +3,20 @@ title: Agent Manager
 sidebar_position: 4
 ---
 
-# Agent Manager
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-## Overview
+# Agent Manager
 
 The Passport Agent Manager is the ultimate sidekick for your configuration files. It’s always on the lookout for new files and triggers the appropriate restart/reload functionality of the [supported agents](/passport/intro#supported-agents). With its simple installation and infrequent updates, you can rest assured that your configuration files are always up-to-date and running smoothly.
 
-Once you install the agent manager on a host where your collection agents are located, you can manage everything through the intuitive Circonus UI. 
+Once you install the agent manager on a host where your collection agents are located, you can easily manage everything through the intuitive Passport UI.
 
 ![Configurations List Selected](./img/agent-manager-grid-view.png)
 
 ## Installation
 
-The Circonus Agent Manager is supported on both Linux and macOS operating systems with Windows soon to come. The following installation instructions will guide you through installing Agent Manager on your host(s) and then being able to create/assign configurations to them from the Circonus UI.
+The Circonus Agent Manager is supported on both Linux and macOS operating systems with Windows soon to come. The following installation instructions will guide you through installing Agent Manager on your host(s) and then being able to create/assign configurations to them from the Passport UI.
 
 :::tip Pro Tip
 
@@ -24,9 +25,6 @@ Circonus recommends installing one or more [supported agents](/passport/intro#su
 :::
 
 **Supported Platforms**
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 <Tabs groupId="operating-systems">
   <TabItem value="Linux" label="Linux" default>
@@ -174,7 +172,7 @@ If the registration is successful, then you should see the following output.
 
 #### Step 3 - Start
 
-The service does not auto-start when installed via .deb. To start the service run the following cmd.
+Start the service with the following command.
 
 ```bash
 brew services start circonus-am

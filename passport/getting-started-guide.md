@@ -13,7 +13,9 @@ The quickest path to completion is to do the following.
 2. [Install and register the Agent Manager](getting-started-guide#install-and-register-agent-manager/)
 3. [Import a new configuration file](getting-started-guide#upload-a-configuration-file/) to your Circonus Passport account.
 4. [Assign a configuration file](getting-started-guide#assign-a-configuration-file/) to your Agent Manager.
-   1. Optional: [Create rules](getting-started-guide#create-rules/) for your configuration files if you have more than 1 configuration file uploaded.
+   1. Optional: 
+      1. [Create rules](getting-started-guide#create-rules/) for your configuration files if you have more than 1 configuration file uploaded.
+      2. [Add external alerts](/passport/external-alerts) so you can trigger rules to modify when specific configurations will be enabled.
 
 ## Install and Register Agent Manager
 
