@@ -5,11 +5,7 @@ tags:
   - Passport
 ---
 
-# Passport [Beta]
-
-** Passport is currently in private beta.**
-
-![Work in progress image](./img/work-in-progress-image.png)
+# Passport [Private Beta]
 
 ## Overview
 
