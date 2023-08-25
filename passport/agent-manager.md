@@ -208,7 +208,7 @@ brew services start circonus-am
 If additional agents have been added to the host where Agent Manager is running, then you will need to run a few CMDs for them to become discovered.
 
 <Tabs groupId="operating-systems">
-  <TabItem value="Linux" label="Linux" default>
+  <TabItem value="linuxPrivileged" label="Linux (Privileged)" default>
 
 #### Stop Agent Manager
 
@@ -314,7 +314,7 @@ Example of what the output will look like when a **telegraf** agent has been fou
 ## Uninstalling
 
 <Tabs groupId="operating-systems">
-  <TabItem value="Linux" label="Linux" default>
+  <TabItem value="linuxPrivileged" label="Linux (Privileged)" default>
    
 To uninstall Agent Manage, run the following CMD.
 
@@ -337,7 +337,7 @@ brew remove circonus/circonus-agent-manager/circonus-am
 ## Troubleshooting
 
 <Tabs groupId="operating-systems">
-  <TabItem value="Linux" label="Linux" default>
+  <TabItem value="linuxPrivileged" label="Linux (Privileged)" default>
    
 Agent Manager usage flags
 
@@ -366,6 +366,7 @@ Flags:
 Check to see if the Agent Manager is running
 
 ```bash title="Linux Ubuntu" showLineNumbers
+# Check the status of the Agent Manager
 ubuntu-testing-dev-box:/opt/circonus/am/sbin$ sudo systemctl status circonus-am
 ● circonus-am.service - Circonus Agent Manager
      Loaded: loaded (/lib/systemd/system/circonus-am.service; enabled; vendor preset: enabled)
@@ -386,6 +387,7 @@ Aug 14 19:34:30 ubuntu-testing-dev-box circonus-am[1359376]: {"level":"info","in
 View the logs of Agent Manager while it is running
 
 ```bash title="Linux Ubuntu" showLineNumbers
+# View the logs of the running service
 ubuntu-host:/opt/circonus/am/etc$ sudo journalctl -u circonus-am.service
 Aug 15 18:07:28 ubuntu-qa21-1-observability systemd[1]: Started Circonus Agent Manager.
 Aug 15 18:07:28 ubuntu-qa21-1-observability circonus-am[4079997]: {"level":"info","name":"circonus-am","version":"0.1.3","time":1692122848,"message":"starting"}
@@ -419,7 +421,7 @@ Flags:
   -V, --version                    Show version and exit
 ```
 
-Check to see if the Agent Manager is running
+Check to see if Agent Manager is running.
 
 ```bash title="macOS (Silicon) Homebrew" showLineNumbers
 # Check the status of the Agent Manager
