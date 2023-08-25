@@ -5,8 +5,6 @@ sidebar_position: 3
 
 # Registration Tokens
 
-## Overview
-
 Circonus’s Agent Manager requires a registration token to communicate with Circonus so your configuration files can be managed from the UI.
 
 To get started with the Passport platform, you’ll need to create a registration token and add it to the Agent Manager during installation.

@@ -5,11 +5,7 @@ tags:
   - Passport
 ---
 
-# Passport [Beta]
-
-** Passport is currently in private beta.**
-
-![Work in progress image](./img/work-in-progress-image.png)
+# Passport [Private Beta]
 
 ## Overview
 
@@ -27,7 +23,7 @@ The Passport UI provides a place to view the current inventory of all agents und
 
 ## Supported Agents
 
-Agent Manager is extremely flexible and capable of managing applications that can be controlled from the command line and utilize configuration files. The Passport platform comes with many agent types already set up and the ability to add custom agent types all from the intuitive Circonus UI.
+Agent Manager is extremely flexible and capable of managing applications that can be controlled from the command line and utilize configuration files. The Passport platform comes with many agent types already set up, the ability to add custom agent types, and assign configurations to them all from the intuitive Passport UI.
 
 Some agent types such as the following come with the Passport enhanced low-code configuration building tool to help you build complex configuration files with ease.
 
@@ -36,6 +32,7 @@ Some agent types such as the following come with the Passport enhanced low-code 
 
 Other agent types such as the following can be added and fully managed from the UI with configuration uploads.
 
+- **Circonus Unified Agent (CUA)**
 - **Datadog-agent**
 - **Vector**
 - **New Relic Infrastructure agent**

@@ -55,7 +55,7 @@ Using nano as an example to edit the file:
 sudo nano /etc/fluent-bit/fluent-bit.conf
 ```
 
-```bash
+```bash showLineNumbers
 # Example config
 
 [SERVICE]
@@ -227,7 +227,7 @@ sudo systemctl start fluent-bit
 
 Checking Fluent-bit's status
 
-```bash
+```bash showLineNumbers
 sudo systemctl status fluent-bit.service
 ● fluent-bit.service - Fluent Bit
      Loaded: loaded (/lib/systemd/system/fluent-bit.service; disabled; vendor preset: enabled)
@@ -257,7 +257,7 @@ The default configuration of **fluent-bit** is collecting metrics of CPU usage a
 
 Modify the Fluent-bit configuration file to collect logs and sent them to the c3-exporter found at `C:\Program Files\fluent-bit\conf\fluent-bit.conf`
 
-```bash
+```yaml showLineNumbers
 [SERVICE]
     # Flush
     # =====
@@ -378,7 +378,7 @@ Using Windows Powershell, you can manage the Fluent-bit service
 Create and start a new Fluent-bit service, and check its status.
 
 ```bash
-PS> New-Service fluent-bit -BinaryPathName "C:\PROGRA~1\fluent-bit\bin\fluent-bit.exe -c C:\PROGRA~1\fluent-bit\conf\fluent-bit.conf" -StartupType Automatic && Start-Service fluent-bit && get-service fluent-bit
+New-Service fluent-bit -BinaryPathName "C:\PROGRA~1\fluent-bit\bin\fluent-bit.exe -c C:\PROGRA~1\fluent-bit\conf\fluent-bit.conf" -StartupType Automatic && Start-Service fluent-bit && get-service fluent-bit
 ```
 
 Fluent-bit's service can also be managed with the native Windows **Services Manager**.
@@ -417,7 +417,7 @@ Next, set up the exporter to send data to your account. The configuration file i
 
 Example **c3-exporter.yaml** file
 
-```bash
+```yml showLineNumbers
 server:
   listen_address: ":9200"
   cert_file: ""
@@ -462,7 +462,7 @@ sudo systemctl restart circonus-c3-exporter.service
 
 Check if the Fluent-bit service is running
 
-```bash
+```bash showLineNumbers
 ~$ sudo systemctl status fluent-bit.service
 ● fluent-bit.service - Fluent Bit
      Loaded: loaded (/lib/systemd/system/fluent-bit.service; disabled; vendor preset: enabled)
@@ -481,7 +481,7 @@ Feb 13 15:27:25 ubuntu-c3playground-observability-v1 fluent-bit[1265874]: [2023/
 
 View the Fluent-bit logs while the service is running
 
-```bash
+```bash showLineNumbers
 ~$ sudo journalctl -u fluent-bit.service -f
 Apr 05 19:52:04 ubuntu-c3-staging-observability-v1 fluent-bit[688648]: [2023/04/05 19:52:04] [ info] [fluent bit] version=2.0.9, commit=, pid=688648
 Apr 05 19:52:04 ubuntu-c3-staging-observability-v1 fluent-bit[688648]: [2023/04/05 19:52:04] [ info] [storage] ver=1.4.0, type=memory, sync=normal, checksum=off, max_chunks_up=128
@@ -524,7 +524,7 @@ Fluent-bit's service can also be managed with the native Windows **Services Mana
 
 1. Right-click on the Start button to open the WinX Menu
 2. Select Run
-3. Type ``services.msc`` in the Run box which opens
+3. Type `services.msc` in the Run box which opens
 4. Windows Services Manager will open.
 5. Search for fluent-bit under the **Name** column
 
@@ -532,7 +532,7 @@ Additional information can be found on [Fluent-bit's](https://docs.fluentbit.io/
 
 ### Circonus Pipeline Exporter
 
-```bash
+```bash showLineNumbers
 ~$ sudo systemctl status circonus-c3-exporter.service
 ● circonus-c3-exporter.service - Circonus C3 Data Exporter
      Loaded: loaded (/lib/systemd/system/circonus-c3-exporter.service; enabled; vendor preset: enabled)
@@ -552,7 +552,7 @@ Apr 06 13:51:19 ubuntu-c3-staging-observability-v1 c3-exporterd[615963]: {"level
 
 View the circonus-c3-exporter logs while the service is running
 
-```bash
+```bash showLineNumbers
 sudo journalctl -u circonus-c3-exporter -f
 Feb 08 22:20:02 ubuntu-c3playground-observability systemd[1]: circonus-c3-exporter.service: Main process exited, code=exited, status=1/FAILURE
 Feb 08 22:20:02 ubuntu-c3playground-observability systemd[1]: circonus-c3-exporter.service: Failed with result 'exit-code'.
@@ -576,7 +576,7 @@ If you collected data using one of the Circonus ingest options or added sample d
 2. Start typing in the **Index pattern name** field, and Circonus looks for the names of indices, data streams, and aliases that match your input.
 
    - To match multiple sources, use a wildcard (`*`). For example, `filebeat-*` matches `filebeat-apache-a`, `filebeat-apache-b`, and so on.
-   - To match multiple single sources, enter their names, separated by a comma. Do not include a space after the comma. `filebeat-a`,`filebeat-b` matches two indices, but does not match `filebeat-c`.
+   - To match multiple single sources, enter their names, separated by a comma. Do not include a space after the comma. `filebeat-a`,`filebeat-b` matches two indices but does not match `filebeat-c`.
    - To exclude a source, use a minus sign (-), for example, `-test3`.
 
 3. If Circonus detects an index with a timestamp, expand the **Timestamp field** menu, and then select the default field for filtering your data by time.

@@ -7,7 +7,6 @@ sidebar_position: 2
 
 Passport rules tell the Circonus Agent which configuration file to load on your specific agent during a given event. One or more can be defined and will take action when the event happens updating specified configuration files to run on your agents to give you the data needed when it is needed.
 
-
 ## Creating Rules
 
 Navigate to the **Passport > Configurations** list view, and select the configuration file to navigate to the details section.
@@ -30,9 +29,9 @@ If you are creating alert-based rules, ensure the rules align with your expected
 
 ![Configurations Rules Tab](../img/configurations-rules-tab-create.png)
 
-All created rules will be listed in the Rules tab and if more than 1 rule has been created, they can be ordered to specify which rule has the most importance. 
+All created rules will be listed in the Rules tab and if more than 1 rule has been created, they can be ordered to specify which rule has the most importance.
 
-:::info Rules ordering
+:::info PRO TIP
 
 The rules can be ordered by clicking and holding each rule on the far left side of the listed row and dragging it.
 
@@ -40,34 +39,12 @@ The rules can be ordered by clicking and holding each rule on the far left side 
 
 ## Managing Rules
 
-Many **Actions** are available to take for the rules such as **Edit, **Clone, **Copying** to other** **configurations** or **Deleting** the rule.
+Many **Actions** are available to take for the rules such as **Edit, **Clone, **Copying** to other\*\* **configurations** or **Deleting** the rule.
 
 ![Configurations Rules Tab](../img/configurations-rules-tab-list-view-expanded.png)
 
-<!--Use case examples with tabs here-->
+:::tip PRO TIP
 
-## Use Case Examples
+For examples of how to set up rules to achieve specific outcomes, explore the **[Use Cases](/passport/use-cases)** page.
 
-To get you up and running with the Circonus Rules engine, here are some examples of how and when you can use rules to manage your configuration deployments
-
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<Tabs>
-  <TabItem value="event-based" label="Event-driven" default>
-
-  ![Work in progress image](../img/work-in-progress-image.png)
-
-  </TabItem>
-  <TabItem value="alert-response" label="Alert-driven">
-
-  ![Work in progress image](../img/work-in-progress-image.png)
-
-  </TabItem>
-  <TabItem value="minimal-ingest" label="Minimal Ingestion">
-
-  ![Work in progress image](../img/work-in-progress-image.png)
-
-  </TabItem>
-</Tabs>
+:::

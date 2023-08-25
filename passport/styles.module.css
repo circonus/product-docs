@@ -1,0 +1,15 @@
+.filledTab[aria-selected='true'] {
+    color: white;
+    background-color: #54aa50;
+    border-bottom-color: #54aa50;
+}
+
+.newFilledTab[aria-selected='true'] {
+
+    color: #54aa50;
+    border-top: 2px solid #54aa50;
+    border-right: 1px solid #343741;
+    border-left: 1px solid #343741;
+    border-bottom: 1px solid #1D1E24;
+    margin-bottom: -1px;
+}
