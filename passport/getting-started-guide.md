@@ -3,71 +3,79 @@ title: Getting Started Guide
 sidebar_position: 2
 ---
 
-# The Getting Started Guide
-
-We will be installing Agent Manager on a Linux host for it to manage a local Telegraf agent.
-
-The quickest path to completion is to do the following.
-
-1. Install the supported observability agents and have them operational.
-2. [Install and register the Agent Manager](getting-started-guide#install-and-register-agent-manager/)
-3. [Import a new configuration file](getting-started-guide#upload-a-configuration-file/) to your Circonus Passport account.
-4. [Assign a configuration file](getting-started-guide#assign-a-configuration-file/) to your Agent Manager.
-5. Optional: 
-   1. [Create rules](getting-started-guide#create-rules/) for your configuration files if you have more than 1 configuration file uploaded.
-   2. [Add external alerts](/passport/external-alerts) so you can trigger rules to modify when specific configurations will be enabled.
-
-## Install and Register Agent Manager
-
-**Supported Platforms**
-
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+# The Getting Started Guide
+
+To get up and running quickly with Passport, we will be installing the Agent Manager on a Linux or macOS host for it to manage existing [supported collection agents](/passport/intro#supported-agents).
+
+1. Install any of Passport's [supported collection agents](/passport/intro#supported-agents).
+2. [Install and register the Agent Manager](getting-started-guide#install-and-register-the-agent-manager)
+3. [Import a configuration file](getting-started-guide#import-a-configuration-file) to your Passport account.
+4. [Assign a configuration file](getting-started-guide#assign-a-configuration-file) to your Agent Manager.
+5. Optional:
+   1. [Create rules](getting-started-guide#create-rules) for your configuration files if you have more than 1 configuration file uploaded.
+   2. [Add external alerts](getting-started-guide#add-external-alerts) so you can trigger rules to modify when specific configurations will be enabled.
+
+## Install and register the Agent Manager
+
+**Supported Platforms**
+
 <Tabs groupId="operating-systems">
-  <TabItem value="Linux" label="Linux" default>
+  <TabItem value="linuxPrivileged" label="Linux (Privileged)" default>
 
-#### Step 1 - Install
+:::info
 
-Download and install the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
+You will be installing the Agent Manager in a privileged manner.
 
-```bash
-sudo apt install path/to/file/circonus-am_x.x.x_amd64.deb
+:::
+
+#### Step 1 - Download and install
+
+- Download the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
+- Modify the following commands to fit your platform type and **specify the latest version available**.
+
+```bash title="Example: Download and Install Agent Manager v0.2.3 for Debian"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.3/circonus-am_0.2.3_amd64.deb && sudo dpkg -i circonus-am_0.2.3_amd64.deb
 ```
 
-#### Step 2 - Register
+#### Step 2 - Register, restart and view the status
 
-Log into the Passport UI and navigate to `Passport > Agent Management > Registration` to retrieve a valid registration token.
+:::warning Notice
 
-Register Agent Manager with the following CMD `circonus-am --register=<token>`.
+- Log into the Passport UI and navigate to `Passport > Agent Management > Registration` to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations. This secret can not be retrieved again once the window is closed and a new one will need to be created.
 
-```bash
-sudo /opt/circonus/am/sbin/circonus-am --register=<validRegistrationToken>
+:::
+
+- Register Agent Manager with the following command flag `circonus-am --register="<validRegistrationToken>"`.
+- In the following command, replace `<validRegistrationToken>` with your account registration token and then run it.
+
+```bash title="Example: Register, restart and view the Agent Manager's status"
+sudo /opt/circonus/am/sbin/circonus-am --register="<validRegistrationToken>" && sudo systemctl restart circonus-am && sudo systemctl restart circonus-am
 ```
 
 :::info Success
 
 If the registration is successful, then you should see the following output.
 
-```bash
-{"level":"info","pkg":"manager","time":1692032136,"message":"registration complete"}
+```json
+{
+  "level": "info",
+  "pkg": "manager",
+  "time": 1692032136,
+  "message": "registration complete"
+}
 ```
 
 :::
 
-#### Step 3 - Start
-
-The service does not auto-start when installed via .deb. To start the service run the following cmd.
-
-```bash
-sudo systemctl start circonus-am
-```
-
 <details><summary>Example - Successful installation</summary>
 <p>
 
-```jsx title="Linux Ubuntu" showLineNumbers
-ubuntu-host:~$ sudo apt install ~/downloads/circonus-am_0.1.3_amd64.deb
+```bash title="Linux Ubuntu" showLineNumbers
+# Install the Agent Manager
+ubuntu-host:~$ sudo dpkg -i install ~/downloads/circonus-am_0.1.3_amd64.deb
 Reading package lists... Done
 Building dependency tree... Done
 Reading state information... Done
@@ -104,12 +112,18 @@ No containers need to be restarted.
 No user sessions are running outdated binaries.
 
 No VM guests are running outdated hypervisor (qemu) binaries on this host.
+
+# Register the Agent Manager
 ubuntu-host:/opt/circonus/am/etc$ sudo /opt/circonus/am/sbin/circonus-am --register=6850a610-51b6-4829-baf3-f2cc40897211
 {"level":"info","name":"circonus-am","version":"0.1.3","time":1692125508,"message":"starting"}
 {"level":"info","time":1692125508,"message":"starting registration"}
 {"level":"info","agent":"telegraf","time":1692125508,"message":"found"}
 {"level":"info","pkg":"manager","time":1692125508,"message":"registration complete"}
+
+# Start the Agent Manager
 ubuntu-host:/opt/circonus/am/etc$ sudo systemctl start circonus-am
+
+# Optional: Check the status of Agent Manger
 ubuntu-host:/opt/circonus/am/etc$ sudo systemctl status circonus-am
 ● circonus-am.service - Circonus Agent Manager
      Loaded: loaded (/lib/systemd/system/circonus-am.service; enabled; vendor preset: enabled)
@@ -130,51 +144,46 @@ lines 1-14/14 (END)
 
 </p>
 </details>
-
   </TabItem>
-  <TabItem value="macOS" label="macOS">
+  <TabItem value="macOsHomebrew" label="macOS (Homebrew)">
 
-#### Step 1 - Install
+#### Step 1 - Download and install
 
-Download and install the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
+- Download and install the latest version of Agent Manager `tar.gz` file from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture, or install with homebrew package manager.
 
-The Circonus Manager is available to both install and update via Homebrew.
-
-```bash
-brew tap circonus/homebrew-circonus-agent-manager
+```bash title="Example: Tap the Agent Manager repo and install"
+brew tap circonus/homebrew-circonus-agent-manager && brew install circonus/circonus-agent-manager/circonus-am
 ```
 
-```bash
-brew install circonus/circonus-agent-manager/circonus-am
-```
+#### Step 2 - Register, restart and view the status
 
-#### Step 2 - Register
+:::warning Notice
 
-Log into the Passport UI and navigate to `Passport > Agent Management > Registration` to retrieve a valid registration token.
+- Log into the Passport UI and navigate to `Passport > Agent Management > Registration` to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations. This secret can not be retrieved again once the window is closed and a new one will need to be created.
 
-Register Agent Manager with the following CMD `circonus-am --register=<token>`.
+:::
 
-```bash
-/opt/homebrew/opt/circonus-am/sbin/circonus-am --register="registration token"
+- Register Agent Manager with the following command flag `circonus-am --register="<validRegistrationToken>"`.
+- In the following command, replace `<validRegistrationToken>` with your account registration token and then run the command.
+
+```bash title="Register, restart, and view the status"
+/opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<validRegistrationToken>" && brew services restart circonus-am && brew services info circonus-am
 ```
 
 :::info Success
 
-If the registration is successful, then you should see the following output.
+If the registration is successful, then you should see the following output `registration complete`
 
-```bash
-{"level":"info","pkg":"manager","time":1692032136,"message":"registration complete"}
+```json showLineNumbers
+{
+  "level": "info",
+  "pkg": "manager",
+  "time": 1692032136,
+  "message": "registration complete"
+}
 ```
 
 :::
-
-#### Step 3 - Start
-
-The service does not auto-start when installed via .deb. To start the service run the following cmd.
-
-```bash
-brew services start circonus-am
-```
 
   </TabItem>
 </Tabs>
@@ -185,7 +194,7 @@ Complete instructions to inventory new agents, uninstall, and troubleshoot can b
 
 :::
 
-## Import a Configuration files
+## Import a configuration file
 
 The following instructions outline how to add configuration files from the Circonus UI to your account located in the main menu **Passport > Configurations**.
 
@@ -207,13 +216,28 @@ Once the configuration file is imported, it will be displayed on the **Passport 
 
 :::note NOTE
 
-Complete instructions import and build configuration files with the low-code builder can be found on the full **[Configuration Files](/passport/Configurations/configuration-files/)** page.
+Complete instructions to import and build configuration files with the low-code builder can be found on the full **[Configuration Files](/passport/Configurations/configuration-files/)** page.
 
 :::
 
-## Assign a Configuration File
+## Assign a configuration file
 
-Coming soon!
+Uploaded and low-code built configuration files are supported by the Passport rules engine to define when and how a configuration file is applied to any supported collection agent that the Agent Manager manages.
+
+Assigning a configuration file can either be done from the specific file's details page or the **Passport** > Agent Manager\*\* page.
+
+![Assign configuration file](./img/agent-manager-assign-configuration-file.png)
+
+All supported agent-type configuration files will be listed. Choose one and select **Assign**
+
+![Assign configuration file](./img/agent-manager-assign-configuration-list.png)
+
+Configuration assignment statuses:
+
+- **New** (Recently assigned to an Agent Manager and the config is waiting for the next check-in from the Agent Manager which is every minute.)
+- **Active** (The Agent Manager has updated the configuration file for the selected collection agent)
+
+![Assign configuration file](./img/agent-manager-config-status.png)
 
 :::note NOTE
 
@@ -221,13 +245,13 @@ Complete instructions for configuration files can be found on the **[Configurati
 
 :::
 
-### Create Rules
+### Create rules
 
 Navigate to the **Passport > Configurations** list view, and select the configuration file to navigate to the details section.
 
 ![Configurations List Selected](./img/configurations-selected-config.png)
 
-From here, you can view **details**, **preview the config** file and also create **rules**.
+From here, you can view **details**, **preview the config** file and create **rules\*\***.
 
 Select the **Rules** tab, and then click on the **Create Rule** button located at the top right of the table
 
@@ -254,5 +278,19 @@ The rules can be ordered by clicking and holding each rule on the far left side 
 :::note NOTE
 
 Complete instructions for Rules can be found on the **[rules engine](/passport/Configurations/rules-engine/)** page.
+
+:::
+
+## Add external alerts
+
+External Alerts are for you to add incoming alerts from outside sources such as Grafana, by using webhooks so you can create rules based on these events to then select which configuration files you want running on your collection agents.
+
+Navigate to **Passport > External Alerts** and select **Create External Alerts** to get started.
+
+![External Alerts List View](./img/external-alerts-list-view.png)
+
+:::note NOTE
+
+Complete instructions for managing external alerts can be found on the **[external alerts](/passport/external-alerts/)** page.
 
 :::
