@@ -20,7 +20,7 @@ The Circonus Agent Manager is supported on both Linux and macOS operating system
 
 :::tip Pro Tip
 
-Circonus recommends installing one or more [supported agents](/passport/intro#supported-agents) before installing the Agent Manager. If an agent is installed after the Agent Manager's installation then you will need to stop, re-inventory and restart the Agent Manager for it to detect the new agents.
+Circonus recommends installing one or more [supported agents](/passport/intro#supported-agents) **before** installing the Agent Manager. If an agent is installed after the Agent Manager's installation then you will need to stop, re-inventory and restart the Agent Manager for it to detect the new agents.
 
 :::
 
@@ -31,26 +31,32 @@ Circonus recommends installing one or more [supported agents](/passport/intro#su
 
 :::info
 
-You will be installing the Agent Manager in a privileged way.
+You will be installing the Agent Manager in a privileged manner.
 
 :::
 
-#### Step 1 - Install
+#### Step 1 - Download and install
 
-- Download and install the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
+- Download the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
+- Modify the following commands to fit your platform type and **specify the latest version available**.
 
-```bash
-sudo apt install path/to/file/circonus-am_x.x.x_amd64.deb
+```bash title="Example: Download and Install Agent Manager v0.2.3 for Debian"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.3/circonus-am_0.2.3_amd64.deb && sudo dpkg -i circonus-am_0.2.3_amd64.deb
 ```
 
-#### Step 2 - Register
+#### Step 2 - Register, restart and view the status
 
-- Log into the Passport UI and navigate to `Passport > Agent Management > Registration` to retrieve a valid registration token.
+:::warning Notice
 
-- Register Agent Manager with the following CMD `circonus-am --register=<token>`.
+- Log into the Passport UI and navigate to `Passport > Agent Management > Registration` to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations. This secret can not be retrieved again once the window is closed and a new one will need to be created.
 
-```bash
-sudo /opt/circonus/am/sbin/circonus-am --register=<validRegistrationToken>
+:::
+
+- Register Agent Manager with the following command flag `circonus-am --register="<validRegistrationToken>"`.
+- In the following command, replace `<validRegistrationToken>` with your account registration token and then run it.
+
+```bash title="Example: Register, restart and view the Agent Manager's status"
+sudo /opt/circonus/am/sbin/circonus-am --register="<validRegistrationToken>" && sudo systemctl restart circonus-am && sudo systemctl restart circonus-am
 ```
 
 :::info Success
@@ -68,20 +74,12 @@ If the registration is successful, then you should see the following output.
 
 :::
 
-#### Step 3 - Start
-
-- The service does not auto-start when installed via .deb. To start the service run the following cmd.
-
-```bash
-sudo systemctl start circonus-am
-```
-
 <details><summary>Example - Successful installation</summary>
 <p>
 
 ```bash title="Linux Ubuntu" showLineNumbers
 # Install the Agent Manager
-ubuntu-host:~$ sudo apt install ~/downloads/circonus-am_0.1.3_amd64.deb
+ubuntu-host:~$ sudo dpkg -i install ~/downloads/circonus-am_0.1.3_amd64.deb
 Reading package lists... Done
 Building dependency tree... Done
 Reading state information... Done
@@ -151,35 +149,34 @@ lines 1-14/14 (END)
 </p>
 </details>
   </TabItem>
-  <TabItem value="macOS" label="macOS">
+  <TabItem value="macOsHomebrew" label="macOS (Homebrew)">
 
-#### Step 1 - Install
+#### Step 1 - Download and install
 
-- Download and install the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
+- Download and install the latest version of Agent Manager `tar.gz` file from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture, or install with homebrew package manager.
 
-- The Circonus Manager is available to both install and update via Homebrew.
-
-```bash
-brew tap circonus/homebrew-circonus-agent-manager
+```bash title="Example: Tap the Agent Manager repo and install"
+brew tap circonus/homebrew-circonus-agent-manager && brew install circonus/circonus-agent-manager/circonus-am
 ```
 
-```bash
-brew install circonus/circonus-agent-manager/circonus-am
-```
+#### Step 2 - Register, restart and view the status
 
-#### Step 2 - Register
+:::warning Notice
 
-- Log into the Passport UI and navigate to `Passport > Agent Management > Registration` to retrieve a valid registration token.
+- Log into the Passport UI and navigate to `Passport > Agent Management > Registration` to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations. This secret can not be retrieved again once the window is closed and a new one will need to be created.
 
-- Register Agent Manager with the following CMD `circonus-am --register=<token>`.
+:::
 
-```bash
-/opt/homebrew/opt/circonus-am/sbin/circonus-am --register="registration token"
+- Register Agent Manager with the following command flag `circonus-am --register="<validRegistrationToken>"`.
+- In the following command, replace `<validRegistrationToken>` with your account registration token and then run the command.
+
+```bash title="Register, restart, and view the status"
+/opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<validRegistrationToken>" && brew services restart circonus-am && brew services info circonus-am
 ```
 
 :::info Success
 
-If the registration is successful, then you should see the following output.
+If the registration is successful, then you should see the following output `registration complete`
 
 ```json showLineNumbers
 {
@@ -192,14 +189,6 @@ If the registration is successful, then you should see the following output.
 
 :::
 
-#### Step 3 - Start
-
-- Start the service with the following command.
-
-```bash
-brew services start circonus-am
-```
-
   </TabItem>
 </Tabs>
 
@@ -210,22 +199,10 @@ If additional agents have been added to the host where Agent Manager is running,
 <Tabs groupId="operating-systems">
   <TabItem value="linuxPrivileged" label="Linux (Privileged)" default>
 
-#### Stop Agent Manager
+#### Take an inventory of local collection agents
 
-```bash
-sudo systemctl stop circonus-am
-```
-
-#### Re-inventory local agents
-
-```bash
-sudo /opt/circonus/am/sbin/circonus-am --inventory
-```
-
-#### Start Agent Manager
-
-```bash
-sudo systemctl start circonus-am
+```bash title="Example: stop, reinventory, start and view the Agent Manager's status"
+sudo systemctl stop circonus-am && sudo /opt/circonus/am/sbin/circonus-am --inventory && sudo systemctl start circonus-am && sudo systemctl status circonus-am
 ```
 
 :::info Success
@@ -239,7 +216,7 @@ Example of what the output will look like when a **telegraf** agent has been fou
 
 :::
 
-<details><summary>Example - Successful re-inventory</summary>
+<details><summary>Example - Successful reinventory</summary>
 <p>
 
 ```bash title="Linux Ubuntu" showLineNumbers
@@ -278,24 +255,12 @@ lines 1-14/14 (END)
 </details>
 
   </TabItem>
-  <TabItem value="macOS" label="macOS">
+  <TabItem value="macOsHomebrew" label="macOS (Homebrew)">
 
-#### Stop Agent Manager
+#### Take an inventory of local collection agents
 
-```bash
-brew services stop circonus-am
-```
-
-#### Re-inventory local agents
-
-```bash
-/opt/homebrew/opt/circonus-am/sbin/circonus-am --inventory
-```
-
-#### Start Agent Manager
-
-```bash
-brew services start circonus-am
+```bash title="Example: stop, reinventory, start and view the Agent Manager's status"
+brew services stop circonus-am && /opt/homebrew/opt/circonus-am/sbin/circonus-am --inventory && brew services start circonus-am && brew services info circonus-am
 ```
 
 :::info Success
@@ -315,15 +280,15 @@ Example of what the output will look like when a **telegraf** agent has been fou
 
 <Tabs groupId="operating-systems">
   <TabItem value="linuxPrivileged" label="Linux (Privileged)" default>
-   
+
 To uninstall Agent Manage, run the following CMD.
 
 ```bash
-sudo apt remove circonus-am
+sudo apt-get remove circonus-am
 ```
 
   </TabItem>
-  <TabItem value="macOS" label="macOS">
+  <TabItem value="macOsHomebrew" label="macOS (Homebrew)">
 
 To uninstall Agent Manage, run the following CMD.
 
@@ -338,7 +303,7 @@ brew remove circonus/circonus-agent-manager/circonus-am
 
 <Tabs groupId="operating-systems">
   <TabItem value="linuxPrivileged" label="Linux (Privileged)" default>
-   
+
 Agent Manager usage flags
 
 ```bash title="Linux Ubuntu" showLineNumbers
@@ -395,7 +360,7 @@ Aug 15 18:07:28 ubuntu-qa21-1-observability circonus-am[4079997]: {"level":"info
 ```
 
   </TabItem>
-  <TabItem value="macOS" label="macOS">
+  <TabItem value="macOsHomebrew" label="macOS (Homebrew)">
 
 Agent Manager usage flags
 
