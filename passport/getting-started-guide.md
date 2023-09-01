@@ -236,6 +236,10 @@ Configuration assignment statuses:
 
 - **New** (Recently assigned to an Agent Manager and the config is waiting for the next check-in from the Agent Manager which is every minute.)
 - **Active** (The Agent Manager has updated the configuration file for the selected collection agent)
+- **Pending** (The Agent Manager is in the process of applying the configuration)
+- **Error** (The Agent Manager encountered an error applying the configuration)
+- **Canceled** (The assignment was replaced by another **new** assignment before the Agent Manager had a chance to see it)
+- **Inactive** (The assignment was previously **active** but has now been replaced)
 
 ![Assign configuration file](./img/agent-manager-config-status.png)
 
