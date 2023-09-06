@@ -27,8 +27,8 @@ Agent Manager is extremely flexible and capable of managing applications that ca
 
 Some agent types such as the following come with the Passport enhanced low-code configuration building tool to help you build complex configuration files with ease.
 
-- [Telegraf](https://github.com/influxdata/telegraf)
-- Fluen-bit
+- **Telegraf**
+- **Fluent-bit**
 
 Other agent types such as the following can be added and fully managed from the UI with configuration uploads.
 
