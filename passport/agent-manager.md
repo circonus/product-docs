@@ -269,7 +269,10 @@ lines 1-14/14 (END)
 #### Take an inventory of local collection agents
 
 ```bash title="Example: stop, reinventory, start and view the Agent Manager's status"
-brew services stop circonus-am && /opt/homebrew/opt/circonus-am/sbin/circonus-am --inventory && brew services start circonus-am && brew services info circonus-am
+brew services stop circonus-am &&
+/opt/homebrew/opt/circonus-am/sbin/circonus-am --inventory &&
+brew services start circonus-am &&
+brew services info circonus-am
 ```
 
 :::info Success
