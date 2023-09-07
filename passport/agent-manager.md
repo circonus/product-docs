@@ -35,8 +35,8 @@ Circonus recommends installing one or more [supported agents](/passport/intro#su
 - Modify the following commands to fit your platform type and **specify the latest version available**.
 
 ```bash title="Example: Download and Install Agent Manager v0.2.5 for Debian"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.5/circonus-am_0.2.3_amd64.deb &&
-sudo dpkg -i circonus-am_0.2.3_amd64.deb
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.5/circonus-am_0.2.5_amd64.deb &&
+sudo dpkg -i circonus-am_0.2.5_amd64.deb
 ```
 <br/><br/>
 
