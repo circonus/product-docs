@@ -32,6 +32,7 @@ Some agent types such as the following come with the Passport enhanced low-code 
 
 Other agent types such as the following can be added and fully managed from the UI with configuration uploads.
 
+- **OpenTelemetry Collector**
 - **Circonus Unified Agent (CUA)**
 - **Datadog-agent**
 - **Vector**
