@@ -5,6 +5,29 @@ weight: 40
 
 # Release Notes
 
+## Changes in 1.0.1
+
+2023-09-06
+
+**NOTE: This version updates RocksDB (raw database, histogram shards) from
+version 6 to 7. It is not possible to revert a node to a previous version once
+this version has been installed.**
+
+ * Add a new configuration parameter, `//rest/@default_connect_timeout`, that
+   allows configuring the connect timeout for inter-node communication. This
+   was previously hardcoded to 3 seconds.
+ * Graphite `series` and `series_multi` fetches now return 500 when there are
+   no results and at least one node had an issue returning data.
+ * Graphite `series` and `series_multi` fetches now return 200 with an empty
+   results set on no data rather than a 404.
+ * Fix bug on `/find` proxy calls where activity ranges were being set
+   incorrectly.
+ * Add ability to filter using multiple account IDs in the
+   `snowthsurrogatecontrol` tool by providing the `-a` flag multiple times.
+ * Reduce usage of rollup debug log to avoid log spam.
+ * Upgrade RocksDB from version 6.20.3 to version 7.9.2.
+ * [libmtev 2.5.3](https://github.com/circonus-labs/libmtev/blob/master/ChangeLog.md#253)
+
 ## Changes in 1.0.0
 
 2023-07-28
@@ -37,6 +60,7 @@ surrogate database format.**
  * Require all nodes for `active_count` queries.
  * Add back-pressure to raw puts, allows the database to shed load by returning
    HTTP 503.
+ * [libmtev 2.5.2](https://github.com/circonus-labs/libmtev/blob/master/ChangeLog.md#252)
 
 ## Changes in 0.23.7
 
