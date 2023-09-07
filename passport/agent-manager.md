@@ -60,7 +60,7 @@ This secret can not be retrieved again once the window is closed and a new one w
 ```bash title="Example: Register, restart and view the Agent Manager's status"
 sudo /opt/circonus/am/sbin/circonus-am --register="<validRegistrationToken>" &&
 sudo systemctl restart circonus-am &&
-sudo systemctl restart circonus-am
+sudo systemctl status circonus-am
 ```
 
 :::info Success
