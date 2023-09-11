@@ -42,7 +42,7 @@ sudo dpkg -i circonus-am_0.2.5_amd64.deb
 
 #### Step 2 - Register, restart and view the status
 
-1. Log into the Passport UI and navigate to `Passport > Agent Management > Registration` to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations.
+1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration**`** to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations.
 
 :::warning WARNING
 
@@ -50,15 +50,15 @@ This secret can not be retrieved again once the window is closed and a new one w
 
 :::
 
-2.  Register Agent Manager with the following command flag `circonus-am --register="<validRegistrationToken>"`.
-3.  In the following command, replace `<validRegistrationToken>` with your account registration token and then run the command.
+2.  Register Agent Manager with the following command flag `circonus-am --register="<registrationTokenSecret>"`.
+3.  In the following command, replace `<registrationTokenSecret>` with your account registration token and then run the command.
 4.  **Optional:**
     1.  Tags can be added only during registration times by using the `--tags` flag.  
     2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
     3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
 ```bash title="Example: Register, restart and view the Agent Manager's status"
-sudo /opt/circonus/am/sbin/circonus-am --register="<validRegistrationToken>" &&
+sudo /opt/circonus/am/sbin/circonus-am --register="<registrationTokenSecret>" &&
 sudo systemctl restart circonus-am &&
 sudo systemctl status circonus-am
 ```
@@ -67,8 +67,20 @@ sudo systemctl status circonus-am
 
 If the registration is successful, then you should see the following output from the Agent Manager and also the status of its service as `Active: active (running)`.
 
-```json
+```bash
 {"level": "info","pkg": "manager","time": 1692032136,"message": "registration complete"}
+# Status of Agent Manager
+ubuntu-host:~$ sudo systemctl status circonus-am
+● circonus-am.service - Circonus Agent Manager
+     Loaded: loaded (/lib/systemd/system/circonus-am.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2023-09-05 18:24:23 UTC; 6 days ago
+       Docs: https://github.com/circonus/agent-manager
+   Main PID: 3950128 (circonus-am)
+      Tasks: 9 (limit: 9525)
+     Memory: 14.9M
+        CPU: 21.096s
+     CGroup: /system.slice/circonus-am.service
+             └─3950128 /opt/circonus/am/sbin/circonus-am --config=/opt/circonus/am/etc/circonus-am.yaml
 ```
 
 :::
@@ -171,15 +183,15 @@ This secret can not be retrieved again once the window is closed and a new one w
 
 :::
 
-2.  Register Agent Manager with the following command flag `circonus-am --register="<validRegistrationToken>"`.
-3.  In the following command, replace `<validRegistrationToken>` with your account registration token and then run the command.
+2.  Register Agent Manager with the following command flag `circonus-am --register="<registrationTokenSecret>"`.
+3.  In the following command, replace `<registrationTokenSecret>` with your account registration token and then run the command.
 4.  **Optional:**
     1.  Tags can be added only during registration times by using the `--tags` flag.  
     2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
     3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
 ```bash title="Example: Register, start, and view the status"
-/opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<validRegistrationToken>" &&
+/opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>" &&
 brew services start circonus-am &&
 brew services info circonus-am
 ```
@@ -196,7 +208,6 @@ If the registration is successful, then you should see the following output from
 
   </TabItem>
 </Tabs>
-
 
 ## Managing additional collection agents
 
@@ -229,35 +240,32 @@ Example of what the output will look like when a **telegraf** agent has been fou
 <p>
 
 ```bash title="Linux Ubuntu" showLineNumbers
-# Stop the Agent Manger
-ubuntu-testing-dev-box:/opt/circonus/am/etc$ sudo systemctl stop circonus-am
-
-# Check for collection agents on the host for Agent Manager to manage.
-ubuntu-testing-dev-box:/opt/circonus/am/etc$ sudo /opt/circonus/am/sbin/circonus-am --inventory
-{"level":"info","name":"circonus-am","version":"0.1.3","time":1692044346,"message":"starting"}
-{"level":"info","agent":"telegraf","time":1692044346,"message":"found"}
-{"level":"info","pkg":"manager","time":1692044346,"message":"invetory complete"}
-
-# Start the Agent Manager
-ubuntu-testing-dev-box:/opt/circonus/am/etc$ sudo systemctl start circonus-am
-
-# Optional: Check the status of Agent Manger
-ubuntu-testing-dev-box:/opt/circonus/am/etc$ sudo systemctl status circonus-am
+ubuntu-host:~$ sudo systemctl stop circonus-am &&
+sudo /opt/circonus/am/sbin/circonus-am --inventory &&
+sudo systemctl start circonus-am &&
+sudo systemctl status circonus-am
+{"level":"info","name":"circonus-am","version":"0.2.3","time":1694466173,"message":"starting"}
+{"level":"warn","error":"exit status 127","agent":"cua","time":1694466174,"message":"getting agent version"}
+{"level":"info","agent":"cua","time":1694466174,"message":"found"}
+{"level":"warn","file":"/usr/share/filebeat/bin/filebeat","time":1694466174,"message":"agent binary not found, skipping"}
+{"level":"warn","file":"/usr/bin/otelcol","time":1694466174,"message":"agent binary not found, skipping"}
+{"level":"warn","file":"/usr/bin/vector","time":1694466174,"message":"agent binary not found, skipping"}
+{"level":"warn","file":"/usr/sbin/datadog-agent","time":1694466174,"message":"agent binary not found, skipping"}
+{"level":"info","agent":"fluent-bit","time":1694466174,"message":"found"}
+{"level":"warn","file":"/usr/share/metricbeat/bin/metricbeat","time":1694466174,"message":"agent binary not found, skipping"}
+{"level":"warn","file":"/usr/bin/newrelic-infra-service","time":1694466174,"message":"agent binary not found, skipping"}
+{"level":"info","agent":"telegraf","time":1694466175,"message":"found"}
+{"level":"info","pkg":"manager","time":1694466175,"message":"invetory complete"}
 ● circonus-am.service - Circonus Agent Manager
      Loaded: loaded (/lib/systemd/system/circonus-am.service; enabled; vendor preset: enabled)
-     Active: active (running) since Mon 2023-08-14 20:19:14 UTC; 8s ago
+     Active: active (running) since Mon 2023-09-11 21:02:55 UTC; 20ms ago
        Docs: https://github.com/circonus/agent-manager
-   Main PID: 1361941 (circonus-am)
-      Tasks: 8 (limit: 4680)
-     Memory: 4.6M
-        CPU: 3ms
+   Main PID: 3323503 (circonus-am)
+      Tasks: 7 (limit: 9525)
+     Memory: 2.6M
+        CPU: 4ms
      CGroup: /system.slice/circonus-am.service
-             └─1361941 /opt/circonus/am/sbin/circonus-am --config=/opt/circonus/am/etc/circonus-am.yaml
-
-Aug 14 20:19:14 ubuntu-testing-dev-box systemd[1]: Started Circonus Agent Manager.
-Aug 14 20:19:14 ubuntu-testing-dev-box circonus-am[1361941]: {"level":"info","name":"circonus-am","version":"0.1.3","time":169204>
-Aug 14 20:19:14 ubuntu-testing-dev-box circonus-am[1361941]: {"level":"info","interval":"1m0s","time":1692044354,"message":"start>
-lines 1-14/14 (END)
+             └─3323503 /opt/circonus/am/sbin/circonus-am --config=/opt/circonus/am/etc/circonus-am.yaml
 ```
 
 </p>

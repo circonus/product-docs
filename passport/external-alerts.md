@@ -16,7 +16,6 @@ Navigate to **Passport > External Alerts > Create External Alert** and then ente
 <!--Need pics when we get the page done
 ![External Alert Create Page]()
 -->
-_Picture soon to come._
 
 ## Modify or Delete External Alerts
 
@@ -27,4 +26,3 @@ Click on the **Actions** column on each row to expand the options.
 <!--Need pics showing all actions when we get the page done
 ![External Alert Edit Page]()
 -->
-_Picture soon to come._

@@ -11,9 +11,7 @@ Passport rules tell the Circonus Agent which configuration file to load on your 
 
 Navigate to the **Passport > Configurations** list view, and select the configuration file to navigate to the details section.
 
-![Configurations List Selected](../img/configurations-selected-config.png)
-
-From here, you can view **details**, **preview the config** file and also create **rules**.
+Next, view the **details**, **preview the config** file and also create **rules**.
 
 Select the **Rules** tab, and then click on the **Create Rule** button located at the top right of the table
 
@@ -39,7 +37,7 @@ The rules can be ordered by clicking and holding each rule on the far left side 
 
 ## Managing Rules
 
-Many **Actions** are available to take for the rules such as **Edit, **Clone, **Copying** to other\*\* **configurations** or **Deleting** the rule.
+Many **Actions** are available to take for the rules such as **Edit**, **Clone**, **Copy to other configuration** or **Deleting** the rule.
 
 ![Configurations Rules Tab](../img/configurations-rules-tab-list-view-expanded.png)
 
