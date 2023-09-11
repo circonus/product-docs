@@ -1,22 +1,22 @@
 ---
-title: Getting Started Guide
+title: Getting Started
 sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# The Getting Started Guide
+# Getting Started
 
 To get up and running quickly with Passport, we will be installing the Agent Manager on a Linux or macOS host for it to manage existing [supported collection agents](/passport/intro#supported-agents).
 
 1. Install any of Passport's [supported collection agents](/passport/intro#supported-agents).
-2. [Install and register the Agent Manager](getting-started-guide#install-and-register-the-agent-manager)
-3. [Import a configuration file](getting-started-guide#import-a-configuration-file) to your Passport account.
-4. [Assign a configuration file](getting-started-guide#assign-a-configuration-file) to your Agent Manager.
+2. [Install and register the Agent Manager](getting-started#install-and-register-the-agent-manager)
+3. [Import a configuration file](getting-started#import-a-configuration-file) to your Passport account.
+4. [Assign a configuration file](getting-started#assign-a-configuration-file) to your Agent Manager.
 5. Optional:
-   1. [Create rules](getting-started-guide#create-rules) for your configuration files if you have more than 1 configuration file uploaded.
-   2. [Add external alerts](getting-started-guide#add-external-alerts) so you can trigger rules to modify when specific configurations will be enabled.
+   1. [Create rules](getting-started#create-rules) for your configuration files if you have more than 1 configuration file uploaded.
+   2. [Add external alerts](getting-started#add-external-alerts) so you can trigger rules to modify when specific configurations will be enabled.
 
 ## Install and register the Agent Manager
 
@@ -39,7 +39,7 @@ sudo dpkg -i circonus-am_0.2.5_amd64.deb
 
 #### Step 2 - Register, restart and view the status
 
-1. Log into the Passport UI and navigate to `Passport > Agent Management > Registration` to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations.
+1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations.
 
 :::warning WARNING
 
@@ -47,15 +47,16 @@ This secret can not be retrieved again once the window is closed and a new one w
 
 :::
 
-2.  Register Agent Manager with the following command flag `circonus-am --register="<validRegistrationToken>"`.
-3.  In the following command, replace `<validRegistrationToken>` with your account registration token and then run the command.
+2.  Register Agent Manager with the following command flag `circonus-am --register="<registrationTokenSecret>"`.
+3.  In the following command, replace `<registrationTokenSecret>` with your account registration token and then run the command.
 4.  **Optional:**
-    1.  Tags can be added only during registration times by using the `--tags` flag.  
+    1.  Tags can be added only during registration times by using the `--tags` flag.
+        1.  _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
     2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
     3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
 ```bash title="Example: Register, restart and view the Agent Manager's status"
-sudo /opt/circonus/am/sbin/circonus-am --register="<validRegistrationToken>" &&
+sudo /opt/circonus/am/sbin/circonus-am --register="<registrationTokenSecret>" &&
 sudo systemctl restart circonus-am &&
 sudo systemctl status circonus-am
 ```
@@ -64,8 +65,20 @@ sudo systemctl status circonus-am
 
 If the registration is successful, then you should see the following output from the Agent Manager and also the status of its service as `Active: active (running)`.
 
-```json
+```bash
 {"level": "info","pkg": "manager","time": 1692032136,"message": "registration complete"}
+# Status of Agent Manager
+ubuntu-host:~$ sudo systemctl status circonus-am
+● circonus-am.service - Circonus Agent Manager
+     Loaded: loaded (/lib/systemd/system/circonus-am.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2023-09-05 18:24:23 UTC; 6 days ago
+       Docs: https://github.com/circonus/agent-manager
+   Main PID: 3950128 (circonus-am)
+      Tasks: 9 (limit: 9525)
+     Memory: 14.9M
+        CPU: 21.096s
+     CGroup: /system.slice/circonus-am.service
+             └─3950128 /opt/circonus/am/sbin/circonus-am --config=/opt/circonus/am/etc/circonus-am.yaml
 ```
 
 :::
@@ -168,15 +181,15 @@ This secret can not be retrieved again once the window is closed and a new one w
 
 :::
 
-2.  Register Agent Manager with the following command flag `circonus-am --register="<validRegistrationToken>"`.
-3.  In the following command, replace `<validRegistrationToken>` with your account registration token and then run the command.
+2.  Register Agent Manager with the following command flag `circonus-am --register="<registrationTokenSecret>"`.
+3.  In the following command, replace `<registrationTokenSecret>` with your account registration token and then run the command.
 4.  **Optional:**
     1.  Tags can be added only during registration times by using the `--tags` flag.  
     2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
     3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
 ```bash title="Register, start, and view the status"
-/opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<validRegistrationToken>" &&
+/opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>" &&
 brew services start circonus-am &&
 brew services info circonus-am
 ```
@@ -202,13 +215,13 @@ Complete instructions to inventory new agents, uninstall, and troubleshoot can b
 
 The following instructions outline how to add configuration files from the Circonus UI to your account located in the main menu **Passport > Configurations**.
 
-From the configurations list page, select **Import Configuration**.
+From the configurations list page, select **Import**.
 
 ![flow builder](./img/configurations-list-view.png)
 
 :::tip Keep in mind
 
-By default, when a configuration file is added to your Circonus account, it is not being managed by the Agent Manager until you add it to a specific Agent Manager.
+By default, when a configuration file is added to your Circonus account, it is not being managed by the Agent Manager until you assign it to a specific Agent Manager.
 
 :::
 
@@ -259,9 +272,7 @@ Complete instructions for configuration files can be found on the **[Configurati
 
 Navigate to the **Passport > Configurations** list view, and select the configuration file to navigate to the details section.
 
-![Configurations List Selected](./img/configurations-selected-config.png)
-
-From here, you can view **details**, **preview the config** file and create **rules**.
+Next, you can view **details**, **preview the config** file and create **rules**.
 
 Select the **Rules** tab, and then click on the **Create Rule** button located at the top right of the table
 

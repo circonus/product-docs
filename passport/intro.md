@@ -13,9 +13,9 @@ tags:
 
 With Passport, you can collect more data when you need it and less when you don’t. And the best part? Almost all observability agents can be managed through the use of configuration files that describe how to collect, enrich and send data.
 
-Passport aims to simplify this process through the use of an agent manager. The Passport Agent Manager functions as a sidecar utility that checks for new configuration files and triggers the appropriate restart/reload functionality of the supported agent. The agent manager is kept intentionally simple, with the goal that it only needs to be installed once and updated very infrequently.
+Passport aims to simplify this process through the use of an agent manager. The Passport Agent Manager functions as a sidecar utility that checks for new configuration files and triggers the appropriate restart/reload functionality of the supported agent. The Agent Manager is kept intentionally simple, with the goal that it only needs to be installed once and updated infrequently.
 
-To change the collection strategy of a managed agent such as Telegraf, there needs to be a place to create and store the relevant configurations for the agent. This can be done through the intuitive Passport UI or the Passport API.
+To change the collection strategy of a managed agent such as Telegraf, there needs to be a place to create and store the relevant configurations for the collection agent. This can be done through the intuitive Passport UI or API.
 
 The Passport UI provides a place to view the current inventory of all agents under management as well as tools for managing and creating configuration files. Say goodbye to manual management and hello to Passport!
 
@@ -30,7 +30,7 @@ Some agent types such as the following come with the Passport enhanced low-code 
 - **Telegraf**
 - **Fluent-bit**
 
-Other agent types such as the following can be added and fully managed from the UI with configuration uploads.
+Other agent types such as the following are included out of the box and fully managed from the UI with configuration uploads.
 
 - **OpenTelemetry Collector**
 - **Circonus Unified Agent (CUA)**
