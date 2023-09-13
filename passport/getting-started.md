@@ -173,7 +173,7 @@ brew install circonus/circonus-agent-manager/circonus-am
 
 #### Step 2 - Register, start and view the status
 
-1. Log into the Passport UI and navigate to `Passport > Agent Management > Registration` to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations.
+1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations.
 
 :::warning WARNING
 

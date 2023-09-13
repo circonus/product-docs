@@ -42,7 +42,7 @@ sudo dpkg -i circonus-am_0.2.5_amd64.deb
 
 #### Step 2 - Register, restart and view the status
 
-1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration**`** to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations.
+1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations.
 
 :::warning WARNING
 
@@ -304,7 +304,10 @@ Example of what the output will look like when a **telegraf** agent has been fou
 To uninstall Agent Manage, run the following CMD.
 
 ```bash
-sudo apt-get remove circonus-am
+sudo /opt/circonus/am/sbin/circonus-am --decomission &&
+sudo apt remove circonus-am &&
+sudo apt purge circonus-am &&
+sudo apt autoremove
 ```
 
   </TabItem>
