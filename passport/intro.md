@@ -25,10 +25,10 @@ The Passport UI provides a place to view the current inventory of all agents und
 
 Agent Manager is extremely flexible and capable of managing applications that can be controlled from the command line and utilize configuration files. The Passport platform comes with many agent types already set up, the ability to add custom agent types, and assign configurations to them all from the intuitive Passport UI.
 
-Some agent types such as the following come with the Passport enhanced low-code configuration building tool to help you build complex configuration files with ease.
+Some agent types such as the following come with the Passport enhanced low-code configuration building tool along with configuration uploads to help you build complex configuration files with ease.
 
 - **Telegraf**
-- **Fluent-bit**
+- **Fluent-bit - Coming soon!**
 
 Other agent types such as the following are included out of the box and fully managed from the UI with configuration uploads.
 
