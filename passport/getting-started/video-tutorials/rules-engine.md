@@ -5,7 +5,7 @@ sidebar_position: 3
 
 import styles from '../../styles.module.css';
 
-# Working with rules
+# Configuration Rules
 
 ## Creating a time bounded rule
 

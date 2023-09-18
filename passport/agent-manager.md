@@ -36,7 +36,7 @@ Circonus recommends installing one or more [supported agents](/passport/intro#su
 
 ```bash title="Example: Download and Install Agent Manager v0.2.6 for Debian"
 curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.6/circonus-am_0.2.6_amd64.deb &&
-sudo dpkg -i circonus-am_0.2.5_amd64.deb
+sudo dpkg -i circonus-am_0.2.6_amd64.deb
 ```
 
 <br/><br/>
@@ -55,6 +55,7 @@ This secret can not be retrieved again once the window is closed and a new one w
 3.  In the following command, replace `<registrationTokenSecret>` with your account registration token and then run the command.
 4.  **Optional:**
     1.  Tags can be added only during registration times by using the `--tags` flag.
+        1.  _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
     2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
     3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
@@ -64,27 +65,11 @@ sudo systemctl restart circonus-am &&
 sudo systemctl status circonus-am
 ```
 
-:::info Success
-
 If the registration is successful, then you should see the following output from the Agent Manager and also the status of its service as `Active: active (running)`.
 
 ```bash
-{"level": "info","pkg": "manager","time": 1692032136,"message": "registration complete"}
-# Status of Agent Manager
-ubuntu-host:~$ sudo systemctl status circonus-am
-● circonus-am.service - Circonus Agent Manager
-     Loaded: loaded (/lib/systemd/system/circonus-am.service; enabled; vendor preset: enabled)
-     Active: active (running) since Tue 2023-09-05 18:24:23 UTC; 6 days ago
-       Docs: https://github.com/circonus/agent-manager
-   Main PID: 3950128 (circonus-am)
-      Tasks: 9 (limit: 9525)
-     Memory: 14.9M
-        CPU: 21.096s
-     CGroup: /system.slice/circonus-am.service
-             └─3950128 /opt/circonus/am/sbin/circonus-am --config=/opt/circonus/am/etc/circonus-am.yaml
+{"level":"info","pkg":"manager","time":1692125508,"message":"registration complete"}
 ```
-
-:::
 
 <details><summary>Example - Successful installation</summary>
 <p>
@@ -160,6 +145,11 @@ lines 1-14/14 (END)
 
 </p>
 </details>
+
+#### Video Tutorial
+
+<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/6SdZ3HOEmok?si=gKsK0KEwMEuES9qp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+
   </TabItem>
   <TabItem value="macOsHomebrew" label="macOS (Homebrew)">
 
@@ -176,7 +166,7 @@ brew install circonus/circonus-agent-manager/circonus-am
 
 #### Step 2 - Register, start and view the status
 
-1. Log into the Passport UI and navigate to `Passport > Agent Management > Registration` to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations.
+1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations.
 
 :::warning WARNING
 
@@ -191,7 +181,7 @@ This secret can not be retrieved again once the window is closed and a new one w
     2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
     3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
-```bash title="Example: Register, start, and view the status"
+```bash title="Register, start, and view the status"
 /opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>" &&
 brew services start circonus-am &&
 brew services info circonus-am
@@ -199,13 +189,10 @@ brew services info circonus-am
 
 :::info Success
 
-If the registration is successful, then you should see the following output from the Agent Manager and also the status of its service as `Active: active (running)`.
+If the registration is successful, then you should see the following output `registration complete` and also the status of its service as `Active: active (running)`.
 
-```json
+```json showLineNumbers
 {
-  "level": "info",
-  "pkg": "manager",
-  "time": 1692032136,
   "message": "registration complete"
 }
 ```

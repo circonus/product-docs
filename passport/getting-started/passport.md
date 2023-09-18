@@ -32,7 +32,7 @@ To get up and running quickly with Passport, we will be installing the Agent Man
 
 ```bash title="Example: Download and Install Agent Manager v0.2.6 for Debian"
 curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.6/circonus-am_0.2.6_amd64.deb &&
-sudo dpkg -i circonus-am_0.2.5_amd64.deb
+sudo dpkg -i circonus-am_0.2.6_amd64.deb
 ```
 
 <br/><br/>
@@ -229,10 +229,6 @@ Complete instructions to import and build configuration files with the low-code 
 :::
 
 <div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/fD6IOvftFZ0?si=a95Bt0KDVKGBQpXP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
-
----
-
-<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/vVa6A0zgJ_0?si=RDQgrr43v4Zpws8J" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 
 ---
 
