@@ -5,7 +5,7 @@ sidebar_position: 2
 
 # Rules Engine
 
-Passport rules tell the Circonus Agent which configuration file to load on your specific agent during a given event. One or more can be defined and will take action when the event happens updating specified configuration files to run on your agents to give you the data needed when it is needed.
+Configuration rules tell the Agent Manager which configuration file to load on your specified collection agents during a given event or time. One or more can be defined and will take action when the event happens updating specified configuration files to run on your agents to give you the data needed when it is needed.
 
 ## Creating Rules
 
