@@ -34,10 +34,11 @@ Circonus recommends installing one or more [supported agents](/passport/intro#su
 - Download the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
 - Modify the following commands to fit your platform type and **specify the latest version available**.
 
-```bash title="Example: Download and Install Agent Manager v0.2.5 for Debian"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.5/circonus-am_0.2.5_amd64.deb &&
+```bash title="Example: Download and Install Agent Manager v0.2.6 for Debian"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.6/circonus-am_0.2.6_amd64.deb &&
 sudo dpkg -i circonus-am_0.2.5_amd64.deb
 ```
+
 <br/><br/>
 
 #### Step 2 - Register, restart and view the status
@@ -53,7 +54,7 @@ This secret can not be retrieved again once the window is closed and a new one w
 2.  Register Agent Manager with the following command flag `circonus-am --register="<registrationTokenSecret>"`.
 3.  In the following command, replace `<registrationTokenSecret>` with your account registration token and then run the command.
 4.  **Optional:**
-    1.  Tags can be added only during registration times by using the `--tags` flag.  
+    1.  Tags can be added only during registration times by using the `--tags` flag.
     2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
     3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
@@ -186,7 +187,7 @@ This secret can not be retrieved again once the window is closed and a new one w
 2.  Register Agent Manager with the following command flag `circonus-am --register="<registrationTokenSecret>"`.
 3.  In the following command, replace `<registrationTokenSecret>` with your account registration token and then run the command.
 4.  **Optional:**
-    1.  Tags can be added only during registration times by using the `--tags` flag.  
+    1.  Tags can be added only during registration times by using the `--tags` flag.
     2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
     3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
@@ -201,7 +202,12 @@ brew services info circonus-am
 If the registration is successful, then you should see the following output from the Agent Manager and also the status of its service as `Active: active (running)`.
 
 ```json
-{"level": "info","pkg": "manager","time": 1692032136,"message": "registration complete"}
+{
+  "level": "info",
+  "pkg": "manager",
+  "time": 1692032136,
+  "message": "registration complete"
+}
 ```
 
 :::

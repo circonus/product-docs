@@ -36,5 +36,3 @@ To get you up and running with the Circonus Rules engine, here are some examples
   </TabItem>
 
 </Tabs>
-
-

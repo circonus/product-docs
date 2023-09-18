@@ -35,6 +35,10 @@ The rules can be ordered by clicking and holding each rule on the far left side 
 
 :::
 
+<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/JXQc_pcd-sE?si=vk8CPu_-4lxUWOCG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+
+---
+
 ## Managing Rules
 
 Many **Actions** are available to take for the rules such as **Edit**, **Clone**, **Copy to other configuration** or **Deleting** the rule.
