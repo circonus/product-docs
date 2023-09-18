@@ -17,7 +17,7 @@ When a configuration file is deleted, it is gone forever.
 
 :::
 
-## Import a configuration
+## Import a configuration file
 
 The following instructions outline how to add configuration files from the Circonus UI to your account located in the main menu **Passport > Configurations**.
 
@@ -36,6 +36,10 @@ You have the option to upload a local file or simply paste the configuration in 
 ![flow builder](../img/configurations-import-configuration.png)
 
 Once the configuration file is imported, it will be displayed on the **Passport > Configurations** list page.
+
+<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/fD6IOvftFZ0?si=a95Bt0KDVKGBQpXP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+
+---
 
 ## Build a configuration with flow builder
 
@@ -73,6 +77,10 @@ To save, click the **Save** button in the canvas button list:
 
 Once the configuration file is imported, it will be displayed on the **Passport > Configurations** list page.
 
+<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/vVa6A0zgJ_0?si=RDQgrr43v4Zpws8J" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+
+---
+
 ## Assigning a configuration
 
 After the Agent Manager has been installed and some collection agents are now being managed, you can start assigning configuration files to the collection agents under management.
@@ -105,3 +113,5 @@ Next, the assignment will be pulled down by the Agent Manager on its next check 
 If the Agent Manager is currently **Disconnected**, when it next checks in it will pull down the new config file.
 
 ![Assign configuration file](../img/agent-manager-config-status.png)
+
+<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/i-wXHos_y4c?si=grQsyIaprkoELMC6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>

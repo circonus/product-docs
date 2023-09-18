@@ -1,6 +1,6 @@
 ---
-title: Getting Started
-sidebar_position: 2
+title: Passport
+sidebar_position: 1
 ---
 
 import Tabs from '@theme/Tabs';
@@ -11,12 +11,12 @@ import TabItem from '@theme/TabItem';
 To get up and running quickly with Passport, we will be installing the Agent Manager on a Linux or macOS host for it to manage existing [supported collection agents](/passport/intro#supported-agents).
 
 1. Install any of Passport's [supported collection agents](/passport/intro#supported-agents).
-2. [Install and register the Agent Manager](getting-started#install-and-register-the-agent-manager)
-3. [Import a configuration file](getting-started#import-a-configuration-file) to your Passport account.
-4. [Assign a configuration file](getting-started#assign-a-configuration-file) to your Agent Manager.
+2. [Install and register the Agent Manager](passport/getting-started#install-and-register-the-agent-manager)
+3. [Import a configuration file](passport/getting-started#import-a-configuration-file) to your Passport account.
+4. [Assign a configuration file](passport/getting-started#assign-a-configuration-file) to your Agent Manager.
 5. Optional:
-   1. [Create rules](getting-started#create-rules) for your configuration files if you have more than 1 configuration file uploaded.
-   2. [Add external alerts](getting-started#add-external-alerts) so you can trigger rules to modify when specific configurations will be enabled.
+   1. [Create rules](passport/getting-started#create-rules) for your configuration files if you have more than 1 configuration file uploaded.
+   2. [Add external alerts](passport/getting-started#add-external-alerts) so you can trigger rules to modify when specific configurations will be enabled.
 
 ## Install and register the Agent Manager
 
@@ -30,9 +30,9 @@ To get up and running quickly with Passport, we will be installing the Agent Man
 - Download the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
 - Modify the following commands to fit your platform type and **specify the latest version available**.
 
-```bash title="Example: Download and Install Agent Manager v0.2.5 for Debian"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.5/circonus-am_0.2.5_amd64.deb &&
-sudo dpkg -i circonus-am_0.2.5_amd64.deb
+```bash title="Example: Download and Install Agent Manager v0.2.6 for Debian"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.6/circonus-am_0.2.6_amd64.deb &&
+sudo dpkg -i circonus-am_0.2.6_amd64.deb
 ```
 
 <br/><br/>
@@ -61,27 +61,11 @@ sudo systemctl restart circonus-am &&
 sudo systemctl status circonus-am
 ```
 
-:::info Success
-
 If the registration is successful, then you should see the following output from the Agent Manager and also the status of its service as `Active: active (running)`.
 
 ```bash
-{"level": "info","pkg": "manager","time": 1692032136,"message": "registration complete"}
-# Status of Agent Manager
-ubuntu-host:~$ sudo systemctl status circonus-am
-● circonus-am.service - Circonus Agent Manager
-     Loaded: loaded (/lib/systemd/system/circonus-am.service; enabled; vendor preset: enabled)
-     Active: active (running) since Tue 2023-09-05 18:24:23 UTC; 6 days ago
-       Docs: https://github.com/circonus/agent-manager
-   Main PID: 3950128 (circonus-am)
-      Tasks: 9 (limit: 9525)
-     Memory: 14.9M
-        CPU: 21.096s
-     CGroup: /system.slice/circonus-am.service
-             └─3950128 /opt/circonus/am/sbin/circonus-am --config=/opt/circonus/am/etc/circonus-am.yaml
+{"level":"info","pkg":"manager","time":1692125508,"message":"registration complete"}
 ```
-
-:::
 
 <details><summary>Example - Successful installation</summary>
 <p>
@@ -157,6 +141,11 @@ lines 1-14/14 (END)
 
 </p>
 </details>
+
+#### Video Tutorial
+
+<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/6SdZ3HOEmok?si=gKsK0KEwMEuES9qp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+
   </TabItem>
   <TabItem value="macOsHomebrew" label="macOS (Homebrew)">
 
@@ -184,7 +173,7 @@ This secret can not be retrieved again once the window is closed and a new one w
 2.  Register Agent Manager with the following command flag `circonus-am --register="<registrationTokenSecret>"`.
 3.  In the following command, replace `<registrationTokenSecret>` with your account registration token and then run the command.
 4.  **Optional:**
-    1.  Tags can be added only during registration times by using the `--tags` flag.  
+    1.  Tags can be added only during registration times by using the `--tags` flag.
     2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
     3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
@@ -199,7 +188,9 @@ brew services info circonus-am
 If the registration is successful, then you should see the following output `registration complete` and also the status of its service as `Active: active (running)`.
 
 ```json showLineNumbers
-{"level": "info","pkg": "manager","time": 1692032136,"message": "registration complete"}
+{
+"message": "registration complete"
+}
 ```
 
 :::
@@ -209,7 +200,7 @@ If the registration is successful, then you should see the following output `reg
 
 Complete instructions to inventory new agents, uninstall, and troubleshoot can be found on the full [Agent Manager](/passport/agent-manager/) page.
 
-***
+---
 
 ## Import a configuration file
 
@@ -217,7 +208,7 @@ The following instructions outline how to add configuration files from the Circo
 
 From the configurations list page, select **Import**.
 
-![flow builder](./img/configurations-list-view.png)
+![flow builder](../img/configurations-list-view.png)
 
 :::tip Keep in mind
 
@@ -227,7 +218,7 @@ By default, when a configuration file is added to your Circonus account, it is n
 
 You have the option to upload a local file or simply paste the configuration in the code block. Fill in the rest of the form and select **Import**.
 
-![flow builder](./img/configurations-import-configuration.png)
+![flow builder](../img/configurations-import-configuration.png)
 
 Once the configuration file is imported, it will be displayed on the **Passport > Configurations** list page.
 
@@ -237,7 +228,9 @@ Complete instructions to import and build configuration files with the low-code 
 
 :::
 
-***
+<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/fD6IOvftFZ0?si=a95Bt0KDVKGBQpXP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+
+---
 
 ## Assign a configuration file
 
@@ -245,11 +238,11 @@ Uploaded and low-code built configuration files are supported by the Passport ru
 
 Assigning a configuration file can either be done from the specific file's details page or the **Passport > Agent Manager** page.
 
-![Assign configuration file](./img/agent-manager-assign-configuration-file.png)
+![Assign configuration file](../img/agent-manager-assign-configuration-file.png)
 
 All supported agent-type configuration files will be listed. Choose one and select **Assign**.
 
-![Assign configuration file](./img/agent-manager-assign-configuration-list.png)
+![Assign configuration file](../img/agent-manager-assign-configuration-list.png)
 
 Next, the assignment will be pulled down by the Agent Manager on its next check which is every 60 seconds. When the configuration file has been updated on the collection agent, the status will change to **Active**.
 
@@ -264,9 +257,11 @@ Configuration assignment statuses:
 - **Canceled** (The assignment was replaced by another **new** assignment before the Agent Manager had a chance to see it)
 - **Inactive** (The assignment was previously **active** but has now been replaced)
 
-![Assign configuration file](./img/agent-manager-config-status.png)
+![Assign configuration file](../img/agent-manager-config-status.png)
 
 Complete instructions for configuration files can be found on the **[Configuration file](/passport/Configurations/configuration-files/)** page.
+
+<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/i-wXHos_y4c?si=Y4lWW9ytGMb3sa-W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 
 ### Create rules
 
@@ -276,7 +271,7 @@ Next, you can view **details**, **preview the config** file and create **rules**
 
 Select the **Rules** tab, and then click on the **Create Rule** button located at the top right of the table
 
-![Configurations Rules Tab](./img/configurations-rules-tab-list-view.png)
+![Configurations Rules Tab](../img/configurations-rules-tab-list-view.png)
 
 From here, you will define a rule to then be applied to this specific configuration file. Fully define the required fields and click **Create**.
 
@@ -286,7 +281,7 @@ If you are creating alert-based rules, ensure the rules align with your expected
 
 :::
 
-![Configurations Rules Tab](./img/configurations-rules-tab-create.png)
+![Configurations Rules Tab](../img/configurations-rules-tab-create.png)
 
 All created rules will be listed in the Rules tab and if more than 1 rule has been created, they can be ordered to specify which rule has the most importance.
 
@@ -298,7 +293,9 @@ The rules can be ordered by clicking and holding each rule on the far left side 
 
 Complete instructions for Rules can be found on the **[rules engine](/passport/Configurations/rules-engine/)** page.
 
-***
+<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/JXQc_pcd-sE?si=xRaY73evGzq54yYd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+
+---
 
 ## Add external alerts
 
@@ -306,6 +303,6 @@ External Alerts are for you to add incoming alerts from outside sources such as 
 
 Navigate to **Passport > External Alerts** and select **Create External Alerts** to get started.
 
-![External Alerts List View](./img/external-alerts-list-view.png)
+![External Alerts List View](../img/external-alerts-list-view.png)
 
 Complete instructions for managing external alerts can be found on the **[external alerts](/passport/external-alerts/)** page.
