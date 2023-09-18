@@ -9,14 +9,15 @@ import TabItem from '@theme/TabItem';
 # Getting Started
 
 To get up and running quickly with Passport, we will be installing the Agent Manager on a Linux or macOS host for it to manage existing [supported collection agents](/passport/intro#supported-agents).
+/Users/joshuajohnson/development/product-docs/passport/intro.md
 
 1. Install any of Passport's [supported collection agents](/passport/intro#supported-agents).
-2. [Install and register the Agent Manager](passport/getting-started#install-and-register-the-agent-manager)
-3. [Import a configuration file](passport/getting-started#import-a-configuration-file) to your Passport account.
-4. [Assign a configuration file](passport/getting-started#assign-a-configuration-file) to your Agent Manager.
+2. [Install and register the Agent Manager](/passport/getting-started/passport#install-and-register-the-agent-manager)
+3. [Import a configuration file](/passport/getting-started/passport#import-a-configuration-file) to your Passport account.
+4. [Assign a configuration file](/passport/getting-started/passport#assign-a-configuration-file) to your Agent Manager.
 5. Optional:
-   1. [Create rules](passport/getting-started#create-rules) for your configuration files if you have more than 1 configuration file uploaded.
-   2. [Add external alerts](passport/getting-started#add-external-alerts) so you can trigger rules to modify when specific configurations will be enabled.
+   1. [Create rules](/passport/getting-started/passport#create-rules) for your configuration files if you have more than 1 configuration file uploaded.
+   2. [Add external alerts](/passport/getting-started/passport#add-external-alerts) so you can trigger rules to modify when specific configurations will be enabled.
 
 ## Install and register the Agent Manager
 
@@ -189,7 +190,7 @@ If the registration is successful, then you should see the following output `reg
 
 ```json showLineNumbers
 {
-"message": "registration complete"
+  "message": "registration complete"
 }
 ```
 
