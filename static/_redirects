@@ -2,3 +2,8 @@
 /circonus/integrations/library/\* /circonus3/integrations/library/:splat 301
 /circonus3/ /circonus3/category/getting-started 301
 /circonus3/getting-started/ /circonus3/getting-started/introduction 301
+/circonus/agents/circonus-unified-agent/ /circonus/integrations/agents/circonus-unified-agent/introduction 301
+/caql/ /caql/getting-started 301
+/passport/ /passport/intro 301
+/circonus/ /circonus/getting-started/introduction 301
+/irondb/ /irondb/category/getting-started 301
