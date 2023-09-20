@@ -31,8 +31,8 @@ Circonus recommends installing one or more [supported agents](/passport/intro#su
 
 #### Step 1 - Download and install
 
-- Download the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
-- Modify the following commands to fit your platform type and **specify the latest version available**.
+1. Download the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
+2. Modify the following commands to fit your platform type and **specify the latest version available**.
 
 ```bash title="Example: Download and Install Agent Manager v0.2.6 for Debian"
 curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.6/circonus-am_0.2.6_amd64.deb &&
@@ -67,8 +67,8 @@ sudo systemctl status circonus-am
 
 If the registration is successful, then you should see the following output from the Agent Manager and also the status of its service as `Active: active (running)`.
 
-```bash
-{"level":"info","pkg":"manager","time":1692125508,"message":"registration complete"}
+```json
+{ "message": "registration complete" }
 ```
 
 <details><summary>Example - Successful installation</summary>
@@ -151,16 +151,30 @@ lines 1-14/14 (END)
 <div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/6SdZ3HOEmok?si=gKsK0KEwMEuES9qp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 
   </TabItem>
-  <TabItem value="macOsHomebrew" label="macOS (Homebrew)">
+  <TabItem value="macOsHomebrew" label="macOS">
 
 #### Step 1 - Download and install
 
-- Download and install the latest version of Agent Manager `tar.gz` file from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture, or install with homebrew package manager.
+1. Download and install the latest version of Agent Manager `tar.gz` file from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture, or install with homebrew package manager as the instructions below indicate.
+
+<Tabs groupId="macOsArch">
+  <TabItem value="arm" label="Arm">
 
 ```bash title="Example: Tap the Agent Manager repo and install"
 brew tap circonus/homebrew-circonus-agent-manager &&
 brew install circonus/circonus-agent-manager/circonus-am
 ```
+
+  </TabItem>
+  <TabItem value="amd64" label="amd64">
+
+```bash title="Example: Tap the Agent Manager repo and install"
+brew tap circonus/homebrew-circonus-agent-manager &&
+brew install circonus/circonus-agent-manager/circonus-am
+```
+
+  </TabItem>
+</Tabs>
 
 <br/><br/>
 
@@ -181,26 +195,41 @@ This secret can not be retrieved again once the window is closed and a new one w
     2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
     3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
+<Tabs groupId="macOsArch">
+  <TabItem value="arm" label="Arm">
+
 ```bash title="Register, start, and view the status"
 /opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>" &&
 brew services start circonus-am &&
 brew services info circonus-am
 ```
 
+  </TabItem>
+  <TabItem value="amd64" label="amd64">
+
+```bash title="Register, start, and view the status"
+/usr/local/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>" &&
+brew services start circonus-am &&
+brew services info circonus-am
+```
+
+  </TabItem>
+</Tabs>
+
 :::info Success
 
 If the registration is successful, then you should see the following output `registration complete` and also the status of its service as `Active: active (running)`.
 
-```json showLineNumbers
-{
-  "message": "registration complete"
-}
+```json
+{ "message": "registration complete" }
 ```
 
 :::
 
   </TabItem>
 </Tabs>
+
+---
 
 ## Managing additional collection agents
 
@@ -265,7 +294,10 @@ sudo systemctl status circonus-am
 </details>
 
   </TabItem>
-  <TabItem value="macOsHomebrew" label="macOS (Homebrew)">
+  <TabItem value="macOsHomebrew" label="macOS">
+
+<Tabs groupId="macOsArch">
+  <TabItem value="arm" label="Arm">
 
 #### Take an inventory of local collection agents
 
@@ -275,6 +307,21 @@ brew services stop circonus-am &&
 brew services start circonus-am &&
 brew services info circonus-am
 ```
+
+  </TabItem>
+  <TabItem value="amd64" label="amd64">
+
+#### Take an inventory of local collection agents
+
+```bash title="Example: stop, reinventory, start and view the Agent Manager's status"
+brew services stop circonus-am &&
+/usr/local/opt/circonus-am/sbin/circonus-am --inventory &&
+brew services start circonus-am &&
+brew services info circonus-am
+```
+
+  </TabItem>
+</Tabs>
 
 :::info Success
 
@@ -291,10 +338,10 @@ Example of what the output will look like when a **telegraf** agent has been fou
 
 ## Uninstalling
 
+To uninstall Agent Manage, run the following CMD.
+
 <Tabs groupId="operating-systems">
   <TabItem value="linuxPrivileged" label="Linux (Privileged)" default>
-
-To uninstall Agent Manage, run the following CMD.
 
 ```bash
 sudo /opt/circonus/am/sbin/circonus-am --decomission &&
@@ -304,13 +351,24 @@ sudo apt autoremove
 ```
 
   </TabItem>
-  <TabItem value="macOsHomebrew" label="macOS (Homebrew)">
+  <TabItem value="macOsHomebrew" label="macOS">
 
-To uninstall Agent Manage, run the following CMD.
+<Tabs groupId="macOsArch">
+  <TabItem value="arm" label="Arm">
 
-```bash
+```zsh
 brew remove circonus/circonus-agent-manager/circonus-am
 ```
+
+  </TabItem>
+  <TabItem value="amd64" label="amd64">
+
+```zsh
+brew remove circonus/circonus-agent-manager/circonus-am
+```
+
+  </TabItem>
+</Tabs>
 
   </TabItem>
 </Tabs>
@@ -376,7 +434,10 @@ Aug 15 18:07:28 ubuntu-qa21-1-observability circonus-am[4079997]: {"level":"info
 ```
 
   </TabItem>
-  <TabItem value="macOsHomebrew" label="macOS (Homebrew)">
+  <TabItem value="macOsHomebrew" label="macOS">
+
+<Tabs groupId="macOsArch">
+<TabItem value="arm" label="Arm">
 
 Agent Manager usage flags
 
@@ -424,6 +485,59 @@ View the logs of Agent Manager while it is running
 {"level":"fatal","error":"open /opt/homebrew/etc/circonus-am.yaml: no such file or directory","config_file":"/opt/homebrew/etc/circonus-am.yaml","time":1692194629,"message":"unable to load config file"}
 ...
 ```
+
+  </TabItem>
+  <TabItem value="amd64" label="amd64">
+
+Agent Manager usage flags
+
+```bash title="macOS (amd64) Homebrew" showLineNumbers
+# Check all the usage flags for the Agent Manager
+➜  ~ /usr/local/opt/circonus-am/sbin/circonus-am -h
+Manager for local agents (metrics, logs, etc.)
+
+Usage:
+  circonus-am [flags]
+
+Flags:
+      --apiurl string              [ENV: CAM_API_URL] Circonus API URL (default "https://web-api.svcs-np.circonus.net/configurations/v1")
+      --aws-ec2-tags stringArray   [ENV: CAM_AWS_EC2_TAGS] AWS EC2 tags for registration meta data
+  -c, --config string              config file (default: /opt/homebrew/Cellar/circonus-am/0.1.4/etc/circonus-am.yaml|.json|.toml)
+  -d, --debug                      [ENV: CAM_DEBUG] Enable debug messages
+  -h, --help                       help for circonus-am
+      --inventory                  [ENV: CAM_INVENTORY] Inventory installed agents
+      --log-level string           [ENV: CAM_LOG_LEVEL] Log level [(panic|fatal|error|warn|info|debug|disabled)] (default "info")
+      --log-pretty                 Output formatted/colored log lines [ignored on windows]
+      --poll-interval string       [ENV: CAM_POLL_INTERVAL] Polling interval for actions (default "60s")
+      --register string            [ENV: CAM_REGISTER] Registration token
+  -V, --version                    Show version and exit
+```
+
+Check to see if Agent Manager is running.
+
+```bash title="macOS (amd64) Homebrew" showLineNumbers
+# Check the status of the Agent Manager
+➜  ~ brew services info circonus-am
+circonus-am (homebrew.mxcl.circonus-am)
+Running: ✔
+Loaded: ✔
+Schedulable: ✔
+```
+
+View the logs of Agent Manager while it is running
+
+```bash title="macOS (amd64) Homebrew" showLineNumbers
+# Manually start the Agent Manager and write the last 20 lines of logs to stdout
+➜  opt brew services start circonus-am && tail -f -n20 /usr/local/var/log/circonus-agent-manager.log
+Service `circonus-am` already started, use `brew services restart circonus-am` to restart.
+{"level":"info","name":"circonus-am","version":"0.2.6","time":1695177514,"message":"starting"}
+{"level":"info","interval":"1m0s","time":1695177514,"message":"starting poller"}
+...
+```
+
+  </TabItem>
+
+</Tabs>
 
   </TabItem>
 </Tabs>
