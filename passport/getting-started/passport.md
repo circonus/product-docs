@@ -28,8 +28,8 @@ To get up and running quickly with Passport, we will be installing the Agent Man
 
 #### Step 1 - Download and install
 
-- Download the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
-- Modify the following commands to fit your platform type and **specify the latest version available**.
+1. Download the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
+2. Modify the following commands to fit your platform type and **specify the latest version available**.
 
 ```bash title="Example: Download and Install Agent Manager v0.2.6 for Debian"
 curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.6/circonus-am_0.2.6_amd64.deb &&
@@ -64,8 +64,8 @@ sudo systemctl status circonus-am
 
 If the registration is successful, then you should see the following output from the Agent Manager and also the status of its service as `Active: active (running)`.
 
-```bash
-{"level":"info","pkg":"manager","time":1692125508,"message":"registration complete"}
+```json
+{ "message": "registration complete" }
 ```
 
 <details><summary>Example - Successful installation</summary>
@@ -148,16 +148,30 @@ lines 1-14/14 (END)
 <div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/6SdZ3HOEmok?si=gKsK0KEwMEuES9qp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 
   </TabItem>
-  <TabItem value="macOsHomebrew" label="macOS (Homebrew)">
+  <TabItem value="macOsHomebrew" label="macOS">
 
 #### Step 1 - Download and install
 
-- Download and install the latest version of Agent Manager `tar.gz` file from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture, or install with homebrew package manager.
+1. Download and install the latest version of Agent Manager `tar.gz` file from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture, or install with homebrew package manager as the instructions below indicate.
+
+<Tabs groupId="macOsArch">
+  <TabItem value="arm" label="Arm">
 
 ```bash title="Example: Tap the Agent Manager repo and install"
 brew tap circonus/homebrew-circonus-agent-manager &&
 brew install circonus/circonus-agent-manager/circonus-am
 ```
+
+  </TabItem>
+  <TabItem value="amd64" label="amd64">
+
+```bash title="Example: Tap the Agent Manager repo and install"
+brew tap circonus/homebrew-circonus-agent-manager &&
+brew install circonus/circonus-agent-manager/circonus-am
+```
+
+  </TabItem>
+</Tabs>
 
 <br/><br/>
 
@@ -178,20 +192,33 @@ This secret can not be retrieved again once the window is closed and a new one w
     2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
     3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
+<Tabs groupId="macOsArch">
+  <TabItem value="arm" label="Arm">
+
 ```bash title="Register, start, and view the status"
 /opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>" &&
 brew services start circonus-am &&
 brew services info circonus-am
 ```
 
+  </TabItem>
+  <TabItem value="amd64" label="amd64">
+
+```bash title="Register, start, and view the status"
+/usr/local/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>" &&
+brew services start circonus-am &&
+brew services info circonus-am
+```
+
+  </TabItem>
+</Tabs>
+
 :::info Success
 
 If the registration is successful, then you should see the following output `registration complete` and also the status of its service as `Active: active (running)`.
 
-```json showLineNumbers
-{
-  "message": "registration complete"
-}
+```json
+{ "message": "registration complete" }
 ```
 
 :::
