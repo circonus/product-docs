@@ -5,7 +5,7 @@ tags:
   - Passport
 ---
 
-# Passport [Private Beta]
+# Passport (Open Beta)
 
 ## Overview
 
