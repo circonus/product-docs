@@ -40,17 +40,16 @@ sudo dpkg -i circonus-am_0.2.6_amd64.deb
 
 #### Step 2 - Register, restart and view the status
 
-1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations.
+1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret.
 
 :::warning WARNING
 
-This secret can not be retrieved again once the window is closed and a new one will need to be created.
+This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use.
 
 :::
 
-2.  Register Agent Manager with the following command flag `circonus-am --register="<registrationTokenSecret>"`.
-3.  In the following command, replace `<registrationTokenSecret>` with your account registration token and then run the command.
-4.  **Optional:**
+2.  In the following command, replace `<registrationTokenSecret>` with your account registration token secret and then run the command.
+3.  **Optional:**
     1.  Tags can be added only during registration times by using the `--tags` flag.
         1.  _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
     2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
@@ -177,18 +176,18 @@ brew install circonus/circonus-agent-manager/circonus-am
 
 #### Step 2 - Register, start and view the status
 
-1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token. A secret will be displayed for the user to copy and keep for future Agent Manager registrations.
+1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret.
 
 :::warning WARNING
 
-This secret can not be retrieved again once the window is closed and a new one will need to be created.
+This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use.
 
 :::
 
-2.  Register Agent Manager with the following command flag `circonus-am --register="<registrationTokenSecret>"`.
-3.  In the following command, replace `<registrationTokenSecret>` with your account registration token and then run the command.
-4.  **Optional:**
+2.  In the following command, replace `<registrationTokenSecret>` with your account registration token secret and then run the command.
+3.  **Optional:**
     1.  Tags can be added only during registration times by using the `--tags` flag.
+        1.  _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
     2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
     3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
