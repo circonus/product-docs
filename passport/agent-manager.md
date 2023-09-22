@@ -5,6 +5,7 @@ sidebar_position: 4
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import styles from './styles.module.css';
 
 # Agent Manager
 
@@ -26,74 +27,123 @@ Circonus recommends installing one or more [supported agents](/passport/intro#su
 
 **Supported Platforms**
 
-<Tabs groupId="operating-systems">
-  <TabItem value="linuxPrivileged" label="Linux (Privileged)" default>
+:::info
 
-#### Step 1 - Download and install
-
-1. Download the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
-2. Modify the following commands to fit your platform type and **specify the latest version available**.
-
-```bash title="Example: Download and Install Agent Manager v0.2.6 for Debian"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.6/circonus-am_0.2.6_amd64.deb &&
-sudo dpkg -i circonus-am_0.2.6_amd64.deb
-```
-
-<br/><br/>
-
-#### Step 2 - Register, restart and view the status
-
-1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret.
-
-:::warning WARNING
-
-This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use.
+If the following guided installation doesn't fit your environment, please review the available Agent Manager packages on the **[GitHub packages release page](https://github.com/circonus/agent-manager/releases)**.
 
 :::
 
-2.  In the following command, replace `<registrationTokenSecret>` with your account registration token secret and then run the command.
-3.  **Optional:**
-    1.  Tags can be added only during registration times by using the `--tags` flag.
-        1.  _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
-    2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
-    3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
+<br></br>
 
-```bash title="Example: Register, restart and view the Agent Manager's status"
+<Tabs groupId="operating-systems">
+  <TabItem value="linuxPrivileged" label="Linux Package Install" default attributes={{className: styles.largeTab}}>
+
+<Tabs groupId="linuxArch">
+  <TabItem value="ubuntu_2204_stable" label="Ubuntu 22.04 (Stable)" default attributes={{className: styles.smallTab}}>
+
+#### Step 1 - Install Circonus's gpg key, add the Agent Manager to your local repository and install
+
+```bash
+sudo wget -O /etc/apt/trusted.gpg.d/circonus.asc https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648 &&
+echo "deb http://updates.circonus.net/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list.d/circonus.list &&
+sudo apt update && sudo apt install circonus-am
+```
+
+#### Step 2 - Register, restart and view the status
+
+- Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+  - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+
+```bash
 sudo /opt/circonus/am/sbin/circonus-am --register="<registrationTokenSecret>" &&
 sudo systemctl restart circonus-am &&
 sudo systemctl status circonus-am
 ```
 
-If the registration is successful, then you should see the following output from the Agent Manager and also the status of its service as `Active: active (running)`.
+  </TabItem>
+  <TabItem value="ubuntu-2004-stable" label="Ubuntu 20.04 (Stable)" attributes={{className: styles.smallTab}}>
 
-```json
-{ "message": "registration complete" }
+#### Step 1 - Install Circonus's gpg key, add the Agent Manager to your local repository and install
+
+```bash
+sudo wget -O /etc/apt/trusted.gpg.d/circonus.asc https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648 &&
+echo "deb http://updates.circonus.net/ubuntu/ focal main" | sudo tee -a /etc/apt/sources.list.d/circonus.list &&
+sudo apt update && sudo apt install circonus-am
 ```
+
+#### Step 2 - Register, restart and view the status
+
+- Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+  - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+
+```bash
+sudo /opt/circonus/am/sbin/circonus-am --register="<registrationTokenSecret>" &&
+sudo systemctl restart circonus-am &&
+sudo systemctl status circonus-am
+```
+
+  </TabItem>
+</Tabs>
+
+:::info
+
+If the registration is successful, then you will see `"message": "registration complete"` from the Agent Manager and also the status of its service as `Active: active (running)`.
+
+**Agent Manager Tagging - _Optional_**
+
+- Tags can be added **only during registration** times by using the `--tags` flag.
+- _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+- Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
+- Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
+
+:::
 
 <details><summary>Example - Successful installation</summary>
 <p>
 
 ```bash title="Linux Ubuntu" showLineNumbers
-# Install the Agent Manager
-ubuntu-host:~$ sudo dpkg -i install ~/downloads/circonus-am_0.1.3_amd64.deb
+# Step 1
+circonus@ubuntu-host:/etc/apt/sources.list.d$ sudo wget -O /etc/apt/trusted.gpg.d/circonus.asc https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648 &&
+echo "deb http://updates.circonus.net/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list.d/circonus.list &&
+sudo apt update && sudo apt install circonus-am
+--2023-09-22 14:14:42--  https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648
+Resolving keybase.io (keybase.io)... 52.3.107.250, 52.72.123.132
+Connecting to keybase.io (keybase.io)|52.3.107.250|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 3122 (3.0K) [text/plain]
+Saving to: ‘/etc/apt/trusted.gpg.d/circonus.asc’
+
+/etc/apt/trusted.gpg.d/circonus.asc 100%[===================================================================>]   3.05K  --.-KB/s    in 0s
+
+2023-09-22 14:14:42 (773 MB/s) - ‘/etc/apt/trusted.gpg.d/circonus.asc’ saved [3122/3122]
+
+deb http://updates.circonus.net/ubuntu/ jammy main
+Hit:1 http://us-central1.gce.archive.ubuntu.com/ubuntu jammy InRelease
+Hit:2 http://us-central1.gce.archive.ubuntu.com/ubuntu jammy-updates InRelease
+Hit:3 http://us-central1.gce.archive.ubuntu.com/ubuntu jammy-backports InRelease
+Hit:4 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Hit:5 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:6 http://updates.circonus.net/ubuntu jammy InRelease
+Hit:7 https://packages.fluentbit.io/ubuntu/jammy jammy InRelease
 Reading package lists... Done
 Building dependency tree... Done
 Reading state information... Done
-Note, selecting 'circonus-am' instead of '/home/joshuajohnson/downloads/circonus-am_0.1.3_amd64.deb'
-The following package was automatically installed and is no longer required:
-  libnuma1
-Use 'sudo apt autoremove' to remove it.
+78 packages can be upgraded. Run 'apt list --upgradable' to see them.
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
 The following NEW packages will be installed:
   circonus-am
-0 upgraded, 1 newly installed, 0 to remove and 73 not upgraded.
-Need to get 0 B/4273 kB of archives.
+0 upgraded, 1 newly installed, 0 to remove and 78 not upgraded.
+Need to get 4281 kB of archives.
 After this operation, 10.7 MB of additional disk space will be used.
-Get:1 /home/joshuajohnson/downloads/circonus-am_0.1.3_amd64.deb circonus-am amd64 0.1.3 [4273 kB]
+Get:1 http://updates.circonus.net/ubuntu jammy/main amd64 circonus-am amd64 0.2.8 [4281 kB]
+Fetched 4281 kB in 1s (5300 kB/s)
 Selecting previously unselected package circonus-am.
-(Reading database ... 124495 files and directories currently installed.)
-Preparing to unpack .../circonus-am_0.1.3_amd64.deb ...
-Unpacking circonus-am (0.1.3) ...
-Setting up circonus-am (0.1.3) ...
+(Reading database ... 124909 files and directories currently installed.)
+Preparing to unpack .../circonus-am_0.2.8_amd64.deb ...
+Unpacking circonus-am (0.2.8) ...
+Setting up circonus-am (0.2.8) ...
 Created symlink /etc/systemd/system/multi-user.target.wants/circonus-am.service → /lib/systemd/system/circonus-am.service.
 Scanning processes...
 Scanning candidates...
@@ -105,7 +155,6 @@ Service restarts being deferred:
  systemctl restart docker.service
  systemctl restart networkd-dispatcher.service
  systemctl restart unattended-upgrades.service
- systemctl restart user@1008.service
 
 No containers need to be restarted.
 
@@ -113,33 +162,32 @@ No user sessions are running outdated binaries.
 
 No VM guests are running outdated hypervisor (qemu) binaries on this host.
 
-# Register the Agent Manager
-ubuntu-host:/opt/circonus/am/etc$ sudo /opt/circonus/am/sbin/circonus-am --register=6850a610-51b6-4829-baf3-f2cc40897211
-{"level":"info","name":"circonus-am","version":"0.1.3","time":1692125508,"message":"starting"}
-{"level":"info","time":1692125508,"message":"starting registration"}
-{"level":"info","agent":"telegraf","time":1692125508,"message":"found"}
-{"level":"info","pkg":"manager","time":1692125508,"message":"registration complete"}
-
-# Start the Agent Manager
-ubuntu-host:/opt/circonus/am/etc$ sudo systemctl start circonus-am
-
-# Optional: Check the status of Agent Manger
-ubuntu-host:/opt/circonus/am/etc$ sudo systemctl status circonus-am
+# Step 2
+circonus@ubuntu-host:/etc/apt/sources.list.d$ sudo /opt/circonus/am/sbin/circonus-am --register="eyJhbGciOiJIUzUxMiIsImtpZCI6IjIzMzAyNjE2ODMwMTgyMDY3NSIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiY29uZmlndXJhdGlvbnMtYXBpIl0sImNpcmNvbnVzOmFjY291bnQiOiJwcm9kdGVzdGluZyIsImNpcmNvbnVzOmdyYW50cyI6WyJjdXN0b21lcl9wYXNzcG9ydHJlZ2lzdGVyIl0sImNpcmNvbnVzOm9yZ2lkIjoiMjMzMDI2MTY4MzAxODIwNjc1IiwiY2lyY29udXM6dG9rZW4iOiIxYjMwNDViMC1lZjA4LTQ0NDMtOGYwYi0wMDZmNTNjOTdmMzQiLCJleHAiOjIwMTA5NzA3NjQsImlhdCI6MTY5NTM5NDc2NSwiaXNzIjoiY29uZmlndXJhdGlvbnMtYXBpIiwibmJmIjoxNjk1Mzk0NzY1LCJzdWIiOiIwIn0.BtN3jnlv78Ib0Dd5M3wQExlvokiobj3NBEkajRLQ6F9PgugmpxkCVgr2bGHXV6Kav-DopSFjVV31jOxjgz0oCg" --tags="os:linux_deb" && sudo systemctl restart c
+irconus-am && sudo systemctl status circonus-am
+{"level":"info","cfg_file":"/opt/circonus/am/etc/circonus-am.yaml","time":1695395093,"message":"config file found/used"}
+{"level":"info","name":"circonus-am","version":"0.2.8","time":1695395093,"message":"starting"}
+{"level":"info","time":1695395093,"message":"starting registration"}
+{"level":"warn","file":"/usr/bin/newrelic-infra-service","time":1695395093,"message":"agent binary not found, skipping"}
+{"level":"warn","file":"/usr/bin/otelcol","time":1695395093,"message":"agent binary not found, skipping"}
+{"level":"info","agent":"telegraf","time":1695395093,"message":"found"}
+{"level":"info","agent":"cua","time":1695395093,"message":"found"}
+{"level":"warn","file":"/usr/bin/datadog-agent","time":1695395093,"message":"agent binary not found, skipping"}
+{"level":"warn","file":"/usr/share/filebeat/bin/filebeat","time":1695395093,"message":"agent binary not found, skipping"}
+{"level":"info","agent":"fluent-bit","time":1695395093,"message":"found"}
+{"level":"warn","file":"/usr/share/metricbeat/bin/metricbeat","time":1695395093,"message":"agent binary not found, skipping"}
+{"level":"warn","file":"/usr/bin/vector","time":1695395093,"message":"agent binary not found, skipping"}
+{"level":"info","pkg":"manager","time":1695395093,"message":"registration complete"}
 ● circonus-am.service - Circonus Agent Manager
      Loaded: loaded (/lib/systemd/system/circonus-am.service; enabled; vendor preset: enabled)
-     Active: active (running) since Tue 2023-08-15 19:01:14 UTC; 44s ago
+     Active: active (running) since Fri 2023-09-22 15:04:53 UTC; 23ms ago
        Docs: https://github.com/circonus/agent-manager
-   Main PID: 4101958 (circonus-am)
-      Tasks: 7 (limit: 9525)
-     Memory: 2.6M
-        CPU: 6ms
+   Main PID: 1249575 (circonus-am)
+      Tasks: 6 (limit: 9525)
+     Memory: 1.4M
+        CPU: 4ms
      CGroup: /system.slice/circonus-am.service
-             └─4101958 /opt/circonus/am/sbin/circonus-am --config=/opt/circonus/am/etc/circonus-am.yaml
-
-Aug 15 19:01:14 ubuntu-host systemd[1]: Started Circonus Agent Manager.
-Aug 15 19:01:14 ubuntu-host circonus-am[4101958]: {"level":"info","name":"circonus-am","version":"0.1.3","time">
-Aug 15 19:01:14 ubuntu-host circonus-am[4101958]: {"level":"info","interval":"1m0s","time":1692126074,"message">
-lines 1-14/14 (END)
+             └─1249575 /opt/circonus/am/sbin/circonus-am --config=/opt/circonus/am/etc/circonus-am.yaml
 ```
 
 </p>
@@ -150,64 +198,48 @@ lines 1-14/14 (END)
 <div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/6SdZ3HOEmok?si=gKsK0KEwMEuES9qp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 
   </TabItem>
-  <TabItem value="macOsHomebrew" label="macOS">
+  <TabItem value="macOsHomebrew" label="macOS Package Install" attributes={{className: styles.largeTab}}>
 
-#### Step 1 - Download and install
 
-1. Download and install the latest version of Agent Manager `tar.gz` file from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture, or install with homebrew package manager as the instructions below indicate.
 
 <Tabs groupId="macOsArch">
-  <TabItem value="arm" label="Arm">
+  <TabItem value="arm" label="Apple Silicon (ARM64)" attributes={{className: styles.smallTab}}>
 
-```bash title="Example: Tap the Agent Manager repo and install"
+#### Step 1 - Tap the Circonus brew repository and install the Agent Manager
+
+```bash
 brew tap circonus/homebrew-circonus-agent-manager &&
 brew install circonus/circonus-agent-manager/circonus-am
 ```
-
-  </TabItem>
-  <TabItem value="amd64" label="amd64">
-
-```bash title="Example: Tap the Agent Manager repo and install"
-brew tap circonus/homebrew-circonus-agent-manager &&
-brew install circonus/circonus-agent-manager/circonus-am
-```
-
-  </TabItem>
-</Tabs>
-
-<br/><br/>
 
 #### Step 2 - Register, start and view the status
 
-1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret.
+- Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+  - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
 
-:::warning WARNING
-
-This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use.
-
-:::
-
-2.  In the following command, replace `<registrationTokenSecret>` with your account registration token secret and then run the command.
-3.  **Optional:**
-    1.  Tags can be added only during registration times by using the `--tags` flag.
-        1.  _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
-    2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
-    3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
-
-<Tabs groupId="macOsArch">
-  <TabItem value="arm" label="Arm">
-
-```bash title="Register, start, and view the status"
-/opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>" &&
+```bash
+/opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>"&&
 brew services start circonus-am &&
 brew services info circonus-am
 ```
 
   </TabItem>
-  <TabItem value="amd64" label="amd64">
+  <TabItem value="amd64" label="Intel (AMD64)" attributes={{className: styles.smallTab}}>
 
-```bash title="Register, start, and view the status"
-/usr/local/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>" &&
+#### Step 1 - Tap the Circonus brew repository and install the Agent Manager
+
+```bash
+brew tap circonus/homebrew-circonus-agent-manager &&
+brew install circonus/circonus-agent-manager/circonus-am
+```
+
+#### Step 2 - Register, start and view the status
+
+- Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+  - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+
+```bash
+/usr/local/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>"&&
 brew services start circonus-am &&
 brew services info circonus-am
 ```
@@ -215,13 +247,16 @@ brew services info circonus-am
   </TabItem>
 </Tabs>
 
-:::info Success
+:::info
 
-If the registration is successful, then you should see the following output `registration complete` and also the status of its service as `Active: active (running)`.
+If the registration is successful, then you will see `"message": "registration complete"` from the Agent Manager and also the status of its service as `Active: active (running)`.
 
-```json
-{ "message": "registration complete" }
-```
+**Agent Manager Tagging - _Optional_**
+
+- Tags can be added **only during registration** times by using the `--tags` flag.
+- _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+- Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
+- Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
 :::
 
@@ -235,7 +270,7 @@ If the registration is successful, then you should see the following output `reg
 If additional agents have been added to the host where Agent Manager is running, then you will need to run a few CMDs for them to become discovered.
 
 <Tabs groupId="operating-systems">
-  <TabItem value="linuxPrivileged" label="Linux (Privileged)" default>
+  <TabItem value="linuxPrivileged" label="Linux" default attributes={{className: styles.largeTab}}>
 
 #### Take an inventory of local collection agents
 
@@ -293,10 +328,10 @@ sudo systemctl status circonus-am
 </details>
 
   </TabItem>
-  <TabItem value="macOsHomebrew" label="macOS">
+  <TabItem value="macOsHomebrew" label="macOS" attributes={{className: styles.largeTab}}>
 
 <Tabs groupId="macOsArch">
-  <TabItem value="arm" label="Arm">
+  <TabItem value="arm" label="Apple Silicon (ARM64)" attributes={{className: styles.smallTab}}>
 
 #### Take an inventory of local collection agents
 
@@ -308,7 +343,7 @@ brew services info circonus-am
 ```
 
   </TabItem>
-  <TabItem value="amd64" label="amd64">
+  <TabItem value="amd64" label="Intel (AMD64)">
 
 #### Take an inventory of local collection agents
 
@@ -335,12 +370,14 @@ Example of what the output will look like when a **telegraf** agent has been fou
 </TabItem>
 </Tabs>
 
+---
+
 ## Uninstalling
 
 To uninstall Agent Manage, run the following CMD.
 
 <Tabs groupId="operating-systems">
-  <TabItem value="linuxPrivileged" label="Linux (Privileged)" default>
+  <TabItem value="linuxPrivileged" label="Linux" default attributes={{className: styles.largeTab}}>
 
 ```bash
 sudo /opt/circonus/am/sbin/circonus-am --decomission &&
@@ -350,17 +387,17 @@ sudo apt autoremove
 ```
 
   </TabItem>
-  <TabItem value="macOsHomebrew" label="macOS">
+  <TabItem value="macOsHomebrew" label="macOS" attributes={{className: styles.largeTab}}>
 
 <Tabs groupId="macOsArch">
-  <TabItem value="arm" label="Arm">
+  <TabItem value="arm" label="Apple Silicon (ARM64)" attributes={{className: styles.smallTab}}>
 
 ```zsh
 brew remove circonus/circonus-agent-manager/circonus-am
 ```
 
   </TabItem>
-  <TabItem value="amd64" label="amd64">
+  <TabItem value="amd64" label="Intel (AMD64)" attributes={{className: styles.smallTab}}>
 
 ```zsh
 brew remove circonus/circonus-agent-manager/circonus-am
@@ -372,10 +409,11 @@ brew remove circonus/circonus-agent-manager/circonus-am
   </TabItem>
 </Tabs>
 
+---
 ## Troubleshooting
 
 <Tabs groupId="operating-systems">
-  <TabItem value="linuxPrivileged" label="Linux (Privileged)" default>
+  <TabItem value="linuxPrivileged" label="Linux" default attributes={{className: styles.largeTab}}>
 
 Agent Manager usage flags
 
@@ -433,14 +471,14 @@ Aug 15 18:07:28 ubuntu-qa21-1-observability circonus-am[4079997]: {"level":"info
 ```
 
   </TabItem>
-  <TabItem value="macOsHomebrew" label="macOS">
+  <TabItem value="macOsHomebrew" label="macOS" attributes={{className: styles.largeTab}}>
 
 <Tabs groupId="macOsArch">
-<TabItem value="arm" label="Arm">
+<TabItem value="arm" label="Apple Silicon (ARM64)" attributes={{className: styles.smallTab}}>
 
 Agent Manager usage flags
 
-```bash title="macOS (Silicon) Homebrew" showLineNumbers
+```bash title="Apple Silicon (ARM64) Homebrew" showLineNumbers
 # Check all the usage flags for the Agent Manager
 ➜  ~ /opt/homebrew/opt/circonus-am/sbin/circonus-am -h
 Manager for local agents (metrics, logs, etc.)
@@ -464,7 +502,7 @@ Flags:
 
 Check to see if Agent Manager is running.
 
-```bash title="macOS (Silicon) Homebrew" showLineNumbers
+```bash title="Apple Silicon (ARM64) Homebrew" showLineNumbers
 # Check the status of the Agent Manager
 ➜  ~ brew services info circonus-am
 circonus-am (homebrew.mxcl.circonus-am)
@@ -475,7 +513,7 @@ Schedulable: ✔
 
 View the logs of Agent Manager while it is running
 
-```bash title="macOS (Silicon) Homebrew" showLineNumbers
+```bash title="Apple Silicon (ARM64) Homebrew" showLineNumbers
 # Manually start the Agent Manager and write the last 20 lines of logs to stdout
 ➜  ~ brew services start circonus-am && tail -f -n20 /opt/homebrew/var/log/circonus-agent-manager.log
 ==> Successfully started `circonus-am` (label: homebrew.mxcl.circonus-am)
@@ -486,11 +524,11 @@ View the logs of Agent Manager while it is running
 ```
 
   </TabItem>
-  <TabItem value="amd64" label="amd64">
+  <TabItem value="amd64" label="Intel (AMD64)" attributes={{className: styles.smallTab}}>
 
 Agent Manager usage flags
 
-```bash title="macOS (amd64) Homebrew" showLineNumbers
+```bash title="macOS (Intel (AMD64)) Homebrew" showLineNumbers
 # Check all the usage flags for the Agent Manager
 ➜  ~ /usr/local/opt/circonus-am/sbin/circonus-am -h
 Manager for local agents (metrics, logs, etc.)
@@ -514,7 +552,7 @@ Flags:
 
 Check to see if Agent Manager is running.
 
-```bash title="macOS (amd64) Homebrew" showLineNumbers
+```bash title="macOS (Intel (AMD64)) Homebrew" showLineNumbers
 # Check the status of the Agent Manager
 ➜  ~ brew services info circonus-am
 circonus-am (homebrew.mxcl.circonus-am)
@@ -525,7 +563,7 @@ Schedulable: ✔
 
 View the logs of Agent Manager while it is running
 
-```bash title="macOS (amd64) Homebrew" showLineNumbers
+```bash title="macOS (Intel (AMD64)) Homebrew" showLineNumbers
 # Manually start the Agent Manager and write the last 20 lines of logs to stdout
 ➜  opt brew services start circonus-am && tail -f -n20 /usr/local/var/log/circonus-agent-manager.log
 Service `circonus-am` already started, use `brew services restart circonus-am` to restart.

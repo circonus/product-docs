@@ -28,8 +28,8 @@ To get up and running quickly with Passport, we will be installing the Agent Man
 
 #### Step 1 - Download and install
 
-1. Download the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
-2. Modify the following commands to fit your platform type and **specify the latest version available**.
+- Download the latest version of Agent Manager from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture.
+- Modify the following commands to fit your platform type and **specify the latest version available**.
 
 ```bash title="Example: Download and Install Agent Manager v0.2.6 for Debian"
 curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.6/circonus-am_0.2.6_amd64.deb &&
@@ -40,20 +40,14 @@ sudo dpkg -i circonus-am_0.2.6_amd64.deb
 
 #### Step 2 - Register, restart and view the status
 
-1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret.
+- Log into the Passport UI and navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret.
 
-:::warning WARNING
-
-This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use.
-
-:::
-
-2.  In the following command, replace `<registrationTokenSecret>` with your account registration token secret and then run the command.
-3.  **Optional:**
-    1.  Tags can be added only during registration times by using the `--tags` flag.
-        1.  _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
-    2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
-    3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
+- In the following command, replace `<registrationTokenSecret>` with your account registration token secret and then run the command.
+- **Optional:**
+  - Tags can be added only during registration times by using the `--tags` flag.
+    - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
+  - Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
 ```bash title="Example: Register, restart and view the Agent Manager's status"
 sudo /opt/circonus/am/sbin/circonus-am --register="<registrationTokenSecret>" &&
