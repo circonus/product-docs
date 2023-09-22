@@ -200,61 +200,45 @@ irconus-am && sudo systemctl status circonus-am
   </TabItem>
   <TabItem value="macOsHomebrew" label="macOS Package Install" attributes={{className: styles.largeTab}}>
 
-#### Step 1 - Download and install
 
-1. Download and install the latest version of Agent Manager `tar.gz` file from the [release page](https://github.com/circonus/agent-manager/releases) for the appropriate operating system and CPU architecture, or install with homebrew package manager as the instructions below indicate.
 
 <Tabs groupId="macOsArch">
-  <TabItem value="arm" label="arm" default>
+  <TabItem value="arm" label="Apple Silicon (ARM64)" attributes={{className: styles.smallTab}}>
 
-```bash title="Example: Tap the Agent Manager repo and install"
+#### Step 1 - Tap the Circonus brew repository and install the Agent Manager
+
+```bash
 brew tap circonus/homebrew-circonus-agent-manager &&
 brew install circonus/circonus-agent-manager/circonus-am
 ```
-
-  </TabItem>
-  <TabItem value="amd64" label="amd64">
-
-```bash title="Example: Tap the Agent Manager repo and install"
-brew tap circonus/homebrew-circonus-agent-manager &&
-brew install circonus/circonus-agent-manager/circonus-am
-```
-
-  </TabItem>
-</Tabs>
-
-<br/><br/>
 
 #### Step 2 - Register, start and view the status
 
-1. Log into the Passport UI and navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret.
+- Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+  - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
 
-:::warning WARNING
-
-This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use.
-
-:::
-
-2.  In the following command, replace `<registrationTokenSecret>` with your account registration token secret and then run the command.
-3.  **Optional:**
-    1.  Tags can be added only during registration times by using the `--tags` flag.
-        1.  _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
-    2.  Example of CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
-    3.  Example using environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
-
-<Tabs groupId="macOsArch">
-  <TabItem value="arm" label="arm" default>
-
-```bash title="Register, start, and view the status"
+```bash
 /opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>"&&
 brew services start circonus-am &&
 brew services info circonus-am
 ```
 
   </TabItem>
-  <TabItem value="amd64" label="amd64">
+  <TabItem value="amd64" label="Intel (AMD64)" attributes={{className: styles.smallTab}}>
 
-```bash title="Register, start, and view the status"
+#### Step 1 - Tap the Circonus brew repository and install the Agent Manager
+
+```bash
+brew tap circonus/homebrew-circonus-agent-manager &&
+brew install circonus/circonus-agent-manager/circonus-am
+```
+
+#### Step 2 - Register, start and view the status
+
+- Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+  - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+
+```bash
 /usr/local/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>"&&
 brew services start circonus-am &&
 brew services info circonus-am
@@ -263,13 +247,16 @@ brew services info circonus-am
   </TabItem>
 </Tabs>
 
-:::info Success
+:::info
 
-If the registration is successful, then you should see the following output `registration complete` and also the status of its service as `Active: active (running)`.
+If the registration is successful, then you will see `"message": "registration complete"` from the Agent Manager and also the status of its service as `Active: active (running)`.
 
-```json
-{ "message": "registration complete" }
-```
+**Agent Manager Tagging - _Optional_**
+
+- Tags can be added **only during registration** times by using the `--tags` flag.
+- _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+- Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
+- Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
 :::
 
@@ -344,7 +331,7 @@ sudo systemctl status circonus-am
   <TabItem value="macOsHomebrew" label="macOS" attributes={{className: styles.largeTab}}>
 
 <Tabs groupId="macOsArch">
-  <TabItem value="arm" label="arm" attributes={{className: styles.smallTab}}>
+  <TabItem value="arm" label="Apple Silicon (ARM64)" attributes={{className: styles.smallTab}}>
 
 #### Take an inventory of local collection agents
 
@@ -356,7 +343,7 @@ brew services info circonus-am
 ```
 
   </TabItem>
-  <TabItem value="amd64" label="amd64">
+  <TabItem value="amd64" label="Intel (AMD64)">
 
 #### Take an inventory of local collection agents
 
@@ -403,14 +390,14 @@ sudo apt autoremove
   <TabItem value="macOsHomebrew" label="macOS" attributes={{className: styles.largeTab}}>
 
 <Tabs groupId="macOsArch">
-  <TabItem value="arm" label="arm" attributes={{className: styles.smallTab}}>
+  <TabItem value="arm" label="Apple Silicon (ARM64)" attributes={{className: styles.smallTab}}>
 
 ```zsh
 brew remove circonus/circonus-agent-manager/circonus-am
 ```
 
   </TabItem>
-  <TabItem value="amd64" label="amd64" attributes={{className: styles.smallTab}}>
+  <TabItem value="amd64" label="Intel (AMD64)" attributes={{className: styles.smallTab}}>
 
 ```zsh
 brew remove circonus/circonus-agent-manager/circonus-am
@@ -487,11 +474,11 @@ Aug 15 18:07:28 ubuntu-qa21-1-observability circonus-am[4079997]: {"level":"info
   <TabItem value="macOsHomebrew" label="macOS" attributes={{className: styles.largeTab}}>
 
 <Tabs groupId="macOsArch">
-<TabItem value="arm" label="arm" attributes={{className: styles.smallTab}}>
+<TabItem value="arm" label="Apple Silicon (ARM64)" attributes={{className: styles.smallTab}}>
 
 Agent Manager usage flags
 
-```bash title="macOS (Silicon) Homebrew" showLineNumbers
+```bash title="Apple Silicon (ARM64) Homebrew" showLineNumbers
 # Check all the usage flags for the Agent Manager
 ➜  ~ /opt/homebrew/opt/circonus-am/sbin/circonus-am -h
 Manager for local agents (metrics, logs, etc.)
@@ -515,7 +502,7 @@ Flags:
 
 Check to see if Agent Manager is running.
 
-```bash title="macOS (Silicon) Homebrew" showLineNumbers
+```bash title="Apple Silicon (ARM64) Homebrew" showLineNumbers
 # Check the status of the Agent Manager
 ➜  ~ brew services info circonus-am
 circonus-am (homebrew.mxcl.circonus-am)
@@ -526,7 +513,7 @@ Schedulable: ✔
 
 View the logs of Agent Manager while it is running
 
-```bash title="macOS (Silicon) Homebrew" showLineNumbers
+```bash title="Apple Silicon (ARM64) Homebrew" showLineNumbers
 # Manually start the Agent Manager and write the last 20 lines of logs to stdout
 ➜  ~ brew services start circonus-am && tail -f -n20 /opt/homebrew/var/log/circonus-agent-manager.log
 ==> Successfully started `circonus-am` (label: homebrew.mxcl.circonus-am)
@@ -537,11 +524,11 @@ View the logs of Agent Manager while it is running
 ```
 
   </TabItem>
-  <TabItem value="amd64" label="amd64" attributes={{className: styles.smallTab}}>
+  <TabItem value="amd64" label="Intel (AMD64)" attributes={{className: styles.smallTab}}>
 
 Agent Manager usage flags
 
-```bash title="macOS (amd64) Homebrew" showLineNumbers
+```bash title="macOS (Intel (AMD64)) Homebrew" showLineNumbers
 # Check all the usage flags for the Agent Manager
 ➜  ~ /usr/local/opt/circonus-am/sbin/circonus-am -h
 Manager for local agents (metrics, logs, etc.)
@@ -565,7 +552,7 @@ Flags:
 
 Check to see if Agent Manager is running.
 
-```bash title="macOS (amd64) Homebrew" showLineNumbers
+```bash title="macOS (Intel (AMD64)) Homebrew" showLineNumbers
 # Check the status of the Agent Manager
 ➜  ~ brew services info circonus-am
 circonus-am (homebrew.mxcl.circonus-am)
@@ -576,7 +563,7 @@ Schedulable: ✔
 
 View the logs of Agent Manager while it is running
 
-```bash title="macOS (amd64) Homebrew" showLineNumbers
+```bash title="macOS (Intel (AMD64)) Homebrew" showLineNumbers
 # Manually start the Agent Manager and write the last 20 lines of logs to stdout
 ➜  opt brew services start circonus-am && tail -f -n20 /usr/local/var/log/circonus-agent-manager.log
 Service `circonus-am` already started, use `brew services restart circonus-am` to restart.
