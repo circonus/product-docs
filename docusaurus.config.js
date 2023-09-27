@@ -36,16 +36,12 @@ const config = {
     [
       "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
-      {
-        gtag: {
-          trackingID: "G-MQPLXSGC00",
-          anonymizeIP: true,
-        },
+      ({
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
         docs: false,
-      },
+      }),
     ],
   ],
 
