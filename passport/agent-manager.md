@@ -66,7 +66,7 @@ sudo systemctl status circonus-am
 #### Step 1 - Install Circonus's gpg key, add the Agent Manager to your local repository and install
 
 ```bash
-sudo wget -O /etc/apt/trusted.gpg.d/circonus.asc https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648 &&
+sudo wget -O - https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648 | sudo apt-key add - &&
 echo "deb http://updates.circonus.net/ubuntu/ focal main" | sudo tee -a /etc/apt/sources.list.d/circonus.list &&
 sudo apt update && sudo apt install circonus-am
 ```
@@ -83,6 +83,28 @@ sudo systemctl status circonus-am
 ```
 
   </TabItem>
+  <TabItem value="centos_7_stable" label="centOS 7 (stable)" attributes={{className: styles.smallTab}}>
+
+#### Step 1 - Install Circonus's gpg key, add the Agent Manager to your local repository and install
+
+```bash
+sudo wget -O /etc/apt/trusted.gpg.d/circonus.asc https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648 &&
+echo "deb http://updates.circonus.net/ubuntu/ focal main" | sudo tee -a /etc/apt/sources.list.d/circonus.list &&
+sudo apt update && sudo apt install circonus-am
+```
+
+#### Step 2 - Register, restart and view the status
+
+- Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+- _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+
+```bash
+sudo /opt/circonus/am/sbin/circonus-am --register="<registrationTokenSecret>" &&
+sudo systemctl restart circonus-am &&
+sudo systemctl status circonus-am
+```
+
+</TabItem>
 </Tabs>
 
 :::info
@@ -200,8 +222,6 @@ irconus-am && sudo systemctl status circonus-am
   </TabItem>
   <TabItem value="macOsHomebrew" label="macOS Package Install" attributes={{className: styles.largeTab}}>
 
-
-
 <Tabs groupId="macOsArch">
   <TabItem value="arm" label="Apple Silicon (ARM64)" attributes={{className: styles.smallTab}}>
 
@@ -263,7 +283,17 @@ If the registration is successful, then you will see `"message": "registration c
   </TabItem>
 </Tabs>
 
+<br></br>
+
 ---
+
+<!--
+
+
+Managing additional Agents
+
+
+-->
 
 ## Managing additional collection agents
 
@@ -370,7 +400,17 @@ Example of what the output will look like when a **telegraf** agent has been fou
 </TabItem>
 </Tabs>
 
+<br></br>
+
 ---
+
+<!--
+
+
+Uninstalling
+
+
+-->
 
 ## Uninstalling
 
@@ -409,7 +449,18 @@ brew remove circonus/circonus-agent-manager/circonus-am
   </TabItem>
 </Tabs>
 
+<br></br>
+
 ---
+
+<!--
+
+
+Troubleshooting
+
+
+-->
+
 ## Troubleshooting
 
 <Tabs groupId="operating-systems">
