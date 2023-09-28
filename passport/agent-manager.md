@@ -25,7 +25,7 @@ Circonus recommends installing one or more [supported agents](/passport/intro#su
 
 :::
 
-**Supported Platforms**
+### Supported Platforms
 
 :::info
 
@@ -39,20 +39,27 @@ If the following guided installation doesn't fit your environment, please review
   <TabItem value="linuxPrivileged" label="Linux Package Install" default attributes={{className: styles.largeTab}}>
 
 <Tabs groupId="linuxArch">
-  <TabItem value="ubuntu_2204_stable" label="Ubuntu 22.04 (Stable)" default attributes={{className: styles.smallTab}}>
+  <TabItem value="ubuntu_2204" label="Ubuntu 22.04" default attributes={{className: styles.smallTab}}>
 
-#### Step 1 - Install Circonus's gpg key, add the Agent Manager to your local repository and install
+<font size="4.5"><b>Step 1 - Install Agent Manager from the repository with the following commands.</b></font>
 
-```bash
+```bash title="amd64"
 sudo wget -O /etc/apt/trusted.gpg.d/circonus.asc https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648 &&
 echo "deb http://updates.circonus.net/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list.d/circonus.list &&
 sudo apt update && sudo apt install circonus-am
 ```
 
-#### Step 2 - Register, restart and view the status
+<font size="4.5"><b>Step 2 - Register, restart and view the status</b></font>
 
 - Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+
   - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+
+- **Agent Manager Tagging - _Optional_**
+  - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
+  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
+  - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
 ```bash
 sudo /opt/circonus/am/sbin/circonus-am --register="<registrationTokenSecret>" &&
@@ -61,20 +68,135 @@ sudo systemctl status circonus-am
 ```
 
   </TabItem>
-  <TabItem value="ubuntu-2004-stable" label="Ubuntu 20.04 (Stable)" attributes={{className: styles.smallTab}}>
+  <TabItem value="ubuntu-2004" label="Ubuntu 20.04" attributes={{className: styles.smallTab}}>
 
-#### Step 1 - Install Circonus's gpg key, add the Agent Manager to your local repository and install
+<font size="4.5"><b>Step 1 - Install Agent Manager from the repository with the following commands.</b></font>
 
-```bash
-sudo wget -O /etc/apt/trusted.gpg.d/circonus.asc https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648 &&
+```bash title="amd64"
+sudo wget -O - https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648 | sudo apt-key add - &&
 echo "deb http://updates.circonus.net/ubuntu/ focal main" | sudo tee -a /etc/apt/sources.list.d/circonus.list &&
 sudo apt update && sudo apt install circonus-am
 ```
 
-#### Step 2 - Register, restart and view the status
+<font size="4.5"><b>Step 2 - Register, restart and view status</b></font>
 
 - Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+
   - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+
+- **Agent Manager Tagging - _Optional_**
+  - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
+  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
+  - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
+
+```bash
+sudo /opt/circonus/am/sbin/circonus-am --register="<registrationTokenSecret>" &&
+sudo systemctl restart circonus-am &&
+sudo systemctl status circonus-am
+```
+
+  </TabItem>
+  <TabItem value="install-from-deb-file" label="Install .deb file" attributes={{className: styles.smallTab}}>
+
+<font size="4.5"><b>Step 1 - Download and install the Agent Manager for either amd64 or arm64 below</b></font>
+
+- _**NOTE** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
+
+```bash title="amd64"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_amd64.deb &&
+sudo dpkg -i circonus-am_0.2.8_amd64.deb
+```
+
+```bash title="arm64"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_arm64.deb &&
+sudo dpkg -i circonus-am_0.2.8_arm64.deb
+```
+
+<font size="4.5"><b>Step 2 - Register, restart and view status</b></font>
+
+- Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+
+  - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+
+- **Agent Manager Tagging - _Optional_**
+  - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
+  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
+  - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
+
+```bash
+sudo /opt/circonus/am/sbin/circonus-am --register="<registrationTokenSecret>" &&
+sudo systemctl restart circonus-am &&
+sudo systemctl status circonus-am
+```
+
+  </TabItem>
+
+<TabItem value="install-from-rpm-file" label="Install .rpm file" attributes={{className: styles.smallTab}}>
+
+<font size="4.5"><b>Step 1 - Download and install the Agent Manager for either amd64 or arm64 below</b></font>
+
+- _**NOTE** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
+
+```bash title="amd64"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_amd64.rpm &&
+sudo yum install circonus-am_0.2.8_amd64.rpm
+```
+
+```bash title="arm64"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_arm64.rpm &&
+sudo yum install circonus-am_0.2.8_arm64.rpm
+```
+
+<font size="4.5"><b>Step 2 - Register, restart and view status</b></font>
+
+- Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+
+  - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+
+- **Agent Manager Tagging - _Optional_**
+  - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
+  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
+  - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
+
+```bash
+sudo /opt/circonus/am/sbin/circonus-am --register="<registrationTokenSecret>" &&
+sudo systemctl restart circonus-am &&
+sudo systemctl status circonus-am
+```
+
+  </TabItem>
+  <TabItem value="install-from-tar.gz" label="Download tar.gz file" attributes={{className: styles.smallTab}}>
+
+<font size="4.5"><b>Step 1 - Download the Agent Manager for either amd64 or arm64 below</b></font>
+
+- _**NOTE** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
+
+```bash title="tar.gz amd64"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_darwin_amd64.tar.gz
+```
+
+```bash title="tar.gz arm64"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_darwin_arm64.tar.gz
+```
+
+<font size="4.5"><b>Step 2 - Install</b></font>
+
+- Using your perferred method of installaiton, install the Agent Manager and see the [releases page](https://github.com/circonus/agent-manager/releases) for additional information.
+
+<font size="4.5"><b>Step 3 - Register, restart and view status</b></font>
+
+- Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+
+  - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+
+- **Agent Manager Tagging - _Optional_**
+  - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
+  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
+  - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
 ```bash
 sudo /opt/circonus/am/sbin/circonus-am --register="<registrationTokenSecret>" &&
@@ -85,16 +207,9 @@ sudo systemctl status circonus-am
   </TabItem>
 </Tabs>
 
-:::info
+:::info SUCCESS!
 
 If the registration is successful, then you will see `"message": "registration complete"` from the Agent Manager and also the status of its service as `Active: active (running)`.
-
-**Agent Manager Tagging - _Optional_**
-
-- Tags can be added **only during registration** times by using the `--tags` flag.
-- _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
-- Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
-- Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
 :::
 
@@ -200,19 +315,17 @@ irconus-am && sudo systemctl status circonus-am
   </TabItem>
   <TabItem value="macOsHomebrew" label="macOS Package Install" attributes={{className: styles.largeTab}}>
 
-
-
 <Tabs groupId="macOsArch">
   <TabItem value="arm" label="Apple Silicon (ARM64)" attributes={{className: styles.smallTab}}>
 
-#### Step 1 - Tap the Circonus brew repository and install the Agent Manager
+<font size="4.5"><b>Step 1 - Tap the Agent Manager repository and install</b></font>
 
 ```bash
 brew tap circonus/homebrew-circonus-agent-manager &&
 brew install circonus/circonus-agent-manager/circonus-am
 ```
 
-#### Step 2 - Register, start and view the status
+<font size="4.5"><b>Step 2 - Register, restart and view status</b></font>
 
 - Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
   - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
@@ -226,14 +339,48 @@ brew services info circonus-am
   </TabItem>
   <TabItem value="amd64" label="Intel (AMD64)" attributes={{className: styles.smallTab}}>
 
-#### Step 1 - Tap the Circonus brew repository and install the Agent Manager
+<font size="4.5"><b>Step 1 - Tap the Agent Manager repository and install</b></font>
 
 ```bash
 brew tap circonus/homebrew-circonus-agent-manager &&
 brew install circonus/circonus-agent-manager/circonus-am
 ```
 
-#### Step 2 - Register, start and view the status
+<font size="4.5"><b>Step 2 - Register, restart and view status</b></font>
+
+- Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+  - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+
+```bash
+/usr/local/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>"&&
+brew services start circonus-am &&
+brew services info circonus-am
+```
+
+  </TabItem>
+  <TabItem value="targz-file" label="Download tar.gz file" attributes={{className: styles.smallTab}}>
+
+<font size="4.5"><b>Step 1 - Download the Agent Manager for either amd64 or arm64 below</b></font>
+
+- _**NOTE** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
+
+```bash title="arm64.tar.gz"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_darwin_arm64.tar.gz
+```
+
+```bash title="amd64.tar.gz"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_darwin_amd64.tar.gz
+```
+
+```bash title="all.tar.gz"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_darwin_all.tar.gz
+```
+
+<font size="4.5"><b>Step 2 - Install</b></font>
+
+- Using your perferred method of installaiton, install the Agent Manager and see the [releases page](https://github.com/circonus/agent-manager/releases) for additional information.
+
+<font size="4.5"><b>Step 3 - Register, restart and view status</b></font>
 
 - Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
   - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
@@ -263,7 +410,17 @@ If the registration is successful, then you will see `"message": "registration c
   </TabItem>
 </Tabs>
 
+<br></br>
+
 ---
+
+<!--
+
+
+Managing additional Agents
+
+
+-->
 
 ## Managing additional collection agents
 
@@ -272,7 +429,7 @@ If additional agents have been added to the host where Agent Manager is running,
 <Tabs groupId="operating-systems">
   <TabItem value="linuxPrivileged" label="Linux" default attributes={{className: styles.largeTab}}>
 
-#### Take an inventory of local collection agents
+<font size="4.5"><b>Take an inventory of local collection agents</b></font>
 
 ```bash title="Example: stop, reinventory, start and view the Agent Manager's status"
 sudo systemctl stop circonus-am &&
@@ -333,7 +490,7 @@ sudo systemctl status circonus-am
 <Tabs groupId="macOsArch">
   <TabItem value="arm" label="Apple Silicon (ARM64)" attributes={{className: styles.smallTab}}>
 
-#### Take an inventory of local collection agents
+<font size="4.5"><b>Take an inventory of local collection agents</b></font>
 
 ```bash title="Example: stop, reinventory, start and view the Agent Manager's status"
 brew services stop circonus-am &&
@@ -345,7 +502,7 @@ brew services info circonus-am
   </TabItem>
   <TabItem value="amd64" label="Intel (AMD64)">
 
-#### Take an inventory of local collection agents
+<font size="4.5"><b>Take an inventory of local collection agents</b></font>
 
 ```bash title="Example: stop, reinventory, start and view the Agent Manager's status"
 brew services stop circonus-am &&
@@ -370,7 +527,17 @@ Example of what the output will look like when a **telegraf** agent has been fou
 </TabItem>
 </Tabs>
 
+<br></br>
+
 ---
+
+<!--
+
+
+Uninstalling
+
+
+-->
 
 ## Uninstalling
 
@@ -409,7 +576,18 @@ brew remove circonus/circonus-agent-manager/circonus-am
   </TabItem>
 </Tabs>
 
+<br></br>
+
 ---
+
+<!--
+
+
+Troubleshooting
+
+
+-->
+
 ## Troubleshooting
 
 <Tabs groupId="operating-systems">
