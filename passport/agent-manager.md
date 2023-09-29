@@ -328,10 +328,17 @@ brew install circonus/circonus-agent-manager/circonus-am
 <font size="4.5"><b>Step 2 - Register, restart and view status</b></font>
 
 - Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+
   - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
 
+- **Agent Manager Tagging - _Optional_**
+  - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
+  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
+  - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
+
 ```bash
-/opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>"&&
+/opt/homebrew/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>" &&
 brew services start circonus-am &&
 brew services info circonus-am
 ```
@@ -349,10 +356,17 @@ brew install circonus/circonus-agent-manager/circonus-am
 <font size="4.5"><b>Step 2 - Register, restart and view status</b></font>
 
 - Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+
   - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
 
+- **Agent Manager Tagging - _Optional_**
+  - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
+  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
+  - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
+
 ```bash
-/usr/local/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>"&&
+/usr/local/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>" &&
 brew services start circonus-am &&
 brew services info circonus-am
 ```
@@ -383,10 +397,17 @@ curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circ
 <font size="4.5"><b>Step 3 - Register, restart and view status</b></font>
 
 - Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
+
   - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
 
+- **Agent Manager Tagging - _Optional_**
+  - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
+  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
+  - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
+
 ```bash
-/usr/local/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>"&&
+/usr/local/opt/circonus-am/sbin/circonus-am --register="<registrationTokenSecret>" &&
 brew services start circonus-am &&
 brew services info circonus-am
 ```
@@ -397,13 +418,6 @@ brew services info circonus-am
 :::info
 
 If the registration is successful, then you will see `"message": "registration complete"` from the Agent Manager and also the status of its service as `Active: active (running)`.
-
-**Agent Manager Tagging - _Optional_**
-
-- Tags can be added **only during registration** times by using the `--tags` flag.
-- _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
-- Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
-- Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
 :::
 
