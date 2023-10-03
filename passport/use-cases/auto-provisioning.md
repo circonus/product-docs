@@ -26,7 +26,7 @@ The following example will apply a default Telegraf configuration file to any ag
 
 ## Create a rule
 
-Select a configuation file from **Configurations list view page**, then click the **Rules** tab and select **Create Rule**.
+Select a configuration file from **Configurations list view page**, then click the **Rules** tab and select **Create Rule**.
 
 ![configurations-details-page-no-rule](../img/configurations-details-page-no-rules.png)
 
@@ -42,10 +42,12 @@ Now, this configuration will automatically be applied to any agent that has the 
 
 :::info Working with more than 1 rule for auto provisioning agents
 
-A configuration can have 1 or more rules applied to it. When auto provisioning agents, set the rule **weight** to 1 so it will be the default configuraiton.
+A configuration can have 1 or more rules applied to it. When auto provisioning agents, set the rule **weight** to 1 so it will be the default configuration.
 
-Doing this will allow you to have multiple rules applied to a configuration file with higher weights for other conditions such as time-bouned changes, in coming alerts, Etc. When the rules with higher value weights expire, then the rules engine will apply the rule with the weight of 1 to the agent.
+Doing this will allow you to have multiple rules applied to a configuration file and or agent with either lower or higher weights for other conditions such as auto-provisioning default configs, in coming alerts, Etc. When the rules with higher value weights expire, then the rules engine will apply the rule with lower **weights** to the agents.
 
 :::
+
+We will set the weight of this rule to be something low such as **1** so we can default to this configuration file from other higher weighted configurations once they expire.
 
 ![configurations-details-page-no-rule](../img/configurations-rule-auto-provision.png)
