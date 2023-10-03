@@ -634,7 +634,7 @@ The rules can be ordered by clicking and holding each rule on the far left side 
 
 :::
 
-Complete instructions for Rules can be found on the **[rules engine](/passport/Configurations/rules-engine/)** page.
+Complete instructions for Rules can be found on the **[rules engine](/passport/rules-engine/)** page.
 
 <div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/JXQc_pcd-sE?si=xRaY73evGzq54yYd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 
