@@ -1,10 +1,11 @@
 .tab-container {
   height: 400px; /* Adjust the height as needed */
 }
-
+/* 
 .smallTab[aria-selected='true'] {
-    /*border-bottom: 1px transparent;*/
-}
+    border-bottom: 1px transparent;
+} */
+
 
 .largeTab[aria-selected='true'] {
     color: white;
