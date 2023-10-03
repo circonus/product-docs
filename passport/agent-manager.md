@@ -57,7 +57,7 @@ sudo apt update && sudo apt install circonus-am
 
 - **Agent Manager Tagging - _Optional_**
   - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
-  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - _If tags need to be added after the initial registration, re-register your agent manager again with the desired tags._
   - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
   - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
@@ -86,7 +86,7 @@ sudo apt update && sudo apt install circonus-am
 
 - **Agent Manager Tagging - _Optional_**
   - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
-  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - _If tags need to be added after the initial registration, re-register your agent manager again with the desired tags._
   - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
   - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
@@ -104,13 +104,13 @@ sudo systemctl status circonus-am
 - _**NOTE** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
 
 ```bash title="amd64"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_amd64.deb &&
-sudo dpkg -i circonus-am_0.2.8_amd64.deb
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_amd64.deb &&
+sudo dpkg -i circonus-am_0.2.9_amd64.deb
 ```
 
 ```bash title="arm64"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_arm64.deb &&
-sudo dpkg -i circonus-am_0.2.8_arm64.deb
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_arm64.deb &&
+sudo dpkg -i circonus-am_0.2.9_arm64.deb
 ```
 
 <font size="4.5"><b>Step 2 - Register, restart and view status</b></font>
@@ -121,7 +121,7 @@ sudo dpkg -i circonus-am_0.2.8_arm64.deb
 
 - **Agent Manager Tagging - _Optional_**
   - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
-  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - _If tags need to be added after the initial registration, re-register your agent manager again with the desired tags._
   - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
   - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
@@ -140,13 +140,13 @@ sudo systemctl status circonus-am
 - _**NOTE** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
 
 ```bash title="amd64"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_amd64.rpm &&
-sudo yum install circonus-am_0.2.8_amd64.rpm
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_amd64.rpm &&
+sudo yum install circonus-am_0.2.9_amd64.rpm
 ```
 
 ```bash title="arm64"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_arm64.rpm &&
-sudo yum install circonus-am_0.2.8_arm64.rpm
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_arm64.rpm &&
+sudo yum install circonus-am_0.2.9_arm64.rpm
 ```
 
 <font size="4.5"><b>Step 2 - Register, restart and view status</b></font>
@@ -157,7 +157,7 @@ sudo yum install circonus-am_0.2.8_arm64.rpm
 
 - **Agent Manager Tagging - _Optional_**
   - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
-  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - _If tags need to be added after the initial registration, re-register your agent manager again with the desired tags._
   - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
   - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
@@ -175,16 +175,16 @@ sudo systemctl status circonus-am
 - _**NOTE** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
 
 ```bash title="tar.gz amd64"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_darwin_amd64.tar.gz
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_darwin_amd64.tar.gz
 ```
 
 ```bash title="tar.gz arm64"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_darwin_arm64.tar.gz
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_darwin_arm64.tar.gz
 ```
 
 <font size="4.5"><b>Step 2 - Install</b></font>
 
-- Using your perferred method of installaiton, install the Agent Manager and see the [releases page](https://github.com/circonus/agent-manager/releases) for additional information.
+- Using your preferred method of installation, install the Agent Manager and see the [releases page](https://github.com/circonus/agent-manager/releases) for additional information.
 
 <font size="4.5"><b>Step 3 - Register, restart and view status</b></font>
 
@@ -194,7 +194,7 @@ curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circ
 
 - **Agent Manager Tagging - _Optional_**
   - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
-  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - _If tags need to be added after the initial registration, re-register your agent manager again with the desired tags._
   - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
   - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
@@ -252,13 +252,13 @@ The following NEW packages will be installed:
 0 upgraded, 1 newly installed, 0 to remove and 78 not upgraded.
 Need to get 4281 kB of archives.
 After this operation, 10.7 MB of additional disk space will be used.
-Get:1 http://updates.circonus.net/ubuntu jammy/main amd64 circonus-am amd64 0.2.8 [4281 kB]
+Get:1 http://updates.circonus.net/ubuntu jammy/main amd64 circonus-am amd64 0.2.9 [4281 kB]
 Fetched 4281 kB in 1s (5300 kB/s)
 Selecting previously unselected package circonus-am.
 (Reading database ... 124909 files and directories currently installed.)
-Preparing to unpack .../circonus-am_0.2.8_amd64.deb ...
-Unpacking circonus-am (0.2.8) ...
-Setting up circonus-am (0.2.8) ...
+Preparing to unpack .../circonus-am_0.2.9_amd64.deb ...
+Unpacking circonus-am (0.2.9) ...
+Setting up circonus-am (0.2.9) ...
 Created symlink /etc/systemd/system/multi-user.target.wants/circonus-am.service → /lib/systemd/system/circonus-am.service.
 Scanning processes...
 Scanning candidates...
@@ -281,7 +281,7 @@ No VM guests are running outdated hypervisor (qemu) binaries on this host.
 circonus@ubuntu-host:/etc/apt/sources.list.d$ sudo /opt/circonus/am/sbin/circonus-am --register="eyJhbGciOiJIUzUxMiIsImtpZCI6IjIzMzAyNjE2ODMwMTgyMDY3NSIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiY29uZmlndXJhdGlvbnMtYXBpIl0sImNpcmNvbnVzOmFjY291bnQiOiJwcm9kdGVzdGluZyIsImNpcmNvbnVzOmdyYW50cyI6WyJjdXN0b21lcl9wYXNzcG9ydHJlZ2lzdGVyIl0sImNpcmNvbnVzOm9yZ2lkIjoiMjMzMDI2MTY4MzAxODIwNjc1IiwiY2lyY29udXM6dG9rZW4iOiIxYjMwNDViMC1lZjA4LTQ0NDMtOGYwYi0wMDZmNTNjOTdmMzQiLCJleHAiOjIwMTA5NzA3NjQsImlhdCI6MTY5NTM5NDc2NSwiaXNzIjoiY29uZmlndXJhdGlvbnMtYXBpIiwibmJmIjoxNjk1Mzk0NzY1LCJzdWIiOiIwIn0.BtN3jnlv78Ib0Dd5M3wQExlvokiobj3NBEkajRLQ6F9PgugmpxkCVgr2bGHXV6Kav-DopSFjVV31jOxjgz0oCg" --tags="os:linux_deb" && sudo systemctl restart c
 irconus-am && sudo systemctl status circonus-am
 {"level":"info","cfg_file":"/opt/circonus/am/etc/circonus-am.yaml","time":1695395093,"message":"config file found/used"}
-{"level":"info","name":"circonus-am","version":"0.2.8","time":1695395093,"message":"starting"}
+{"level":"info","name":"circonus-am","version":"0.2.9","time":1695395093,"message":"starting"}
 {"level":"info","time":1695395093,"message":"starting registration"}
 {"level":"warn","file":"/usr/bin/newrelic-infra-service","time":1695395093,"message":"agent binary not found, skipping"}
 {"level":"warn","file":"/usr/bin/otelcol","time":1695395093,"message":"agent binary not found, skipping"}
@@ -333,7 +333,7 @@ brew install circonus/circonus-agent-manager/circonus-am
 
 - **Agent Manager Tagging - _Optional_**
   - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
-  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - _If tags need to be added after the initial registration, re-register your agent manager again with the desired tags._
   - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
   - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
@@ -361,7 +361,7 @@ brew install circonus/circonus-agent-manager/circonus-am
 
 - **Agent Manager Tagging - _Optional_**
   - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
-  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - _If tags need to be added after the initial registration, re-register your agent manager again with the desired tags._
   - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
   - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
@@ -379,20 +379,20 @@ brew services info circonus-am
 - _**NOTE** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
 
 ```bash title="arm64.tar.gz"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_darwin_arm64.tar.gz
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_darwin_arm64.tar.gz
 ```
 
 ```bash title="amd64.tar.gz"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_darwin_amd64.tar.gz
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_darwin_amd64.tar.gz
 ```
 
 ```bash title="all.tar.gz"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circonus-am_0.2.8_darwin_all.tar.gz
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_darwin_all.tar.gz
 ```
 
 <font size="4.5"><b>Step 2 - Install</b></font>
 
-- Using your perferred method of installaiton, install the Agent Manager and see the [releases page](https://github.com/circonus/agent-manager/releases) for additional information.
+- Using your preferred method of installation, install the Agent Manager and see the [releases page](https://github.com/circonus/agent-manager/releases) for additional information.
 
 <font size="4.5"><b>Step 3 - Register, restart and view status</b></font>
 
@@ -402,7 +402,7 @@ curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.8/circ
 
 - **Agent Manager Tagging - _Optional_**
   - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
-  - _If tags need to be added after the inital registration, reregister your agent manager again with the desired tags._
+  - _If tags need to be added after the initial registration, re-register your agent manager again with the desired tags._
   - Ex: CLI tags: `--tags="foo:bar,baz:qux"` with `,` separating the `key:val` entries.
   - Ex: Environment variables: `CAM_TAGS="foo:bar baz:qux"` with spaces separating the `key:val` entries.
 
@@ -445,7 +445,7 @@ If additional agents have been added to the host where Agent Manager is running,
 
 <font size="4.5"><b>Take an inventory of local collection agents</b></font>
 
-```bash title="Example: stop, reinventory, start and view the Agent Manager's status"
+```bash title="Example: stop, re-inventory, start and view the Agent Manager's status"
 sudo systemctl stop circonus-am &&
 sudo /opt/circonus/am/sbin/circonus-am --inventory &&
 sudo systemctl start circonus-am &&
@@ -458,12 +458,12 @@ Example of what the output will look like when a **telegraf** agent has been fou
 
 ```json showLineNumbers
 {"level":"info","agent":"telegraf","time":1692044346,"message":"found"}
-{"level":"info","pkg":"manager","time":1692044346,"message":"invetory complete"}
+{"level":"info","pkg":"manager","time":1692044346,"message":"inventory complete"}
 ```
 
 :::
 
-<details><summary>Example - Successful reinventory</summary>
+<details><summary>Example - Successful re-inventory</summary>
 <p>
 
 ```bash title="Linux Ubuntu" showLineNumbers
@@ -506,7 +506,7 @@ sudo systemctl status circonus-am
 
 <font size="4.5"><b>Take an inventory of local collection agents</b></font>
 
-```bash title="Example: stop, reinventory, start and view the Agent Manager's status"
+```bash title="Example: stop, re-inventory, start and view the Agent Manager's status"
 brew services stop circonus-am &&
 /opt/homebrew/opt/circonus-am/sbin/circonus-am --inventory &&
 brew services start circonus-am &&
@@ -518,7 +518,7 @@ brew services info circonus-am
 
 <font size="4.5"><b>Take an inventory of local collection agents</b></font>
 
-```bash title="Example: stop, reinventory, start and view the Agent Manager's status"
+```bash title="Example: stop, re-inventory, start and view the Agent Manager's status"
 brew services stop circonus-am &&
 /usr/local/opt/circonus-am/sbin/circonus-am --inventory &&
 brew services start circonus-am &&
