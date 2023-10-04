@@ -1,7 +1,11 @@
 ---
 title: Rules Engine
-sidebar_position: 2
+sidebar_position: 6
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import styles from './styles.module.css';
 
 # Rules Engine
 
@@ -15,7 +19,7 @@ Next, view the **details**, **preview the config** file and also create **rules*
 
 Select the **Rules** tab, and then click on the **Create Rule** button located at the top right of the table
 
-![Configurations Rules Tab](../img/configurations-rules-tab-list-view.png)
+![Configurations Rules Tab](./img/configurations-rules-tab-list-view.png)
 
 From here, you will define a rule to then be applied to this specific configuration file. Fully define the required fields and click **Create**.
 
@@ -25,7 +29,7 @@ If you are creating alert-based rules, ensure the rules align with your expected
 
 :::
 
-![Configurations Rules Tab](../img/configurations-rules-tab-create.png)
+![Configurations Rules Tab](./img/configurations-rules-tab-create.png)
 
 All created rules will be listed in the Rules tab and if more than 1 rule has been created, they can be ordered to specify which rule has the most importance.
 
@@ -43,7 +47,7 @@ The rules can be ordered by clicking and holding each rule on the far left side 
 
 Many **Actions** are available to take for the rules such as **Edit**, **Clone**, **Copy to other configuration** or **Deleting** the rule.
 
-![Configurations Rules Tab](../img/configurations-rules-tab-list-view-expanded.png)
+![Configurations Rules Tab](./img/configurations-rules-tab-list-view-expanded.png)
 
 :::tip PRO TIP
 
