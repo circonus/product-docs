@@ -29,8 +29,10 @@ Agent Manager is extremely flexible and capable of managing applications that ca
 
 Some agent types such as the following come with the Passport enhanced low-code configuration building tool along with configuration uploads to help you build complex configuration files with ease.
 
+Now supported: When a Telegraf or Fluent-bit configuration is uploaded, the Passport UI will automatically parse the configuration file and create a low-code configuration builder for you to use. 
+
 - **[Telegraf](https://docs.influxdata.com/telegraf/v1/install/)**
-- **[Fluent-bit](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit) - Coming soon!**
+- **[Fluent-bit](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit)**
 
 Other agent types such as the following are included out of the box and fully managed from the UI with configuration uploads.
 
