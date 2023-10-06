@@ -11,15 +11,17 @@ From the Circonus UI, you can fully manage the lifecycle of your agent’s vario
 
 The following instructions outline how to add configuration files from the Circonus UI to your account located in the main menu **Passport > Configurations**.
 
-![flow builder](../img/configurations-list-view.png)
-
 :::tip Keep in mind
 
 By default, when a configuration file is added to your Circonus account, it is not being managed by the Agent Manager until you add it to a specific Agent Manager.
 
 :::
 
+## Import
+
 From the configurations list page, select **Import Configuration**.
+
+![flow builder](../img/configurations-list-view.png)
 
 You have the option to upload a local file or simply paste the configuration in the code block. Fill in the rest of the form and select **Import**.
 
@@ -49,6 +51,8 @@ Configuration assignment statuses:
 - **Inactive** (The assignment was previously **active** but has now been replaced)
 
 Assigning a configuration file can either be done from the specific file's **details** page or the **Agent Manager** page.
+
+![configurations-assign-both-ways](../video/configurations-assign-both-ways.gif)
 
 ### Configuration details page
 
