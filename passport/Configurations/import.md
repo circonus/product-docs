@@ -3,7 +3,7 @@ title: Import
 sidebar_position: 1
 ---
 
-## Import a configuration file
+# Import a configuration file
 
 Passport makes it easy to manage your configuration files and agents all in one place. With Passport, you can import or create configuration files for your agents using the intuitive UI.
 
