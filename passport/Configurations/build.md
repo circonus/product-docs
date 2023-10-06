@@ -15,23 +15,21 @@ This means you can import any existing config file and the UI will convert it to
 
 :::
 
-### Creating a configuration
+## Step 1: Start a Config
 
-To get started with a new configuration in Passport, choose from one of the methods below on the **Passport > Configurations** page:
-- Choose **import** to import a file.
-- Choose **Create configuration** to copy/paste your config into a code block or start fresh with the low-code builder if using telegraf or fluent-bit.
+To get started with the flow-builder in Passport, choose from one of the methods below on the **Passport > Configurations** page:
 
-:::note
+### Import
 
-At this time, only Telegraf and Fluent-bit are supported in the flow-builder with isomorphism support.
-
-:::
-
-Fill in the relevant information for your config and click "Add" at the bottom of the form.
+Import a configuration file from your local machine.
 
 ![configurations-import](../img/configurations-import.png)
 
-### Using the flow builder
+### Create configuration
+
+Use this to copy/paste your config into a code block **or** start fresh with the low-code builder if using telegraf or fluent-bit.
+
+## Step 2: Build the configuration
 
 Once in the flow builder, what you see will be determined in part by which agent you are creating a config for. However, some elements are common to all.
 

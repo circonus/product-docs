@@ -9,15 +9,25 @@ Each configuration file has a details page that displays all the information abo
 
 Features such as the following will give you the ability to manage your configuration files in any way you need:
 
+- Details overview
 - Auto Versioning
-- Viewing Diffs
-- Rollbacks
+  - Viewing Diffs
+  - Rollbacks
+- Rules
 - Assigning to agents
 - Cloning
-- Assignment history
-- Low-code builder for Telegraf and Fluent-bit with isomorphism support
-- Rules
+- History
+- Build **_- Low-code builder for Telegraf and Fluent-bit with isomorphism support!_**
+- Edit
 - Deleting
+
+## Details overview
+
+From the **Passport > Configurations** list page, select the configuration file you want to view the details for.
+
+Information such as the following will be displayed including the current **assignments**:
+
+![configurations-details](../img/configurations-details.png)
 
 ## Versions
 
@@ -25,9 +35,11 @@ From the **Passport > Configurations** list page, select the configuration file 
 
 Select the **Versions** tab to view, then under the **Versions** dropdown, select the version you want to view.
 
+When a configuration file is first created, it will be assigned a version of the date in time. Each time the configuration file is updated, the version will increment to the edited date in time. This allows you to view the history of the configuration file and rollback to any previous version.
+
 ![configurations-versions-view-versions](../img/configurations-versions-view-versions.png)
 
-## Diffs
+### Diffs
 
 Select the **View Diff** button to view the differences between the current version and the previous version.
 
@@ -35,7 +47,7 @@ Any changes made to the configuration file will be highlighted in green for addi
 
 ![configurations-versions-view-diff](../img/configurations-versions-view-diff.png)
 
-## Rollbacks
+### Rollbacks
 
 From a **Passport > Configurations** details page, select the **Versions** tab to view previous config versions. Then, select the version you want to rollback to and select the **Promote to Latest** button.
 
@@ -46,6 +58,12 @@ Rolling back a config version will make the selected version the latest for all 
 :::
 
 ![configurations-version-rollback](../img/configurations-version-rollback.png)
+
+## Rules
+
+From a **Passport > Configurations** details page, select the **Rules** tab to then see all existing rules and create new ones. See the [Rules Engine](/passport/rules-engine) page for more information.
+
+![Configurations Rules Tab](../img/configurations-rules-tab-list-view.png)
 
 ## Assign
 
@@ -90,11 +108,11 @@ If the Agent Manager is currently **Disconnected**, when it next checks in it wi
 
 <div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/i-wXHos_y4c?si=grQsyIaprkoELMC6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 
-## Cloning
+## Clone
 
 From a **Passport > Configurations** details page, select the **Clone** button to then clone the configuration file and make changes.
 
-## Assignment History
+## History
 
 From a **Passport > Configurations** details page, select the **History** button to then see the assignment history for this configuration file.
 
@@ -106,13 +124,25 @@ Both **Telegraf** and **Fluent-bit** are supported in the low-code flow builder 
 
 From a **Passport > Configurations** details page, select the **Build** button to then see the assignment history for this configuration file.
 
+:::note NOTE
+
+When modifying the configuration file and saving, a new version will be created and pulled down by the Agent Manager on its next check which is every 60 seconds.
+
+:::
+
 ![configurations-upload-build](../img/configurations-upload-build.png)
 
-## Rules
+## Edit
 
-From a **Passport > Configurations** details page, select the **Rules** tab to then see all existing rules and create new ones. See the [Rules Engine](/passport/rules-engine) page for more information.
+From a **Passport > Configurations** details page, select the **Edit** button to then modify the configuration file's **name**, **description** and configuration **text file** contents.
 
-![Configurations Rules Tab](../img/configurations-rules-tab-list-view.png)
+:::note NOTE
+
+When modifying the configuration file and saving, a new version will be created and pulled down by the Agent Manager(s) it is assigned to on its next check which is every 60 seconds.
+
+:::
+
+![configurations-edit](../img/configurations-edit.png)
 
 ## Deleting
 

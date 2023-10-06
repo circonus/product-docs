@@ -32,11 +32,11 @@ Select a configuration file from **Configurations list view page**, then click t
 
 Now, create a rule that will apply the configuration file to the agents that matches the rule and then click **create**.
 
-For example, create a rule that will apply the configuration file to all agents that have the tags **"env:non-prod,os:linux"** during both Saturdays and Sundays as seen below.
+For example, create a rule that will apply the configuration file to all agents that have the tags `env:non-prod,os:linux` during both Saturdays and Sundays as seen below.
 
 ![configurations-create-rule-time-bound](../img/configurations-create-rule-time-bound.png)
 
-Now, this configuration will automatically be applied to any agent that has the tag **"env:non-prod,os:linux"** during both Saturdays and Sundays that is currently being managed and any new agent that comes online with the tag **"env:non-prod,os:linux"** during both Saturdays and Sundays. Once the rule expires, the configuration file will be removed from the agent.
+Now, this configuration will automatically be applied to any agent that has the tag `env:non-prod,os:linux` during both Saturdays and Sundays that is currently being managed and any new agent that comes online with the tag `env:non-prod,os:linux` during both Saturdays and Sundays. Once the rule expires, the configuration file will be removed from the agent.
 
 ## Rule weights
 
