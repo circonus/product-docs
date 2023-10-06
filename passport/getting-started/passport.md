@@ -551,7 +551,7 @@ The following instructions outline how to add configuration files from the Circo
 
 From the configurations list page, select **Import**.
 
-![flow builder](../img/configurations-list-view.png)
+![configurations-import](../video/configurations-import.gif)
 
 :::tip Keep in mind
 
@@ -577,9 +577,34 @@ Complete instructions to import and build configuration files with the low-code 
 
 ## Assign a configuration file
 
-Uploaded and low-code built configuration files are supported by the Passport rules engine to define when and how a configuration file is applied to any supported collection agent that the Agent Manager manages.
+After the Agent Manager has been installed and some collection agents are now being managed, you can start assigning configuration files to the collection agents under management.
 
-Assigning a configuration file can either be done from the specific file's details page or the **Passport > Agent Manager** page.
+:::note
+
+If the Agent Manager is **Disconnected** during this process, once it comes back online it will pull down any assigned configs.
+
+:::
+
+Configuration assignment statuses:
+
+- **New** (Recently assigned to an Agent Manager and the config is waiting for the next check-in from the Agent Manager which is every minute.)
+- **Active** (The Agent Manager has updated the configuration file for the selected collection agent)
+- **Pending** (The Agent Manager is in the process of applying the configuration)
+- **Error** (The Agent Manager encountered an error applying the configuration)
+- **Canceled** (The assignment was replaced by another **new** assignment before the Agent Manager had a chance to see it)
+- **Inactive** (The assignment was previously **active** but has now been replaced)
+
+Assigning a configuration file can either be done from the specific file's **details** page or the **Agent Manager** page.
+
+![configurations-assign-both-ways](../video/configurations-assign-both-ways.gif)
+
+### Configuration details page
+
+From a **Passport > Configurations** details page, select the **Assign** button to view all possible agents that can be assigned this configuration.
+
+![configurations-assign](../img/configurations-assign.png)
+
+### Agent Manager page
 
 ![Assign configuration file](../img/agent-manager-assign-configuration-file.png)
 
@@ -591,20 +616,11 @@ Next, the assignment will be pulled down by the Agent Manager on its next check 
 
 If the Agent Manager is currently **Disconnected**, when it next checks in it will pull down the new config file.
 
-Configuration assignment statuses:
-
-- **New** (Recently assigned to an Agent Manager and the config is waiting for the next check-in from the Agent Manager which is every minute.)
-- **Active** (The Agent Manager has updated the configuration file for the selected collection agent)
-- **Pending** (The Agent Manager is in the process of applying the configuration)
-- **Error** (The Agent Manager encountered an error applying the configuration)
-- **Canceled** (The assignment was replaced by another **new** assignment before the Agent Manager had a chance to see it)
-- **Inactive** (The assignment was previously **active** but has now been replaced)
-
 ![Assign configuration file](../img/agent-manager-config-status.png)
 
-Complete instructions for configuration files can be found on the **[Configuration file](/passport/Configurations/configuration-files/)** page.
+<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/i-wXHos_y4c?si=grQsyIaprkoELMC6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 
-<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/i-wXHos_y4c?si=Y4lWW9ytGMb3sa-W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+Complete instructions for configuration files can be found on the **[Configuration file](/passport/Configurations/configuration-files/)** page.
 
 ### Create rules
 

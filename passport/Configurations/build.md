@@ -7,13 +7,17 @@ sidebar_position: 2
 
 The Passport Flow Builder is a low-code tool for building configurations for your agents. These configurations can be assigned to the corresponding agents managed by the Agent Manager.
 
+<!-- Need to test and push to production before enabling this feature
 :::info NEW FEATURE!
 
 Passport supports isomorphism for Telegraf and Fluent-bit configuration files!
 
 This means you can import any existing config file and the UI will convert it to a visual builder in the UI to modify any way. This is a great way to get started with Passport and see how the UI works and enable easier management of complex and lengthy configuration files.
 
+![configurations-fluent-bit-to-flow-builder](../video/configurations-fluent-bit-to-flow-builder.gif)
+
 :::
+-->
 
 ## Step 1: Start a Config
 
@@ -75,6 +79,8 @@ Configuration assignment statuses:
 - **Inactive** (The assignment was previously **active** but has now been replaced)
 
 Assigning a configuration file can either be done from the specific file's **details** page or the **Agent Manager** page.
+
+![configurations-assign-both-ways](../video/configurations-assign-both-ways.gif)
 
 ### Configuration details page
 

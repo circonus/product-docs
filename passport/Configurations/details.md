@@ -37,7 +37,7 @@ Select the **Versions** tab to view, then under the **Versions** dropdown, selec
 
 When a configuration file is first created, it will be assigned a version of the date in time. Each time the configuration file is updated, the version will increment to the edited date in time. This allows you to view the history of the configuration file and rollback to any previous version.
 
-![configurations-versions-view-versions](../img/configurations-versions-view-versions.png)
+![configurations-versions-features](../video/configurations-versions-features.gif)
 
 ### Diffs
 
@@ -85,6 +85,8 @@ Configuration assignment statuses:
 - **Inactive** (The assignment was previously **active** but has now been replaced)
 
 Assigning a configuration file can either be done from the specific file's **details** page or the **Agent Manager** page.
+
+![configurations-assign-both-ways](../video/configurations-assign-both-ways.gif)
 
 ### Configuration details page
 
