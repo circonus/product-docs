@@ -18,4 +18,5 @@
 /irondb/api/api-guide /irondb/category/api 301
 /irondb/api/ /irondb/category/api 301
 /irondb/api /irondb/category/api 301
-/passport/Configurations/rules-engine passport/rules-engine 301
+/passport/Configurations/rules-engine /passport/rules-engine 301
+/passport/Configurations/rules-engine/ /passport/rules-engine 301
