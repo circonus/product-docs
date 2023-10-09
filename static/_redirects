@@ -20,3 +20,4 @@
 /irondb/api /irondb/category/api 301
 /passport/Configurations/rules-engine /passport/rules-engine 301
 /passport/Configurations/rules-engine/ /passport/rules-engine 301
+/passport/Configurations/configuration-files /passport/category/configurations 301
