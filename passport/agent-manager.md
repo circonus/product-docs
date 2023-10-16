@@ -25,6 +25,8 @@ Circonus recommends installing one or more [supported agents](/passport/intro#su
 
 :::
 
+<!--start of copy at ###Support Platforms-->
+
 ### Supported Platforms
 
 :::info
@@ -39,9 +41,11 @@ If the following guided installation doesn't fit your environment, please review
   <TabItem value="linuxPrivileged" label="Linux Package Install" default attributes={{className: styles.largeTab}}>
 
 <Tabs groupId="linuxArch">
-  <TabItem value="ubuntu_2204" label="Ubuntu 22.04" default attributes={{className: styles.smallTab}}>
+  <TabItem value="ubuntu_2204" label="Ubuntu & Debian" default attributes={{className: styles.smallTab}}>
 
-<font size="4.5"><b>Step 1 - Install Agent Manager from the repository with the following commands.</b></font>
+<font size="4.5"><b>Step 1 - Add the Manager Repo and Install</b></font>
+
+- _**Note:** Regardless of the Ubuntu or Debian version or name, use the following commands to install the Manager._
 
 ```bash title="amd64"
 sudo wget -O /etc/apt/trusted.gpg.d/circonus.asc https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648 &&
@@ -53,7 +57,7 @@ sudo apt update && sudo apt install circonus-am
 
 - Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
 
-  - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+  - _**Note:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
 
 - **Agent Manager Tagging - _Optional_**
   - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
@@ -68,17 +72,31 @@ sudo systemctl status circonus-am
 ```
 
   </TabItem>
-  <TabItem value="ubuntu-2004" label="Ubuntu 20.04" attributes={{className: styles.smallTab}}>
 
-<font size="4.5"><b>Step 1 - Install Agent Manager from the repository with the following commands.</b></font>
+<TabItem value="redHat-centos" label="RedHat & CentOS" attributes={{className: styles.smallTab}}>
+
+<font size="4.5"><b>Step 1 - Add the Manager Repo</b></font>
+
+- _**Note:** Regardless of the RedHat or CentOS version, use the following commands._
 
 ```bash title="amd64"
-sudo wget -O - https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648 | sudo apt-key add - &&
-echo "deb http://updates.circonus.net/ubuntu/ focal main" | sudo tee -a /etc/apt/sources.list.d/circonus.list &&
-sudo apt update && sudo apt install circonus-am
+cat <<EOF | sudo tee /etc/yum.repos.d/Circonus.repo
+[circonus]
+name=Circonus - Stable
+baseurl=http://updates.circonus.net/centos/7/x86_64/
+enabled=1
+gpgcheck = 1
+gpgkey = https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648
+EOF
 ```
 
-<font size="4.5"><b>Step 2 - Register, restart and view status</b></font>
+<font size="4.5"><b>Step 2 - Install</b></font>
+
+```bash title="amd64"
+sudo yum install circonus-am
+```
+
+<font size="4.5"><b>Step e - Register, restart and view status</b></font>
 
 - Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
 
@@ -97,11 +115,12 @@ sudo systemctl status circonus-am
 ```
 
   </TabItem>
-  <TabItem value="install-from-deb-file" label="Install .deb file" attributes={{className: styles.smallTab}}>
 
-<font size="4.5"><b>Step 1 - Download and install the Agent Manager for either amd64 or arm64 below</b></font>
+<TabItem value="install-from-deb-file" label="Install .deb file" attributes={{className: styles.smallTab}}>
 
-- _**NOTE** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
+<font size="4.5"><b>Step 1 - Download and install the Manager</b></font>
+
+- _**Note:** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
 
 ```bash title="amd64"
 curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_amd64.deb &&
@@ -117,7 +136,7 @@ sudo dpkg -i circonus-am_0.2.9_arm64.deb
 
 - Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
 
-  - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+  - _**Note:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
 
 - **Agent Manager Tagging - _Optional_**
   - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
@@ -135,9 +154,9 @@ sudo systemctl status circonus-am
 
 <TabItem value="install-from-rpm-file" label="Install .rpm file" attributes={{className: styles.smallTab}}>
 
-<font size="4.5"><b>Step 1 - Download and install the Agent Manager for either amd64 or arm64 below</b></font>
+<font size="4.5"><b>Step 1 - Download and install the Manager</b></font>
 
-- _**NOTE** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
+- _**Note:** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
 
 ```bash title="amd64"
 curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_amd64.rpm &&
@@ -153,7 +172,7 @@ sudo yum install circonus-am_0.2.9_arm64.rpm
 
 - Navigate to **Passport > Agent Management > Registration** to retrieve a valid registration token secret and replace `<registrationTokenSecret>` with your account registration token secret and then run the following terminal command.
 
-  - _**NOTE:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
+  - _**Note:** This secret can not be retrieved again once the window is closed and a new one will need to be created, so keep this for future use._
 
 - **Agent Manager Tagging - _Optional_**
   - Tags can be added **only during registration** times by using the `--tags` flag either before or after the `--register` flag.
@@ -168,11 +187,12 @@ sudo systemctl status circonus-am
 ```
 
   </TabItem>
-  <TabItem value="install-from-tar.gz" label="Download tar.gz file" attributes={{className: styles.smallTab}}>
 
-<font size="4.5"><b>Step 1 - Download the Agent Manager for either amd64 or arm64 below</b></font>
+<TabItem value="install-from-tar.gz" label="Download tar.gz file" attributes={{className: styles.smallTab}}>
 
-- _**NOTE** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
+<font size="4.5"><b>Step 1 - Download the Manager</b></font>
+
+- _**Note** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
 
 ```bash title="tar.gz amd64"
 curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_darwin_amd64.tar.gz
@@ -541,6 +561,8 @@ Example of what the output will look like when a **telegraf** agent has been fou
 </TabItem>
 </Tabs>
 
+<!--End of copy from am page-->
+
 <br></br>
 
 ---
@@ -560,14 +582,29 @@ To uninstall Agent Manage, run the following CMD.
 <Tabs groupId="operating-systems">
   <TabItem value="linuxPrivileged" label="Linux" default attributes={{className: styles.largeTab}}>
 
+<Tabs groupId="linuxPkgMgr">
+  <TabItem value="apt" label="Apt" attributes={{className: styles.smallTab}}>
+
 ```bash
-sudo /opt/circonus/am/sbin/circonus-am --decomission &&
+sudo /opt/circonus/am/sbin/circonus-am --decommission &&
 sudo apt remove circonus-am &&
-sudo apt purge circonus-am &&
-sudo apt autoremove
+sudo rm -r /opt/circonus/am
 ```
 
   </TabItem>
+  <TabItem value="yum" label="Yum" attributes={{className: styles.smallTab}}>
+
+```bash
+sudo /opt/circonus/am/sbin/circonus-am --decommission &&
+sudo yum remove circonus-am &&
+sudo rm -r /opt/circonus/am
+```
+
+  </TabItem>
+</Tabs>
+
+  </TabItem>
+  
   <TabItem value="macOsHomebrew" label="macOS" attributes={{className: styles.largeTab}}>
 
 <Tabs groupId="macOsArch">
@@ -618,17 +655,22 @@ Usage:
   circonus-am [flags]
 
 Flags:
-      --apiurl string              [ENV: CAM_API_URL] Circonus API URL (default "https://web-api.svcs-np.circonus.net/collectors/v1")
-      --aws-ec2-tags stringArray   [ENV: CAM_AWS_EC2_TAGS] AWS EC2 tags for registration meta data
-  -c, --config string              config file (default: /opt/circonus/am/etc/circonus-am.yaml|.json|.toml)
-  -d, --debug                      [ENV: CAM_DEBUG] Enable debug messages
-  -h, --help                       help for circonus-am
-      --inventory                  [ENV: CAM_INVENTORY] Inventory installed collectors
-      --log-level string           [ENV: CAM_LOG_LEVEL] Log level [(panic|fatal|error|warn|info|debug|disabled)] (default "info")
-      --log-pretty                 Output formatted/colored log lines [ignored on windows]
-      --poll-interval string       [ENV: CAM_POLL_INTERVAL] Polling interval for actions (default "60s")
-      --register string            [ENV: CAM_REGISTER] Registration token
-  -V, --version                    Show version and exit
+      --agents strings         [ENV: CAM_AGENTS] List of agents (Docker specific)
+      --apiurl string          [ENV: CAM_API_URL] Circonus API URL (default "https://agents-api.circonus.app/configurations/v1")
+      --aws-ec2-tags strings   [ENV: CAM_AWS_EC2_TAGS] AWS EC2 tags for registration meta data
+  -c, --config string          config file (default: /opt/circonus/am/etc/circonus-am.yaml|.json|.toml)
+  -d, --debug                  [ENV: CAM_DEBUG] Enable debug messages
+      --decommission           Decommission agent manager and exit
+      --force-register         [ENV: CAM_FORCE_REGISTER] Force registration attempt, even if manager is already registered
+  -h, --help                   help for circonus-am
+      --instance-id string     [ENV: CAM_INSTANCE_ID] Instance ID (Docker specific)
+      --inventory              Inventory installed agents and exit
+      --log-level string       [ENV: CAM_LOG_LEVEL] Log level [(panic|fatal|error|warn|info|debug|disabled)] (default "info")
+      --log-pretty             Output formatted/colored log lines [ignored on windows]
+      --poll-interval string   [ENV: CAM_POLL_INTERVAL] Polling interval for actions (default "60s")
+      --register string        [ENV: CAM_REGISTER] Registration token -- register agent manager, inventory installed agents and exit
+      --tags strings           [ENV: CAM_TAGS] Custom key:value tags for registration meta data
+  -V, --version                Show version and exit
 ```
 
 Check to see if the Agent Manager is running
@@ -679,17 +721,22 @@ Usage:
   circonus-am [flags]
 
 Flags:
-      --apiurl string              [ENV: CAM_API_URL] Circonus API URL (default "https://web-api.svcs-np.circonus.net/configurations/v1")
-      --aws-ec2-tags stringArray   [ENV: CAM_AWS_EC2_TAGS] AWS EC2 tags for registration meta data
-  -c, --config string              config file (default: /opt/homebrew/Cellar/circonus-am/0.1.4/etc/circonus-am.yaml|.json|.toml)
-  -d, --debug                      [ENV: CAM_DEBUG] Enable debug messages
-  -h, --help                       help for circonus-am
-      --inventory                  [ENV: CAM_INVENTORY] Inventory installed agents
-      --log-level string           [ENV: CAM_LOG_LEVEL] Log level [(panic|fatal|error|warn|info|debug|disabled)] (default "info")
-      --log-pretty                 Output formatted/colored log lines [ignored on windows]
-      --poll-interval string       [ENV: CAM_POLL_INTERVAL] Polling interval for actions (default "60s")
-      --register string            [ENV: CAM_REGISTER] Registration token
-  -V, --version                    Show version and exit
+      --agents strings         [ENV: CAM_AGENTS] List of agents (Docker specific)
+      --apiurl string          [ENV: CAM_API_URL] Circonus API URL (default "https://agents-api.circonus.app/configurations/v1")
+      --aws-ec2-tags strings   [ENV: CAM_AWS_EC2_TAGS] AWS EC2 tags for registration meta data
+  -c, --config string          config file (default: /opt/circonus/am/etc/circonus-am.yaml|.json|.toml)
+  -d, --debug                  [ENV: CAM_DEBUG] Enable debug messages
+      --decommission           Decommission agent manager and exit
+      --force-register         [ENV: CAM_FORCE_REGISTER] Force registration attempt, even if manager is already registered
+  -h, --help                   help for circonus-am
+      --instance-id string     [ENV: CAM_INSTANCE_ID] Instance ID (Docker specific)
+      --inventory              Inventory installed agents and exit
+      --log-level string       [ENV: CAM_LOG_LEVEL] Log level [(panic|fatal|error|warn|info|debug|disabled)] (default "info")
+      --log-pretty             Output formatted/colored log lines [ignored on windows]
+      --poll-interval string   [ENV: CAM_POLL_INTERVAL] Polling interval for actions (default "60s")
+      --register string        [ENV: CAM_REGISTER] Registration token -- register agent manager, inventory installed agents and exit
+      --tags strings           [ENV: CAM_TAGS] Custom key:value tags for registration meta data
+  -V, --version                Show version and exit
 ```
 
 Check to see if Agent Manager is running.
@@ -722,24 +769,29 @@ Agent Manager usage flags
 
 ```bash title="macOS (Intel (AMD64)) Homebrew" showLineNumbers
 # Check all the usage flags for the Agent Manager
-➜  ~ /usr/local/opt/circonus-am/sbin/circonus-am -h
+joshuajohnson@ubuntu-testing-jj:~$ /opt/circonus/am/sbin/circonus-am -h
 Manager for local agents (metrics, logs, etc.)
 
 Usage:
   circonus-am [flags]
 
 Flags:
-      --apiurl string              [ENV: CAM_API_URL] Circonus API URL (default "https://web-api.svcs-np.circonus.net/configurations/v1")
-      --aws-ec2-tags stringArray   [ENV: CAM_AWS_EC2_TAGS] AWS EC2 tags for registration meta data
-  -c, --config string              config file (default: /opt/homebrew/Cellar/circonus-am/0.1.4/etc/circonus-am.yaml|.json|.toml)
-  -d, --debug                      [ENV: CAM_DEBUG] Enable debug messages
-  -h, --help                       help for circonus-am
-      --inventory                  [ENV: CAM_INVENTORY] Inventory installed agents
-      --log-level string           [ENV: CAM_LOG_LEVEL] Log level [(panic|fatal|error|warn|info|debug|disabled)] (default "info")
-      --log-pretty                 Output formatted/colored log lines [ignored on windows]
-      --poll-interval string       [ENV: CAM_POLL_INTERVAL] Polling interval for actions (default "60s")
-      --register string            [ENV: CAM_REGISTER] Registration token
-  -V, --version                    Show version and exit
+      --agents strings         [ENV: CAM_AGENTS] List of agents (Docker specific)
+      --apiurl string          [ENV: CAM_API_URL] Circonus API URL (default "https://agents-api.circonus.app/configurations/v1")
+      --aws-ec2-tags strings   [ENV: CAM_AWS_EC2_TAGS] AWS EC2 tags for registration meta data
+  -c, --config string          config file (default: /opt/circonus/am/etc/circonus-am.yaml|.json|.toml)
+  -d, --debug                  [ENV: CAM_DEBUG] Enable debug messages
+      --decommission           Decommission agent manager and exit
+      --force-register         [ENV: CAM_FORCE_REGISTER] Force registration attempt, even if manager is already registered
+  -h, --help                   help for circonus-am
+      --instance-id string     [ENV: CAM_INSTANCE_ID] Instance ID (Docker specific)
+      --inventory              Inventory installed agents and exit
+      --log-level string       [ENV: CAM_LOG_LEVEL] Log level [(panic|fatal|error|warn|info|debug|disabled)] (default "info")
+      --log-pretty             Output formatted/colored log lines [ignored on windows]
+      --poll-interval string   [ENV: CAM_POLL_INTERVAL] Polling interval for actions (default "60s")
+      --register string        [ENV: CAM_REGISTER] Registration token -- register agent manager, inventory installed agents and exit
+      --tags strings           [ENV: CAM_TAGS] Custom key:value tags for registration meta data
+  -V, --version                Show version and exit
 ```
 
 Check to see if Agent Manager is running.
