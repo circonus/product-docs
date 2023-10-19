@@ -38,7 +38,7 @@ If the following guided installation doesn't fit your environment, please review
 <br></br>
 
 <Tabs groupId="operating-systems">
-  <TabItem value="linuxPrivileged" label="Linux Package Install" default attributes={{className: styles.largeTab}}>
+  <TabItem value="linuxPrivileged" label="Linux" default attributes={{className: styles.largeTab}}>
 
 <Tabs groupId="linuxArch">
   <TabItem value="ubuntu_2204" label="Ubuntu & Debian" default attributes={{className: styles.smallTab}}>
@@ -194,12 +194,12 @@ sudo systemctl status circonus-am
 
 - _**Note** Ensure you are installing the most recent version of the Agent Manager by visiting the [releases page](https://github.com/circonus/agent-manager/releases) and update the following commands to download that version if a newer version exists._
 
-```bash title="tar.gz amd64"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_darwin_amd64.tar.gz
+```bash title="amd64"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_linux_amd64.tar.gz
 ```
 
-```bash title="tar.gz arm64"
-curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_darwin_arm64.tar.gz
+```bash title="arm64"
+curl -LO https://github.com/circonus/agent-manager/releases/download/v0.2.9/circonus-am_0.2.9_linux_arm64.tar.gz
 ```
 
 <font size="4.5"><b>Step 2 - Install</b></font>
@@ -333,7 +333,7 @@ irconus-am && sudo systemctl status circonus-am
 <div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/6SdZ3HOEmok?si=gKsK0KEwMEuES9qp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 
   </TabItem>
-  <TabItem value="macOsHomebrew" label="macOS Package Install" attributes={{className: styles.largeTab}}>
+  <TabItem value="macOsHomebrew" label="macOS" attributes={{className: styles.largeTab}}>
 
 <Tabs groupId="macOsArch">
   <TabItem value="arm" label="Apple Silicon (ARM64)" attributes={{className: styles.smallTab}}>
