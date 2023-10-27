@@ -13,7 +13,7 @@ The Passport Agent Manager is the ultimate sidekick for your configuration files
 
 Once you install the agent manager on a host where your collection agents are located, you can easily manage everything through the intuitive Passport UI.
 
-![Configurations List Selected](./img/agent-manager-grid-view.png)
+![agent-managers-overview](video/agent-managers-overview.gif)
 
 ## Installation
 
