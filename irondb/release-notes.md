@@ -1,6 +1,6 @@
 ---
 title: Release Notes
-weight: 40
+sidebar_position: 12
 ---
 
 # Release Notes

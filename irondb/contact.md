@@ -1,6 +1,6 @@
 ---
 title: Contact Information
-weight: 30
+sidebar_position: 14
 ---
 
 # Contact Information

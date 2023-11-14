@@ -1,6 +1,6 @@
 ---
 title: Release Notes Archive
-weight: 41
+sidebar_position: 13
 ---
 
 # Archived Release Notes
