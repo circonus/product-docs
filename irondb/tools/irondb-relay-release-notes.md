@@ -5,6 +5,57 @@ weight: 35
 
 # IRONdb-relay Release Notes
 
+## 0.0.55
+
+2023-09-05
+
+* Use new `libsnowth_init` function to avoid potential buffer overflow.
+
+## 0.0.54
+
+2023-06-06
+
+* Remove unused DH parameter files from configuration.
+
+## 0.0.53
+
+2023-03-06
+
+* Fix simdjson linking.
+
+## 0.0.52
+
+2022-09-14
+
+* Fix log rotation.
+
+## 0.0.51
+
+2022-06-09
+
+* Initialize `metric_t` structures to avoid data corruption.
+
+## 0.0.50
+
+2022-02-07
+
+* Replace deprecated `mtev_atomic*` types and functions with compatibles ones
+  from ConcurrencyKit (libck).
+
+## 0.0.49
+
+2022-02-04
+
+* Fix an issue where some jlog subscribers were not advanced when they did not
+  have work to do. This led to increased disk usage from processed segments
+  that could not be removed.
+
+## 0.0.48
+
+2021-04-09
+
+* Bring setup and start scripts into the repo.
+
 ## 0.0.47
 
 2021-03-24
@@ -18,51 +69,4 @@ weight: 35
   `<ingestion max_allowable_days_before_current_time="<num days">/>` and
   `<ingestion max_allowable_days_after_current_time="<num_dats">/>`. A value
    of `0` means no limit.
-
-## 0.0.46
-
-2021-03-10
-
-* Add new debug log at `debug/parsing` to assist in debugging input parsing
-  issues.
-
-## 0.0.45
-
-2020-12-23
-
-* Adopt new Reconnoiter FlatBuffers implementation. **Requires IRONdb 0.19.15
-  or later.**
-
-
-## 0.0.44
-
-2020-10-26
-
-* Add new configuration option for HTTP compression. To enable compression, set
-  the attribute `compressed="true"` in the `<send>` XML node in
-  `irondb-relay.conf`. The default is `false` if not specified.
-
-
-## 0.0.43
-
-2020-07-23
-
-* Use safer string manipulation.
-* Fix NPE in watchdog config.
-
-
-## 0.0.42
-
-2020-04-09
-
-* Introduce a watchdog heartbeat on aggregator threads. Default is 300s
-  timeout, but this can be controlled via a module config parameter,
-  `watchdog_timeout`, which is a floating point value number of seconds.
-
-
-## 0.0.41
-
-2020-03-16
-
-* Adopt new libmtev 1.10 configuration read functions.
 

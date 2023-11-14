@@ -50,6 +50,7 @@ const config = {
   ],
 
   plugins: [
+    require.resolve("./sitePlugin"),
     [
       "@docusaurus/plugin-content-docs",
       {
