@@ -1,6 +1,6 @@
 ---
 title: Cluster Sizing
-weight: 10
+sidebar_position: 3
 ---
 
 # Cluster Sizing

@@ -1,6 +1,6 @@
 ---
 title: ZFS Guide
-weight: 50
+sidebar_position: 5
 ---
 
 # ZFS Guide
