@@ -1,9 +1,11 @@
 ---
 title: Configuration
-weight: 30
+sidebar_position: 2
 ---
 
 # Configuration
+
+Configuration files and options.
 
 IRONdb is implemented using
 [libmtev](https://github.com/circonus-labs/libmtev/), a framework for building
@@ -125,7 +127,7 @@ be modified to suit your environment.
 #### Main listener
 
 ```
-<listener address="*" port="8112" backlog="100" type="http_rest_api" accept_thread="on" fanout="true">
+<listener address="*" port="8112" backlog="100" type="http_rest_api" accept_thread="on" fanout="true" ssl="off">
   <config>
     <document_root>/opt/circonus/share/snowth-web</document_root>
   </config>
@@ -182,6 +184,14 @@ across all threads in the event pool owning the listening socket (usually the
 default event pool).
 
 Default: false
+
+##### Main listener ssl
+
+When set to `on`, the listener will expect incoming connections to use
+Transport Layer Security (TLS), also known as "SSL". **Additional TLS
+configuration is required.** See [TLS Configuration](#tls-configuration).
+
+Default: off
 
 #### Graphite listener
 
@@ -1030,6 +1040,177 @@ If importing older data, it may be necessary to increase this value.
 
 Default: 1 year
 
+## TLS Configuration
+
+As of version 1.1.0, IRONdb supports TLS for both client and intra-cluster
+communications.
+
+Due to certificate verification requirements, two sets of cryptographic keys
+and associated certificates are required:
+
+1. Intra-cluster communication: cluster nodes exchange information and
+replicate metric data using port 8112, and they use the node UUID as the
+hostname for all requests. When TLS is used, the certificates for
+this listener must use the node UUID as the certificate CommonName (CN).
+2. External client connections: since it would be awkward for external clients
+to verify a CN that is just a UUID, a second listener is added, using port 8443
+and having its certificate CN set to the host's FQDN. This matches the
+expectation of clients connecting to the node to submit metrics or run queries.
+
+The [installer script](/irondb/getting-started/manual-installation#setup-process)
+will automatically configure TLS listeners on a fresh installation when the
+`-t` option or the `IRONDB_TLS` environment variable is set to `on`.
+
+The following files must be present on each node in order for the service to
+work properly with TLS. Place them in `/opt/circonus/etc/ssl`:
+* **cluster.key** - An RSA key for the intra-cluster listener.
+* **cluster.crt** - A certificate issued for the intra-cluster listener. Its
+  commonName (CN) must be the node's UUID.
+* **cluster-ca.crt** - The Certificate Authority's public certificate,
+  sometimes referred to as an intermediate or chain cert, that issued
+  `cluster.crt`.
+* **client.key** - An RSA key for the external client listener.
+* **client.crt** - A certificate issued for the external client listener. Its
+  commonName (CN) should match the hostname used to connect to the node,
+  typically its FQDN.
+* **client-ca.crt** - The Certificate Authority's public certificate,
+  sometimes referred to as an intermediate or chain cert, that issued
+  `client.crt`.
+
+### Converting To TLS
+
+To update an existing cluster to use TLS, several things need to change.
+
+1. A modified topology configuration that indicates TLS should be used for
+intra-cluster communication.
+2. Changes to listener configuration to specify locations for key, certificate,
+and CA chain certificate, add a new listener port for external clients, and to
+activate TLS.
+3. Changes to metric submission pipelines and any visualization tools to use
+the new, externally-verifiable listener. This could include tools such as
+graphite-web or Grafana, as well as [IRONdb Relay](/irondb/tools/irondb-relay).
+
+The first two items will be done on all IRONdb nodes. The third item will vary
+depending on the specifics of the metric submission pipeline(s) and
+visualization platforms.
+
+**NOTE: because of the nature of this change, there will be disruption to
+cluster availability as the new configuration is rolled out. Nodes with TLS
+active will not be able to communicate with nodes that do not have TLS
+active, and vice versa.**
+
+#### Update Topology
+
+The active topology for a cluster will be located in the
+`/opt/circonus/etc/irondb-topo` directory, as a file whose name matches the
+topology hash. This hash is recorded in `/opt/circonus/etc/irondb.conf` as the
+value for the `active` attribute within the `<topology>` stanza, e.g.
+
+```xml
+  <!-- Cluster definition -->
+  <topology path="/opt/circonus/etc/irondb-topo"
+            active="98e4683192dca2a2c22b9a87c7eb6acecd09ece89f46ce91fd5eb6ba19de50fb"
+            next=""
+            redo="/irondb/redo/{node}"
+  />
+```
+
+Edit the `/opt/circonus/etc/irondb-topo/<hash>` file and add the
+`use_tls="true"` attribute to the `nodes` line:
+
+```diff
+-<nodes write_copies="2">
++<nodes write_copies="2" use_tls="true">
+```
+
+Distribute the updated file to all nodes in the cluster.
+
+#### Update Listeners
+
+In `/opt/circonus/etc/irondb.conf`, locate the `<listeners>` stanza. The
+listeners that will be changing are the ones for port 8112 and, if used, the
+Graphite listener on port 2003.
+
+In a default configuration, the non-TLS listeners look like this:
+
+```xml
+    <listener address="*" port="8112" backlog="100" type="http_rest_api" accept_thread="on" fanout="true">
+      <config>
+        <document_root>/opt/circonus/share/snowth-web</document_root>
+      </config>
+    </listener>
+
+   <listener address="*" port="2003" type="graphite">
+      <config>
+        <check_uuid>6a07fd71-e94d-4b67-a9bc-29ac4c1739e9</check_uuid>
+        <account_id>1</account_id>
+      </config>
+    </listener>
+```
+
+The Graphite `check_uuid` and `account_id` may differ from the above. Preserve
+those values in the new listener config.
+
+Replace the above listener configs with this, ensuring that it is within the
+opening and closing `listeners` tags, and substituting your Graphite check UUID
+and account ID from the original config:
+
+```xml
+    <!--
+      Intra-cluster listener. Used for gossip and replication.
+    -->
+    <cluster>
+      <sslconfig>
+        <!-- Certificate CNs MUST match node UUIDs assigned in the current topology. -->
+        <certificate_file>/opt/circonus/etc/ssl/cluster.crt</certificate_file>
+        <key_file>/opt/circonus/etc/ssl/cluster.key</key_file>
+        <ca_chain>/opt/circonus/etc/ssl/cluster-ca.crt</ca_chain>
+        <layer_openssl_10>tlsv1.2</layer_openssl_10>
+        <layer_openssl_11>tlsv1:all,>=tlsv1.2,cipher_server_preference</layer_openssl_11>
+        <ciphers>ECDHE+AES128+AESGCM:ECDHE+AES256+AESGCM:DHE+AES128+AESGCM:DHE+AES256+AESGCM:!DSS</ciphers>
+      </sslconfig>
+      <listener address="*" port="8112" backlog="100" type="http_rest_api" accept_thread="on" fanout="true" ssl="on">
+        <config>
+          <document_root>/opt/circonus/share/snowth-web</document_root>
+        </config>
+      </listener>
+    </cluster>
+
+    <!-- Client-facing listeners. -->
+    <clients>
+      <sslconfig>
+        <!-- Certificate CNs should be the FQDN of the node. -->
+        <certificate_file>/opt/circonus/etc/ssl/client.crt</certificate_file>
+        <key_file>/opt/circonus/etc/ssl/client.key</key_file>
+        <ca_chain>/opt/circonus/etc/ssl/client-ca.crt</ca_chain>
+        <layer_openssl_10>tlsv1.2</layer_openssl_10>
+        <layer_openssl_11>tlsv1:all,>=tlsv1.2,cipher_server_preference</layer_openssl_11>
+        <ciphers>ECDHE+AES128+AESGCM:ECDHE+AES256+AESGCM:DHE+AES128+AESGCM:DHE+AES256+AESGCM:!DSS</ciphers>
+      </sslconfig>
+
+      <!-- Used for HTTP metric submission, admin UI. -->
+      <listener address="*" port="8443" backlog="100" type="http_rest_api" accept_thread="on" fanout="true" ssl="on">
+        <config>
+          <document_root>/opt/circonus/share/snowth-web</document_root>
+        </config>
+      </listener>
+
+      <!--
+        Graphite listener
+          This installs a network socket graphite listener under the account
+          specified by <account_id>.
+      -->
+      <listener address="*" port="2003" type="graphite" ssl="on">
+        <config>
+          <check_uuid>GRAPHITE_CHECK_UUID</check_uuid>
+          <account_id>ACCOUNT_ID</account_id>
+        </config>
+      </listener>
+    </clients>
+```
+
+Generate and/or obtain the above key and certificate files, ensuring they are
+placed in the correct location as set in the listener `sslconfig` configuration.
 
 ## Included Files
 

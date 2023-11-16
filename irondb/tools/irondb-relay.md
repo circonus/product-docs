@@ -102,7 +102,7 @@ environment variables or via command-line arguments. A mix of environment
 variables and arguments is permitted, but environment variables take precedence
 over command-line arguments. Use the `-h` option to view a usage summary:
 
-    Usage: setup-irondb-relay [-h] -c <check-name> -u <check-uuid> -B <addr:port>[,<addr:port>,...]
+    Usage: setup-irondb-relay [-h] -c <check-name> -u <check-uuid> -B <irondb-node-list>
            [-d] [-b (on|off)]
       -c <check-name>       : Graphite check name
       -u <check-uuid>       : Graphite check UUID
@@ -113,6 +113,13 @@ over command-line arguments. Use the `-h` option to view a usage summary:
 
     Example:
       setup-irondb-relay -c foo -u f2eaa1b7-f7e8-41bd-9e8d-e52d43dc88b0 -d -B 10.1.13.1:8112,10.1.13.2:8112 -b on
+
+If your IRONdb cluster [uses TLS](/irondb/getting-started/configuration#tls-configuration),
+then specify the node list as `https://` URLs, and, if necessary, place the CA
+certificate that corresponds to the cluster's client-facing listener as
+`/opt/circonus/etc/ssl/ca.crt`. The CA cert is necessary if your certificates
+are issued by an internal CA, as opposed to a public CA that is trusted by the
+operating system.
 
 The setup script will configure your IRONdb-relay instance and start the
 service. See the [Graphite Ingestion](/irondb/integrations/graphite/) section for
