@@ -42,6 +42,7 @@ may be changed via configuration files.
 
 * 2003/tcp (Carbon plaintext submission)
 * 8112/tcp (admin UI, HTTP REST API)
+  * This becomes 8443/tcp when [TLS](/irondb/getting-started/configuration#tls-configuration) is in use.
 
 ## System Tuning
 
@@ -115,11 +116,11 @@ over command-line arguments. Use the `-h` option to view a usage summary:
       setup-irondb-relay -c foo -u f2eaa1b7-f7e8-41bd-9e8d-e52d43dc88b0 -d -B 10.1.13.1:8112,10.1.13.2:8112 -b on
 
 If your IRONdb cluster [uses TLS](/irondb/getting-started/configuration#tls-configuration),
-then specify the node list as `https://` URLs, and, if necessary, place the CA
-certificate that corresponds to the cluster's client-facing listener as
-`/opt/circonus/etc/ssl/ca.crt`. The CA cert is necessary if your certificates
-are issued by an internal CA, as opposed to a public CA that is trusted by the
-operating system.
+then specify the node list as `https://` URLs with port 8443, and, if
+necessary, place the CA certificate that corresponds to the cluster's
+client-facing listener as `/opt/circonus/etc/ssl/ca.crt`. The CA cert is
+necessary if your certificates are issued by an internal CA, as opposed to a
+public CA that is trusted by the operating system.
 
 The setup script will configure your IRONdb-relay instance and start the
 service. See the [Graphite Ingestion](/irondb/integrations/graphite/) section for
