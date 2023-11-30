@@ -1043,7 +1043,7 @@ Default: 1 year
 ## TLS Configuration
 
 As of version 1.1.0, IRONdb supports TLS for both client and intra-cluster
-communications.
+communications. **This is currently an alpha feature, for testing only.**
 
 Due to certificate verification requirements, two sets of cryptographic keys
 and associated certificates are required:

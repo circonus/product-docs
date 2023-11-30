@@ -199,6 +199,8 @@ certificates will be required, utilizing different CNs. See
 [TLS Configuration](/irondb/getting-started/configuration/#tls-configuration)
 for details.
 
+**This is currently an alpha feature, for testing only.**
+
 Note that OpenTSDB does not support TLS. Even if this option is set to "on",
 the listener on port 4242 will not use TLS.
 
