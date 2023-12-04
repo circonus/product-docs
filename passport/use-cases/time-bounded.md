@@ -21,6 +21,8 @@ The following example will apply a Telegraf configuration file to any agent that
 
 ## Pre-requisites:
 
+- An observability solution.
+  - If you don't already have an observability solution, [create a free account](https://www.circonus.com/free-trial/) with **Circonus** now.
 - An existing configuration file.
   - If you don't already have a configuration file uploaded, [upload a configuration file](/passport/getting-started/passport#import-a-configuration-file) to your Passport account now.
 

@@ -15,13 +15,15 @@ With Passport, you can collect more data when you need it and less when you donâ
 
 Passport aims to simplify this process through the use of an agent manager. The Passport Agent Manager functions as a sidecar utility that checks for new configuration files and triggers the appropriate restart/reload functionality of the supported agent. The Agent Manager is kept intentionally simple, with the goal that it only needs to be installed once and updated infrequently.
 
+
+
 ![Passport overview image](./img/passport-overview-image.png)
 
 To change the collection strategy of a managed agent such as Telegraf, there needs to be a place to create and store the relevant configurations for the collection agent. This can be done through the intuitive Passport UI or API.
 
 The Passport UI provides a place to view the current inventory of all agents under management as well as tools for managing and creating configuration files. Say goodbye to manual management and hello to Passport!
 
-![Configurations List Selected](./img/agent-manager-grid-view.png)
+![agent-managers-overview](video/agent-managers-overview.gif)
 
 ## Supported Agents
 

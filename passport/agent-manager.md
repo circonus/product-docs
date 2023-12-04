@@ -9,11 +9,11 @@ import styles from './styles.module.css';
 
 # Agent Manager
 
-The Passport Agent Manager is the ultimate sidekick for your configuration files. It’s always on the lookout for new files and triggers the appropriate restart/reload functionality of the [supported agents](/passport/intro#supported-agents). With its simple installation and infrequent updates, you can rest assured that your configuration files are always up-to-date and running smoothly.
+Agent Manager is the ultimate sidekick for your configuration files. It’s always on the lookout for new files and triggers the appropriate restart/reload functionality of the [supported agents](/passport/intro#supported-agents). With its simple installation and infrequent updates, you can rest assured that your configuration files are always up-to-date and running smoothly.
 
 Once you install the agent manager on a host where your collection agents are located, you can easily manage everything through the intuitive Passport UI.
 
-![Configurations List Selected](./img/agent-manager-grid-view.png)
+![agent-managers-overview](video/agent-managers-overview.gif)
 
 ## Installation
 
