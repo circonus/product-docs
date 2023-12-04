@@ -22,6 +22,8 @@ We will be using **Circonus** as our external alerting system. The following exa
 
 ## Pre-requisites:
 
+- Passport
+  - If you don't already have a Passport account, [create a free account](https://circonus.com/passport) now.
 - An observability solution that can send alerts to Passport via a webhook.
   - If you don't already have an observability solution, [create a free account](https://www.circonus.com/free-trial/) with **Circonus** now.
 - A configuration file uploaded to Passport.
