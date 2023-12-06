@@ -21,7 +21,11 @@ The following example will apply a default Telegraf configuration file to any ag
 
 ## Pre-requisites:
 
-- A configuration file that will apply to more than 1 agent based on tags from those Agents and/or Managers.
+- Passport
+  - If you don't already have a Passport account, [create a free account](https://circonus.com/passport) now.
+- An observability solution that can send alerts to Passport via a webhook.
+  - If you don't already have an observability solution, [create a free account](https://www.circonus.com/free-trial/) with **Circonus** now.
+- A configuration file uploaded to Passport.
   - If you don't already have a configuration file uploaded, [upload a configuration file](/passport/getting-started/passport#import-a-configuration-file) to your Passport account now.
 
 ## Create a rule
