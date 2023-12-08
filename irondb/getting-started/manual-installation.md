@@ -1,9 +1,11 @@
 ---
-title: Manual Installation
-weight: 20
+title: Installation
+sidebar_position: 1
 ---
 
 # Installation
+
+How to install IRONdb on a system.
 
 ## System Requirements
 
@@ -37,6 +39,7 @@ may be changed via configuration files.
 * 4242/tcp (OpenTSDB plaintext submission)
 * 8112/tcp (admin UI, HTTP REST API, [cluster replication](/irondb/administration/operations/#replication), [request proxying](/irondb/administration/operations/#proxying))
 * 8112/udp ([cluster gossip](/irondb/administration/operations/#replication))
+* 8443/tcp (admin UI, HTTP REST API when TLS configuration is used)
 * 32322/tcp (admin console, localhost only)
 
 ### System Tuning
@@ -126,7 +129,7 @@ available from [Keybase](https://keybase.io/circonuspkg).
 
 Install the key:
 ```
-curl 'https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648' | sudo apt-key add -
+curl -o /etc/apt/trusted.gpg.d/circonus.asc 'https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648'
 ```
 
 Create the file `/etc/apt/sources.list.d/circonus.list` with the following
@@ -158,63 +161,98 @@ as the main package.
 /usr/bin/apt-get install circonus-platform-irondb
 ```
 
-### Run Installer
+### Setup Process
 
 Prepare site-specific information for setup. These values may be set via shell environment variables, or as arguments to the setup script. The environment variables are listed below.
-   * ##### IRONDB\_NODE\_UUID
 
-     *\(required\)* The ID of the current node, which must be unique within a
+#### IRONDB\_NODE\_UUID
+_(required)_ The ID of the current node, which must be unique within a
 given cluster. You may use the `uuidgen` command that comes with your OS, or
-generate a
-[well-formed,
-non-nil](https://en.wikipedia.org/wiki/Universally_unique_identifier)
+generate a [well-formed, non-nil](https://en.wikipedia.org/wiki/Universally_unique_identifier)
 UUID with an external tool or website. Note that this must be a _lowercase_
 UUID. The `uuidgen` tool on some systems, notably MacOS, produces uppercase.
 Setup will warn and convert the UUID to lowercase.
 
-   * ##### IRONDB\_NODE\_ADDR
+#### IRONDB\_NODE\_ADDR
 
-     *\(required\)* The IPv4 address of the current node, e.g., "192.168.1.100".
+_\(required\)_ The IPv4 address or hostname of the current node, e.g.,
+"192.168.1.100" or "host1.domain.com". Hostnames will be resolved to IP
+addresses once at service start. Failures in DNS resolution may cause service
+outages.
 
-   * ##### IRONDB\_CHECK\_UUID
+#### IRONDB\_CHECK\_UUID
 
-     *\(required\)* Check ID for Graphite metric ingestion, which must be the
-same on all cluster nodes. You may use the `uuidgen` command that comes with
-your OS, or generate a [well-formed,
-non-nil](https://en.wikipedia.org/wiki/Universally_unique_identifier)
-UUID with an external tool or website.  Note that this must be a _lowercase_
-UUID. The `uuidgen` tool on some systems, notably MacOS, produces uppercase.
-Setup will warn and convert the UUID to lowercase.
+_\(required\)_ Check ID for Graphite, OpenTSDB, and Prometheus metric
+ingestion, which must be the same on all cluster nodes. You may use the
+`uuidgen` command that comes with your OS, or generate a [well-formed,
+non-nil](https://en.wikipedia.org/wiki/Universally_unique_identifier) UUID with
+an external tool or website.  Note that this must be a _lowercase_ UUID. The
+`uuidgen` tool on some systems, notably MacOS, produces uppercase.  Setup will
+warn and convert the UUID to lowercase.
 
-   * ##### IRONDB\_CRASH\_REPORTING
+#### IRONDB\_TLS
 
-     *\(optional\)* Control enablement of automated crash reporting. Default is "on". IRONdb utilizes sophisticated crash tracing technology to help diagnose errors. Enabling crash reporting requires that the system be able to connect out to the Circonus reporting endpoint: https://circonus.sp.backtrace.io:6098 . If your site's network policy forbids this type of outbound connectivity, set the value to "off".
-   * ##### IRONDB\_ZPOOL
+_\(optional\)_ Configures listeners to require TLS where applicable. Default is
+"off". If set to "on", a second HTTPS listener will be created on port 8443,
+for external clients to use for metric submission and querying. Two SSL
+certificates will be required, utilizing different CNs. See
+[TLS Configuration](/irondb/getting-started/configuration/#tls-configuration)
+for details.
 
-     *\(optional\)* The name of the zpool that should be used for IRONdb storage. If this is not specified and there are multiple zpools in the system, setup chooses the pool with the most available space.
+**This is currently an alpha feature, for testing only.**
 
-Run the setup script. All required options must be present, either as environment variables or via command-line arguments. A mix of environment variables and arguments is permitted, but environment variables take precedence over command-line arguments. Use the `-h` option to view a usage summary:
+Note that OpenTSDB does not support TLS. Even if this option is set to "on",
+the listener on port 4242 will not use TLS.
 
-    Usage: /opt/circonus/bin/setup-irondb [-h] -a <ip-address> -n <node-uuid> -c <check-name> -u <check-uuid>
-           [-b (on|off)] [-z <zpool>]
-      -a <ip-address>  : Local IP address to use
-      -n <node-uuid>   : Local node UUID
-      -u <check-uuid>  : Graphite check UUID
-      -b on|off        : Enable/disable crash reporting (default: on)
-      -z <zpool>       : Use this zpool for data storage
-                         (default: choose pool with most available space)
-      -h               : Show usage summary
+**Because of the certificate requirement, the service will not automatically
+start post-setup.**
 
-The setup script will configure your IRONdb instance and start the service. Upon successful completion, it will print out specific information about how to submit Graphite metrics. IRONdb supports both Carbon plaintext submission (port 2003) or HTTP POST. See the [Graphite Ingestion](/irondb/integrations/graphite/) section for details.
+#### IRONDB\_CRASH\_REPORTING
+
+_\(optional\)_ Controls enablement of automated crash reporting. Default is
+"on". IRONdb utilizes sophisticated crash tracing technology to help diagnose
+errors. Enabling crash reporting requires that the system be able to connect
+out to the Circonus reporting endpoint: https://circonus.sp.backtrace.io:6098 .
+If your site's network policy forbids this type of outbound connectivity, set
+the value to "off".
+
+#### IRONDB\_ZPOOL
+
+_\(optional\)_ The name of the zpool that should be used for IRONdb storage. If
+this is not specified and there are multiple zpools in the system, setup
+chooses the pool with the most available space.
+
+#### Run Installer
+
+Run the setup script. All required options must be present, either as
+environment variables or via command-line arguments. A mix of environment
+variables and arguments is permitted, but environment variables take precedence
+over command-line arguments.
+
+```
+/opt/circonus/bin/setup-irondb \
+    -a <ip_or_hostname> \
+    -n <node_uuid> \
+    -u <integration_check_uuid>
+```
+Use the `-h` option to view a usage summary.
+
+The setup script will configure your IRONdb instance and start the service.
+If you chose to turn on TLS support, the service will _not_ automatically
+start. Once you have installed the necessary key and certificate files,
+[enable and start the service](/irondb/administration/operations#service-management).
+
+Upon successful completion, it will print out specific information about how to
+submit Graphite, OpenTSDB, and Prometheus metrics. See the
+[Integrations](/irondb/category/integrations/) section for details.
 
 ### Add License
 
 (Optional)
 
-As of version [0.12.3](/irondb/release-notes/#changes-in-0123) IRONdb comes with an
-embedded license that allows all features with a limit of 25K active, unique
-metric streams.  If you wish to obtain a more expansive license, please contact
-[Circonus Sales](mailto:sales@circonus.com).
+IRONdb comes with an embedded license that allows all features with a limit of
+25K active, unique metric streams.  If you wish to obtain a more expansive
+license, please contact [Circonus Sales](mailto:sales@circonus.com).
 
 Add the `<license>` stanza from your purchased IRONdb license to the file
 `/opt/circonus/etc/licenses.conf` on your IRONdb instance, within the enclosing
@@ -234,7 +272,7 @@ If you are running a cluster of IRONdb nodes, the license must be installed on
 all nodes.
 
 Restart the IRONdb service:
-* (EL7, Ubuntu) `/bin/systemctl restart circonus-irondb`
+* `/bin/systemctl restart circonus-irondb`
 
 For more on licensing see: [Configuration/licenses](/irondb/getting-started/configuration/#licensesconf)
 
@@ -286,9 +324,6 @@ See the [appendix on cluster sizing](/irondb/getting-started/cluster-sizing/) fo
  * The node address may be changed at any time without affecting the topology
    hash, but care should be taken not to change the ordering of any node
    stanzas.
- * As of version 0.17.1, hostnames are permitted in the `address` attribute,
-   instead of IPv4 addresses. Hostnames will be resolved to IP addresses once
-   at startup.
  * If a node fails, its replacement should keep the same UUID, but it can have
    a different IP address or hostname.
 

@@ -1,6 +1,6 @@
 ---
 title: Grafana Data Source
-weight: 20
+sidebar_position: 1
 ---
 
 # Grafana Data Source
@@ -35,9 +35,13 @@ Read more about [Circonus IRONdb](https://www.circonus.com/solutions/time-series
 
 ### URL
 
-- Standalone: If this datasource will access a standalone IRONdb cluster, then this is the URL where IRONdb can be accessed. Example: `http://localhost:8112`
-- Hosted: If this datasource will access data through a Circonus installation, this is the URL where the Circonus API can be accessed. Example: `https://api.circonus.com`
-  - If the hosted installation is Circonus SaaS, then the URL should be set as: `https://api.circonus.com`
+- Standalone: If this datasource will access a standalone IRONdb cluster, then
+  this is the URL where IRONdb can be accessed. Example:
+  `http://nodename:8112`, or if
+  [TLS](/irondb/getting-started/configuration#tls-configuration) is in use,
+  `https://nodename:8443`.
+- Hosted: If this datasource will access data through Circonus, then the URL
+  should be set as: `https://api.circonus.com`
 
 ## IRONdb Details
 

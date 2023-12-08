@@ -1,6 +1,6 @@
 ---
 title: Graphite Plugin
-weight: 10
+sidebar_position: 2
 ---
 
 # IRONdb Graphite Plugin
@@ -67,7 +67,13 @@ In your graphite's `local_settings.py`:
 Where `irondb-host` is the DNS or IP of an IRONdb node, `port`
 (usually 8112) is the listening port for IRONdb, and `<account>` is some
 integer you have been ingesting your metrics under (see Namespacing in
-the IRONdb docs). `optional_query_prefix` can be used to prefix all
+the IRONdb docs).
+
+If the IRONdb cluster is
+[using TLS](/irondb/getting-started/configuration#tls-configuration),
+be sure to use `https://` with `IRONDB_URLS` above, and use port 8443.
+
+`optional_query_prefix` can be used to prefix all
 operations with a fixed name. You can use this optional prefix to
 simplify metric names stored in IRONdb. If you just want raw names
 as stored in IRONdb, you can omit this last URL section (see

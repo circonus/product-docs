@@ -1,6 +1,6 @@
 ---
 title: Metric Names and Tags
-weight: 20
+sidebar_position: 11
 ---
 
 # Metric Names and Tags

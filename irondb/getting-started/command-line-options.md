@@ -1,9 +1,11 @@
 ---
 title: Command Line Options
-weight: 40
+sidebar_position: 4
 ---
 
 # Command Line Options
+
+Reference to available options and arguments.
 
  * [Synopsis](#synopsis)
  * [Process Control](#process-control-options)

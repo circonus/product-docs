@@ -1,6 +1,6 @@
 ---
 title: IRONdb Relay Release Notes
-weight: 35
+sidebar_position: 4
 ---
 
 # IRONdb-relay Release Notes
