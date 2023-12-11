@@ -16,7 +16,7 @@ sidebar_position: 12
  * Fix bug where the `reconst_in_progress` file was not being cleaned up after
    reconstitute operations, which could block rollups and deletes from running.
  * The `raw/rollup` and `histogram_raw/rollup` API endpoints will no longer
-   block if there if a rollup already running. They will also return sensible
+   block if there is a rollup already running. They will also return sensible
    error messages.
  * Raw shard rollups will not be allowed to run unless all previous rollups
    have run at least once.
