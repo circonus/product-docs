@@ -58,7 +58,6 @@ sidebar_position: 12
    metric stream.
  * Fix bug where `/fetch` would not proxy if the data for a time period was all
    in the raw database, but the relevant raw shards were offline.
- * [libmtev 2.5.3](https://github.com/circonus-labs/libmtev/blob/master/ChangeLog.md#253)
 
 
 ## Changes in 1.0.1
