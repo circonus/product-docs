@@ -587,7 +587,7 @@ To uninstall Agent Manage, run the following CMD.
 
 ```bash
 sudo /opt/circonus/am/sbin/circonus-am --decommission &&
-sudo apt remove circonus-am &&
+sudo apt remove -y circonus-am &&
 sudo rm -r /opt/circonus/am
 ```
 
@@ -596,7 +596,7 @@ sudo rm -r /opt/circonus/am
 
 ```bash
 sudo /opt/circonus/am/sbin/circonus-am --decommission &&
-sudo yum remove circonus-am &&
+sudo yum remove -y circonus-am &&
 sudo rm -r /opt/circonus/am
 ```
 
