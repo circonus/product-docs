@@ -12,7 +12,7 @@ sidebar_position: 12
  * Add preliminary support for operating IRONdb clusters with SSL/TLS. This
    allows securing ingestion, querying, and intra-cluster replication. See
    [TLS Configuration](/irondb/getting-started/configuration#tls-configuration)
-   for details.
+   for details. __This feature should be considered alpha__.
  * Use activity ranges as part of query cache key. Previously, cached results
    from queries with a time range could be used to answer queries that had no
    time range, leading to incorrect results.
