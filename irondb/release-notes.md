@@ -7,12 +7,19 @@ sidebar_position: 12
 
 ## Changes in 1.1.0
 
-2023-12-12
+2023-12-21
 
  * Add preliminary support for operating IRONdb clusters with SSL/TLS. This
    allows securing ingestion, querying, and intra-cluster replication. See
    [TLS Configuration](/irondb/getting-started/configuration#tls-configuration)
    for details.
+ * Use activity ranges as part of query cache key. Previously, cached results
+   from queries with a time range could be used to answer queries that had no
+   time range, leading to incorrect results.
+ * Fix logic bug where rollups were sometimes flagged as still being in
+   progress after they were completed.
+ * Account index WAL can keep growing without bounds due to a local variable
+   value being squashed early.
  * Fix bug where the `reconst_in_progress` file was not being cleaned up after
    reconstitute operations, which could block rollups and deletes from running.
  * The `raw/rollup` and `histogram_raw/rollup` API endpoints will no longer
