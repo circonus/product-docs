@@ -7,7 +7,7 @@ sidebar_position: 12
 
 ## Changes in 1.1.0
 
-2023-12-21
+2024-01-02
 
  * Add preliminary support for operating IRONdb clusters with SSL/TLS. This
    allows securing ingestion, querying, and intra-cluster replication. See
