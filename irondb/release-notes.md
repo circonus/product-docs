@@ -13,6 +13,8 @@ sidebar_position: 12
    allows securing ingestion, querying, and intra-cluster replication. See
    [TLS Configuration](/irondb/getting-started/configuration#tls-configuration)
    for details. __This feature should be considered alpha__.
+ * Fix bug where rollups were being flagged "not in progress" and "not dirty"
+   when attempting to schedule a rollup and the rollup is already running.
  * Use activity ranges as part of query cache key. Previously, cached results
    from queries with a time range could be used to answer queries that had no
    time range, leading to incorrect results.
