@@ -5,6 +5,21 @@ sidebar_position: 4
 
 # IRONdb-relay Release Notes
 
+## 0.0.57
+
+2024-01-25
+
+* Fix Docker build to bust apt caches and avoid errors.
+* Update setup script to better support HTTPS URLs in the bootstrap list.
+* Add C++ guards to headers and convert send code to C++ to take advantage of
+  libsnowth features.
+
+## 0.0.56
+
+2023-11-06
+
+* Add Docker support.
+
 ## 0.0.55
 
 2023-09-05
