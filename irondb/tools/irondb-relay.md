@@ -42,7 +42,9 @@ may be changed via configuration files.
 
 * 2003/tcp (Carbon plaintext submission)
 * 8112/tcp (admin UI, HTTP REST API)
-  * This becomes 8443/tcp when [TLS](/irondb/getting-started/configuration#tls-configuration) is in use.
+* If the IRONdb cluster uses
+  [TLS](/irondb/getting-started/configuration#tls-configuration),
+  8443/tcp will be used for ingestion to IRONdb.
 
 ## System Tuning
 
@@ -81,9 +83,17 @@ variables are listed below.
      resulting metric name in IRONdb will be "graphite.test.my.metric.1".
    * ##### IRONDB\_BOOTSTRAP
 
-     *\(required\)* The comma separated list of IRONdb nodes (ipaddress:port) to
-     use to discover the layout of the IRONdb cluster. It's a good practice to
-     list all IRONdb nodes in this list to adjust to down nodes.
+     *\(required\)* The comma separated list of IRONdb nodes (ipaddress:port or
+     `https://FQDN:port` URL) to use to discover the topology of the IRONdb
+     cluster. It's a good practice to list all IRONdb nodes in this list to
+     adjust to down nodes.
+   * ##### IRONDB\_RELAY\_TLS
+
+     *\(optional\)* Configures listeners to require TLS where applicable.
+     Default is "off". If set to "on", both the Carbon submission port and the
+     admin UI port will expect TLS connections from clients. An SSL certificate
+     will be required before the service can be started.
+     See [TLS Configuration](#tls-configuration) below for details.
    * ##### IRONDB\_CRASH\_REPORTING
 
      *\(optional\)* Control enablement of automated crash reporting. Default is
@@ -104,11 +114,12 @@ variables and arguments is permitted, but environment variables take precedence
 over command-line arguments. Use the `-h` option to view a usage summary:
 
     Usage: setup-irondb-relay [-h] -c <check-name> -u <check-uuid> -B <irondb-node-list>
-           [-d] [-b (on|off)]
+           [-d] [-t (on|off)] [-b (on|off)]
       -c <check-name>       : Graphite check name
       -u <check-uuid>       : Graphite check UUID
       -d                    : Use durable delivery to IRONdb
       -B <irondb-node-list> : Bootstrap to this list of IRONdb nodes
+      -t on|off             : Enable/disable TLS for listeners (default: off)
       -b on|off             : Enable/disable crash reporting (default: on)
       -h                    : Show usage summary
 
@@ -116,15 +127,19 @@ over command-line arguments. Use the `-h` option to view a usage summary:
       setup-irondb-relay -c foo -u f2eaa1b7-f7e8-41bd-9e8d-e52d43dc88b0 -d -B 10.1.13.1:8112,10.1.13.2:8112 -b on
 
 If your IRONdb cluster [uses TLS](/irondb/getting-started/configuration#tls-configuration),
-then specify the node list as `https://` URLs with port 8443, and, if
-necessary, place the CA certificate that corresponds to the cluster's
-client-facing listener as `/opt/circonus/etc/ssl/ca.crt`. The CA cert is
-necessary if your certificates are issued by an internal CA, as opposed to a
-public CA that is trusted by the operating system.
+then specify the node list as `https://<FQDN>:8443` URLs, and, if necessary,
+place the CA certificate that corresponds to the cluster's client-facing
+listener as `/opt/circonus/etc/ssl/irondb-ca.crt`. The CA cert is necessary if
+your certificates are issued by an internal CA, as opposed to a public CA that
+is trusted by the operating system.
 
 The setup script will configure your IRONdb-relay instance and start the
 service. See the [Graphite Ingestion](/irondb/integrations/graphite/) section for
 details.
+
+If you selected the TLS option irondb-relay listeners, the service will not be
+started automatically, and you will need to install a private key and
+certificate before starting the service.
 
 ## Configuration
 
@@ -167,20 +182,15 @@ Default: `/irondb-relay/logs/irondb-relay.lock`
 ```
 <eventer>
   <config>
-    <concurrency>8</concurrency>
-    <default_queue_threads>8</default_queue_threads>
-    <ssl_dhparam1024_file/>
-    <ssl_dhparam2048_file/>
+    <concurrency>16</concurrency>
+    <default_queue_threads>16</default_queue_threads>
+    <default_ca_chain>/opt/circonus/etc/ssl/irondb-ca.crt</default_ca_chain>
   </config>
 </eventer>
 ```
 
 Libmtev eventer system configuration. See the [libmtev eventer
 documentation](http://circonus-labs.github.io/libmtev/config/eventer.html).
-
-The `ssl_dhparam*_file` configurations are set to null to disable automatic
-Diffie-Hellman parameter generation at startup. IRONdb-relay does not utilize TLS by
-default, though this capability is present in libmtev.
 
 ### logs
 
@@ -366,10 +376,43 @@ Each listener below is configured within a `<listener>` node. Additional
 listeners may be configured if desired, or the specific address and/or port may
 be modified to suit your environment.
 
+#### TLS Configuration
+
+```
+<sslconfig>
+  <!-- Certificate CN should be the FQDN of the node. -->
+  <certificate_file>/opt/circonus/etc/ssl/relay.crt</certificate_file>
+  <key_file>/opt/circonus/etc/ssl/relay.key</key_file>
+  <ca_chain>/opt/circonus/etc/ssl/relay-ca.crt</ca_chain>
+  <layer_openssl_10>tlsv1.2</layer_openssl_10>
+  <layer_openssl_11>tlsv1:all,>=tlsv1.2,cipher_server_preference</layer_openssl_11>
+  <ciphers>ECDHE+AES128+AESGCM:ECDHE+AES256+AESGCM:DHE+AES128+AESGCM:DHE+AES256+AESGCM:!DSS</ciphers>
+</sslconfig>
+```
+
+This section will be present when TLS operation has been activated via the
+setup script. These settings apply to any and all listeners that have the `ssl`
+attribute set to "on".
+
+See 
+[libmtev listener configuration](https://circonus-labs.github.io/libmtev/config/listeners.html#sslconfig)
+for specific details on each option.
+
+Place the following files in the `/opt/circonus/etc/ssl` directory:
+* **relay.key** - An RSA private key.
+* **relay.crt** - A certificate issued for this relay's listeners. Its
+  commonName (CN) should be the node's FQDN, or whatever name clients will be
+  using to connect to this node.
+* **relay-ca.crt** - The Certificate Authority's public certificate, sometimes
+  referred to as an intermediate or chain cert, that issued `relay.crt`.
+
+These files must be readable by the unprivileged user that irondb-relay runs
+as, typically `nobody`.
+
 #### Main listener
 
 ```
-<listener address="*" port="8112" backlog="100" type="http_rest_api">
+<listener address="*" port="8112" backlog="100" type="http_rest_api" ssl="off">
   <config>
     <document_root>/opt/circonus/share/snowth-web</document_root>
   </config>
@@ -409,10 +452,16 @@ only a REST API listener. This value should not be changed.
 
 Default: http_rest_api
 
+##### Main listener ssl
+
+If set to "on", SSL/TLS will be enabled for this listener.
+
+Default: off
+
 #### Graphite listener
 
 ```
-<listener address="*" port="2003" type="graphite">
+<listener address="*" port="2003" type="graphite" ssl="off">
   <config>
     <check_uuid>00000000-0000-0000-0000-000000000000</check_uuid>
     <check_name>mycheckname</check_name>
@@ -451,6 +500,12 @@ The type of listener. IRONdb implements a Graphite-compatible handler in
 libmtev, using the custom type "graphite".
 
 Default: graphite
+
+##### Graphite listener ssl
+
+If set to "on", SSL/TLS will be enabled for this listener.
+
+Default: off
 
 ##### Graphite listener config
 
