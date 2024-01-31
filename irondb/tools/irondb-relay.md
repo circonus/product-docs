@@ -163,7 +163,7 @@ additional configuration files which are discussed later.  It is located at
 
 ### irondb-relay
 
-```
+```xml
 <irondb-relay lockfile="/irondb-relay/logs/irondb-relay.lock" text_size_limit="512">
 ```
 
@@ -179,7 +179,7 @@ Default: `/irondb-relay/logs/irondb-relay.lock`
 
 ### eventer
 
-```
+```xml
 <eventer>
   <config>
     <concurrency>16</concurrency>
@@ -238,7 +238,7 @@ There are 2 modules provided with IRONdb-relay:
      
      An example of a blacklist would resemble:
      
-     ``` xml 
+     ```xml 
       <filter> 
        <ruleset> 
          <rule> 
@@ -288,7 +288,7 @@ There are 2 modules provided with IRONdb-relay:
 
     An example:
     
-    ``` xml 
+    ```xml 
     <aggregation>
     <matchers>
       <matcher>
@@ -378,7 +378,7 @@ be modified to suit your environment.
 
 #### TLS Configuration
 
-```
+```xml
 <sslconfig>
   <!-- Certificate CN should be the FQDN of the node. -->
   <certificate_file>/opt/circonus/etc/ssl/relay.crt</certificate_file>
@@ -411,7 +411,7 @@ as, typically `nobody`.
 
 #### Main listener
 
-```
+```xml
 <listener address="*" port="8112" backlog="100" type="http_rest_api" ssl="off">
   <config>
     <document_root>/opt/circonus/share/snowth-web</document_root>
@@ -460,7 +460,7 @@ Default: off
 
 #### Graphite listener
 
-```
+```xml
 <listener address="*" port="2003" type="graphite" ssl="off">
   <config>
     <check_uuid>00000000-0000-0000-0000-000000000000</check_uuid>
@@ -519,7 +519,7 @@ associated with this listener. The first Graphite listener is configured during
 
 #### CLI listener
 
-```
+```xml
 <listener address="127.0.0.1" port="32322" type="mtev_console">
   <config>
     <line_protocol>telnet</line_protocol>
@@ -555,7 +555,7 @@ Default: mtev_console
 
 ### journal
 
-```
+```xml
 <journal concurrency="4"
          replicate_concurrency="1"
          max_bundled_messages="25000"
@@ -605,7 +605,7 @@ Default: 131072 (128 KB)
 
 #### watchdog
 
-```
+```xml
 <watchdog glider="/opt/circonus/bin/backwash" tracedir="/opt/circonus/traces-relay"/>
 ```
 
