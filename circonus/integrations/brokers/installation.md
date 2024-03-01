@@ -18,10 +18,10 @@ Follow these instructions to install an Enterprise Broker on RHEL 7 or CentOS 7.
    #
    [circonus]
    name=Circonus - Base
-   baseurl=http://updates.circonus.net/centos/7/x86_64/
+   baseurl=https://updates.circonus.net/broker/centos/x86_64/
    enabled=1
    gpgcheck=1
-   metadata_expire=60m
+   gpgkey=https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648
 
    [circonus-crashreporting]
    name=Circonus - Crash Reporting
@@ -31,10 +31,6 @@ Follow these instructions to install an Enterprise Broker on RHEL 7 or CentOS 7.
    metadata_expire=60m
    ```
 
-1. Install the Circonus package-signing key:
-   ```
-   rpm --import https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648
-   ```
 1. Install the broker package:
    ```
    yum install circonus-field-broker
@@ -47,24 +43,20 @@ Follow these instructions to install an Enterprise Broker on Ubuntu 20.04 LTS:
 1. Create a file at `/etc/apt/sources.list.d/circonus.list` with the following
    contents:
    ```
-   deb http://updates.circonus.net/ubuntu/ focal main
-   deb http://updates.circonus.net/backtrace/ubuntu/ focal main
+   deb https://updates.circonus.net/broker/ubuntu/ focal main
+   deb https://updates.circonus.net/backtrace/ubuntu/ focal main
    ```
 1. Install the Circonus package-signing keys:
-
    ```
-   curl -s \
-     https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648 | \
-     sudo apt-key add -
+   sudo curl -s -o /etc/apt/trusted.gpg.d/circonus.asc \
+     'https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648'
 
-   curl -s \
-     https://updates.circonus.net/backtrace/ubuntu/backtrace_package_signing.key | \
-     sudo apt-key add -
+   sudo curl -s -o /etc/apt/trusted.gpg.d/backtrace.asc \
+     https://updates.circonus.net/backtrace/ubuntu/backtrace_package_signing.key
    ```
-
 1. Install the broker package:
    ```
-   sudo apt update ; sudo apt install circonus-field-broker
+   sudo apt update && sudo apt install circonus-field-broker
    ```
 
 ## External Connectivity
