@@ -91,27 +91,21 @@ System commands must be run as a privileged user, such as `root`, or via `sudo`.
 
 ### Configure Software Sources
 
-Configure package repositories. During the IRONdb beta period, our development
-(aka "pilot") repo is required.
+Configure package repositories.
 
 #### EL7 Repository
 
 If you wish to validate package signatures, the Circonus Packaging key is
 available from [Keybase](https://keybase.io/circonuspkg).
 
-Install the key:
-```
-rpm --import https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648
-```
-
 Create the file `/etc/yum.repos.d/Circonus.repo` with the following contents:
 
     [circonus]
     name=Circonus
-    baseurl=http://pilot.circonus.net/centos/7/x86_64/
+    baseurl=https://updates.circonus.net/irondb/centos/x86_64/
     enabled = 1
     gpgcheck = 1
-    metadata_expire = 5m
+    gpgkey = https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648
 
     [circonus-crash-reporting]
     name=Circonus - Crash Reporting
@@ -119,37 +113,28 @@ Create the file `/etc/yum.repos.d/Circonus.repo` with the following contents:
     enabled = 1
     gpgcheck = 0
 
-If you do not wish to validate signatures, set `gpgcheck = 0` in the
-`[circonus]` stanza.
-
 #### Ubuntu 20.04 Repository
 
-If you wish to validate package signatures, the Circonus Packaging key is
-available from [Keybase](https://keybase.io/circonuspkg).
-
-Install the key:
+Install the signing keys:
 ```
-curl -o /etc/apt/trusted.gpg.d/circonus.asc 'https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648'
+sudo curl -s -o /etc/apt/trusted.gpg.d/circonus.asc \
+  'https://keybase.io/circonuspkg/pgp_keys.asc?fingerprint=14ff6826503494d85e62d2f22dd15eba6d4fa648'
+
+sudo curl -s -o /etc/apt/trusted.gpg.d/backtrace.asc \
+  https://updates.circonus.net/backtrace/ubuntu/backtrace_package_signing.key
 ```
 
 Create the file `/etc/apt/sources.list.d/circonus.list` with the following
 contents:
 
-    deb http://pilot.circonus.net/ubuntu/ focal main
+    deb https://updates.circonus.net/irondb/ubuntu/ focal main
+    deb https://updates.circonus.net/backtrace/ubuntu/ focal main
 
-If you do not wish to validate signatures, add the option `trusted=yes`:
-
-    deb [trusted=yes] http://pilot.circonus.net/ubuntu/ focal main
-
-Note that this will still generate a warning for some operations, such as
-`apt-get update` since the default is to validate the signature on the main
-repository metadata file(s).
-
-Finally, run `apt-get update`.
+Finally, run `sudo apt-get update`.
 
 ### Install Package
 
-EL7: `/usr/bin/yum install circonus-platform-irondb`
+EL7: `sudo yum install circonus-platform-irondb`
 
 Ubuntu 20.04: we have a helper package that works around issues with dependency
 resolution, since IRONdb is very specific about the versions of dependent
@@ -157,8 +142,8 @@ Circonus packages, and apt-get is unable to cope with them. The helper package
 must be installed first, i.e., it cannot be installed in the same transaction
 as the main package.
 ```
-/usr/bin/apt-get install circonus-platform-irondb-apt-policy
-/usr/bin/apt-get install circonus-platform-irondb
+sudo apt-get install circonus-platform-irondb-apt-policy
+sudo apt-get install circonus-platform-irondb
 ```
 
 ### Setup Process
