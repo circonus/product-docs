@@ -1,13 +1,13 @@
 ---
 title: Graphite
+sidebar_position: 10
 ---
 
 # Graphite
 
-## Overview
+IRONdb is a drop-in replacement for Graphite's Whisper database.
 
-IRONdb is a drop-in replacement for Graphite's Whisper database, and supports
-ingestion from Carbon sources like carbon-relay and carbon-c-relay. 
+It supports ingestion from Carbon sources like carbon-relay and carbon-c-relay.
 [Graphite-irondb](https://docs.circonus.com/irondb/tools/irondb-graphite/) is a
 storage finder plugin that allows IRONdb to seamlessly integrate with an
 organization's existing Graphite-web deployment.
