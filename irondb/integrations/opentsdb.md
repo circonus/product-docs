@@ -1,10 +1,9 @@
 ---
 title: OpenTSDB
+sidebar_position: 30
 ---
 
 # OpenTSDB
-
-## Overview
 
 IRONdb has native endpoints for accepting OpenTSDB-style data.
 
