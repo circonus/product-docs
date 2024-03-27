@@ -23,7 +23,7 @@ boot to take longer than usual.**
    where the metric has multiple tags.
  * Fix issue where level indexes were incorrectly reporting that levels existed when all
    underlying metrics had been removed.
- * Add new API endpoints, `/compact_indexes" and `/invalidate_index_cache`, that allow
+ * Add new API endpoints, `/compact_indexes` and `/invalidate_index_cache`, that allow
    forcing compaction and cache invalidation for specific accounts, respectively.
  * Fix rollup bug where raw shards could be prematurely deleted if a rollup was aborted
    due to corruption.
