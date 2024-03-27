@@ -18,7 +18,7 @@ boot to take longer than usual.**
  * Automatically clean up old index versions on startup to make sure outdated indexes don't
    clog the disk.
  * Fix Ubuntu 20.04 specific bug where nodes could crash when trying to clean up status files
-   when rollup up raw shards.
+   when rolling up raw shards.
  * Fix issue with level indexes where data was being lost when deleting metrics on levels
    where the metric has multiple tags.
  * Fix issue where level indexes were incorrectly reporting that levels existed when all
