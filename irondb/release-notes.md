@@ -11,8 +11,8 @@ sidebar_position: 12
 
 **NOTE: This release bumps the metric index version from 4 to 5. Upon update, new indexes
 will be built and the old ones will be deleted. This process will use a significant amount
-of memory while the indexes are being rebuilt. It will also cause the first time the node is
-booted after the update to take longer than usual.**
+of memory while the indexes are being rebuilt. It will also cause the first post-update
+boot to take longer than usual.**
 
  * Update index version from 4 to 5.
  * Automatically clean up old index versions on startup to make sure outdated indexes don't
