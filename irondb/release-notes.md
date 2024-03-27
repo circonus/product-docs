@@ -9,7 +9,7 @@ sidebar_position: 12
 
 2024-03-27
 
-**NOTE: This release bumps the metric index version from 4 to 5. Upon update, new indexes
+**NOTE: This release bumps the metric index version from 4 to 5. Upon restart, new indexes
 will be built and the old ones will be deleted. This process will use a significant amount
 of memory while the indexes are being rebuilt. It will also cause the first post-update
 boot to take longer than usual.**
