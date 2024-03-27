@@ -29,7 +29,7 @@ boot to take longer than usual.**
    due to corruption.
  * Fix various potential memory corruption issues.
  * Fix issue where jlog journal data could get corrupted.
- * [libmtev 2.7.1](https://github.com/circonus-labs/libmtev/blob/master/ChangeLog.md#253)
+ * [libmtev 2.7.1](https://github.com/circonus-labs/libmtev/blob/master/ChangeLog.md#271)
 
 ## Changes in 1.1.0
 
