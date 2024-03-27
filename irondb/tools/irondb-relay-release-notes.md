@@ -5,6 +5,19 @@ sidebar_position: 4
 
 # IRONdb-relay Release Notes
 
+## 0.1.1
+
+2024-03-27
+
+* Update libmtev dependency, which fixes potential memory corruption
+  issues.
+
+## 0.1.0
+
+2024-01-31
+
+* Add TLS support
+
 ## 0.0.57
 
 2024-01-25
