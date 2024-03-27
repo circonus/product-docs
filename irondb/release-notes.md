@@ -24,7 +24,7 @@ boot to take longer than usual.**
  * Fix issue where level indexes were incorrectly reporting that levels existed when all
    underlying metrics had been removed.
  * Add new API endpoints, `/compact_indexes" and `/invalidate_index_cache`, that allow
-   forcing compaction and cache invalidation for specific accounts.
+   forcing compaction and cache invalidation for specific accounts, respectively.
  * Fix rollup bug where raw shards could be prematurely deleted if a rollup was aborted
    due to corruption.
  * Fix various potential memory corruption issues.
