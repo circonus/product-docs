@@ -86,7 +86,7 @@ profile containing a `[vm]` section that sets `transparent_hugepages=never`.
 
 ## Installation Steps
 
-Follow these steps to get IRONdb installed on your system. If you are using one of our pre-built Amazon EC2 images, **these steps are already done for you**, and your free-25K instance will be configured automatically on first boot. Please refer to [EC2 installation](#ec2-installation) below.
+Follow these steps to get IRONdb installed on your system.
 
 System commands must be run as a privileged user, such as `root`, or via `sudo`.
 
@@ -114,7 +114,7 @@ Create the file `/etc/yum.repos.d/Circonus.repo` with the following contents:
     enabled = 1
     gpgcheck = 0
 
-#### Ubuntu 20.04 or 22.04 Repository
+#### Ubuntu Repository
 
 Install the signing keys:
 ```
@@ -126,12 +126,14 @@ sudo curl -s -o /etc/apt/trusted.gpg.d/backtrace.asc \
 ```
 
 Create the file `/etc/apt/sources.list.d/circonus.list` with the following
-contents for Ubuntu 20.04:
+contents, depending on the version:
+
+for Ubuntu 20.04:
 
     deb https://updates.circonus.net/irondb/ubuntu/ focal main
     deb https://updates.circonus.net/backtrace/ubuntu/ focal main
 
-or for Ubuntu 22.04:
+for Ubuntu 22.04:
 
     deb https://updates.circonus.net/irondb/ubuntu/ jammy main
     deb https://updates.circonus.net/backtrace/ubuntu/ jammy main
@@ -142,7 +144,7 @@ Finally, run `sudo apt-get update`.
 
 EL7: `sudo yum install circonus-platform-irondb`
 
-Ubuntu 20.04: we have a helper package that works around issues with dependency
+Ubuntu: we have a helper package that works around issues with dependency
 resolution, since IRONdb is very specific about the versions of dependent
 Circonus packages, and apt-get is unable to cope with them. The helper package
 must be installed first, i.e., it cannot be installed in the same transaction
@@ -155,6 +157,9 @@ sudo apt-get install circonus-platform-irondb
 ### Setup Process
 
 Prepare site-specific information for setup. These values may be set via shell environment variables, or as arguments to the setup script. The environment variables are listed below.
+
+**NOTE:** if you wish to use environment variables, you will need to run the
+install from a root shell, as sudo will clear the environment when it runs.
 
 #### IRONDB\_NODE\_UUID
 _(required)_ The ID of the current node, which must be unique within a
