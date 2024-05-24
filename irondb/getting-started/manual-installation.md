@@ -12,6 +12,7 @@ How to install IRONdb on a system.
 IRONdb requires one of the following operating systems:
 * RHEL/CentOS 7 (7.4-7.9)
 * Ubuntu 20.04 LTS
+* Ubuntu 22.04 LTS
 
 Additionally, IRONdb requires the [ZFS](http://open-zfs.org/) filesystem. This
 is available natively on Ubuntu, but for EL7 installs, you will need to obtain
