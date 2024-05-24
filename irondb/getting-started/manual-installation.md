@@ -113,7 +113,7 @@ Create the file `/etc/yum.repos.d/Circonus.repo` with the following contents:
     enabled = 1
     gpgcheck = 0
 
-#### Ubuntu 20.04 Repository
+#### Ubuntu 20.04 or 22.04 Repository
 
 Install the signing keys:
 ```
@@ -125,10 +125,15 @@ sudo curl -s -o /etc/apt/trusted.gpg.d/backtrace.asc \
 ```
 
 Create the file `/etc/apt/sources.list.d/circonus.list` with the following
-contents:
+contents for Ubuntu 20.04:
 
     deb https://updates.circonus.net/irondb/ubuntu/ focal main
     deb https://updates.circonus.net/backtrace/ubuntu/ focal main
+
+or for Ubuntu 22.04:
+
+    deb https://updates.circonus.net/irondb/ubuntu/ jammy main
+    deb https://updates.circonus.net/backtrace/ubuntu/ jammy main
 
 Finally, run `sudo apt-get update`.
 
