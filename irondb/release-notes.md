@@ -5,6 +5,29 @@ sidebar_position: 12
 
 # Release Notes
 
+## Changes in 1.2.1
+
+2024-06-04
+
+ * Avoid metric index corruption by using `pread(2)` in jlog instead of
+   `mmap(2)`.
+ * Deprecate `max_ingest_age` from the graphite module. Require the
+   `validation` fields instead.
+ * Change Prometheus module to convert `nan` and `inf` records to `null`.
+ * Add logging when when the `snowth_lmdb_tool` copy operation successfully
+   completes.
+ * Fix bug where a node could crash if we closed a raw shard for delete, then
+   tried to roll up another shard before the delete ran.
+ * Fix bug where setting raw shard granularity values above `3w` could cause
+   data to get written with incorrect timestamps during rollups.
+ * Improve various listener error messages.
+ * Add checks for timeouts in the data journal path where they were missing.
+ * Improve graphite PUT error messages.
+ * Fix NNTBS rollup fetch bug where we could return no value when there was
+   valid data to return.
+ * Fix bug where histogram rollup shards were sometimes not being deleted even
+   though they were past the retention window.
+
 ## Changes in 1.2.0
 
 2024-03-27
