@@ -279,7 +279,7 @@ and their default value is listed in the signature.
 
 This package contains all globally accessible functions.
 
-- **`anomaly_detection([sensitivity], [model="constant"], [model_period="1440M"], [prefill_period="auto"])`** - Detects anomalies in each input stream with the specified sensitivity. This method operates on 5m rollups.
+- **`anomaly_detection([sensitivity], [model="constant"], [model_period=1440M], [prefill_period="auto"])`** - Detects anomalies in each input stream with the specified sensitivity. This method operates on 5m rollups.
 
 * `sensitivity` - (optional, default:`50`) Valid range: 0 .. 100
 * `model = "constant"` - underlying time-series model. Valid values: constant/trending/periodic/periodic daily/periodic weekly
