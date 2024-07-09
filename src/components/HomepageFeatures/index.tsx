@@ -10,15 +10,7 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: "Passport",
-    link: "/passport/intro",
-  },
-  {
-    title: "Circonus 3.0",
-    link: "/circonus3/category/getting-started",
-  },
-  {
-    title: "Circonus 2.0",
+    title: "Circonus",
     link: "/circonus/getting-started/introduction",
   },
   {

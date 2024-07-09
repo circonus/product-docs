@@ -54,26 +54,6 @@ const config = {
     [
       "@docusaurus/plugin-content-docs",
       {
-        id: "circonus3",
-        path: "circonus3",
-        routeBasePath: "circonus3",
-        // sidebarPath: require.resolve("./sidebars.js"),
-        // ... other options
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "passport",
-        path: "passport",
-        routeBasePath: "passport",
-        // sidebarPath: require.resolve("./sidebars.js"),
-        // ... other options
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
         id: "circonus",
         path: "circonus",
         routeBasePath: "circonus",
@@ -145,15 +125,22 @@ const config = {
             type: "docSidebar",
             sidebarId: "defaultSidebar",
             position: "left",
-            label: "Passport",
-            docsPluginId: "passport",
+            label: "Circonus",
+            docsPluginId: "circonus",
           },
           {
             type: "docSidebar",
             sidebarId: "defaultSidebar",
             position: "left",
-            label: "Circonus 3.0",
-            docsPluginId: "circonus3",
+            label: "IRONdb",
+            docsPluginId: "irondb",
+          },
+          {
+            type: "docSidebar",
+            sidebarId: "defaultSidebar",
+            position: "left",
+            label: "CAQL",
+            docsPluginId: "caql",
           },
         ],
       },
@@ -172,10 +159,6 @@ const config = {
           {
             title: "More",
             items: [
-              {
-                label: "Blog",
-                to: "https://www.circonus.com/blog/",
-              },
               {
                 label: "GitHub",
                 href: "https://github.com/circonus",
