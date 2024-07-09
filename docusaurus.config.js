@@ -54,16 +54,6 @@ const config = {
     [
       "@docusaurus/plugin-content-docs",
       {
-        id: "passport",
-        path: "passport",
-        routeBasePath: "passport",
-        // sidebarPath: require.resolve("./sidebars.js"),
-        // ... other options
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
         id: "circonus",
         path: "circonus",
         routeBasePath: "circonus",
