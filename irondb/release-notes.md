@@ -5,6 +5,20 @@ sidebar_position: 12
 
 # Release Notes
 
+## Changes in 1.3.0
+
+2024-07-17
+
+ * Fix potential crash when building level indexes on certain operating systems.
+ * Reduce spam in error log when trying to fetch raw data for a metric where none exists
+   for the requested range.
+ * Add new API endpoint, `/rename`, to allow renaming a metric. This calculates where the new
+   metric will live, sends the data for the metric to the new location, then deletes the old
+   metric. This currently only works for numeric metrics.
+ * Add new endpoint, `/full/canonical/<check uuid>/<canonical metric name>` that will allow
+   deleting an exact metric from the system without using tag search.
+ * Add ability to skip data after a given time when using the `copy` sieve in `snowth_lmdb_tool`.
+
 ## Changes in 1.2.1
 
 2024-06-04
