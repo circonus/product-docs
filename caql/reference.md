@@ -300,7 +300,7 @@ This package contains all globally accessible functions.
 
 - **`diff()`** - Returns the difference of each consecutive numeric value within a stream. This results in the derivative with respect to time over the input streams.
 
-- **`if()`** - The `if` operator takes three source parameters: `if{cond-stream, then-stream, else-stream}`
+- **`if{}`** - The `if` operator takes three source parameters: `if{cond-stream, then-stream, else-stream}`
   For each point in time, if the value of `cond-stream` is truthy (nonzero), then return a value from the `then-stream`; else return a value from the `else-stream`.
   This operator only supports numeric inputs.
 
