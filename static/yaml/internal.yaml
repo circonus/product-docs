@@ -204,7 +204,7 @@ paths:
           The number of distinct entries contained in the journal message.
     post:
       tags:
-        - Data Submission
+        - Data Submission and Repair
       summary: Submits messages to a node for processing, typically sent by other nodes' stored jlogs.  These are normally ingested data records, but can be delete messages, log messages, or lua commands as well.
       requestBody:
         content:
@@ -351,6 +351,7 @@ paths:
   /merge/nntbs:
     parameters:
       - $ref: '#/components/parameters/X-Target-Topology'
+      - $ref: '#/components/parameters/X-Snowth-NNTBS-Activity-Data-Mode'
     patch:
       tags:
         - Rebalance
@@ -420,7 +421,7 @@ paths:
   /nntbs:
     post:
       tags:
-        - Data Submission
+        - Data Submission and Repair
       summary: >
         Inserts data directly into the NNTBS database. It will not journal the data out to other nodes; it is the responsibility of the caller to make sure the data is correct. Generally used internally for data migration.
       requestBody:
@@ -626,12 +627,118 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /raw/{check_uuid}/{metric_name}:
+    parameters:
+      - $ref: '#/components/parameters/PathCheckUUID'
+      - $ref: '#/components/parameters/PathMetricName'
+      - $ref: '#/components/parameters/QueryStartTs'
+      - $ref: '#/components/parameters/QueryEndTs'
+    get:
+      tags:
+        - Data Retrieval
+      summary: >
+        Direct fetch of raw numeric data without any processing.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NumericTuples"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /histogram_raw/{check_uuid}/{metric_name}:
+    parameters:
+      - $ref: '#/components/parameters/PathCheckUUID'
+      - $ref: '#/components/parameters/PathMetricName'
+      - $ref: '#/components/parameters/QueryStartTs'
+      - $ref: '#/components/parameters/QueryEndTs'
+    get:
+      tags:
+        - Data Retrieval
+      summary: >
+        Direct fetch of raw histogram data without any processing.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HistogramRawTuples"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /histogram/{period}/{check_uuid}/{metric_name}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/PathPeriod'
+        - $ref: '#/components/parameters/PathCheckUUID'
+        - $ref: '#/components/parameters/PathMetricName'
+        - $ref: '#/components/parameters/QueryStartTs'
+        - $ref: '#/components/parameters/QueryEndTs'
+      tags:
+        - Data Retrieval
+      summary: >
+        Direct fetch of histogram rollup data without any processing.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HistogramRollupTuples"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      parameters:
+        - $ref: '#/components/parameters/PathPeriod'
+        - $ref: '#/components/parameters/PathCheckUUID'
+        - $ref: '#/components/parameters/PathMetricName'
+        - $ref: '#/components/parameters/QueryNumRecords'
+      tags:
+        - Data Submission and Repair
+      summary: >
+        Direct insertion of histogram rollup data without going through raw and rollup.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HistogramRollupTuples'
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DirectHistogramInsertResponse"
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/Error'
   /ingestion:
     parameters:
       - $ref: '#/components/parameters/QueryControl'
     get:
       tags:
-        - Data Submission
+        - Data Submission and Repair
       summary: >
         Disable types of ingestion on the running node.
       responses:
@@ -740,6 +847,18 @@ components:
         format: "[0-9]?(s|ms)"
       description: >
         A timeout, provided in second or milliseconds (s or ms), for how long to allow the operation to run for before timing out with an error. In not specified, there will be no timeout.
+    X-Snowth-NNTBS-Activity-Data-Mode:
+      name: X-Snowth-NNTBS-Activity-Data-Mode
+      in: header
+      required: false
+      schema:
+        type: string
+        enum:
+          - "merge"
+          - "no_update"
+        default: "no_update"
+      description: >
+        How to update the activity data using incoming NNTBS data. There are two valid fields: "merge", which will update the existing activity data by merging in information from the provided NNTBS data, and "no_update", which will not alter the activity data.
     QueryControl:
       name: control
       in: query
@@ -756,6 +875,58 @@ components:
           - all-off
       description: >
         The type of ingestion to turn on or off.  This field can be left blank to return the current state.
+    PathMetricName:
+      name: metric_name
+      in: path
+      required: true
+      schema:
+        type: string, url_encoded
+      example: latency%7CST%5Bhost%3Aalpha4.internal%5D
+      description: >
+        The full [canonical metric name](https://docs.circonus.com/irondb/metric-names-tags-queries/#canonical-metric-names). 
+    PathCheckUUID:
+      name: check_uuid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      example: 33f66a25-941f-4efe-b782-0634bb2d2d31
+      description: >
+        All metrics in IRONdb are partitioned under check_uuid.
+    QueryStartTs:
+      in: query
+      name: start_ts
+      required: true
+      schema:
+        type: number
+      example: 168123145
+      description: The start time (lower bound) from which to pull data, represented in seconds since the unix epoch.
+    QueryEndTs:
+      in: query
+      name: end_ts
+      required: true
+      schema:
+        type: number
+      example: 169951854.760
+      description: The end time (upper bound) from which to pull data, represented in seconds since the unix epoch.
+    PathPeriod:
+      in: path
+      name: period
+      required: true
+      schema:
+        type: integer
+      example: 60
+      description: The period, in seconds.
+    QueryNumRecords:
+      in: query
+      name: num_records
+      required: true
+      schema:
+        type: integer
+      example: 138
+      description: The number of incoming datapoints to be inserted.
+
 
   schemas:
     FourPointResponse:
@@ -784,17 +955,68 @@ components:
         any_in_progress:
           type: boolean
           description: Whether or not a reconstitute is running on any node in the snowth cluster.
+    NumericTuples:
+      type: array
+      minItems: 0
+      description: An array of numeric samples. The first value is the epoch timestamp in milliseconds. The second is a numeric value.
+      items:
+        type: array
+        minItems: 1
+        maxItems: 2147483647
+        items:
+          anyOf:
+            - type: integer
+            - type: object
+      example: [[1380000000,1],[1380000300,2]]
+    HistogramRawTuples:
+      type: array
+      minItems: 0
+      description: An array of histogram samples. The first value is the epoch timestamp in milliseconds. The second is an object map with all of the different buckets as keys, and number of samples as values.
+      items:
+        type: array
+        minItems: 1
+        maxItems: 2147483647
+        items:
+          anyOf:
+            - type: integer
+            - type: object
+      example: [[1380000000,{"1": 1,"2": 1,"3": 1,"4": 1,"5": 1}],[1380000300,{"1": 1,"2": 1,"3": 1,"4": 1,"5": 1}]]
+    HistogramRollupTuples:
+      type: array
+      minItems: 0
+      description: An array of histogram samples. The first value is the epoch timestamp in milliseconds. The second is the period in seconds. The third is an object map with all of the different buckets as keys, and number of samples as values.
+      items:
+        type: array
+        minItems: 1
+        maxItems: 2147483647
+        items:
+          anyOf:
+            - type: integer
+            - type: integer
+            - type: object
+      example: [[1380000000,60,{"1": 1,"2": 1,"3": 1,"4": 1,"5": 1}],[1380000300,60,{"1": 1,"2": 1,"3": 1,"4": 1,"5": 1}]]
+    DirectHistogramInsertResponse:
+      type: object
+      properties:
+        processed:
+          type: integer
+        discarded:
+          type: integer
+        errors:
+          type: integer
+        successes:
+          type: integer
     Error:
       type: object
       properties:
         error:
           type: string
           description: A human readable description of the error.
-          example: Cannot parse tag query
 tags:
   - name: State and Topology
   - name: Data Deletion
-  - name: Data Submission
+  - name: Data Retrieval
+  - name: Data Submission and Repair
   - name: Rebalance
   - name: Reconstitute
   - name: Testing

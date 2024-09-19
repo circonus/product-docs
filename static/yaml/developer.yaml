@@ -1107,6 +1107,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /full/canonical/{check_uuid}/{metric_name}:
+    parameters:
+      - $ref: '#/components/parameters/X-Snowth-Account-Id'
+      - $ref: '#/components/parameters/CheckUUID'
+      - $ref: '#/components/parameters/PathCanonicalMetricName'
+    delete:
+      tags:
+        - Data Deletion
+      summary: Delete the surrogate entry from the database for the provided metric name, check uuid, and account id.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullCanonicalDeleteResponse'
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /raw/tags:
     parameters:
       - $ref: '#/components/parameters/X-Snowth-Account-Id'
@@ -1264,6 +1287,7 @@ paths:
                 $ref: '#/components/schemas/Error'
   /read/{start}/{end}/{check_uuid}/{metric_name}:
     parameters:
+      - $ref: '#/components/parameters/QueryGetSpecificRange'
       - $ref: '#/components/parameters/CheckUUID'
       - $ref: '#/components/parameters/PathCanonicalMetricName'
       - $ref: '#/components/parameters/PathStart'
@@ -1516,6 +1540,15 @@ components:
       example: category1=value1
       description: >
         The tag query syntax is the same as supported by Graphite version >= 1.1. See [Graphite Tag Querying](http://graphite.readthedocs.io/en/latest/tags.html#querying).
+    QueryGetSpecificRange:
+      name: get_specific_range
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: false
+      description: >
+        By default, text metrics remove duplicate values, and only show changes.  If looking for the exactly ingested timestamps, setting this parameter to true will cause it to not remove duplicate values, and instead return every sample in the time range. 
     PathCanonicalMetricName:
       name: metric_name
       in: path
@@ -1555,7 +1588,7 @@ components:
         minimum: 0
         maximum: 2
       description: > 
-        Specify if the two most recent values for the metric should be returned. Parameters: 0 : Do not return latest values. 1 : Return latest values if they are cached 2 : Return latest values even if additional work must be performed (slower performance), and turn on tracking for this metric so it will be cached for future calls to latest=1. This will usually return the latest two values, but there are circumstances where it will only return a single value.
+        Specify if the two most recent values for the metric should be returned. Parameters: 0 : Do not return latest values. 1 : Return latest values if they are cached 2 : Return latest values even if additional work must be performed (slower performance), and turn on tracking for this metric so it will be cached for future calls to latest=1. This will usually return the latest two values, but there are circumstances where it will only return a single value. This endpoint will only fetch the latest values from raw data when fetching numeric data - it will not populate the field using rolled-up data.
     FindTagsCountOnly:
       in: query
       name: count_only
@@ -2058,6 +2091,13 @@ components:
             type: string
             description: Additional info about the response, if any.
             example: "(null)"
+    FullCanonicalDeleteResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: An indication of success.
+          example: succeeded
     FetchPostBody:
       type: object
       properties:

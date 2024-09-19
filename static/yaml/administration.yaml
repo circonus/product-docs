@@ -63,12 +63,6 @@ paths:
               schema:
                 type: object
                 description: Flatbuffer version of the application/json response. Used during the reconstitute process.
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /histogram_raw/list_shards:
     get:
       tags:
@@ -87,12 +81,6 @@ paths:
               schema:
                 type: object
                 description: Flatbuffer version of the application/json response. Used during the reconstitute process.
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /histogram/{period}/list_shards:
     parameters:
       - name: period
@@ -316,6 +304,82 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /rename:
+    post:
+      tags:
+        - Data Migration
+      summary: Renames a metric from the old name to the new name. It will insert the data for the new name across the cluster and then delete all instances of the old name. Currently only supports numeric data.
+      parameters:
+        - $ref: '#/components/parameters/X-Snowth-Activity-Data-Mode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - old_metric
+                - new_metric
+                - account_id
+              properties:
+                old_metric:
+                  type: object
+                  required:
+                    - canonical_metric_name
+                    - check_uuid
+                  description: The metric you are renaming
+                  properties:
+                    canonical_metric_name:
+                      type: string
+                      example: old_metric_name|ST[metric_type:old]
+                      description: The full canonical name of the metric you are renaming
+                    check_uuid:
+                      type: string
+                      format: uuid
+                      description: The check uuid of the metric you are renaming
+                new_metric:
+                  type: object
+                  required:
+                    - canonical_metric_name
+                    - check_uuid
+                  description: The new full canonical name of the metric.
+                  properties:
+                    canonical_metric_name:
+                      type: string
+                      example: old_metric_name|ST[metric_type:new]
+                      description: The new name of the metric
+                    check_uuid:
+                      type: string
+                      format: uuid
+                      description: The new check uuid of the metric
+                account_id:
+                  type: integer
+                  description: The account id of the metric.
+                  example: 1
+                topology:
+                  type: string
+                  example: 17ee28b5f0efdc8844c30b1249db90f6d5f8cb86b02135c897471d461976729d
+                  description: >
+                    Defaults to current active topology.  If a cluster has multiple topologies (for example: during a rebalance), this allows the caller to select which one to use for the rename.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: An indication of success.
+                    example: succeeded
+        default:
+          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /nntbs_shard_maintenance:
     post:
       tags:
@@ -492,12 +556,6 @@ paths:
                       - TOPO_REBALANCE_COMPLETE_VOTE
                     default: TOPO_REBALANCE_IDLE
                     description: Current rebalance state of this node.  During a rebalance operation, each node will proceed through the above states in order, returning to `TOPO_REBALANCE_IDLE` when finished.
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'  
   /rebalance/deactivate/{topohash}:
     parameters:
       - $ref: '#/components/parameters/TopoHash'
@@ -534,12 +592,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StateResponse'
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /capa.json:
     get:
       tags:
@@ -553,12 +605,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CapaResponse'
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /capa:
     get:
       tags:
@@ -572,12 +618,6 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/CapaResponse'
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /stats.json:
     get:
       parameters:
@@ -614,12 +654,6 @@ paths:
                   - $ref: '#/components/schemas/StatsResponse'
                   - $ref: '#/components/schemas/StatsSimpleResponse'
                   - $ref: '#/components/schemas/StatsTaggedResponse'
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /gossip/json:
     get:
       tags:
@@ -634,12 +668,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GossipJSONResponse"
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /gossip/xml:
     get:
       tags:
@@ -654,13 +682,6 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/GossipXMLResponse"
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-
   /eventer/jobq.json:
     get:
       tags:
@@ -1062,12 +1083,6 @@ paths:
                   running:
                     type: boolean
                     example: true
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
     post:
       tags:
         - Deprecated
@@ -1138,12 +1153,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TopoDataResponse'
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+        "404":
+          description: Requested topohash was not found.
   /topology/xml/{topohash}:
     parameters:
       - $ref: '#/components/parameters/TopoHash'
@@ -1160,13 +1171,8 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/TopoDataResponse'
-                      
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+        "404":
+          description: Requested topohash was not found.
   /toporing/json/{topohash}:
     parameters:
       - $ref: '#/components/parameters/TopoHash'
@@ -1183,12 +1189,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TopoRingDataResponse'
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+        "404":
+          description: Requested topohash was not found.
   /toporing/xml/{topohash}:
     parameters:
       - $ref: '#/components/parameters/TopoHash'
@@ -1205,12 +1207,8 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/TopoRingDataResponse'
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+        "404":
+          description: Requested topohash was not found.
   /meta/{handle}:
     parameters:
       - $ref: '#/components/parameters/MetaHandle'
@@ -1373,7 +1371,7 @@ paths:
       tags:
         - Metadata
       summary: >
-        Fetches setcrdt-binrary data for the provided handle, table, and subscriber from the provided checkpoint.
+        Fetches setcrdt-binary data for the provided handle, table, and subscriber from the provided checkpoint.
       responses:
         "200":
           description: >
@@ -1474,6 +1472,65 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /compact_indexes:
+    parameters:
+      - name: account_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          example: 1
+        description: >
+          The account to compact the indexes for.
+    get:
+      tags:
+        - Indexes
+      summary: >
+        Forces index compaction for a specific account.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexResponse'
+        default:
+          description: Some sort of error occurred during the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexResponse'
+  /invalidate_index_cache:
+    parameters:
+      - name: account_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          example: 1
+        description: >
+          The account to invalidate the cache for.
+    get:
+      tags:
+        - Indexes
+      summary: >
+        Forces cache invalidation for a specific account.
+      responses:
+        "200":
+          description: >
+            Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexResponse'
+        default:
+          description: Some sort of error occurred during the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexResponse'
+
 components:
   parameters:
     AccountId:
@@ -1685,6 +1742,18 @@ components:
         format: "[0-9]+(s|ms)"
       description: >
         A timeout, provided in second or milliseconds (s or ms), for how long to allow the operation to run for before timing out with an error. In not specified, there will be no timeout.
+    X-Snowth-Activity-Data-Mode:
+      name: X-Snowth-Activity-Data-Mode
+      in: header
+      required: false
+      schema:
+        type: string
+        enum:
+          - "use_existing"
+          - "create_new"
+        default: "use_existing"
+      description: >
+        When running a rename, determines how activity data will be update.  The default behavior of `use_existing` will send over the existing activity data. `create_new` will not send activity data but instead use the metric data being sent to recalculate activity windows.
     CAQLQuery:
       name: query
       in: query
@@ -1860,7 +1929,7 @@ components:
           minimum: 0
           maximum: 1
           default: 0
-          description: If set to 0, the existing shard to will deleted before reconstituting.  If set to 1, the new data will be "merged" on top of the existing shard data, overwriting any duplicates.  This field must be set to 1 to resume an existing reconstitute that was interrupted.
+          description: If set to 0, the existing shard to will deleted before reconstituting.  If set to 1, the new data will be "merged" on top of the existing shard data, overwriting any duplicates.  This field must be set to 1 to resume an existing reconstitute that was interrupted, or when a metric is specified.
         backup:
           type: integer
           minimum: 0
@@ -1872,19 +1941,34 @@ components:
           minimum: 0
           maximum: 1
           default: 0
-          description: If a reconstitute is interrupted in the middle, the normal action would be to resume the reconstitute.  Set this to 1 to force the abandonment of a previous reconstitute.
+          description: If a reconstitute is interrupted in the middle, the normal action would be to resume and complete the reconstitute.  Set this to 1 to force the abandonment of a previous reconstitute.
         allow_partial:
           type: integer
           minimum: 0
           maximum: 1
           default: 0
-          description: Normally, live shard reconstitute will require all nodes in the cluster to respond that they have data for this shard before proceeding, to avoid ending up with a shard which has incomplete data.  Set this to 1 to override this and proceed with incomplete reconstitution of the shard.
+          description: Normally, live shard reconstitute will require all nodes in the cluster to respond that they have data for this shard (or those which have data for the specified metric) before proceeding, to avoid ending up with a shard which has incomplete data.  Set this to 1 to override this and proceed with incomplete reconstitution of the shard.  When a metric is specified, allow_partial is only meaningful when w > 2.
+        merge_all_nodes:
+          type: integer
+          minimum: 0
+          maximum: 1
+          default: 0
+          description: By default, a reconstitute will only take metric data from the "most-primary" available write copy. If this is set to 1, all available copies are sent/merged.  This is useful if data is no longer consistent between nodes for some reason.   For high W-values, this significantly increases cost of the operation.
         node_blacklist:
           type: array
           items:
             type: string
             format: uuid
-            description: The UUID of a node that the reconstitute should not pull data from.
+            description: The UUID of a node that the reconstitute should not pull data from.  When a metric is specified, at least one node must be available to provide reconstitute data.
+        check_uuid:
+          type: string
+          format: uuid
+          example: d76e405b-4e68-4436-9c1d-82452f0e159c
+          description: If provided with metric_name, specifies the metric that should be reconstituted.  Merge must be set to 1.
+        metric_name:
+          type: string
+          example: foo|ST[a:b,c:d]
+          description: If provided with check_uuid, specifies the metric that should be reconstituted.  Merge must be set to 1.
     RollupShardReconstituteLivePostBody:
       type: object
       required:
@@ -1906,7 +1990,7 @@ components:
           minimum: 0
           maximum: 1
           default: 0
-          description: If set to 0, the existing shard to will deleted before reconstituting.  If set to 1, the new data will be "merged" on top of the existing shard data, overwriting any duplicates.  This field must be set to 1 to resume an existing reconstitute that was interrupted.
+          description: If set to 0, the existing shard to will deleted before reconstituting.  If set to 1, the new data will be "merged" on top of the existing shard data, overwriting any duplicates.  This field must be set to 1 to resume an existing reconstitute that was interrupted, or when a metric is specified.
         backup:
           type: integer
           minimum: 0
@@ -1918,20 +2002,34 @@ components:
           minimum: 0
           maximum: 1
           default: 0
-          description: If a reconstitute is interrupted in the middle, the normal action would be to resume the reconstitute.  Set this to 1 to force the abandonment of a previous reconstitute.
+          description: If a reconstitute is interrupted in the middle, the normal action would be to resume and complete the reconstitute.  Set this to 1 to force the abandonment of a previous reconstitute.
         allow_partial:
           type: integer
           minimum: 0
           maximum: 1
           default: 0
-          description: Normally, live shard reconstitute will require all nodes in the cluster to respond that they have data for this shard before proceeding, to avoid ending up with a shard which has incomplete data.  Set this to 1 to override this and proceed with incomplete reconstitution of the shard.
+          description: Normally, live shard reconstitute will require all nodes in the cluster to respond that they have data for this shard (or those which have data for the specified metric) before proceeding, to avoid ending up with a shard which has incomplete data.  Set this to 1 to override this and proceed with incomplete reconstitution of the shard.  When a metric is specified, allow_partial is only meaningful when w > 2.
+        merge_all_nodes:
+          type: integer
+          minimum: 0
+          maximum: 1
+          default: 0
+          description: By default, a reconstitute will only take metric data from the "most-primary" available write copy. If this is set to 1, all available copies are sent/merged.  This is useful if data is no longer consistent between nodes for some reason.   For high W-values, this significantly increases cost of the operation.
         node_blacklist:
           type: array
           items:
             type: string
             format: uuid
             description: The UUID of a node that the reconstitute should not pull data from.
-
+        check_uuid:
+          type: string
+          format: uuid
+          example: d76e405b-4e68-4436-9c1d-82452f0e159c
+          description: If provided with metric_name, specifies the metric that should be reconstituted.  Merge must be set to 1.
+        metric_name:
+          type: string
+          example: foo|ST[a:b,c:d]
+          description: If provided with check_uuid, specifies the metric that should be reconstituted.  Merge must be set to 1.
     NNTBSShardMaintenancePostBody:
       type: object
       required:
@@ -2053,15 +2151,83 @@ components:
           description: Object with modules as keys, and information about those modules.
     StatsResponse:
       type: object
-      description: The stats response contains a large number of items, with formats changing depending on the requested type.
-      example: {"uptime": {"_type": "n","_value": 500.815},"replication`read_phase": {"_type": "H","_value": []}}
+      description: Numerous stats about IRONdb served in the original json-object format.
+      properties:
+        license:
+          type: object
+        extension:
+          type: object
+          properties:
+            lua:
+              type: object
+              description: Exported stats from the lua extensions present on the node.
+        be:
+          type: object
+          properties:
+            raw:
+              description: Stats regarding the /raw ingestion endpoint.
+              type: object
+              properties:
+                gates:
+                  type: object
+        metrics_db_cache:
+          description: Stats regarding the graphite query cache.
+          type: object
+        metric_index_facade_c:
+          type: object
+          description: A count of all metrics in the indexes both total, and by account.
+        db:
+          type: object
+          description: Different internal database stats.
+          properties:
+            hist-raw: 
+              type: object
+              description: Counts of offline, online, and corrupt shards.
+            text:
+              type: object
+            raw:
+              type: object
+            hist:
+              type: object
+            hist_shard:
+              type: object
+            nntbs:
+              type: object
+            graphite:
+              type: object
+              description: If an external whisper database is mounted for reading, stats about reads.
+        executors:
+          type: object
+          description: Wait time, runtime, and size of the different executors
+        topology:
+          type: object
+          description: Current topohash, and if a rebalance is occurring, the next one.
+        semver:
+          type: object
+        application:
+          type: object
+        features:
+          type: object
+          description: Feature flag status.
+        rusage:
+          type: object
+        identity:
+          type: object
+        version:
+          type: object
+        replication:
+          type: object
+          description: Replication journal delay, and sent count to other nodes from this node's perspective.
+        surrogate3:
+          type: object
+          description: Stats around the surrogate db.
     StatsSimpleResponse:
       type: object
-      description: The stats response contains a large number of items, with formats changing depending on the requested type.
+      description: Numerous stats about IRONdb.  See the standard response schema for descriptions.
       example: {"uptime": 1083.34,"identity": "97df761e-7c56-40dd-9344-ec064a4ed68d"}
     StatsTaggedResponse:
       type: object
-      description: The stats response contains a large number of items, with formats changing depending on the requested type.  
+      description: Numerous stats about IRONdb served in a flat stream-tagged format where json objects names are moved into tags.  See the standard response schema for descriptions.  
       example: {"latency|ST[app:snowth,operation:replication-read,snowth-node-id:5c32c076-ffeb-cfdd-a541-97e25c028dd6,units:seconds]": {"_type": "H","_value": ["H[0.0002]=1","H[0.00022]=1","H[0.00028]=2"],"histograms|ST[app:snowth,snowth-node-id:5c32c076-ffeb-cfdd-a541-97e25c028dd6]": {"_type": "l","_value": 0}}}
     ShardStartEndJSONResponse:
       type: array
@@ -2667,6 +2833,17 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/GossipOuterNodeXML'
+    IndexResponse:
+      type: object
+      properties:
+        account:
+          type: integer
+          example: 1
+        status:
+          type: string
+          enum:
+            - success
+            - failure
 
 tags:
   - name: Admin UI
@@ -2676,6 +2853,7 @@ tags:
   - name: Rollups/Shards
   - name: Topology
   - name: Internal Observability
+  - name: Indexes
   - name: Surrogates
   - name: Text
   - name: Metadata
