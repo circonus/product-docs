@@ -867,6 +867,55 @@ paths:
       - $ref: '#/components/parameters/PathStart'
       - $ref: '#/components/parameters/PathEnd'
       - $ref: '#/components/parameters/PathPeriod'
+      - in: query
+        name: get_engine
+        required: false
+        schema:
+          type: string
+          enum:
+            - rollups
+            - ingestion
+            - all
+          default: all
+        description: >
+          What engine to use when fetching histogram data. The options are "rollups", which will only fetch already rolled-up data, "ingestion", which will only fetch ingestion data, and "all", which will synthesize an answer from both.
+      - in: query
+        name: format
+        required: false
+        schema:
+          type: string
+          enum:
+            - hex
+            - double
+          default: double
+        description: >
+          The format the histograms will be in.
+      - in: query
+        name: min_granularity
+        required: false
+        schema:
+          type: string
+          default: 0
+        description: >
+          The minimum granularity of histogram bins in seconds. You can also enter "auto", which will automatically choose a minimum.
+      - in: query
+        name: epsilon
+        required: false
+        schema:
+          type: integer
+          default: 0
+        description: >
+          The lowest bucket value. Only has meaning if min_granularity is non-zero.
+      - in: query
+        name: min_bin_exponent
+        required: false
+        schema:
+          type: integer
+          minimum: -128
+          maximum: 127
+          default: -128
+        description: >
+          Used for min_bin_exponent compressesion. A value of -128 means "no compression".
     get:
       tags:
         - Deprecated 
@@ -881,54 +930,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HistogramTuples"
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /histogram/write:
-    post:
-      tags:
-        - Deprecated
-      deprecated: true
-      summary: >
-        Submission of histogram metrics.  Use /raw instead.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                type: object
-                properties:
-                  metric: 
-                    $ref: '#/components/schemas/CanonicalMetricName'
-                  id:
-                    type: string
-                    format: uuid
-                    description: UUID of the check for the metric being submitted.
-                  offset:
-                    type: string
-                    format: integer
-                    description: The epoch timestamp of the sample, sent as a string.
-                  period: 
-                    type: integer
-                    description: The period for which to add the histogram data. Typically, this will be the smallest histogram period configured on the IRONdb cluster.
-                  histogram:
-                    type: string
-                    format: base64 encoded data
-                    description: A base64-encoded compressed representation of the histogram data for this time period.
-              example: [{"offset": 1408724400,"id": "ae0f7f90-2a6b-481c-9cf5-21a31837020e","metric": "example1","period": 60,"histogram": "AAA="},{"offset": 1408724400,"id": "ae0f7f90-2a6b-481c-9cf5-21a31837020e","metric": "example2","period": 60,"histogram": "AAA="}]
-      responses:
-        "200":
-          description: >
-            Success.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FourPointResponse'
         default:
           description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
           content:

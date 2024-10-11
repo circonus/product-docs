@@ -597,36 +597,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /histogram/raw/{node_uuid}:
-    parameters:
-      - $ref: '#/components/parameters/ReconstituteNodeId'
-      - $ref: '#/components/parameters/ReconstituteHexHash'
-      - $ref: '#/components/parameters/X-Snowth-Separate-Raw'
-      - $ref: '#/components/parameters/X-Snowth-Timeout'
-      - $ref: '#/components/parameters/X-Nodes-Down'
-      - $ref: '#/components/parameters/X-Topo'
-    get:
-      tags:
-        - Reconstitute
-      summary: >
-        Pulls down a subset of histogram data used during a reconstitute. Based on how the node is configured, there will be <X> number of streams to download. The hex hash specifies which one to pull.
-      responses:
-        "200":
-          description: >
-            Success.
-          content:
-            application/snowth-hist:
-              schema:
-                description: >
-                  A binary stream of data representing the portion of the histogram database requested. This binary data can be directly imported by snowth.
-                type: string
-                example: <binary>
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /raw/{check_uuid}/{metric_name}:
     parameters:
       - $ref: '#/components/parameters/PathCheckUUID'

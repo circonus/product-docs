@@ -1064,49 +1064,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /histogram/compact:
-    get:
-      tags:
-        - Deprecated
-      deprecated: true
-      summary: >
-        Returns the current histogram database compaction status.
-      responses:
-        "200" :
-          description: >
-            Success.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  running:
-                    type: boolean
-                    example: true
-    post:
-      tags:
-        - Deprecated
-      deprecated: true
-      summary: >
-        Triggers a rocksdb compaction on each rollup in the histogram database. This will run asynchronously in the background. This will only work on RocksDB/Legacy histogram databases. Raw histogram shards and any rollups created by rolling them up will not be changed.
-      responses:
-        "200" :
-          description: >
-            Success.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  result:
-                    type: string
-                    example: "compact successfully set... data will compact in background"
-        default:
-          description: Some sort of error occurred during the request.  The response will include information about the cause of the error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /topology/{topohash}:
     parameters:
       - $ref: '#/components/parameters/TopoHash'
