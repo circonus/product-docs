@@ -800,14 +800,6 @@ components:
         type: string
       description: >
         The long_topo_id of the topology the node should use for determining what data to send.   If not specified, the current topology will be used.
-    X-Snowth-Separate-Raw:
-      name: X-Snowth-Separate-Raw
-      in: header
-      required: false
-      schema:
-        type: integer
-      description: >
-        Whether or not to send raw histogram data separately. This is only relevant if the node is using histogram shards. Any positive integer value will set this to true. A value less than or equal to zero, or if the header is missing, will set it to false.
     X-Snowth-Timeout:
       name: X-Snowth-Timeout
       in: header
