@@ -955,6 +955,7 @@ the defaults shown below will be used.
   <whisper directory="/opt/graphite/storage/whisper"
            check_uuid="3c253dac-7238-41a1-87d7-2e546f3b4318"
            account_id="1"
+           end_epoch_time="1780000000"
   />
 </graphite>
 ```
@@ -1024,6 +1025,14 @@ within IRONdb. This ID may be arbitrarily chosen, but if the metrics in this
 collection are the same as those being currently ingested directly into IRONdb,
 it may be desirable to use the same `account_id` value as the corresponding
 [listener](/irondb/getting-started/configuration/#graphite-listener).
+
+##### graphite whisper end_epoch_time
+
+The `end_epoch_time` is optional and represents the last timestamp for which
+there is whisper data. The timestamp is provided as an epoch timestamp, in seconds.
+If a fetch has a start time after the provided time, the node will not look in the
+whisper file in order to be more efficient. If this field is not provided, the whisper
+files will be checked regardless of the start time of the fetch.
 
 ### OpenTSDB Config
 
