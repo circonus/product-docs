@@ -30,8 +30,8 @@ upgrading to this release. If this is not done, nodes may not start up after the
   `use_existing` or `create_new` as values.
  * Treat `MDB_CORRUPTED`, `MDB_PAGE_FULL`, `MDB_TXN_FULL`, `MDB_BAD_TXN`, and `ENOMEM` as LMDB
    corruption consistently when checking for errors.
- * Allow switching between a fixed activity data merge and disabling the activity window update when
-   using the `/merge/nntbs` endpoint to send data to a node.
+ * When using the `/merge/nntbs` endpoint to send data to a node, allow either updating the receiving
+   node's activity data using the incoming NNTBS data or leaving it as is and not updating it.
  * Fix bug where activity data was not being updated correctly when inserting NNTBS data.
  * Fix bug where rollups were marked clean after a rollup had been kicked off asynchronously, resulting
    in a race that could lead to shards being incorrectly considered dirty.
