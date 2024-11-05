@@ -55,7 +55,7 @@ upgrading to this release. If this is not done, nodes may not start up after the
  * Add new API endpoint, `/rename`, to allow renaming a metric. This calculates where the new
    metric will live, sends the data for the metric to the new location, then deletes the old
    metric. This only works for numeric metrics.
- * Add new endpoint, `/full/canonical/<check uuid>/<canonical metric name>` that will allow
+ * Add new API endpoint, `/full/canonical/<check uuid>/<canonical metric name>` that will allow
    deleting an exact metric from the system without using tag search.
  * Add ability to skip data after a given time when using the `copy` sieve in `snowth_lmdb_tool`.
 
