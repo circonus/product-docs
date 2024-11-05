@@ -16,7 +16,7 @@ upgrading to this release. If this is not done, nodes may not start up after the
  * Fix potential memory leak on certain oil/activity data operations.
  * Fix fetch bug where C-style `calloc` allocations were being mixed with C++-style `delete`s.
  * Add new paramter to whisper config, `end_epoch_time`, that takes an epoch timestamp and directs
-   the code to not look in whisper files if the fetch time is after this time.
+   the code to not look in whisper files if the fetch window starts after this time.
  * Fix bug where histogram ingestion data was not being sent properly during rebalance operations.
  * Fix bug where histogram rollup data was not being reconstituted during reconstitute operations.
  * Add `get_engine` parameter to histogram data retrieval to allow pulling from either rollups
