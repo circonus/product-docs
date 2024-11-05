@@ -22,7 +22,6 @@ upgrading to this release. If this is not done, nodes may not start up after the
  * Add `get_engine` parameter to histogram data retrieval to allow pulling from either rollups
    or ingestion data.
  * Remove opening of new LMDB transaction when reading data for merging NNTBS blocks together.
- * Remove support for mdbx as alternate NNTBS database type.
  * Remove all support for legacy, non-sharded histograms.
  * Fix bug where if a raw shard rollup was aborted after being scheduled but before actually starting,
    multiple rollups could end up triggering at once.
