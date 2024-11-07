@@ -638,6 +638,7 @@ wipe and reconstitute each node in order to apply new settings.
               granularity="7d"
               min_delete_age="4w"
               delete_after_quiescent_age="1d"
+              rollup_after_quiescent_age="8h"
               max_clock_skew="1w"
 />
 ```
@@ -672,6 +673,15 @@ written to, may be deleted.
 
 Default: 1 day
 
+#### histogram_ingest rollup_after_quiescent_age
+
+The period the system will delay after the last write to a shard before
+attempting to roll it up.   New writes to the time period/shard will interrupt the
+rollup process and reset the quiescent timer which must again reach the
+`rollup_after_quiescent_age` before a re-roll will be attempted.
+
+Default: 8 hours
+
 #### histogram_ingest max_clock_skew
 
 Allow the submission of metrics timestamped up to this amount of time in the
@@ -681,7 +691,7 @@ Default: 1 week
 
 ### histogram
 ```
-<histogram location="/irondb/hist_rollups/{node}" legacy_location="/irondb/hist_legacy/{node}">
+<histogram location="/irondb/hist_rollup/{node}">
   <rollup period="60" granularity="7d"/>
   <rollup period="300" granularity="30d"/>
   <rollup period="1800" granularity="12w"/>
