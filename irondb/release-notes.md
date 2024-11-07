@@ -9,8 +9,10 @@ sidebar_position: 12
 
 2024-11-05
 
-**NOTE: This release deprecates legacy histograms. Histogram shards must be configured before
-upgrading to this release. If this is not done, nodes may not start up after the upgrade.**
+**NOTE: This release deprecates legacy histograms.
+[Histogram shards](/irondb/getting-started/configuration/#histogram_ingest)
+must be configured before upgrading to this release. If this is not done, nodes
+may not start up after the upgrade.**
 
  * Fix use after free bug that could occasionally happen due to a race when fetching raw data.
  * Fix potential memory leak on certain oil/activity data operations.
