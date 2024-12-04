@@ -454,6 +454,8 @@ this only affects the `/full/tags` endpoint.
               max_clock_skew="1w"
               conflict_resolver="abs_biggest"
               rollup_strategy="raw_iterator"
+              sync_after_full_rollup_finishes="false"
+              sync_after_column_family_rollup_finishes="false"
               suppress_rollup_filter="and(__rollup:false)"
 />
 ```
@@ -576,6 +578,20 @@ of rollup was computed and then IRONdb would read this lowest level data and
 compute higher level rollups. This rollup strategy has been removed.
 
 Default: "raw\_iterator"
+
+#### raw_database sync_after_full_rollup_finishes
+
+Enables doing a manual LMDB sync to disk after a raw shard finishes rolling up.
+Each shard that the raw shard rolls up into will be synced.
+
+Default: "false"
+
+#### raw_database sync_after_column_family_rollup_finishes
+
+Enables doing a manual LMDB sync to disk after each column family within a raw shard
+finishes rolling up. Each shard that the raw shard rolls up into will be synced.
+
+Default: "false"
 
 #### raw_database suppress_rollup_filter
 
@@ -799,7 +815,8 @@ This database stanza controls where IRONdb keeps certain aspects of its indexes.
               enable_level_indexing="true"
               materialize_after="100000"
               query_cache_size="1000"
-	      query_cache_timeout="900"
+              query_cache_timeout="900"
+              enable_saving_bad_level_index_jlog_messages="false"
 />
 ```
 
@@ -839,6 +856,14 @@ expired.
 
 Default: 900
 
+#### metric_name_database enable_saving_bad_level_index_jlog_messages
+
+Enables saving of invalid jlog messages found when attempting to replay the ``jlog``
+in the metric name database to build the indexes. The messages will be saved within
+the metric name database location for the account on which the error occurred in a folder
+called `bad_flatbuffer_messages`.
+
+Default: "false"
 
 ### journal
 
