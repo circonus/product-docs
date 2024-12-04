@@ -581,7 +581,7 @@ Default: "raw\_iterator"
 
 #### raw_database sync_after_full_rollup_finishes
 
-Enables doing a manual LMDB sync to disk after a raw shard finishes rolling up.
+Enables an LMDB sync to disk after each raw shard finishes rolling up.
 Each shard that the raw shard rolls up into will be synced.
 
 Default: "false"
