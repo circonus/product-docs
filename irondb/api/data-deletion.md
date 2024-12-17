@@ -479,7 +479,7 @@ DELETE
 Used with all deletes::
  * `x-snowth-account-id: <account_id>` (required)
    * `account_id` The account to be searched using the wildcard pattern
-Used on with tag query delete:
+Used with tag query delete:
  * `x-snowth-advisory-limit: <integer>|none` (optional, defaults to 100,000 if not present)
    * `integer` A positive integer specifying the number of matching results to
      delete. If the header is unset, the default of 100,000 will be used.
