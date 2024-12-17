@@ -536,7 +536,7 @@ In this example:
 ]
 ```
 
-## Tag Query and Check Delete Result Statuses
+## Wildcard, Tag Query and Check Delete Result Statuses
 
 When doing a delete which could affect multiple metrics, the returned JSON response will indicate the final status for each metric which matched the request.  A list of these statuses and a description is given below.  Note that, in many cases, the "payload' field will contain further details.
 
