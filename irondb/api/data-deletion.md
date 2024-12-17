@@ -514,7 +514,7 @@ In this example:
 curl -X DELETE \
      -H 'x-snowth-account-id: 1234' \
      -H 'x-snowth-confirm-delete: 1' \
-     http://127.0.0.1:8112/full/tags/query=and(__check_uuid:6f6bdc73-2352-4bdc-ab0e-72f66d0dee12,__name:multiple_example*)
+     http://127.0.0.1:8112/full/tags?query=and(__check_uuid:6f6bdc73-2352-4bdc-ab0e-72f66d0dee12,__name:multiple_example*)
 ```
 
 In this example:
