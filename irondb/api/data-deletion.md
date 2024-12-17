@@ -476,14 +476,13 @@ DELETE
 
 #### Headers
 
-Used with all deletes::
+Used with all deletes:
  * `x-snowth-account-id: <account_id>` (required)
    * `account_id` The account to be searched using the wildcard pattern
-Used with tag query delete:
+Used only with tag query delete:
  * `x-snowth-advisory-limit: <integer>|none` (optional, defaults to 100,000 if not present)
    * `integer` A positive integer specifying the number of matching results to
      delete. If the header is unset, the default of 100,000 will be used.
-Used only with canonical metric delete:
  * `x-snowth-confirm-delete: <0 or 1>` (optional, must be present and set to 1 to actually confirm and process the deletion)
 
 ### Single Metric Example
