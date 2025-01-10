@@ -572,6 +572,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/ReconstituteNodeId'
       - $ref: '#/components/parameters/ReconstituteHexHash'
+      - $ref: '#/components/parameters/ReconstituteSkipDataOlderThan'
       - $ref: '#/components/parameters/X-Snowth-Timeout'
       - $ref: '#/components/parameters/X-Nodes-Down'
       - $ref: '#/components/parameters/X-Topo'
@@ -755,6 +756,16 @@ components:
         format: uuid
       description: >
         The UUID of the node that is requesting reconstitute information.
+    ReconstituteSkipDataOlderThan:
+      name: skip_data_older_than
+      in: query
+      required: false
+      schema:
+        type: string
+        format: string
+        example: "4w"
+      description: >
+        A period of time before which data will not be sent. For example: If this field is set to "4w", any data points older than four weeks from the current time will not be included in the output. If omitted, all data will be sent regardless of timestamp.
     ReconstituteHexHash:
       name: hex_hash
       in: query
