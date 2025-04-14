@@ -45,7 +45,7 @@ The HTTP check requires a URL and, like most checks, will resolve any FQDN and p
 
 ![Image: 'data_check_add_2.png'](../../img/data_check_add_2.png)
 
-In this example, we leave the IP address selected, forego any advanced HTTP-specific configuration, and click _Test_ to continue to the final step.
+In this example, we leave the IP address selected, forgo any advanced HTTP-specific configuration, and click _Test_ to continue to the final step.
 
 ### Step 3: Metrics Selection
 

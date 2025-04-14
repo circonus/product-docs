@@ -5,6 +5,62 @@ sidebar_position: 12
 
 # Release Notes
 
+## Changes in 1.4.0
+
+2024-11-05
+
+**NOTE: This release deprecates legacy histograms.
+[Histogram shards](/irondb/getting-started/configuration/#histogram_ingest)
+must be configured before upgrading to this release. If this is not done, nodes
+may not start up after the upgrade.**
+
+ * Fix use after free bug that could occasionally happen due to a race when fetching raw data.
+ * Fix potential memory leak on certain oil/activity data operations.
+ * Fix fetch bug where C-style `calloc` allocations were being mixed with C++-style `delete`s.
+ * Add new paramter to whisper config, `end_epoch_time`, that takes an epoch timestamp and directs
+   the code to not look in whisper files if the fetch window starts after this time.
+ * Fix bug where histogram ingestion data was not being sent properly during rebalance operations.
+ * Fix bug where histogram rollup data was not being reconstituted during reconstitute operations.
+ * Add `get_engine` parameter to histogram data retrieval to allow pulling from either rollups
+   or ingestion data.
+ * No longer open new LMDB transactions when reading data for merging NNTBS blocks together.
+ * Remove all support for legacy, non-sharded histograms.
+ * Fix bug where if a raw shard rollup was aborted after being scheduled but before actually starting,
+   multiple rollups could end up triggering at once.
+ * Fix rename bug where type was not getting set when failing to send NNTBS data.
+ * Add header to the `/rename` endpoint to `X-Snowth-Activity-Data-Mode`, which can accept either
+  `use_existing` or `create_new` as values.
+ * Treat `MDB_CORRUPTED`, `MDB_PAGE_FULL`, `MDB_TXN_FULL`, `MDB_BAD_TXN`, and `ENOMEM` as LMDB
+   corruption consistently when checking for errors.
+ * When using the `/merge/nntbs` endpoint to send data to a node, allow either updating the receiving
+   node's activity data using the incoming NNTBS data or leaving it as is and not updating it.
+ * Fix bug where activity data was not being updated correctly when inserting NNTBS data.
+ * Fix bug where rollups were marked clean after a rollup had been kicked off asynchronously, resulting
+   in a race that could lead to shards being incorrectly considered dirty.
+ * Deprecate support for rebalancing data into a cluster with fewer NNTBS periods.
+ * The `/rename` endpoint will now detect when it gets a 500 error from the `/merge/nntbs` endpoint
+   and will return an error instead of spinning forever.
+ * The `/merge/nntbs` endpoint will no longer crash on detecting corrupt shards; it will offline
+   the shards and return errors.
+ * Various small fixes to reduce memory consumption, improve performance, and prevent possible
+   crashes or memory corruption.
+
+## Changes in 1.3.0
+
+2024-07-17
+
+ * Fix bug in `build_level_index` where we were invoking a hook that called `pcre_exec` with
+   an uninitialized metric length.
+ * Reduce spam in error log when trying to fetch raw data for a metric and there isn't any
+   for the requested range.
+ * Add new API endpoint, `/rename`, to allow renaming a metric. This calculates where the new
+   metric will live, sends the data for the metric to the new location, then deletes the old
+   metric. This only works for numeric metrics.
+ * Add new API endpoint, `/full/canonical/<check uuid>/<canonical metric name>` that will allow
+   deleting an exact metric from the system without using tag search.
+ * Add ability to skip data after a given time when using the `copy` sieve in `snowth_lmdb_tool`.
+
+
 ## Changes in 1.2.1
 
 2024-06-04

@@ -454,6 +454,8 @@ this only affects the `/full/tags` endpoint.
               max_clock_skew="1w"
               conflict_resolver="abs_biggest"
               rollup_strategy="raw_iterator"
+              sync_after_full_rollup_finishes="false"
+              sync_after_column_family_rollup_finishes="false"
               suppress_rollup_filter="and(__rollup:false)"
 />
 ```
@@ -577,6 +579,20 @@ compute higher level rollups. This rollup strategy has been removed.
 
 Default: "raw\_iterator"
 
+#### raw_database sync_after_full_rollup_finishes
+
+Enables an LMDB sync to disk after each raw shard finishes rolling up.
+Each shard that the raw shard rolls up into will be synced.
+
+Default: "false"
+
+#### raw_database sync_after_column_family_rollup_finishes
+
+Enables an LMDB sync to disk after each column family within a raw shard
+finishes rolling up. Each shard that the raw shard rolls up into will be synced.
+
+Default: "false"
+
 #### raw_database suppress_rollup_filter
 
 Metrics that match this [tag query](/irondb/metric-names-tags-queries/#tag-queries) are never rolled up
@@ -638,6 +654,7 @@ wipe and reconstitute each node in order to apply new settings.
               granularity="7d"
               min_delete_age="4w"
               delete_after_quiescent_age="1d"
+              rollup_after_quiescent_age="8h"
               max_clock_skew="1w"
 />
 ```
@@ -672,6 +689,15 @@ written to, may be deleted.
 
 Default: 1 day
 
+#### histogram_ingest rollup_after_quiescent_age
+
+The period the system will delay after the last write to a shard before
+attempting to roll it up.   New writes to the time period/shard will interrupt the
+rollup process and reset the quiescent timer which must again reach the
+`rollup_after_quiescent_age` before a re-roll will be attempted.
+
+Default: 8 hours
+
 #### histogram_ingest max_clock_skew
 
 Allow the submission of metrics timestamped up to this amount of time in the
@@ -681,7 +707,7 @@ Default: 1 week
 
 ### histogram
 ```
-<histogram location="/irondb/hist_rollups/{node}" legacy_location="/irondb/hist_legacy/{node}">
+<histogram location="/irondb/hist_rollup/{node}">
   <rollup period="60" granularity="7d"/>
   <rollup period="300" granularity="30d"/>
   <rollup period="1800" granularity="12w"/>
@@ -789,7 +815,8 @@ This database stanza controls where IRONdb keeps certain aspects of its indexes.
               enable_level_indexing="true"
               materialize_after="100000"
               query_cache_size="1000"
-	      query_cache_timeout="900"
+              query_cache_timeout="900"
+              enable_saving_bad_level_index_jlog_messages="false"
 />
 ```
 
@@ -829,6 +856,14 @@ expired.
 
 Default: 900
 
+#### metric_name_database enable_saving_bad_level_index_jlog_messages
+
+Enables saving of invalid jlog messages found when attempting to replay the ``jlog``
+in the metric name database to build the indexes. The messages will be saved within
+the metric name database location for the account on which the error occurred in a folder
+called `bad_flatbuffer_messages`.
+
+Default: "false"
 
 ### journal
 
@@ -955,6 +990,7 @@ the defaults shown below will be used.
   <whisper directory="/opt/graphite/storage/whisper"
            check_uuid="3c253dac-7238-41a1-87d7-2e546f3b4318"
            account_id="1"
+           end_epoch_time="1780000000"
   />
 </graphite>
 ```
@@ -1024,6 +1060,14 @@ within IRONdb. This ID may be arbitrarily chosen, but if the metrics in this
 collection are the same as those being currently ingested directly into IRONdb,
 it may be desirable to use the same `account_id` value as the corresponding
 [listener](/irondb/getting-started/configuration/#graphite-listener).
+
+##### graphite whisper end_epoch_time
+
+The `end_epoch_time` is optional and represents the last timestamp for which
+there is whisper data. The timestamp is provided as an epoch timestamp, in seconds.
+If a fetch has a start time after the provided time, the node will not look in the
+whisper file in order to be more efficient. If this field is not provided, the whisper
+files will be checked regardless of the start time of the fetch.
 
 ### OpenTSDB Config
 
