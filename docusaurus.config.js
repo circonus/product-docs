@@ -71,16 +71,6 @@ const config = {
         // ... other options
       },
     ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "irondb",
-        path: "irondb",
-        routeBasePath: "irondb",
-        // sidebarPath: require.resolve("./sidebars.js"),
-        // ... other options
-      },
-    ],
   ],
 
   themeConfig:
@@ -127,13 +117,6 @@ const config = {
             position: "left",
             label: "Circonus",
             docsPluginId: "circonus",
-          },
-          {
-            type: "docSidebar",
-            sidebarId: "defaultSidebar",
-            position: "left",
-            label: "IRONdb",
-            docsPluginId: "irondb",
           },
           {
             type: "docSidebar",

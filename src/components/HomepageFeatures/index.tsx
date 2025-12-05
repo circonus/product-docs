@@ -15,7 +15,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: "IRONdb",
-    link: "/irondb/category/getting-started",
+    link: "https://docs.apica.io/irondb",
   },
   {
     title: "CAQL",
