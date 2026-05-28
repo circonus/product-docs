@@ -6,7 +6,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Circonus Docs",
+  title: "Apica Circonus Docs",
   tagline: "A better way to analyze networks, applications, and infrastructure",
   favicon: "img/favicon.ico",
 
@@ -105,10 +105,10 @@ const config = {
       },
       // image: "img/docusaurus-social-card.jpg",
       navbar: {
-        title: "Circonus Docs",
+        title: "Apica Circonus Docs",
         logo: {
-          alt: "Circonus Logo",
-          src: "img/logo.svg",
+          alt: "Apica Circonus Logo",
+          src: "img/Apica-Circonus-Colorful.svg",
         },
         items: [
           {
