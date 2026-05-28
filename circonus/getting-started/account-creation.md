@@ -5,7 +5,7 @@ weight: 20
 
 # Account Creation
 
-If you have not already created an account, please contact `sales@apica.io` create an account to get started.
+If you have not already created an account, please contact `sales@apica.io` to create an account to get started.
 
 You can choose where you would like to start gathering [metrics](/circonus/getting-started/glossary/#metric) from and the self-guided setup will show you how to deploy CUA. For the purposes of this guide, we will be setting up CUA on MacOS.
 
