@@ -13,7 +13,7 @@ The "Settings" link under the "Account" section of the main menu will navigate t
 
 ## Switching Accounts
 
-Throughout the site, in the upper left corner (next to the Circonus logo), there is an Account navigation link, labeled with the name of the account you are currently viewing.
+Throughout the site, in the upper left corner (next to the Apica Circonus logo), there is an Account navigation link, labeled with the name of the account you are currently viewing.
 
 ![Image: 'default_dash_switch_account3.png'](../img/default_dash_switch_account3.png)
 
@@ -25,7 +25,7 @@ If you are an Admin for the current account, the "Admin" section of the main men
 
 ## Billing
 
-The "Billing" page allows you to review and update billing information in order to add Circonus Enterprise Brokers and additional metrics or hosts to your account.
+The "Billing" page allows you to review and update billing information in order to add Apica Circonus Enterprise Brokers and additional metrics or hosts to your account.
 
 ![Image: 'account_billing2.png'](../img/account_billing2.png)
 
