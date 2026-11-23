@@ -2,6 +2,7 @@
   "name": "circonus-docusaurus",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
@@ -15,24 +16,37 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.4.3",
-    "@docusaurus/plugin-client-redirects": "^2.4.3",
-    "@docusaurus/plugin-google-gtag": "^2.4.3",
-    "@docusaurus/preset-classic": "^2.4.3",
-    "@mdx-js/react": "^1.6.22",
-    "clsx": "^1.2.1",
-    "prism-react-renderer": "^1.3.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "@docusaurus/core": "^3.10.2",
+    "@docusaurus/plugin-client-redirects": "^3.10.2",
+    "@docusaurus/plugin-google-gtag": "^3.10.2",
+    "@docusaurus/preset-classic": "^3.10.2",
+    "@mdx-js/react": "^3.0.0",
+    "clsx": "^2.0.0",
+    "prism-react-renderer": "^2.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-player": "^2.13.0",
     "stream-browserify": "^3.0.0",
     "swagger-ui-react": "^5.9.1"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.4.1",
-    "@tsconfig/docusaurus": "^1.0.5",
+    "@docusaurus/module-type-aliases": "^3.10.2",
+    "@docusaurus/tsconfig": "^3.10.2",
     "front-matter": "^4.0.2",
-    "typescript": "^4.7.4"
+    "typescript": "~5.6.0"
+  },
+  "resolutions": {
+    "**/tinypool": "^2.2.0",
+    "**/serialize-javascript": "^7.1.4",
+    "**/uuid": "^11.1.1",
+    "**/@swagger-api/apidom-reference/minimatch": "^11.0.9"
+  },
+  "resolutionsNotes": {
+    "_": "Forces patched versions of nested dependencies flagged by `yarn audit` that the latest Docusaurus / swagger-ui-react releases have not picked up yet. Remove an entry once its parent depends on a patched version, then run yarn install, yarn audit and yarn build. Yarn-only: npm ignores `resolutions`.",
+    "**/tinypool": "Critical prototype-pollution-to-RCE advisories in tinypool <2.1.2. Pulled in by @docusaurus/core (SSG worker threads), which still requests ^1.0.2.",
+    "**/serialize-javascript": "High RCE, moderate DoS and low XSS advisories in serialize-javascript <7.1.3. Pulled in by copy-webpack-plugin and css-minimizer-webpack-plugin, which still request ^6.",
+    "**/uuid": "Moderate buffer bounds-check advisory in uuid <11.1.1. Pulled in by sockjs (webpack dev server only), which still requests ^8.3.2.",
+    "**/@swagger-api/apidom-reference/minimatch": "Moderate DoS advisory in minimatch 7.x-11.0.0. Pulled in by swagger-ui-react via @swagger-api/apidom-reference. Scoped on purpose: serve-handler (yarn serve) pins minimatch 3.1.5, which has an incompatible API."
   },
   "browserslist": {
     "production": [
@@ -47,6 +61,6 @@
     ]
   },
   "engines": {
-    "node": ">=16.14"
+    "node": ">=24"
   }
 }

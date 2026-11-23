@@ -953,10 +953,10 @@ The `histogram` package provides functions that operate on histogram data.
 - **`histogram:count_above(t1, t2, ...)`** - Calculates the number of samples in bins above the given threshold values.
   - `t1, t2, ...` - threshold values, inclusive (x >= t)
 - **`histogram:count_below(t1, t2, ...)`** - Calculates the number of samples in bins below the given threshold values.
-  - `t1, t2, ...` - threshold values, inclusive (x <= t)
+  - `t1, t2, ...` - threshold values, inclusive (x &lt;= t)
 - **`histogram:count_between(t_lower, t_upper)`** - Calculates the number of samples in bins between the specified threshold values.
   - `t_lower` - lower threshold value, exclusive (x > t_lower)
-  - `t_upper` - upper threshold value, inclusive (x <= t_upper)
+  - `t_upper` - upper threshold value, inclusive (x &lt;= t_upper)
 - **`histogram:count_bin(t1, t2, ...)`** - Calculates the number of samples that are located in the same bin as the provided values.
   - `t1, t2, ...` - bin values
 - **`histogram:inverse_percentile(t1, t2, ...)`** - Calculates the inverse percentile over the specified time window.
@@ -967,17 +967,17 @@ The `histogram` package provides functions that operate on histogram data.
   t1, t2, ... - threshold values, inclusive (x >= t)
   - `period = "1s"` - The denominator of the rate
 - **`histogram:rate_below(t1, t2, ..., [period=1s])`** - Calculates the number of samples per second in bins entirely below the given threshold values.
-  t1, t2, ... - threshold values, inclusive (x <= t)
+  t1, t2, ... - threshold values, inclusive (x &lt;= t)
   - `period = "1s"` - The denominator of the rate
 - **`histogram:rate_bin(t1, t2, ...)`** - Calculates the rate of samples that are located in the same bin as the provided values.
   - `t1, t2, ...` - bin values
 - **`histogram:ratio_above(t1, t2, ...)`** - Calculates the ratio of samples in bins entirely above the given threshold values.
   - `t1, t2, ...` - threshold values, inclusive (x >= t)
 - **`histogram:ratio_below(t1, t2, ...)`** - Calculates the ratio of samples in bins entirely below the given threshold values.
-  - `t1, t2, ...` - threshold values, inclusive (x <= t)
+  - `t1, t2, ...` - threshold values, inclusive (x &lt;= t)
 - **`histogram:ratio_between(t_lower, t_upper)`** - Calculates the ratio of samples in bins between the specified threshold values.
   - `t_lower` - lower threshold value, exclusive (x > t_lower)
-  - `t_upper` - upper threshold value, inclusive (x <= t_upper)
+  - `t_upper` - upper threshold value, inclusive (x &lt;= t_upper)
 
 #### Histogram Statistics
 
@@ -1213,7 +1213,7 @@ Functions for identifying outlying metrics.
   - `sensitivity = 50` - Sensitivity to outliers. Valid values (less outliers) 0 .. 100 (more outliers)
 - **`outlier:normal_range([sensitivity=50])`** - Normal range as displayed in the Outlier Report.
   - `sensitivity = 50` - Sensitivity to outliers. Valid values (large ranges) 0 .. 100 (small ranges)
-- **`outlier:std_score([trim=0], [show_model=0], [normalize=0])`** - Compute the standard-score of the first input stream, within context of all remaining streams. The standard-score is defined by the normalized distance of current value to the mean value in the normalized context: $ std_score(y,c_1,...,c_N) = \frac{y - mean(c_1,...,c_N)}{ NORM } $ The parameter `normalize` allows several choices for the normalization.
+- **`outlier:std_score([trim=0], [show_model=0], [normalize=0])`** - Compute the standard-score of the first input stream, within context of all remaining streams. The standard-score is defined by the normalized distance of current value to the mean value in the normalized context: $ std_score(y,c_1,...,c_N) = \frac\{y - mean(c_1,...,c_N)\}\{ NORM \} $ The parameter `normalize` allows several choices for the normalization.
   - `trim = 0` - remove the N lowest and N highest values from the context values.
   - `show_model = 0` - output the mean value of the context instead of the outlier score model. 0/1
   - `normalize = 0` - normalize output by a deviation measure (1) or a mean measure (2). Setting normalized=0 disables normalization.

@@ -11,7 +11,7 @@ The URL will be `https://PATH TO CIRCONUS INSIDE WEB SERVER/api/json/import`.  N
 
 There are several query string options:
  * `id` - This is the `check_id` to which this metric will belong.
- * `min_value` - When set, this will skip and ignore any values that are less than (<) this value. These values will not be imported.
+ * `min_value` - When set, this will skip and ignore any values that are less than (&lt;) this value. These values will not be imported.
  * `max_value` - When set, this will skip and ignore any values that are greater than (>) this value. These values will not be imported.
  * `active` - This is set to either "`1`" or "`0`". If the metric doesn't yet exist on the check, this will add it. If this is set to 1, then the metric will be marked active. If this is set to 0, it will be disabled.
  * `interpolate` - This is either set to "`1`" or it is unset. We expect regular datapoints to inject into the data store. If this is set to 1 and there are gaps in the data, then datapoints will be generated to fill in the gaps with values the same as the last datapoint.
