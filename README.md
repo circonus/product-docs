@@ -104,10 +104,6 @@ If a page fails to build, the error names the file, line and column. See the [Do
 
 Keep `react`, `react-dom`, `@mdx-js/react` and `prism-react-renderer` on versions supported by the installed Docusaurus. Docusaurus lists them in its [upgrade guide](https://docusaurus.io/docs/migration).
 
-### Security overrides
-
-The `resolutions` block in `package.json` forces patched versions of some nested dependencies. The reason for each one is recorded beside it in `resolutionsNotes`.
-
 ## Contributing
 
 To suggest a change, create a dedicated branch. When your work is finished, open a pull request and assign at least one reviewer from the Circonus team. The reviewer will either approve the pull request or suggest improvements. Once the pull request is approved, a Circonus team member will merge it and delete the branch. Circonus team members merge and delete their own branches.
