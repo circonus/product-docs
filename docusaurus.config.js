@@ -154,7 +154,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Circonus, Inc.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Apica`,
       },
       prism: {
         theme: lightCodeTheme,
