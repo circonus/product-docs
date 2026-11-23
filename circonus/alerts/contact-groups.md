@@ -67,7 +67,7 @@ The "formats" are then used on each alert in the notification to give more detai
 
 Long formats have an additional subject field used for email subjects. It is required that you modify this field if you are editing the long formats (unless you want an empty subject). The subject is built from the first alert in the notification so has access to its data (and its macro substitutions).
 
-Customization is done by the use of macros. These take the form {item} where item is the name of the value you want replaced.
+Customization is done by the use of macros. These take the form \{item\} where item is the name of the value you want replaced.
 
 The following macros are currently supported for summary, subjects, and alert formats:
 
@@ -98,7 +98,7 @@ The following macros are currently supported only for subjects and alert formats
 - `{ruleset_link}` URL from the notes for the triggered ruleset
 - `{ruleset_notes}` notes associated with the triggered ruleset
 - `{status}` the type of alert, one of three types: ALERT, RECOVERY, or TRANSITION
-- `{status_small}` the same as {status}` except using single letters: (A, R, or T)
+- `{status_small}` the same as `{status}` except using single letters: (A, R, or T)
 - `{severity}` the severity of the alert
 - `{tags}` a human-readable (base64 decoded) rendering of the metric's streamtags
 - `{tag:cat}` decoded streamtag value for the category e.g. given `metric|ST[foo:bar]`, `{tag:foo}` = bar
@@ -125,7 +125,7 @@ The following macros are currently supported only for subjects and alert formats
 
 Conditionals are also supported; these are useful in places where you only want to see the value if it exists—for instance, the time the alert cleared. The format of a conditional is: %(condition) content% , so an example of this would be: `%(cleared != null) Cleared: {cleared}%`
 
-Supported operators are ==, !=, >, and <. The format for conditional statements is very strict; you must have a single space between operands and operators, and between the closing parenthesis and the subsequent text.
+Supported operators are ==, !=, >, and &lt;. The format for conditional statements is very strict; you must have a single space between operands and operators, and between the closing parenthesis and the subsequent text.
 
 **Note:**
 

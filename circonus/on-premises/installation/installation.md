@@ -356,8 +356,8 @@ saas_check_secret
 
 min_check_period
 : (optional)  The minimum allowable check frequency, in seconds.  The value
-  must be greater than or equal to 1 and less than or equal to 60 (1 __<__ x
-  __<__ 60). Users may configure a check's frequency in the UI, but may not set
+  must be greater than or equal to 1 and less than or equal to 60 (1 __&lt;__ x
+  __&lt;__ 60). Users may configure a check's frequency in the UI, but may not set
   it lower than this value.  If not specified, the value defaults to 30.
 
 additional_web_config
@@ -504,7 +504,7 @@ secondary_cluster
   `data_storage` role in the backup datacenter. This must match the `_machlist`
   in the backup datacenter's `site.json`.
 
-side_{a,b}
+side_\{a,b\}
 : (optional) Configures a [sided IRONdb cluster](/irondb/getting-started/manual-installation/#sided-clusters).
   Each side is an array of hostnames as listed in `_machlist`. If not
   specified, the default is that the cluster is not sided. A sided cluster is
@@ -962,7 +962,7 @@ group_filter
   defaults to looking at the user's `memberOf` attribute. The filter is needed
   to search the groups in the system for a specific user to see of which groups
   the user is a member.  In this filter you can define attributes of a user
-  that will be replaced with the actual values, such as {cn} or {uid}, etc.
+  that will be replaced with the actual values, such as \{cn\} or \{uid\}, etc.
   For example: `(&(objectClass=groupOfNames)(member=cn={cn}))`
 
 super_admin_group

@@ -196,7 +196,7 @@ Below is a list of objects that can be searched, what the primary field is we se
 | description    | string  | Annotation description      |               |
 | category       | string  | Annotation category         |               |
 | start_on_epoch | integer | Epoch seconds start on (>=) |               |
-| stop_on_epoch  | integer | Epoch seconds stop on (<=)  |               |
+| stop_on_epoch  | integer | Epoch seconds stop on (&lt;=)  |               |
 
 #### Checks
 

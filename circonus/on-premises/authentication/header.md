@@ -15,7 +15,7 @@ Authorization through the header auth method needs to be done with some other ba
 
 Typically this is LDAP. Settings for LDAP can be found in the LDAP section of the [Inside Install Guide](/circonus/on-premises/installation/installation/#LDAP) and an explanation of its workings can be found in the [LDAP section](/circonus/on-premises/authentication/ldap/) of this guide.
 
-If LDAP is not an option, you can create a small web service that exposes the users's information via JSON.  This service will be requested via an HTTP GET, and the username can be inserted into the URL by placing the {username} macro in it.
+If LDAP is not an option, you can create a small web service that exposes the users's information via JSON.  This service will be requested via an HTTP GET, and the username can be inserted into the URL by placing the \{username\} macro in it.
 
 This service should then return JSON, which will look like this:
 ```
