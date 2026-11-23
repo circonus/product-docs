@@ -35,6 +35,8 @@ cd product-docs
 yarn install
 ```
 
+This project uses **Yarn 1** (version pinned in the `packageManager` field of `package.json`). Use `yarn`, not `npm`, so installs follow the committed `yarn.lock` and the `resolutions` overrides in `package.json`. If you change dependencies, commit the updated `yarn.lock`.
+
 ### Running locally
 
 ```bash
